@@ -66,6 +66,7 @@ public class MobileRecharge extends AppCompatActivity {
     String recharge_amount;
     int selectedId = 1;
     String number;
+    String check;
 
 
 
