@@ -415,6 +415,7 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/moviesLinear"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
@@ -662,6 +663,7 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/flightLinear"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"

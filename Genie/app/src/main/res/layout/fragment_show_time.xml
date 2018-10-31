@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.example.user.genie.Fragments.ShowTimeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:id="@+id/dateLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+        <TextView
+            android:id="@+id/todayTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:text=""
+            android:textColor="@color/colorPrimary"
+            android:textStyle="normal"
+            android:padding="10dp"
+            android:textSize="14sp"
+
+            android:layout_margin="5dp"/>
+        <TextView
+            android:id="@+id/tommorwTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_top_bg"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="normal"
+            android:padding="10dp"
+            android:textSize="14sp"
+
+            android:layout_margin="5dp"/>
+        <TextView
+            android:id="@+id/thirdTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_top_bg"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textStyle="normal"
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:layout_margin="5dp"
+            />
+    </LinearLayout>
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_below="@+id/dateLinear"></View>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/cinemahallRecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/view"/>
+</RelativeLayout>

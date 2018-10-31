@@ -1,0 +1,90 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.example.user.genie.Fragments.TrailerFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:id="@+id/synopsisTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textColor="@android:color/black"
+        android:fontFamily="sans-serif"
+        android:textSize="17sp"
+        android:text="Synopsis"
+        android:padding="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="unwritten law.f it involves the elderly, it can only invite ridicule or wrath.
+Ridicule, if they are not related to you, and wrath, if they are your parents.
+As somewhere a character says in the film,s the tricky subject of middle-age
+pregnancy. How it affects the whole family, especially two grown up sons, forms the crux of the story, forms the crux of the story,
+ forms the crux of the story, forms the crux of the story"
+        android:fontFamily="sans-serif"
+        android:layout_margin="10sp"
+        android:maxLines="4"/>
+    <TextView
+        android:id="@+id/showmoreTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="Show More"
+        android:layout_marginRight="10dp"/>
+    <TextView
+        android:id="@+id/showlessTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="Show Less"
+        android:layout_marginRight="10dp"
+        android:visibility="gone"/>
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_below="@+id/dateLinear"></View>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Video"
+        android:fontFamily="sans-serif"
+        android:textSize="15sp"
+        android:layout_margin="10dp"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/service_recyclerview"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="2.5dp">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/bookticketbut"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:text="Book Tickets"
+        android:background="@android:color/black"
+        android:fontFamily="sans-serif"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="false"/>
+</RelativeLayout>

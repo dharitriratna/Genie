@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#000</color>
     <color name="colorAccent">#2b2b2b</color>
     <color name="transparent">#535d63</color>
- 
+    <color name="background_color_black">#1a000000</color>
+    <color name="trans_row">#e0b1b1b1</color>
 </resources>
