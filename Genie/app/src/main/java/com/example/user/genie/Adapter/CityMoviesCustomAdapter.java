@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.user.genie.MoviesListActivity;
 import com.example.user.genie.R;
+import com.example.user.genie.helper.RegPrefManager;
 
 import java.util.ArrayList;
 
@@ -34,12 +35,15 @@ public class CityMoviesCustomAdapter extends RecyclerView.Adapter<CityMoviesCust
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.textViewName.setText(names.get(position));
+
         holder.textViewName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String city= (String) holder.textViewName.getText();
                 Intent i=new Intent(context, MoviesListActivity.class);
+                RegPrefManager.getInstance(context).setCity(city);
                 context.startActivity(i);
             }
         });

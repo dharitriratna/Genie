@@ -11,8 +11,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name="com.orm.SugarApp"
@@ -128,7 +128,7 @@
         <activity
             android:name=".LandlineOperator"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Datacard"></activity>
+        <activity android:name=".Datacard" />
         <activity
             android:name=".MovieActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -138,8 +138,11 @@
         <activity
             android:name=".MovieShowDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SeatActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".SeatActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FlightActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

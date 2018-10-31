@@ -12,17 +12,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.example.user.genie.Adapter.GridMoviesAdapter;
 import com.example.user.genie.Adapter.MovielistAdapter;
 import com.example.user.genie.Adapter.MoviesGridListAdapter;
 import com.example.user.genie.Adapter.UpcomingMovielistAdapter;
 import com.example.user.genie.Model.Movies;
+import com.example.user.genie.helper.RegPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoviesListActivity extends AppCompatActivity implements GridMoviesAdapter.ItemClickListener {
+public class MoviesListActivity extends AppCompatActivity implements GridMoviesAdapter.ItemClickListener,View.OnClickListener {
     RecyclerView service_recyclerview,upcomingMovieRecyclerview,rvNumbers;
     MovielistAdapter horizontalAdapter;
     UpcomingMovielistAdapter upcomingAdapter;
@@ -30,6 +32,7 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
     final int duration = 50;
     final int pixelsToMove =30;
     Toolbar toolbar;
+    TextView allTv,hindiTv,englishTv,locationTv;
     //private GridView gridList;
     MoviesGridListAdapter gridadapter;
    public GridMoviesAdapter gridMoviesAdapter;
@@ -43,10 +46,10 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
 
     } ;
     int[] imageId = {
-            R.drawable.air_ticket_ad,
-            R.drawable.ad_movie,
-            R.drawable.ad_money_transfer,
-            R.drawable.ad_money_transfer
+            R.drawable.movie1,
+            R.drawable.movie2,
+            R.drawable.movie3,
+            R.drawable.image5
 
 
     };
@@ -69,14 +72,25 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
         toolbar = findViewById(R.id.toolbar);
      //   gridList=findViewById(R.id.gridList);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        locationTv=toolbar.findViewById(R.id.locationTv);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
+        String location= RegPrefManager.getInstance(MoviesListActivity.this).getCity();
+        locationTv.setText(location);
         service_recyclerview=findViewById(R.id.service_recyclerview);
         upcomingMovieRecyclerview=findViewById(R.id.upcomingMovieRecyclerview);
+        allTv=findViewById(R.id.allTv);
+        hindiTv=findViewById(R.id.hindiTv);
+        englishTv=findViewById(R.id.englishTv);
+        englishTv.setOnClickListener(this);
+        allTv.setOnClickListener(this);
+        hindiTv.setOnClickListener(this);
+
         data = fill_with_data();
 
 
@@ -137,9 +151,9 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
     public List<Movies> fill_with_data() {
 
         List<Movies> data = new ArrayList<>();
-        data.add(new Movies( R.drawable.air_ticket_ad, "Image 1"));
-        data.add(new Movies( R.drawable.ad_movie, "Image 2"));
-        data.add(new Movies(  R.drawable.ad_money_transfer, "Image 3"));
+        data.add(new Movies( R.drawable.movie1, "Image 1"));
+        data.add(new Movies( R.drawable.movie2, "Image 2"));
+        data.add(new Movies(  R.drawable.movie3, "Image 3"));
 
 
 
@@ -150,5 +164,35 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
     @Override
     public void onItemClick(View view, int position) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.allTv:
+                allTv.setTextColor(getResources().getColor(R.color.colorPrimary));
+                allTv.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                hindiTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                hindiTv.setBackgroundResource(R.drawable.edittext_top_bg);
+                englishTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                englishTv.setBackgroundResource(R.drawable.edittext_top_bg);
+                break;
+            case R.id.hindiTv:
+                hindiTv.setTextColor(getResources().getColor(R.color.colorPrimary));
+                hindiTv.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                allTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                allTv.setBackgroundResource(R.drawable.edittext_top_bg);
+                englishTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                englishTv.setBackgroundResource(R.drawable.edittext_top_bg);
+                break;
+            case R.id.englishTv:
+                englishTv.setTextColor(getResources().getColor(R.color.colorPrimary));
+                englishTv.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                allTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                allTv.setBackgroundResource(R.drawable.edittext_top_bg);
+                hindiTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                hindiTv.setBackgroundResource(R.drawable.edittext_top_bg);
+                break;
+        }
     }
 }

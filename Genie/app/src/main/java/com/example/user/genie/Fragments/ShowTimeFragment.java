@@ -1,5 +1,6 @@
 package com.example.user.genie.Fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,10 +21,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class ShowTimeFragment extends Fragment {
+public class ShowTimeFragment extends Fragment implements View.OnClickListener {
 
     ArrayList<String> names;
    CinemaHallCustomAdapter cinemaHallCustomAdapter;
+   TextView todayTv,tommorwTv,thirdTv;
 
     public ShowTimeFragment() {
         // Required empty public constructor
@@ -48,10 +50,12 @@ public class ShowTimeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_show_time, container, false);
         RecyclerView cinemahallRecyclerview=(RecyclerView)v.findViewById(R.id.cinemahallRecyclerview);
-        TextView todayTv=(TextView)v.findViewById(R.id.todayTv);
-        TextView tommorwTv=(TextView)v.findViewById(R.id.tommorwTv);
-        TextView thirdTv=(TextView)v.findViewById(R.id.thirdTv);
-
+         todayTv=(TextView)v.findViewById(R.id.todayTv);
+         tommorwTv=(TextView)v.findViewById(R.id.tommorwTv);
+         thirdTv=(TextView)v.findViewById(R.id.thirdTv);
+        todayTv.setOnClickListener(this);
+        tommorwTv.setOnClickListener(this);
+        thirdTv.setOnClickListener(this);
 
 
         cinemahallRecyclerview.setHasFixedSize(true);
@@ -130,4 +134,40 @@ public class ShowTimeFragment extends Fragment {
         return  null;
     }
 
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.todayTv:
+                todayTv.setTextColor(getResources().getColor(R.color.colorPrimary));
+                todayTv.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                thirdTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                thirdTv.setBackgroundResource(R.drawable.edittext_top_bg);
+                tommorwTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                tommorwTv.setBackgroundResource(R.drawable.edittext_top_bg);
+
+
+                break;
+            case R.id.thirdTv:
+                thirdTv.setTextColor(getResources().getColor(R.color.colorPrimary));
+                thirdTv.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                todayTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                todayTv.setBackgroundResource(R.drawable.edittext_top_bg);
+                tommorwTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                tommorwTv.setBackgroundResource(R.drawable.edittext_top_bg);
+
+
+                break;
+            case R.id.tommorwTv:
+                tommorwTv.setTextColor(getResources().getColor(R.color.colorPrimary));
+                tommorwTv.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                todayTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                todayTv.setBackgroundResource(R.drawable.edittext_top_bg);
+                thirdTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                thirdTv.setBackgroundResource(R.drawable.edittext_top_bg);
+
+
+                break;
+        }
+    }
 }

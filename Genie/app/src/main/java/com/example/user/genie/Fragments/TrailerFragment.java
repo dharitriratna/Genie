@@ -31,10 +31,10 @@ public class TrailerFragment extends Fragment implements View.OnClickListener{
 
     } ;
     int[] imageId = {
-            R.drawable.air_ticket_ad,
-            R.drawable.ad_movie,
-            R.drawable.ad_money_transfer,
-            R.drawable.ad_money_transfer
+            R.drawable.movie1,
+            R.drawable.movie2,
+            R.drawable.movie3,
+            R.drawable.image5
 
 
     };
@@ -81,9 +81,9 @@ public class TrailerFragment extends Fragment implements View.OnClickListener{
     public List<Movies> fill_with_data() {
 
         List<Movies> data = new ArrayList<>();
-        data.add(new Movies( R.drawable.air_ticket_ad, "Image 1"));
-        data.add(new Movies( R.drawable.ad_movie, "Image 2"));
-        data.add(new Movies(  R.drawable.ad_money_transfer, "Image 3"));
+        data.add(new Movies( R.drawable.movie1, "Image 1"));
+        data.add(new Movies( R.drawable.image5, "Image 2"));
+        data.add(new Movies(  R.drawable.movie2, "Image 3"));
 
 
 

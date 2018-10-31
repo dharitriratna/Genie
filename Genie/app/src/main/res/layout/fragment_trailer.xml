@@ -53,12 +53,11 @@ pregnancy. How it affects the whole family, especially two grown up sons, forms 
         android:visibility="gone"/>
     <View
         android:id="@+id/view"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:background="#c0c0c0"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@+id/dateLinear"/>
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_below="@+id/dateLinear"></View>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
