@@ -129,6 +129,17 @@
             android:name=".LandlineOperator"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Datacard"></activity>
+        <activity
+            android:name=".MovieActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MoviesListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MovieShowDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SeatActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

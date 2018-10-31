@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageView start_nav;
 
   //  LinearLayout ac_mechanic, tv_mechanic, labour, driver, home_tutor;
-    LinearLayout home_delivery, credit_card, prepaid, electricity,train_booking, dth, broadband, landline, water;
+    LinearLayout home_delivery, credit_card, prepaid, electricity,train_booking, dth, broadband, landline, water,moviesLinear;
     Button button1, button2, button3, button4, button5;
 
     TextView tagline_text;
@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         water = findViewById(R.id.water);
         electricity = findViewById(R.id.electricity);
         train_booking = findViewById(R.id.train_booking);
+        moviesLinear=findViewById(R.id.moviesLinear);
 
         prepaid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,6 +196,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, DTHRecharge.class));
+            }
+        });
+        moviesLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,MovieActivity.class));
             }
         });
 
