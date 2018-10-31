@@ -96,7 +96,6 @@ public class OrderGenerate extends AppCompatActivity {
             }
         });
 
-
         mcurrenttime = Calendar.getInstance();
         dateFormatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
 

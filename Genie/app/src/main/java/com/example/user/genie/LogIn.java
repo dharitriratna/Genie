@@ -31,6 +31,7 @@ public class LogIn extends AppCompatActivity {
     Button btn_login;
     String user_phone, user_pwd, user_id = "";
     ImageView eye;
+    TextView terms;
 
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
@@ -51,6 +52,7 @@ public class LogIn extends AppCompatActivity {
         signup_word = findViewById(R.id.signup_word);
         forgot_pass = findViewById(R.id.forgot_pass);
         phone = findViewById(R.id.phone);
+        terms = findViewById(R.id.terms);
         password = findViewById(R.id.password);
         btn_login = findViewById(R.id.btn_login);
         signup_word.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +67,14 @@ public class LogIn extends AppCompatActivity {
                 startActivity(new Intent(LogIn.this,ForgotPassword.class));
             }
         });
+
+        terms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LogIn.this,TermsAndConditions.class));
+            }
+        });
+
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);

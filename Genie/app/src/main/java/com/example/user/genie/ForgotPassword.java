@@ -107,6 +107,4 @@ public class ForgotPassword extends AppCompatActivity {
             pDialog.show();
         }
     }
-
-
 }

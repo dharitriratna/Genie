@@ -345,7 +345,12 @@ public class MobileRecharge extends AppCompatActivity {
             {
                 Toast.makeText(getApplicationContext(),"Recharge Successful", Toast.LENGTH_LONG).show();
 
-                startActivity(new Intent(MobileRecharge.this,MainActivity.class));finish();
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("AMOUNT", recharge_amount = amount.getText().toString());
+                editor.commit();
+                Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
             }
             else{
                 Toast.makeText(getApplicationContext(),"Some Error Occured, Please try again later ", Toast.LENGTH_LONG).show();
