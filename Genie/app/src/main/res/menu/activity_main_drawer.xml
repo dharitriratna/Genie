@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<group android:checkableBehavior="single">
+
+
+    <item
+        android:id="@+id/my_order"
+        android:icon="@drawable/my_order"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title="My Order"/>
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/my_order"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title="My Profile"/>
+
+    <item
+        android:id="@+id/wallet"
+        android:icon="@drawable/ic_wallet_black_24dp"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title="My Wallet"/>
+
+
+    <item
+        android:id="@+id/help_support"
+        android:iconTint="@color/colorPrimaryDark"
+        android:icon="@drawable/help_support"
+        android:title="Help And Support"/>
+
+    <item
+        android:id="@+id/security_setting"
+        android:icon="@drawable/setting"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title="Security And Settings" />
+
+
+
+    <item
+        android:id="@+id/choose_language"
+        android:icon="@drawable/language"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title="Choose Language"/>
+
+
+    <item
+        android:id="@+id/address"
+        android:icon="@drawable/delivery"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title="Delivery Address" />
+    <item
+        android:id="@+id/notification"
+        android:icon="@drawable/notification"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title="Notification" />
+    <item
+        android:id="@+id/card"
+        android:icon="@drawable/card"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title="Saved Card" />
+
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_logout"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title="Log out" />
+
+
+    <!-- <item
+         android:id="@+id/nav_menu3"
+         android:icon="@mipmap/ic_launcher"
+         android:title="Menu 3" />-->
+
+</group>
+
+
+</menu>

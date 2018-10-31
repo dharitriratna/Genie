@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Genie</string>
+    <string name="text_tag">Bring The Store To Your Door</string>
+    <string name="main_menu_vertical_list">Vertical list</string>
+
+    <string name="vertical_fragment_title_dialog_add">Add item</string>
+    <string name="vertical_fragment_question_add">Are you sure you want to add new item?</string>
+
+    <string name="vertical_fragment_title_dialog_delete">Delete item</string>
+    <string name="vertical_fragment_question_delete">Are you sure you want to delete this item?</string>
+
+
+    <string-array name="pincodes">
+        <item>751016</item>
+        <item>751024</item>
+        <item>751002</item>
+        <item>751090</item>
+        <item>751052</item>
+    </string-array>
+
+</resources>

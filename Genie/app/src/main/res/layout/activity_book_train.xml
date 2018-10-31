@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context=".BookTrain">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:popupTheme="@style/MyDarkToolbarStyle"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextColor="@android:color/black">
+
+        <TextView
+            android:id="@+id/order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Train Tickets"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/colorPrimary" />
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:weightSum="2"
+                    android:layout_margin="@dimen/activity_horizontal_margin"
+                    android:id="@+id/radioGroup"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:layout_weight="1"
+                        android:id="@+id/book_ticket"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Book Tickets"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="15sp"/>
+
+                    <RadioButton
+                        android:layout_weight="1"
+                        android:id="@+id/check_pnr"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Check PNR Status"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="15sp"/>
+
+                </RadioGroup>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/train_number_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:padding="10dp">
+
+
+
+                    <EditText
+                        android:id="@+id/train_number"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="true"
+                        android:textAlignment="viewStart"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:hint="Train Number"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textColorHint="@color/colorPrimaryDark"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:padding="10dp"
+                        android:background="@drawable/edittext_top_bg"
+                        tools:ignore="RtlCompat" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/from_to_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:padding="10dp"
+                    android:weightSum="2"
+                    tools:ignore="InvalidId">
+
+
+
+                    <EditText
+                        android:id="@+id/from_dest"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:textAlignment="viewStart"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:hint="From"
+                        android:textColorHint="@color/colorPrimaryDark"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="15sp"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:background="@drawable/edittext_top_bg"
+                        android:padding="10dp"
+                        android:layout_marginRight="5dp"
+                        tools:ignore="RtlCompat" />
+
+                    <EditText
+                        android:id="@+id/to_dest"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:textAlignment="viewStart"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:hint="To"
+                        android:textColorHint="@color/colorPrimaryDark"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="15sp"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:background="@drawable/edittext_top_bg"
+                        android:padding="10dp"
+                        tools:ignore="RtlCompat" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dept_date_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:padding="10dp">
+
+
+
+                    <TextView
+                        android:id="@+id/dept_date"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:textAlignment="viewStart"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:hint="Departure Date"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textColorHint="@color/colorPrimaryDark"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:padding="10dp"
+                        android:background="@drawable/edittext_top_bg"
+                        tools:ignore="RtlCompat" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/pnr_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:padding="10dp"
+                    tools:ignore="InvalidId">
+
+
+
+                    <EditText
+                        android:visibility="visible"
+                        android:id="@+id/enter_pnr"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="true"
+                        android:textAlignment="viewStart"
+                        android:layout_marginBottom="3dp"
+                        android:hint="Enter the PNR"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textColorHint="@color/colorPrimaryDark"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:singleLine="true"
+                        android:padding="10dp"
+                        android:background="@drawable/edittext_top_bg"
+                        tools:ignore="RtlCompat" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp">
+
+
+
+                    <EditText
+                        android:id="@+id/amount"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="true"
+                        android:textAlignment="viewStart"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:hint="Amount"
+                        android:textColorHint="@color/colorPrimaryDark"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:padding="10dp"
+                        android:background="@drawable/edittext_top_bg"
+                        android:layout_marginRight="10dp"
+                        tools:ignore="RtlCompat" />
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:text="Browse Plans"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:text="of all operators"
+                            android:textSize="12sp" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/search_trains"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:text="Search Trains"
+                    android:textAllCaps="false"
+                    android:background="@drawable/my_button"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/check_pnr_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:text="Check PNR Status"
+                    android:textAllCaps="false"
+                    android:background="@drawable/my_button"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/trains_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/edittext_top_bg"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="00000"
+                    android:layout_margin="2.5dp"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="00000"
+                    android:layout_margin="2.5dp"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="00000"
+                    android:layout_margin="2.5dp"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="00000"
+                    android:layout_margin="2.5dp"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="00000"
+                    android:layout_margin="2.5dp"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
