@@ -1,5 +1,6 @@
 package com.example.user.genie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -130,6 +131,7 @@ public class PlaceFlightActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.cancelImg:
+                startActivity(new Intent(PlaceFlightActivity.this,FlightActivity.class));
                 finish();
                 break;
 
