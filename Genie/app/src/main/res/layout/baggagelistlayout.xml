@@ -11,6 +11,7 @@
         android:layout_marginLeft="10dp"
         android:fontFamily="sans-serif"
         android:drawablePadding="10dp"
+        android:layout_marginTop="10dp"
         android:drawableLeft="@drawable/airplane_flight"/>
     <LinearLayout
         android:id="@+id/flightnameTv"
