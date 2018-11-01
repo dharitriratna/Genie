@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary">
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="IndioGo 6E-115"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="sans-serif"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@drawable/airplane_flight"/>
+    <LinearLayout
+        android:id="@+id/flightnameTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewName"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:id="@+id/fromTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="BBI 08:35"
+            android:layout_weight="1"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorPrimaryDark"
+            />
+        <TextView
+            android:id="@+id/toTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="10:40 BLR"
+            android:layout_weight="1"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorPrimaryDark"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/flighaddTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/flightnameTv"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        >
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="Bhubaneshwar, Biju Patnaik Airort"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorPrimaryDark"
+            />
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="Bengaluru, Kempegowda Airport"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorPrimaryDark"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/flighaddTv">
+        <View
+
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_below="@+id/dateLinear"></View>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+
+            android:gravity="center"
+            android:fontFamily="sans-serif"
+            android:layout_margin="5dp"
+            android:text="Cancellation and Baggage Polices"/>
+        <View
+
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_below="@+id/dateLinear"></View>
+    </LinearLayout>
+
+
+</RelativeLayout>
