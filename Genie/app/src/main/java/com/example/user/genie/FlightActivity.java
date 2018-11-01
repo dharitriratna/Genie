@@ -159,11 +159,13 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.fromEd:
                 RegPrefManager.getInstance(this).setPlace("From");
                 startActivity(new Intent(FlightActivity.this,PlaceFlightActivity.class));
+                finish();
 
                 break;
             case R.id.toEd:
                 RegPrefManager.getInstance(this).setPlace("To");
                 startActivity(new Intent(FlightActivity.this,PlaceFlightActivity.class));
+                finish();
                 break;
             case R.id.travellerEd:
                 FlightBottomFragment flightBottomFragment=new FlightBottomFragment();
