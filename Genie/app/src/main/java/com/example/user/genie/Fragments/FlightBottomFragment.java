@@ -1,5 +1,6 @@
 package com.example.user.genie.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -66,6 +67,7 @@ public class FlightBottomFragment extends BottomSheetDialogFragment implements V
         addinfantsImg.setOnClickListener(this);
 
         radioClass.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @SuppressLint("ResourceType")
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rb = (RadioButton) group.findViewById(checkedId);

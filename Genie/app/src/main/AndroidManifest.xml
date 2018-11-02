@@ -75,9 +75,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         -->
         <activity
-            android:name=".ViewAll"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".VerticalFragment"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -158,22 +155,23 @@
         <activity
             android:name=".SeatActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".FlightActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EventManagement"></activity>
-
-
+        <activity
+            android:name=".EventManagement"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PlaceFlightActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FlightListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".FlightBaggageActivity"
+        <activity
+            android:name=".FlightBaggageActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".EventDetails"
             android:theme="@style/AppTheme.NoActionBar"></activity>
->>>>>>> b654f8c78a043a4b29147295032a0969a009537d
     </application>
 
 </manifest>

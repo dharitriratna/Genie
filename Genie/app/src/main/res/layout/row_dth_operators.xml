@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:cardUseCompatPadding="true"
+        android:background="@color/colorPrimary"
         app:contentPadding="5dp">
         <LinearLayout
             android:layout_width="match_parent"

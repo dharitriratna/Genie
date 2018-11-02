@@ -367,7 +367,7 @@
                             android:layout_margin="10dp">
 
                             <LinearLayout
-                                android:id="@+id/credit_card"
+                                android:id="@+id/events"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
@@ -695,13 +695,13 @@
             <FrameLayout
                 android:id="@+id/frame_slider"
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <com.daimajia.slider.library.SliderLayout
                     android:id="@+id/slider"
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
+                    android:layout_height="180dp"
                     android:layout_marginTop="10dp" />
                 <!--
                          <TextView
@@ -726,7 +726,6 @@
 
     <FrameLayout
         android:visibility="gone"
-        android:layout_weight="1"
         android:id="@+id/maincontainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

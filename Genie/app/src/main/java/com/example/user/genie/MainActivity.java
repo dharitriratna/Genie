@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageView start_nav;
 
   //  LinearLayout ac_mechanic, tv_mechanic, labour, driver, home_tutor;
-    LinearLayout home_delivery, credit_card, prepaid, electricity,train_booking,
+    LinearLayout home_delivery, events, prepaid, electricity,train_booking,
           dth, broadband, landline, water,moviesLinear,flightLinear;
     Button button1, button2, button3, button4, button5;
 
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         start_nav = findViewById(R.id.start_nav);
         mDemoSlider = findViewById(R.id.slider);
         home_delivery = findViewById(R.id.home_delivery);
-        credit_card = findViewById(R.id.credit_card);
+        events = findViewById(R.id.events);
         prepaid = findViewById(R.id.prepaid);
         dth = findViewById(R.id.dth);
         broadband = findViewById(R.id.broadband);
@@ -148,12 +148,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-       /* credit_card.setOnClickListener(new View.OnClickListener() {
+        events.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,CardBilling.class));
+                startActivity(new Intent(MainActivity.this,EventManagement.class));
             }
-        });*/
+        });
 
         electricity.setOnClickListener(new View.OnClickListener() {
             @Override
