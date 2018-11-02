@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/colorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="center">
+                <ImageView
+                    android:id="@+id/planeimg"
+                    android:layout_width="50dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/plane"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                  />
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/textViewName"
+                    android:text="Abohar"
+                    android:padding="15dp"
+                    android:textSize="15sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif"
+
+                    android:textColor="@android:color/black"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/priceTv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="0.8"
+                    android:padding="15dp"
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif"
+
+                    android:text="22,634"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@android:color/black"
+                    />
+        </LinearLayout>
+
+
+</RelativeLayout>

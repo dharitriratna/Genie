@@ -1,6 +1,9 @@
 package com.example.user.genie;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -8,6 +11,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,26 +21,63 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.user.genie.Adapter.CityMoviesCustomAdapter;
+import com.example.user.genie.LocationUtils.PermissionUtils;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStates;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MovieActivity extends AppCompatActivity {
+public class MovieActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,ActivityCompat.OnRequestPermissionsResultCallback,
+        PermissionUtils.PermissionResultCallback {
     Toolbar toolbar;
     private EditText cityEd;
     private RecyclerView cityRecyclerview;
     ArrayList<String> names;
-    private static final int PERMISSION_REQUEST_CODE = 1;
+
     CityMoviesCustomAdapter adapter;
     private TextView currentlocationTv;
+
+    private final static int PLAY_SERVICES_REQUEST = 1000;
+    private final static int REQUEST_CHECK_SETTINGS = 2000;
+
+    private Location mLastLocation;
+
+    // Google client to interact with Google API
+
+    private GoogleApiClient mGoogleApiClient;
+
+    double latitude;
+    double longitude;
+
+    // list of permissions
+
+    ArrayList<String> permissions=new ArrayList<>();
+    PermissionUtils permissionUtils;
+
+    boolean isPermissionGranted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +91,20 @@ public class MovieActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        permissionUtils=new PermissionUtils(MovieActivity.this);
+
+        permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        permissionUtils.check_permission(permissions,"Need GPS permission for getting your location",1);
+
+        // check availability of play services
+        if (checkPlayServices()) {
+
+            // Building the GoogleApi client
+            buildGoogleApiClient();
+        }
 
         intialize();
     }
@@ -103,7 +159,19 @@ public class MovieActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                addPermission();
+                getLocation();
+
+                if (mLastLocation != null) {
+                    latitude = mLastLocation.getLatitude();
+                    longitude = mLastLocation.getLongitude();
+                    getAddress();
+
+                } else {
+
+
+
+                    showToast("Couldn't get the location. Make sure location is enabled on the device");
+                }
             }
         });
 
@@ -127,85 +195,260 @@ public class MovieActivity extends AppCompatActivity {
         adapter.filterList(filterdNames);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void addPermission() {
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSION_REQUEST_CODE);
+    /**
+     * Method to display the location on UI
+     * */
 
-            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-            // app-defined int constant
+    private void getLocation() {
 
-            return;
+        if (isPermissionGranted) {
+
+            try
+            {
+                mLastLocation = LocationServices.FusedLocationApi
+                        .getLastLocation(mGoogleApiClient);
+            }
+            catch (SecurityException e)
+            {
+                e.printStackTrace();
+            }
+
         }
 
+    }
+
+    public Address getAddress(double latitude,double longitude)
+    {
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(this, Locale.getDefault());
+
+        try {
+            addresses = geocoder.getFromLocation(latitude,longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            return addresses.get(0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+
+    public void getAddress()
+    {
+
+        Address locationAddress=getAddress(latitude,longitude);
+
+        if(locationAddress!=null)
+        {
+            String address = locationAddress.getAddressLine(0);
+            String address1 = locationAddress.getAddressLine(1);
+            String city = locationAddress.getLocality();
+            String state = locationAddress.getAdminArea();
+            String country = locationAddress.getCountryName();
+            String postalCode = locationAddress.getPostalCode();
+
+            String currentLocation;
+            currentlocationTv.setText(city+" "+state);
+          /*  if(!TextUtils.isEmpty(address))
+            {
+                currentLocation=address;
+
+                if (!TextUtils.isEmpty(address1))
+                    currentLocation+="\n"+address1;
+
+                if (!TextUtils.isEmpty(city))
+                {
+                    currentLocation+="\n"+city;
+
+                    if (!TextUtils.isEmpty(postalCode))
+                        currentLocation+=" - "+postalCode;
+                }
+                else
+                {
+                    if (!TextUtils.isEmpty(postalCode))
+                        currentLocation+="\n"+postalCode;
+                }
+
+                if (!TextUtils.isEmpty(state))
+                    currentLocation+="\n"+state;
+
+                if (!TextUtils.isEmpty(country))
+                    currentLocation+="\n"+country;*/
+
+              /*  tvEmpty.setVisibility(View.GONE);
+                tvAddress.setText(currentLocation);
+                tvAddress.setVisibility(View.VISIBLE);
+
+                if(!btnProceed.isEnabled())
+                    btnProceed.setEnabled(true);
+*/
+
+            }
+
+        }
+
+    /**
+     * Creating google api client object
+     * */
+
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API).build();
+
+        mGoogleApiClient.connect();
+
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(mLocationRequest);
+
+        PendingResult<LocationSettingsResult> result =
+                LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
+
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(LocationSettingsResult locationSettingsResult) {
+
+                final Status status = locationSettingsResult.getStatus();
+
+                switch (status.getStatusCode()) {
+                    case LocationSettingsStatusCodes.SUCCESS:
+                        // All location settings are satisfied. The client can initialize location requests here
+                        getLocation();
+                        break;
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        try {
+                            // Show the dialog by calling startResolutionForResult(),
+                            // and check the result in onActivityResult().
+                            status.startResolutionForResult(MovieActivity.this, REQUEST_CHECK_SETTINGS);
+
+                        } catch (IntentSender.SendIntentException e) {
+                            // Ignore the error.
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        break;
+                }
+            }
+        });
+
+
+    }
+
+
+
+
+    /**
+     * Method to verify google play services on the device
+     * */
+
+    private boolean checkPlayServices() {
+
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+
+        int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(this);
+
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (googleApiAvailability.isUserResolvableError(resultCode)) {
+                googleApiAvailability.getErrorDialog(this,resultCode,
+                        PLAY_SERVICES_REQUEST).show();
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "This device is not supported.", Toast.LENGTH_LONG)
+                        .show();
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        final LocationSettingsStates states = LocationSettingsStates.fromIntent(data);
         switch (requestCode) {
-            case PERMISSION_REQUEST_CODE: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, do your work....
-                    locationFind();
-                } else {
-                    // permission denied
-                    // Disable the functionality that depends on this permission.
+            case REQUEST_CHECK_SETTINGS:
+                switch (resultCode) {
+                    case Activity.RESULT_OK:
+                        // All required changes were successfully made
+                        getLocation();
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        // The user was asked to change settings, but chose not to
+                        break;
+                    default:
+                        break;
                 }
-                return;
-            }
-
-            // other 'case' statements for other permssions
+                break;
         }
     }
 
-    private void locationFind() {
-        //TO get the location,manifest file is added with 2 permissions
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkPlayServices();
+    }
 
-        //Best location provider is decided by the criteria
-        Criteria criteria = new Criteria();
-        //location manager will take the best location from the criteria
-        locationManager.getBestProvider(criteria, true);
-
-        //nce you know the name of the LocationProvider, you can call getLastKnownPosition() to find out where you were recently.
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, true));
-            Geocoder gcd=new Geocoder(getBaseContext(), Locale.getDefault());
-            //latTextView.setText(String.valueOf(location.getLatitude()));
-            // longTextView.setText(String.valueOf(location.getLongitude()));
-            // Log.d("Tag","1");
-            List<Address> addresses;
-
-            try {
-                addresses=gcd.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-                if(addresses.size()>0)
-
-                {
-                    //while(locTextView.getText().toString()=="Location") {
-                    String cityname = addresses.get(0).getLocality().toString();
-                    //   locTextView.setText(cityname);
-                    // }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-
-            }
-            return;
-        }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        // redirects to utils
+        permissionUtils.onRequestPermissionsResult(requestCode,permissions,grantResults);
 
     }
+    @Override
+    public void PermissionGranted(int request_code) {
+        Log.i("PERMISSION","GRANTED");
+        isPermissionGranted=true;
+    }
+
+    @Override
+    public void PartialPermissionGranted(int request_code, ArrayList<String> granted_permissions) {
+        Log.i("PERMISSION PARTIALLY","GRANTED");
+    }
+
+    @Override
+    public void PermissionDenied(int request_code) {
+        Log.i("PERMISSION","DENIED");
+    }
+
+    @Override
+    public void NeverAskAgain(int request_code) {
+        Log.i("PERMISSION","NEVER ASK AGAIN");
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        // Once connected with google api, get the location
+        getLocation();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.i("Tag", "Connection failed: ConnectionResult.getErrorCode() = "
+                + connectionResult.getErrorCode());
+    }
+
+    public void showToast(String message)
+    {
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
+
+
 }
 
 
