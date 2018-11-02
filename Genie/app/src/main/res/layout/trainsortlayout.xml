@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:minWidth="200dp"
+    android:orientation="vertical"
+    android:background="@drawable/edittext_top_bg">
+    <RelativeLayout
+        android:id="@+id/toolbarRelative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:text="SORT TRAINS"
+            android:layout_marginLeft="5dp"
+            />
+
+    </RelativeLayout>
+    <RadioGroup
+        android:weightSum="2"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:id="@+id/radioGroup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:checked="true"
+            android:layout_weight="1"
+            android:id="@+id/availRB"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Availability"
+            android:enabled="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"/>
+
+        <RadioButton
+            android:layout_weight="1"
+            android:id="@+id/durationRB"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Duration"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"/>
+        <RadioButton
+            android:layout_weight="1"
+            android:id="@+id/departureRB"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Departure"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"/>
+        <RadioButton
+            android:layout_weight="1"
+            android:id="@+id/arrivalRB"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Arrival"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"/>
+
+    </RadioGroup>
+</LinearLayout>

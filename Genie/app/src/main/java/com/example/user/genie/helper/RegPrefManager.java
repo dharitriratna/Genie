@@ -89,5 +89,25 @@ public class RegPrefManager {
         return mSharedPreferences.getString("ClassName",null);
     }
 
+    public void setDestinationName(String place){
+        mSharedPreferences.edit().putString("Destinname",place).apply();
+    }
+    public String getDestinationName(){
+        return mSharedPreferences.getString("Destinname",null);
+    }
+    public void setTrainFromPlace(String place){
+        mSharedPreferences.edit().putString("FlightTrainFromPlace",place).apply();
+    }
+    public String getTainFromPlace(){
+        return mSharedPreferences.getString("FlightTrainFromPlace",null);
+    }
+
+    public void setTainToPlace(String place){
+        mSharedPreferences.edit().putString("FlightTrainToPlace",place).apply();
+    }
+    public String getTainToPlace(){
+        return mSharedPreferences.getString("FlightTrainToPlace",null);
+    }
+
 }
 

@@ -65,6 +65,7 @@ public class FlightBottomFragment extends BottomSheetDialogFragment implements V
         subinfantsmg.setOnClickListener(this);
         addinfantsImg.setOnClickListener(this);
 
+
         radioClass.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
