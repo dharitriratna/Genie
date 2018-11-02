@@ -40,9 +40,5 @@ public class RegPrefManager {
    public String getCity(){
        return mSharedPreferences.getString("cityname",null);
    }
-
-
-
-
 }
 

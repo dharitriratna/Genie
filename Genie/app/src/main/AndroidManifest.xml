@@ -128,7 +128,6 @@
         <activity
             android:name=".LandlineOperator"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Datacard"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -144,9 +143,9 @@
         <activity
             android:name=".PrivacyPolicy"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RefundPolicy"/>
-
-
+        <activity
+            android:name=".RefundPolicy"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MovieActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -159,8 +158,10 @@
         <activity
             android:name=".SeatActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".FlightActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".FlightActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".EventManagement"></activity>
     </application>
 
 </manifest>

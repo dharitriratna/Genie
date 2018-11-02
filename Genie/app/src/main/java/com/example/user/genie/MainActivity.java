@@ -552,9 +552,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
 
-            case R.id.card:
-                Intent intent1 = new Intent(MainActivity.this, CardBilling.class);
-                startActivity(intent1);
+            case R.id.privacy:
+                Intent privacy = new Intent(MainActivity.this, PrivacyPolicy.class);
+                startActivity(privacy);
+                break;
+
+            case R.id.refund:
+                Intent refund = new Intent(MainActivity.this, RefundPolicy.class);
+                startActivity(refund);
                 break;
 
             case R.id.logout:
