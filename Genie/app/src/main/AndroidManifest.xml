@@ -161,9 +161,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".FlightActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".FlightActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".PlaceFlightActivity"
             android:theme="@style/AppTheme.NoActionBar" />
