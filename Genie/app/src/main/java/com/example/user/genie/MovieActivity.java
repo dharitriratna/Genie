@@ -168,8 +168,6 @@ public class MovieActivity extends AppCompatActivity implements GoogleApiClient.
 
                 } else {
 
-
-
                     showToast("Couldn't get the location. Make sure location is enabled on the device");
                 }
             }
@@ -234,7 +232,6 @@ public class MovieActivity extends AppCompatActivity implements GoogleApiClient.
         return null;
 
     }
-
 
     public void getAddress()
     {

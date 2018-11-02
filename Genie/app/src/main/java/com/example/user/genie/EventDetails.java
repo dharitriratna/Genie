@@ -1,6 +1,7 @@
 package com.example.user.genie;
 
-import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
@@ -13,21 +14,24 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.user.genie.Adapter.ViewPagerAdapter;
+import com.example.user.genie.Fragments.AboutEventsFragment;
 import com.example.user.genie.Fragments.ShowTimeFragment;
 import com.example.user.genie.Fragments.TrailerFragment;
 
-public class MovieShowDetailsActivity extends AppCompatActivity {
+public class EventDetails extends AppCompatActivity {
 
     private CollapsingToolbarLayout collapsing_toolbar;
     private Toolbar toolbar;
     AppBarLayout appBarLayout;
-    private TabLayout htab_tabs;
+    private TabLayout events_tabs;
     private ViewPager viewPager;
+
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_show_details);
-
+        setContentView(R.layout.activity_event_details);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -52,7 +56,7 @@ public class MovieShowDetailsActivity extends AppCompatActivity {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsing_toolbar.setTitle("Movie Name");
+                    collapsing_toolbar.setTitle("Event Name");
                     collapsing_toolbar.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
                     isShow = true;
                 } else if (isShow) {
@@ -65,32 +69,33 @@ public class MovieShowDetailsActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         setupViewPager(viewPager);
 
-        htab_tabs = (TabLayout) findViewById(R.id.htab_tabs);
-        htab_tabs.setupWithViewPager(viewPager);
+        events_tabs = findViewById(R.id.events_tabs);
+        events_tabs.setupWithViewPager(viewPager);
         setupTabIcons();
-
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void setupTabIcons() {
 
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
-        tabOne.setText("ShowTimes");
-        tabOne.setGravity(View.TEXT_ALIGNMENT_CENTER);
-       // tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_favourite, 0, 0);
-        htab_tabs.getTabAt(0).setCustomView(tabOne);
+        tabOne.setText("About");
+        tabOne.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        // tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_favourite, 0, 0);
+        events_tabs.getTabAt(0).setCustomView(tabOne);
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
-        tabTwo.setText("Trailers & More");
-        tabTwo.setGravity(View.TEXT_ALIGNMENT_CENTER);
-       // tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_call, 0, 0);
-        htab_tabs.getTabAt(1).setCustomView(tabTwo);
+        tabTwo.setText("Venue");
+        tabTwo.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        // tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_call, 0, 0);
+        events_tabs.getTabAt(1).setCustomView(tabTwo);
 
 
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ShowTimeFragment(), "ShowTimes");
+        adapter.addFragment(new AboutEventsFragment(), "About");
         adapter.addFragment(new TrailerFragment(), "Trailers & More");
 
         viewPager.setAdapter(adapter);

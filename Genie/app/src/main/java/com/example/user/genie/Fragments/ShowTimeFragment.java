@@ -51,8 +51,8 @@ public class ShowTimeFragment extends Fragment implements View.OnClickListener {
         View v= inflater.inflate(R.layout.fragment_show_time, container, false);
         RecyclerView cinemahallRecyclerview=(RecyclerView)v.findViewById(R.id.cinemahallRecyclerview);
          todayTv=(TextView)v.findViewById(R.id.todayTv);
-         tommorwTv=(TextView)v.findViewById(R.id.tommorwTv);
-         thirdTv=(TextView)v.findViewById(R.id.thirdTv);
+         /*tommorwTv=(TextView)v.findViewById(R.id.tommorwTv);
+         thirdTv=(TextView)v.findViewById(R.id.thirdTv);*/
         todayTv.setOnClickListener(this);
         tommorwTv.setOnClickListener(this);
         thirdTv.setOnClickListener(this);
@@ -148,26 +148,28 @@ public class ShowTimeFragment extends Fragment implements View.OnClickListener {
 
 
                 break;
-            case R.id.thirdTv:
+         /*   case R.id.thirdTv:
                 thirdTv.setTextColor(getResources().getColor(R.color.colorPrimary));
                 thirdTv.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 todayTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 todayTv.setBackgroundResource(R.drawable.edittext_top_bg);
                 tommorwTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 tommorwTv.setBackgroundResource(R.drawable.edittext_top_bg);
+                break;*/
 
 
-                break;
-            case R.id.tommorwTv:
+
+          /*  case R.id.tommorwTv:
                 tommorwTv.setTextColor(getResources().getColor(R.color.colorPrimary));
                 tommorwTv.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 todayTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 todayTv.setBackgroundResource(R.drawable.edittext_top_bg);
                 thirdTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 thirdTv.setBackgroundResource(R.drawable.edittext_top_bg);
+                 break;*/
 
 
-                break;
+
         }
     }
 }
