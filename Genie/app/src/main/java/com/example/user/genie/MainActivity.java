@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         progressDialog =new ProgressDialog(this);
 
         servicesModels = new ArrayList<>();
-        getServices();
+       // getServices();
 
 
         setImagePager();
