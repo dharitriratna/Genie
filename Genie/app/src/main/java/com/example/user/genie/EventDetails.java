@@ -25,6 +25,7 @@ public class EventDetails extends AppCompatActivity {
     AppBarLayout appBarLayout;
     private TabLayout events_tabs;
     private ViewPager viewPager;
+    String name;
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
