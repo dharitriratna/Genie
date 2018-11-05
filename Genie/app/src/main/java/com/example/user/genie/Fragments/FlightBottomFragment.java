@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.user.genie.R;
+import com.example.user.genie.helper.ItemClickListener;
 import com.example.user.genie.helper.RegPrefManager;
 
 
@@ -25,6 +26,7 @@ public class FlightBottomFragment extends BottomSheetDialogFragment implements V
     private ImageView subImg,addImg,subchildImg,addchildImg,subinfantsmg,addinfantsImg;
     private RadioGroup radioClass;
     private RadioButton radioeconomy,radioPremiumEconomy,radioBusiness,radioButton;
+    ItemClickListener itemclick;
     String adultno,childno,infactno,classtext;
     public FlightBottomFragment() {
         // Required empty public constructor
@@ -65,6 +67,7 @@ public class FlightBottomFragment extends BottomSheetDialogFragment implements V
         addchildImg.setOnClickListener(this);
         subinfantsmg.setOnClickListener(this);
         addinfantsImg.setOnClickListener(this);
+
 
         radioClass.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @SuppressLint("ResourceType")
@@ -135,6 +138,7 @@ public class FlightBottomFragment extends BottomSheetDialogFragment implements V
                 RegPrefManager.getInstance(getContext()).setAdultNo(adultno);
                 RegPrefManager.getInstance(getContext()).setChildNo(childno);
                 RegPrefManager.getInstance(getContext()).setInfantNo(infactno);
+                //itemclick.onDataChange();
                dismiss();
                 break;
         }

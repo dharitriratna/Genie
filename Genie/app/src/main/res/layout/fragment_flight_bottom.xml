@@ -252,40 +252,49 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:textSize="20sp"/>
-    <RadioGroup
-        android:id="@+id/radioClass"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/classTv"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="20dp">
+        android:orientation="vertical"
+        android:layout_below="@+id/classTv">
+    <RadioGroup
+        android:weightSum="2"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:id="@+id/radioClass"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <RadioButton
+            android:checked="true"
+            android:layout_weight="1"
             android:id="@+id/radioeconomy"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Economy"
-            android:checked="true"
-            android:textSize="15sp"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:enabled="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            android:buttonTint="@color/colorPrimaryDark"/>
 
         <RadioButton
+            android:layout_weight="1"
             android:id="@+id/radioPremiumEconomy"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="PremiumEconomy"
-            android:textSize="15sp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:buttonTint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"/>
         <RadioButton
+            android:layout_weight="1"
             android:id="@+id/radioBusiness"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Business"
-            android:textSize="15sp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/colorPrimaryDark"/>
-
+            android:buttonTint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"/>
     </RadioGroup>
+    </LinearLayout>
 </RelativeLayout>

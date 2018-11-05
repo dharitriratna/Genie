@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="5dp"
+        android:background="@color/colorPrimary"
+        card_view:cardBackgroundColor="@color/colorPrimary"
+        android:padding="15dp"
+        android:layout_margin="5dp">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+       <TextView
+           android:id="@+id/trainNameTv"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Jalianwala B Exp"
+           android:textColor="@color/colorPrimaryDark"
+           android:textSize="18sp"
+           android:layout_margin="10dp"
+           android:padding="5dp"
+           />
+        <TextView
+            android:id="@+id/destTimeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/trainNameTv"
+            android:layout_alignParentLeft="true"
+            android:text="13:10"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:textSize="15sp"
+            android:layout_marginBottom="5dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/colorPrimaryDark"/>
+    <TextView
+        android:id="@+id/arriveTimeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trainNameTv"
+        android:layout_alignParentRight="true"
+        android:text="12:10, 03 Nov"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:textSize="15sp"
+        android:layout_marginBottom="5dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/colorPrimaryDark"/>
+    <TextView
+        android:id="@+id/destplaceTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/destTimeTv"
+        android:layout_alignParentLeft="true"
+        android:text="Howrah"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="10dp"
+        android:textColor="@color/colorPrimaryDark"/>
+    <TextView
+        android:id="@+id/arriveplaceTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/arriveTimeTv"
+        android:layout_alignParentRight="true"
+        android:text="Old delhi"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"
+        android:layout_marginBottom="5dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/colorPrimaryDark"/>
+    <Button
+        android:id="@+id/checkAvilBut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/arriveplaceTv"
+        android:layout_alignParentRight="true"
+        android:text="Check Availability"
+        android:textSize="15sp"
+        android:textAllCaps="false"
+        android:background="@drawable/edittext_top_bg"
+        android:padding="5dp"
+        android:layout_margin="15dp"
+        />
+
+</RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

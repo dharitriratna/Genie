@@ -55,5 +55,6 @@ pregnancy. How it affects the whole family, especially two grown up sons, forms 
         <item>2029</item>
         <item>2030</item>
     </string-array>
+    <string name="Rs">\u20B9</string>
 
 </resources>

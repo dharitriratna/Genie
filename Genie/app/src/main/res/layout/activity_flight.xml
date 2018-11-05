@@ -36,6 +36,36 @@
 
         android:layout_margin="10dp"
         android:orientation="vertical">
+        <RadioGroup
+            android:weightSum="2"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:id="@+id/radioGroup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:checked="true"
+                android:layout_weight="1"
+                android:id="@+id/onewayRB"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Oneway"
+                android:enabled="true"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"/>
+
+            <RadioButton
+                android:layout_weight="1"
+                android:id="@+id/roundtrip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="RoundTrip"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"/>
+
+        </RadioGroup>
+
         <EditText
             android:id="@+id/fromEd"
             android:layout_weight="1"
@@ -91,7 +121,30 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:orientation="horizontal">
+            <EditText
+                android:id="@+id/deppEd"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="true"
+                android:textAlignment="viewStart"
+
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="3dp"
+                android:hint="Departure Date"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:inputType="number"
+                android:singleLine="true"
+                android:background="@drawable/edittext_top_bg"
+                android:padding="10dp"
+                android:focusable="false"
+
+                tools:ignore="RtlCompat"
+                android:visibility="gone"/>
 <RelativeLayout
+    android:id="@+id/depRel"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="1">
@@ -118,6 +171,7 @@
         tools:ignore="RtlCompat" />
 </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/arrRel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
@@ -226,7 +280,7 @@
             android:layout_marginRight="10dp"
             tools:ignore="RtlCompat"
             android:enabled="true"
-            />
+            android:visibility="gone"/>
         <CheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

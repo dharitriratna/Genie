@@ -90,9 +90,9 @@
                 android:layout_alignParentRight="true"
                 android:text="Continue"
                 android:textColor="@color/colorPrimary"
-                android:background="@drawable/my_button"
-                android:paddingLeft="1dp"
-                android:paddingRight="1dp"
+                android:background="@drawable/custombutton"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
                 android:textAllCaps="false"
                 android:layout_marginRight="20dp"/>
 

@@ -1,10 +1,14 @@
 package com.example.user.genie;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
@@ -18,6 +22,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -30,6 +35,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.user.genie.common.ApiKey;
+import com.example.user.genie.helper.RegPrefManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,6 +85,7 @@ public class BookTrain extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         search_trains = findViewById(R.id.search_trains);
+
         check_pnr_status = findViewById(R.id.check_pnr_status);
         train_number = findViewById(R.id.train_number);
         from_dest = findViewById(R.id.from_dest);
@@ -94,7 +101,20 @@ public class BookTrain extends AppCompatActivity {
         dept_date_layout = findViewById(R.id.dept_date_layout);
         pnr_layout = findViewById(R.id.pnr_layout);
         train_number_layout = findViewById(R.id.train_number_layout);
-
+        from_dest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegPrefManager.getInstance(BookTrain.this).setPlace("From");
+                startActivity(new Intent(BookTrain.this,PlaceTrainActivity.class));
+            }
+        });
+        to_dest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegPrefManager.getInstance(BookTrain.this).setPlace("To");
+                startActivity(new Intent(BookTrain.this,PlaceTrainActivity.class));
+            }
+        });
 
         dept_date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,23 +166,14 @@ public class BookTrain extends AppCompatActivity {
         search_trains.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                train_no = train_number.getText().toString().trim();
-                destination_from = from_dest.getText().toString().trim();
-                destination_to = to_dest.getText().toString().trim();
-                departure_date = dept_date.getText().toString().trim();
+                if(validation()) {
+                    train_no = train_number.getText().toString().trim();
+                    destination_from = from_dest.getText().toString().trim();
+                    destination_to = to_dest.getText().toString().trim();
+                    departure_date = dept_date.getText().toString().trim();
+                    startActivity(new Intent(BookTrain.this,TrainSeatAvailableActivity.class));
+                }
 
-                if (destination_from.length() < 1){
-                    from_dest.setError("Enter Departure Destination");
-                }
-                else if (destination_to.length() < 1){
-                    to_dest.setError("Enter Arriving Destination");
-                }
-                else if (departure_date.length() < 1){
-                    dept_date.setError("Enter Departure Date");
-                }
-                else {
-                    Toast.makeText(BookTrain.this, "", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -377,7 +388,41 @@ public class BookTrain extends AppCompatActivity {
         RequestQueue requestQueue= Volley.newRequestQueue(BookTrain.this);
         requestQueue.add(request);
     }
+    private Boolean validation() {
+
+        if (from_dest.getText().toString().trim().isEmpty()) {
+
+            from_dest.setError("Enter Departure Destination");
+
+            return false;
+        }
+        if (to_dest.getText().toString().trim().isEmpty()) {
+
+            to_dest.setError("Enter Arriving Destination");
+
+            return false;
+        }
+        if (dept_date.getText().toString().trim().isEmpty()) {
+
+            dept_date.setError("Enter Departure Date");
+
+            return false;
+        }
+        return true;
     }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        from_dest.setText(RegPrefManager.getInstance(this).getTainFromPlace());
+
+        to_dest.setText(RegPrefManager.getInstance(this).getTainToPlace());
+    }
+
+
+    }
+
+
+
 
 
 

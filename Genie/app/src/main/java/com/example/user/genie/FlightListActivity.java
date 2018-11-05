@@ -1,5 +1,6 @@
 package com.example.user.genie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,7 +29,8 @@ public class FlightListActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                //onBackPressed();
+                startActivity(new Intent(FlightListActivity.this,FlightActivity.class));
             }
         });
         listTv=toolbar.findViewById(R.id.listTv);

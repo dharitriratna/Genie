@@ -135,9 +135,11 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="15sp"
                         android:inputType="text"
+                        android:imeOptions="actionNext"
                         android:singleLine="true"
                         android:background="@drawable/edittext_top_bg"
                         android:padding="10dp"
+                        android:focusable="false"
                         android:layout_marginRight="5dp"
                         tools:ignore="RtlCompat" />
 
@@ -152,11 +154,13 @@
                         android:layout_marginTop="3dp"
                         android:layout_marginBottom="3dp"
                         android:hint="To"
+                        android:imeOptions="actionDone"
                         android:textColorHint="@color/colorPrimaryDark"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="15sp"
                         android:inputType="text"
                         android:singleLine="true"
+                        android:focusable="false"
                         android:background="@drawable/edittext_top_bg"
                         android:padding="10dp"
                         tools:ignore="RtlCompat" />

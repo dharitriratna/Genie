@@ -9,20 +9,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.user.genie.Fragments.FlightBottomFragment;
 import com.example.user.genie.helper.DatePickerFragmentFrom;
+import com.example.user.genie.helper.ItemClickListener;
 import com.example.user.genie.helper.RegPrefManager;
 
 import java.util.Calendar;
 
-public class FlightActivity extends AppCompatActivity implements View.OnClickListener {
+public class FlightActivity extends AppCompatActivity implements View.OnClickListener,ItemClickListener {
     Toolbar toolbar;
-    EditText depEd,arrivalEd,fromEd,toEd,travellerEd,classEd;
+    EditText depEd,arrivalEd,fromEd,toEd,travellerEd,classEd,deppEd;
     private boolean arrive=false;
     private int depYear,depMonth,depDay;
     private Button flightBtn;
+    private RadioButton onewayRB,roundtrip;
+    private RelativeLayout depRel,arrRel;
+
+    FlightBottomFragment flightBottomFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +40,12 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                //onBackPressed();
+                startActivity(new Intent(FlightActivity.this,MainActivity.class));
                 finish();
             }
         });
+
         intialize();
 
 
@@ -57,6 +67,14 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
         classEd.setOnClickListener(this);
         flightBtn=findViewById(R.id.flightBtn);
         flightBtn.setOnClickListener(this);
+        onewayRB=findViewById(R.id.onewayRB);
+        roundtrip=findViewById(R.id.roundtrip);
+        onewayRB.setOnClickListener(this);
+        roundtrip.setOnClickListener(this);
+        deppEd=findViewById(R.id.deppEd);
+        deppEd.setOnClickListener(this);
+        depRel=findViewById(R.id.depRel);
+        arrRel=findViewById(R.id.arrRel);
 
     }
 
@@ -168,7 +186,7 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.travellerEd:
-                FlightBottomFragment flightBottomFragment=new FlightBottomFragment();
+                flightBottomFragment=new FlightBottomFragment();
                 flightBottomFragment.show(getSupportFragmentManager(),flightBottomFragment.getTag());
                 break;
             case R.id.classEd:
@@ -178,6 +196,19 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.flightBtn:
                 startActivity(new Intent(FlightActivity.this,FlightListActivity.class));
                 finish();
+                break;
+            case R.id.onewayRB:
+                deppEd.setVisibility(View.VISIBLE);
+                depRel.setVisibility(View.GONE);
+                arrRel.setVisibility(View.GONE);
+                break;
+            case R.id.roundtrip:
+                deppEd.setVisibility(View.GONE);
+                depRel.setVisibility(View.VISIBLE);
+                arrRel.setVisibility(View.VISIBLE);
+                break;
+            case R.id.deppEd:
+                showFlightArrivalDatePicker();
                 break;
         }
     }
@@ -222,8 +253,27 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
         classEd.setText(RegPrefManager.getInstance(this).getClassName());
     }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+    }
 
 
+    @Override
+    public void onDataChange() {
+        flightBottomFragment.dismiss();
+        String audltno= RegPrefManager.getInstance(FlightActivity.this).getAdultNo();
+        int value=0;
+        if(audltno!=null){
+            int aud=Integer.parseInt(audltno);
+            int childno=Integer.parseInt(RegPrefManager.getInstance(FlightActivity.this).getChildNo());
+            int infactno=Integer.parseInt(RegPrefManager.getInstance(FlightActivity.this).getInfantNo());
+            value=aud+childno+infactno;
 
+            travellerEd.setText(""+value);
+        }
 
+        classEd.setText(RegPrefManager.getInstance(this).getClassName());
+    }
 }

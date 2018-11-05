@@ -1,11 +1,13 @@
 package com.example.user.genie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,13 +16,14 @@ import com.example.user.genie.helper.RegPrefManager;
 
 import java.util.ArrayList;
 
-public class FlightBaggageActivity extends AppCompatActivity {
+public class FlightBaggageActivity extends AppCompatActivity implements View.OnClickListener {
     private RecyclerView flightListRecyclerview;
     private Toolbar toolbar;
-    private TextView listTv;
+    private TextView listTv,priceTv;
     private ArrayList<String> names;
     FlightBaggageCustomAdapter flightBaggageCustomAdapter;
     private RelativeLayout toolbarRelative;
+    private Button continueBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,10 @@ public class FlightBaggageActivity extends AppCompatActivity {
     }
     private void intialize(){
         flightListRecyclerview=findViewById(R.id.flightListRecyclerview);
+        continueBtn=findViewById(R.id.continueBtn);
+        priceTv=findViewById(R.id.priceTv);
+        priceTv.setText(getResources().getString(R.string.Rs)+"22,600");
+        continueBtn.setOnClickListener(this);
         toolbarRelative=findViewById(R.id.toolbarRelative);
 
         names=new ArrayList<>();
@@ -61,5 +68,15 @@ public class FlightBaggageActivity extends AppCompatActivity {
 
         flightListRecyclerview.setAdapter(flightBaggageCustomAdapter);
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.continueBtn:
+                startActivity(new Intent(FlightBaggageActivity.this,FlightTravellerInfoActivity.class));
+                finish();
+                break;
+        }
     }
 }
