@@ -15,6 +15,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
     private String[] bookingId;
     private String[] details;
 
+    String name;
+
     private int mSelectedPosition = 0;
     Context context;
 

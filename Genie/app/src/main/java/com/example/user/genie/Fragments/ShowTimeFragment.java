@@ -54,8 +54,8 @@ public class ShowTimeFragment extends Fragment implements View.OnClickListener {
          /*tommorwTv=(TextView)v.findViewById(R.id.tommorwTv);
          thirdTv=(TextView)v.findViewById(R.id.thirdTv);*/
         todayTv.setOnClickListener(this);
-        tommorwTv.setOnClickListener(this);
-        thirdTv.setOnClickListener(this);
+       /* tommorwTv.setOnClickListener(this);
+        thirdTv.setOnClickListener(this);*/
 
 
         cinemahallRecyclerview.setHasFixedSize(true);
@@ -88,7 +88,7 @@ public class ShowTimeFragment extends Fragment implements View.OnClickListener {
         String sec=secarry[0];
         String sec2=secarry[1];
         String tomorrow_date=sec+" "+sec2;
-        tommorwTv.setText(tomorrow_date);
+   //     tommorwTv.setText(tomorrow_date);
         //check_tw_date=tomorrow;
 
         String th=getNextDate(tomorrow);
@@ -103,7 +103,7 @@ public class ShowTimeFragment extends Fragment implements View.OnClickListener {
         String third1=thirdarry[0];
         String third2=thirdarry[1];
         String third=third1+" "+third2;
-        thirdTv.setText(third);
+      //  thirdTv.setText(third);
 
         String fourth=getNextDate(th);
         Log.d("TAG","fourth==>"+fourth);
@@ -141,12 +141,12 @@ public class ShowTimeFragment extends Fragment implements View.OnClickListener {
             case R.id.todayTv:
                 todayTv.setTextColor(getResources().getColor(R.color.colorPrimary));
                 todayTv.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                thirdTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                /*thirdTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 thirdTv.setBackgroundResource(R.drawable.edittext_top_bg);
                 tommorwTv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 tommorwTv.setBackgroundResource(R.drawable.edittext_top_bg);
 
-
+*/
                 break;
          /*   case R.id.thirdTv:
                 thirdTv.setTextColor(getResources().getColor(R.color.colorPrimary));

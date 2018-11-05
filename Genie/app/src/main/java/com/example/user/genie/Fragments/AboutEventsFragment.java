@@ -12,6 +12,8 @@ import com.example.user.genie.R;
 
 public class AboutEventsFragment extends Fragment {
 
+    String name;
+
     public static FragmentMain newInstance() {
 
         return new FragmentMain();
