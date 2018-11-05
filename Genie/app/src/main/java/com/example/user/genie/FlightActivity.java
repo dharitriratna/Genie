@@ -15,11 +15,12 @@ import android.widget.Toast;
 
 import com.example.user.genie.Fragments.FlightBottomFragment;
 import com.example.user.genie.helper.DatePickerFragmentFrom;
+import com.example.user.genie.helper.ItemClickListener;
 import com.example.user.genie.helper.RegPrefManager;
 
 import java.util.Calendar;
 
-public class FlightActivity extends AppCompatActivity implements View.OnClickListener {
+public class FlightActivity extends AppCompatActivity implements View.OnClickListener,ItemClickListener {
     Toolbar toolbar;
     EditText depEd,arrivalEd,fromEd,toEd,travellerEd,classEd,deppEd;
     private boolean arrive=false;
@@ -28,7 +29,7 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
     private RadioButton onewayRB,roundtrip;
     private RelativeLayout depRel,arrRel;
 
-
+    FlightBottomFragment flightBottomFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,7 +186,7 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.travellerEd:
-                FlightBottomFragment flightBottomFragment=new FlightBottomFragment();
+                flightBottomFragment=new FlightBottomFragment();
                 flightBottomFragment.show(getSupportFragmentManager(),flightBottomFragment.getTag());
                 break;
             case R.id.classEd:
@@ -259,8 +260,20 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
+    @Override
+    public void onDataChange() {
+        flightBottomFragment.dismiss();
+        String audltno= RegPrefManager.getInstance(FlightActivity.this).getAdultNo();
+        int value=0;
+        if(audltno!=null){
+            int aud=Integer.parseInt(audltno);
+            int childno=Integer.parseInt(RegPrefManager.getInstance(FlightActivity.this).getChildNo());
+            int infactno=Integer.parseInt(RegPrefManager.getInstance(FlightActivity.this).getInfantNo());
+            value=aud+childno+infactno;
 
+            travellerEd.setText(""+value);
+        }
 
-
-
+        classEd.setText(RegPrefManager.getInstance(this).getClassName());
+    }
 }
