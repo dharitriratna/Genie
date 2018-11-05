@@ -158,9 +158,7 @@
         <activity
             android:name=".FlightActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".EventManagement" />
-
         <activity
             android:name=".PlaceFlightActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -170,16 +168,19 @@
         <activity
             android:name=".FlightBaggageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EventDetails"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity
+            android:name=".EventDetails"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TrainSeatAvailableActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PlaceTrainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".FlightTravellerInfoActivity"
+        <activity
+            android:name=".FlightTravellerInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PNRStatusActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

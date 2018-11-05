@@ -34,6 +34,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.user.genie.ObjectNew.GenPNRResponse;
+import com.example.user.genie.client.ApiClient;
+import com.example.user.genie.client.ApiInterface;
 import com.example.user.genie.common.ApiKey;
 import com.example.user.genie.helper.RegPrefManager;
 
@@ -45,6 +48,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class BookTrain extends AppCompatActivity {
     Toolbar toolbar;
@@ -63,18 +69,22 @@ public class BookTrain extends AppCompatActivity {
     Calendar mcurrenttime;
     private SimpleDateFormat dateFormatter;
     String Date_;
-
+    ApiInterface apiService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_train);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        apiService =
+                ApiClient.getClient().create(ApiInterface.class);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+            //    onBackPressed();
+                startActivity(new Intent(BookTrain.this,MainActivity.class));
+                finish();
             }
         });
 
@@ -106,6 +116,7 @@ public class BookTrain extends AppCompatActivity {
             public void onClick(View view) {
                 RegPrefManager.getInstance(BookTrain.this).setPlace("From");
                 startActivity(new Intent(BookTrain.this,PlaceTrainActivity.class));
+                finish();
             }
         });
         to_dest.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +124,7 @@ public class BookTrain extends AppCompatActivity {
             public void onClick(View view) {
                 RegPrefManager.getInstance(BookTrain.this).setPlace("To");
                 startActivity(new Intent(BookTrain.this,PlaceTrainActivity.class));
+                finish();
             }
         });
 
@@ -172,6 +184,7 @@ public class BookTrain extends AppCompatActivity {
                     destination_to = to_dest.getText().toString().trim();
                     departure_date = dept_date.getText().toString().trim();
                     startActivity(new Intent(BookTrain.this,TrainSeatAvailableActivity.class));
+                    finish();
                 }
 
             }
@@ -185,7 +198,8 @@ public class BookTrain extends AppCompatActivity {
                 if(checkString(pnrNo))
                 {
                     if(isNetworkAvailable())
-                        loadPnrStatus();
+                     //   loadPnrStatus();
+                        loadPNR();
                     else
                         noNetwrokErrorMessage();
                 }
@@ -291,6 +305,65 @@ public class BookTrain extends AppCompatActivity {
         });
         AlertDialog alert=alertDialog.create();
         alert.show();
+    }
+    private  void loadPNR(){
+        //long  pnr=2352547216L;
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        String apikey="a3pnsytnd1";
+        String pnr=enter_pnr.getText().toString().trim();
+        Log.d("Tag",""+pnr);
+
+        Call<GenPNRResponse> call=apiService.getPNRResponse(pnr,apikey);
+        call.enqueue(new Callback<GenPNRResponse>() {
+            @Override
+            public void onResponse(Call<GenPNRResponse> call, retrofit2.Response<GenPNRResponse> response) {
+                progressDialog.dismiss();
+                String doj=response.body().getDoj();
+                String current_status="",booking_status="";
+                int passengerno=0;
+                ArrayList<GenPNRResponse.passengersList> passengerList=response.body().getPassengers();
+                for (int i=0;i<passengerList.size();i++){
+                    current_status=passengerList.get(i).getCurrent_status();
+                    passengerno=passengerList.get(i).getNo();
+                    booking_status=passengerList.get(i).getBooking_status();
+                }
+                String pnr=response.body().getPnr();
+                String trainname=response.body().getTrain().getName();
+                int trainnumber=response.body().getTrain().getNumber();
+                boolean chart_prepared=response.body().isChart_prepared();
+                String boardingPoint=response.body().getBoarding_point().getName();
+                String boardingCode=response.body().getBoarding_point().getCode();
+
+                String arrivalPoint=response.body().getTo_station().getName();
+                String arrivalCode=response.body().getTo_station().getCode();
+
+                //  Log.d("Tag",resp);
+                Bundle bundle=new Bundle();
+                bundle.putString("DOJ",doj);
+                bundle.putString("CurrentStatus",current_status);
+                bundle.putString("BookingStatus",booking_status);
+                bundle.putString("Passengerno", String.valueOf(passengerno));
+                bundle.putString("PNR",pnr);
+                bundle.putString("TrainName",trainname);
+                bundle.putString("TrainNumber", String.valueOf(trainnumber));
+                bundle.putString("Chartprepared", String.valueOf(chart_prepared));
+                bundle.putString("BoardingPoint",boardingPoint);
+                bundle.putString("BoardingCode",boardingCode);
+                bundle.putString("ArrivalPoint",arrivalPoint);
+                bundle.putString("ArrivalCode",arrivalCode);
+                Intent i=new Intent(BookTrain.this,PNRStatusActivity.class);
+                i.putExtra("PassengerDetails",bundle);
+                startActivity(i);
+
+            }
+
+            @Override
+            public void onFailure(Call<GenPNRResponse> call, Throwable t) {
+                Log.d("Tag","Failure");
+            }
+        });
     }
 
     private void loadPnrStatus() {

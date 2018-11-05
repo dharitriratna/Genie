@@ -47,7 +47,10 @@ import com.example.user.genie.Fragments.FragmentMain;
 import com.example.user.genie.Fragments.FragmentProfile;
 import com.example.user.genie.Model.CardModel;
 import com.example.user.genie.Model.ServicesModel;
+import com.example.user.genie.ObjectNew.ServiceImage;
 import com.example.user.genie.Utils.GlobalClass;
+import com.example.user.genie.client.ApiClientGenie;
+import com.example.user.genie.client.ApiInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +58,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 import static com.example.user.genie.LogIn.mypreference;
 import static com.example.user.genie.Utils.Count.setCounting;
@@ -102,12 +108,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String login_user="";
 
     String acmech;
-
+    ApiInterface apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_layout);
+        apiService =
+                ApiClientGenie.getClient().create(ApiInterface.class);
     //    profile = findViewById(R.id.profile);
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
@@ -219,7 +227,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         progressDialog =new ProgressDialog(this);
 
         servicesModels = new ArrayList<>();
-        getServices();
+        //getServices();
+
+        getNetwork();
 
 
         setImagePager();
@@ -392,6 +402,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDemoSlider.setDuration(3000);
         mDemoSlider.addOnPageChangeListener(this);
 
+    }
+    private void getNetwork(){
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
+        Call<ServiceImage> call=apiService.getImageResponse();
+
+        call.enqueue(new Callback<ServiceImage>() {
+            @Override
+            public void onResponse(Call<ServiceImage> call, retrofit2.Response<ServiceImage> response) {
+                String service_id = "", service_name = "", service_fee = "", service_img="";
+                progressDialog.dismiss();
+                ArrayList<ServiceImage.Data> data=response.body().getData();
+                if(data.size()>0){
+                    for(int i=0;i<data.size();i++){
+                        service_id=data.get(i).getId();
+                        service_name=data.get(i).getName();
+                        service_fee=data.get(i).getFee();
+                        service_img=data.get(i).getIcon();
+
+
+                        Log.d("image", service_img);
+
+                        ServicesModel item = new ServicesModel(
+                                service_id,service_name, service_fee,service_img);
+
+
+                        servicesModels.add(item);
+                    }
+                }
+                else {
+                                /*Toast.makeText(getApplicationContext(), "No Data Found",
+                                        Toast.LENGTH_LONG).show();*/
+                    service_recyclerview.setVisibility(View.GONE);
+                    // no_orders_text.setVisibility(View.VISIBLE);
+                }
+                servicesAdapter = new ServicesAdapter(servicesModels, getApplicationContext());
+                service_recyclerview.setAdapter(servicesAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ServiceImage> call, Throwable t) {
+                Log.d("Tag","Failure");
+            }
+        });
     }
     private void getServices() {
         progressDialog.setMessage("Loading");
