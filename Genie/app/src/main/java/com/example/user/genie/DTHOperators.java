@@ -2,8 +2,8 @@ package com.example.user.genie;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,9 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.user.genie.Adapter.DTHOperatorAdapter;
-import com.example.user.genie.Adapter.MobileOperatorsAdapter;
 import com.example.user.genie.Model.DTHOperatorsModel;
-import com.example.user.genie.Model.MobileOperatorsModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,9 +63,11 @@ public class DTHOperators extends AppCompatActivity {
             public boolean onClick(View view, int position) {
                 DTHOperatorsModel list = dthOperatorsModels.get(position);
                 String operator_name = list.getDth_operator_name();
+                String operator_code = list.getDth_operator_code();
 
                 Intent intent = new Intent(DTHOperators.this,DTHRecharge.class);
                 intent.putExtra("OPERATOR_NAME",operator_name);
+                intent.putExtra("DTH_OPERATOR_CODE",operator_code);
                 startActivity(intent);
                 finish();
 

@@ -11,18 +11,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.provider.Contacts;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.telephony.TelephonyManager;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -30,19 +26,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class MobileRecharge extends AppCompatActivity {
@@ -63,6 +50,8 @@ public class MobileRecharge extends AppCompatActivity {
     String phone_number;
     String carrierName;
     String operator_circle_name;
+    String operator_code;
+    String circle_code;
     String recharge_amount;
     int selectedId = 1;
     String number;
@@ -166,6 +155,9 @@ public class MobileRecharge extends AppCompatActivity {
                 if (phone_number.length() < 1){
                     contact_number.setError("Enter Your Mobile Number");
                 }
+               /* else if (phone_number.length()>1){
+                    new AsyngetOperator().execute();
+                }*/
                 else if (carrierName.length()< 1){
                     operator.setError("Enter Your Operator");
                 }
@@ -205,18 +197,17 @@ public class MobileRecharge extends AppCompatActivity {
 
         Log.d("login_user", login_user);
 
-
-
-
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
         if(bundle != null) {
 
             operator_circle_name = bundle.getString("CIRCLE_NAME");
+            circle_code = bundle.getString("CIRCLE_CODE");
          //   Log.d("CIRCLE_NAME", operator_circle_name);
             carrierName = bundle.getString("OPERATOR_NAME");
+            operator_code = bundle.getString("OPERATOR_CODE");
+            Log.d("OPERATOR_CODE", operator_code);
 //            number = bundle.getString("NUMBER");
             operator.setText(carrierName);
             circle.setText(operator_circle_name);
@@ -239,12 +230,14 @@ public class MobileRecharge extends AppCompatActivity {
 //                android.Manifest.permission.ACCESS_COARSE_LOCATION,
 //                android.Manifest.permission.ACCESS_FINE_LOCATION,
 //                Manifest.permission.CALL_PHONE,
-                android.Manifest.permission.INTERNET,
+                Manifest.permission.INTERNET,
                 Manifest.permission.READ_CONTACTS,};
         if(!hasPermissions(this, Permissions)){
             ActivityCompat.requestPermissions(this, Permissions, Permission_All);
         }
     }
+
+
 
 
     public static boolean hasPermissions(Context context, String... permissions){
@@ -298,23 +291,106 @@ public class MobileRecharge extends AppCompatActivity {
         }
     }
 
+
+
+
     private class AsynSignInDetails extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
         String success = null,data="",status="true";
+        String status_response;
+        String err_msg;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            pDialog.show();
+            ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
+            //  cred.add(new BasicNameValuePair("user_id",login_user));//user_email
+            cred.add(new BasicNameValuePair("phone",phone_number ));
+            cred.add(new BasicNameValuePair("operator",operator_code ));
+            cred.add(new BasicNameValuePair("circle",circle_code ));
+            cred.add(new BasicNameValuePair("amount",recharge_amount ));
+            Log.v("RES","Sending data " + phone_number+ operator_code +circle_code+recharge_amount);
+
+
+            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_recharge";
+            try {
+                String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
+
+                success = route_response;
+                JSONObject jsonObject = new JSONObject(success);
+
+                // user_email=jsonObject.getString("user_email");
+                status=jsonObject.getString("Status");
+                if(status.equals("Failure")) {
+                    data = jsonObject.getString("ErrorMessage");
+
+                }
+                String data=jsonObject.getString("Status");
+                // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
+                JSONObject jsonObject1 = new JSONObject(data);
+                status_response = jsonObject1.getString("Status");
+                err_msg = jsonObject1.getString("ErrorMessage");
+
+            } catch (Exception e)
+
+            {
+                Log.v("Connection error", e.toString());
+
+            }return null;
+        }
+        protected void onPostExecute(Void result) {
+            pDialog.dismiss();
+
+            if(status.equals("SUCCESS"))
+            {
+                Toast.makeText(getApplicationContext(),status, Toast.LENGTH_LONG).show();
+
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("AMOUNT", recharge_amount = amount.getText().toString());
+                editor.commit();
+               // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
+               // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
+            }
+            else{
+                Toast.makeText(getApplicationContext(),err_msg, Toast.LENGTH_LONG).show();
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.remove("PHONE_NUMBER");
+                editor.clear();
+                editor.commit();
+
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(MobileRecharge.this);
+            pDialog.setMessage("Loading In...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+    }
+
+/*
+    private class AsyngetOperator extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pDialog;
+        String success = null,data="",status="true";
+        String error;
+        String message;
 
         @Override
         protected Void doInBackground(Void... params) {
             pDialog.show();
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
             cred.add(new BasicNameValuePair("user_id",login_user));//user_email
-            cred.add(new BasicNameValuePair("phone",phone_number ));
-            cred.add(new BasicNameValuePair("operator",carrierName ));
-            cred.add(new BasicNameValuePair("circle",operator_circle_name ));
-            cred.add(new BasicNameValuePair("amount",recharge_amount ));
+            cred.add(new BasicNameValuePair("phone",phone_number=contact_number.getText().toString()));
 
-            Log.v("RES","Sending data " +login_user+ phone_number+ carrierName +operator_circle_name+recharge_amount);
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_recharge";
+            Log.v("RES","Sending data " +login_user+ phone_number);
+
+            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/operator";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 
@@ -330,6 +406,15 @@ public class MobileRecharge extends AppCompatActivity {
                 String data=jsonObject.getString("data");
                 // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
                 JSONObject jsonObject1 = new JSONObject(data);
+                String operator_name=jsonObject1.getString("Operator");
+                String circle_name=jsonObject1.getString("Circle");
+                message = jsonObject1.getString("Message");
+                error = jsonObject1.getString("Errorcode");
+
+
+                operator.setText(operator_name);
+                circle.setText(circle_name);
+
 
             } catch (Exception e)
 
@@ -343,7 +428,7 @@ public class MobileRecharge extends AppCompatActivity {
 
             if(status.equals("SUCCESS"))
             {
-                Toast.makeText(getApplicationContext(),"Recharge Successful", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
 
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
@@ -353,7 +438,7 @@ public class MobileRecharge extends AppCompatActivity {
                 startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
             }
             else{
-                Toast.makeText(getApplicationContext(),"Some Error Occured, Please try again later ", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),error, Toast.LENGTH_LONG).show();
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.remove("PHONE_NUMBER");
@@ -370,6 +455,8 @@ public class MobileRecharge extends AppCompatActivity {
             pDialog.show();
         }
     }
+*/
+
 
 
 /*

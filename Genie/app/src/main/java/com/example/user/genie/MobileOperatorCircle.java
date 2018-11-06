@@ -3,8 +3,8 @@ package com.example.user.genie;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,10 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.user.genie.Adapter.MobileOperatorCircleAdapter;
-import com.example.user.genie.Adapter.MobileOperatorsAdapter;
-import com.example.user.genie.Model.CardModel;
 import com.example.user.genie.Model.MobileOperatorCircleModel;
-import com.example.user.genie.Model.MobileOperatorsModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +35,7 @@ public class MobileOperatorCircle extends AppCompatActivity {
     private MobileOperatorCircleAdapter mobileOperatorCircleAdapter;
     private List<MobileOperatorCircleModel> mobileOperatorCircleModels;
     RecyclerView mob_operators_circle_recyclerview;
-    String operator_name;
+    String operator_name, operator_code;
     String number;
 
     @Override
@@ -78,6 +75,7 @@ public class MobileOperatorCircle extends AppCompatActivity {
         if(bundle != null) {
 
             operator_name = bundle.getString("OPERATOR_NAME");
+            operator_code = bundle.getString("OPERATOR_CODE");
         //    number = bundle.getString("NUMBER");
 
 //               Log.d("number", number);
@@ -89,11 +87,14 @@ public class MobileOperatorCircle extends AppCompatActivity {
             public boolean onClick(View view, int position) {
                 MobileOperatorCircleModel list = mobileOperatorCircleModels.get(position);
                 String name = list.getOperator_circle_name();
+                String circle_code = list.getOperator_circle_code();
 
 
                 Intent intent = new Intent(MobileOperatorCircle.this,MobileRecharge.class);
                 intent.putExtra("CIRCLE_NAME", name);
+                intent.putExtra("CIRCLE_CODE", circle_code);
                 intent.putExtra("OPERATOR_NAME", operator_name);
+                intent.putExtra("OPERATOR_CODE", operator_code);
                 startActivity(intent);
                 finish();
 

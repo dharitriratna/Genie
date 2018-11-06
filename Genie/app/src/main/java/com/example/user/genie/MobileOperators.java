@@ -1,11 +1,10 @@
 package com.example.user.genie;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,9 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.user.genie.Adapter.CardAdapter;
 import com.example.user.genie.Adapter.MobileOperatorsAdapter;
-import com.example.user.genie.Model.CardModel;
 import com.example.user.genie.Model.MobileOperatorsModel;
 
 import org.json.JSONArray;
@@ -93,9 +90,11 @@ public class MobileOperators extends AppCompatActivity {
             public boolean onClick(View view, int position) {
                 MobileOperatorsModel list = operatorsModels.get(position);
                 String operator_name = list.getOperator_name();
+                String operator_code = list.getOperator_code();
 
                 Intent intent = new Intent(MobileOperators.this,MobileOperatorCircle.class);
                 intent.putExtra("OPERATOR_NAME",operator_name);
+                intent.putExtra("OPERATOR_CODE",operator_code);
                 startActivity(intent);
                 finish();
 
