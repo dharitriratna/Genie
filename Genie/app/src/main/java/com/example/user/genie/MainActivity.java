@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
   //  LinearLayout ac_mechanic, tv_mechanic, labour, driver, home_tutor;
     LinearLayout home_delivery, events, prepaid, electricity,train_booking,
-          dth, broadband, landline, water,moviesLinear,flightLinear;
+          dth, broadband, landline, water,moviesLinear,flightLinear,linearBus,cabBookingLin,rentLin;
     Button button1, button2, button3, button4, button5;
 
     TextView tagline_text;
@@ -148,6 +148,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         train_booking = findViewById(R.id.train_booking);
         moviesLinear=findViewById(R.id.moviesLinear);
         flightLinear=findViewById(R.id.flightLinear);
+        linearBus=findViewById(R.id.linearBus);
+        cabBookingLin=findViewById(R.id.cabBookingLin);
+        rentLin=findViewById(R.id.rentLin);
 
         prepaid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,6 +221,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this,FlightActivity.class));
+            }
+        });
+        linearBus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,BusBookingActivity.class));
+            }
+        });
+        cabBookingLin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,CabBookingActivity.class));
+            }
+        });
+        rentLin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,RentActivity.class));
             }
         });
         service_recyclerview = findViewById(R.id.service_recyclerview);

@@ -180,7 +180,22 @@
         <activity
             android:name=".FlightTravellerInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PNRStatusActivity"
+        <activity
+            android:name=".PNRStatusActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BusBookingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CabBookingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PlaceCabActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SellRentActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

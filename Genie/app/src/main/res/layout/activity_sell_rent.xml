@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.user.genie.SellRentActivity"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:popupTheme="@style/MyDarkToolbarStyle"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextColor="@android:color/black">
+
+        <TextView
+            android:id="@+id/order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sell"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/colorPrimary" />
+    </android.support.v7.widget.Toolbar>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:visibility="gone"
+        android:scaleType="fitXY"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@drawable/edittext_top_bg">
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            ></Spinner>
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/priceEd"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="true"
+        android:textAlignment="viewStart"
+        android:layout_marginLeft="10dp"
+
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:hint="Price"
+        android:textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:inputType="number"
+        android:singleLine="true"
+        android:background="@drawable/edittext_top_bg"
+        android:padding="10dp"
+        android:layout_marginRight="10dp"
+        tools:ignore="RtlCompat" />
+    <EditText
+        android:id="@+id/descripEd"
+
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:cursorVisible="true"
+        android:textAlignment="viewStart"
+        android:layout_marginLeft="10dp"
+        android:gravity="top"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp"
+        android:hint="Description"
+        android:textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:inputType="text"
+
+        android:background="@drawable/edittext_top_bg"
+        android:padding="10dp"
+        android:layout_marginRight="10dp"
+        tools:ignore="RtlCompat" />
+    <EditText
+        android:id="@+id/addressEd"
+
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:cursorVisible="true"
+        android:textAlignment="viewStart"
+        android:layout_marginLeft="10dp"
+
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp"
+        android:hint="Address"
+        android:textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:inputType="text"
+        android:gravity="top"
+        android:background="@drawable/edittext_top_bg"
+        android:padding="10dp"
+        android:layout_marginRight="10dp"
+        tools:ignore="RtlCompat" />
+    <Button
+        android:visibility="visible"
+        android:id="@+id/uploadBtn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp"
+        android:text="Upload Image"
+        android:textAllCaps="false"
+        android:background="@drawable/my_button"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18dp" />
+    <Button
+        android:visibility="visible"
+        android:id="@+id/sellBtn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp"
+        android:text="Sell"
+        android:textAllCaps="false"
+        android:background="@drawable/my_button"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18dp" />
+</LinearLayout>
