@@ -180,8 +180,13 @@
         <activity
             android:name=".FlightTravellerInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PNRStatusActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".PNRStatusActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TrainAvailability"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".HomeDeliveryGrocery"></activity>
     </application>
 
 </manifest>

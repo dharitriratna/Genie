@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context=".HomeDeliveryGrocery">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            app:popupTheme="@style/MyDarkToolbarStyle"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:titleTextColor="@android:color/black">
+
+            <TextView
+                android:id="@+id/order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home Delivery"
+                android:textSize="18sp"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/colorPrimary" />
+        </android.support.v7.widget.Toolbar>
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_refresh_black_24dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:weightSum="2"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:id="@+id/radioGroup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:checked="true"
+                android:layout_weight="1"
+                android:id="@+id/prepaid"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Item"
+                android:enabled="true"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"/>
+
+            <RadioButton
+                android:layout_weight="1"
+                android:id="@+id/postpaid"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Image"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"/>
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_margin="10dp">
+
+            <EditText
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_background"
+                android:hint="Item Name"
+                android:layout_margin="5dp"
+                android:padding="10dp"
+                android:textSize="14sp"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:id="@+id/vertical_list_item_title"/>
+
+            <EditText
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_background"
+                android:hint="Quantity"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:padding="10dp"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:id="@+id/vertical_list_item_subtitle"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

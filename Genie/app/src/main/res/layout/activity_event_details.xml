@@ -21,6 +21,7 @@
 
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
@@ -37,7 +38,6 @@
                 android:background="@color/colorPrimary"
                 android:elevation="1dp"
                 android:singleLine="true"
-
                 app:tabGravity="fill"
                 app:tabIndicatorHeight="3.5dp"
                 app:tabIndicatorColor="@android:color/black"

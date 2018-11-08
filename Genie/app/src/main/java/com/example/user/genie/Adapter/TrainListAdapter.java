@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.user.genie.FlightBaggageActivity;
 import com.example.user.genie.Model.TrainSeatAvailableModel;
 import com.example.user.genie.R;
+import com.example.user.genie.TrainAvailability;
 import com.example.user.genie.TrainSeatAvailableActivity;
 
 import java.util.ArrayList;
@@ -57,12 +58,8 @@ public class TrainListAdapter extends RecyclerView.Adapter<TrainListAdapter.View
 
         holder.checkAvilBut.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-              /*  String flight= (String) holder.textViewName.getText();
-                Intent i=new Intent(context, FlightBaggageActivity.class);
-               // RegPrefManager.getInstance(context).setCity(city);
-                context.startActivity(i);*/
-                SeatDialog();
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, TrainAvailability.class));
             }
         });
     }
@@ -86,6 +83,8 @@ public class TrainListAdapter extends RecyclerView.Adapter<TrainListAdapter.View
             destplaceTv=(TextView)itemView.findViewById(R.id.destplaceTv);
             arriveplaceTv=(TextView)itemView.findViewById(R.id.arriveplaceTv);
             checkAvilBut=(Button) itemView.findViewById(R.id.checkAvilBut);
+
+
         }
     }
     //This method will filter the list
@@ -120,8 +119,6 @@ public class TrainListAdapter extends RecyclerView.Adapter<TrainListAdapter.View
         seatAdapter = new TrainSeatAdapter(context,seatAvail);
 
         seatRecycler.setAdapter(seatAdapter);
-
-
 
         dialog.show();
     }
