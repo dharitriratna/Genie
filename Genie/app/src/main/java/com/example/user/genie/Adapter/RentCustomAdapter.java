@@ -10,8 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.genie.MoviesListActivity;
+import com.example.user.genie.ObjectNew.RentResponse;
 import com.example.user.genie.R;
 import com.example.user.genie.helper.RegPrefManager;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -21,9 +23,9 @@ import java.util.ArrayList;
 
 public class RentCustomAdapter extends RecyclerView.Adapter<RentCustomAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<String> names;
+    private ArrayList<RentResponse.Data> names;
 
-    public RentCustomAdapter(Context context, ArrayList<String> names) {
+    public RentCustomAdapter(Context context, ArrayList<RentResponse.Data> names) {
         this.names = names;
         this.context=context;
     }
@@ -37,7 +39,7 @@ public class RentCustomAdapter extends RecyclerView.Adapter<RentCustomAdapter.Vi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.nameTv.setText(names.get(position));
+      //  holder.nameTv.setText(names.get(position));
 
         /*holder.textViewName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +50,15 @@ public class RentCustomAdapter extends RecyclerView.Adapter<RentCustomAdapter.Vi
                 context.startActivity(i);
             }
         });*/
+        RentResponse.Data data=names.get(position);
+        holder.nameTv.setText(data.getCategory());
+        holder.addressTv.setText(data.getAddress());
+        holder.priceTv.setText("Rs."+data.getPrice());
+        holder.phoneTv.setText(data.getPhone());
+        String image=data.getImage_url();
+        if(data.getImage_url()!=null){
+            Picasso.with(context).load(data.getImage_url()).into(holder.image);
+        }
     }
 
     @Override
@@ -58,7 +69,7 @@ public class RentCustomAdapter extends RecyclerView.Adapter<RentCustomAdapter.Vi
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
 
-        TextView nameTv,priceTv,addressTv;
+        TextView nameTv,priceTv,addressTv,phoneTv;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -67,12 +78,13 @@ public class RentCustomAdapter extends RecyclerView.Adapter<RentCustomAdapter.Vi
             priceTv = (TextView) itemView.findViewById(R.id.priceTv);
             nameTv = (TextView) itemView.findViewById(R.id.nameTv);
             image = (ImageView) itemView.findViewById(R.id.image);
+            phoneTv=(TextView)itemView.findViewById(R.id.phoneTv);
         }
     }
     //This method will filter the list
     //here we are passing the filtered data
     //and assigning it to the list with notifydatasetchanged method
-    public void filterList(ArrayList<String> filterdNames) {
+    public void filterList(ArrayList<RentResponse.Data> filterdNames) {
         this.names = filterdNames;
         notifyDataSetChanged();
     }

@@ -705,7 +705,7 @@
                             >
 
                             <LinearLayout
-                                android:id="@+id/job"
+                                android:id="@+id/joblin"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"

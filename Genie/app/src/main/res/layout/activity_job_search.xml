@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context="com.example.user.genie.JobSearchActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:popupTheme="@style/MyDarkToolbarStyle"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextColor="@android:color/black">
+
+        <TextView
+            android:id="@+id/order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Job Search"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/colorPrimary" />
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/searchLin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="2"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="10dp">
+        <EditText
+            android:id="@+id/whatEd"
+
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:cursorVisible="true"
+            android:textAlignment="viewStart"
+            android:layout_marginLeft="10dp"
+
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:hint="What (Job Title)"
+            android:textColorHint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            android:inputType="number"
+            android:singleLine="true"
+            android:background="@drawable/edittext_top_bg"
+            android:padding="10dp"
+            android:layout_marginRight="5dp"
+            tools:ignore="RtlCompat"
+            android:visibility="gone"/>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/edittext_top_bg"
+            android:layout_weight="1"
+            android:layout_marginTop="3dp">
+            <Spinner
+                android:id="@+id/tittlespinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginRight="5dp"
+                android:padding="10dp"
+                ></Spinner>
+        </RelativeLayout>
+        <EditText
+            android:id="@+id/whereEd"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:cursorVisible="true"
+            android:textAlignment="viewStart"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:hint="Where (City,State)"
+            android:textColorHint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            android:inputType="number"
+            android:focusable="false"
+            android:singleLine="true"
+            android:background="@drawable/edittext_top_bg"
+            android:padding="10dp"
+            android:layout_marginRight="10dp"
+            tools:ignore="RtlCompat" />
+    </LinearLayout>
+    <Button
+        android:visibility="visible"
+        android:id="@+id/searchBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp"
+        android:text="Search"
+        android:textAllCaps="false"
+        android:background="@drawable/custombutton"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18dp"
+        android:layout_below="@+id/searchLin"/>
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_below="@+id/searchBtn"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/searchRecyclerview"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/view">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

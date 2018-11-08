@@ -40,13 +40,14 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:checked="true"
+
             android:layout_weight="1"
             android:id="@+id/onewayRB"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Oneway"
             android:enabled="true"
+
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"/>
 

@@ -45,10 +45,10 @@ public class CabPlaceCustomAdapter extends RecyclerView.Adapter<CabPlaceCustomAd
                 String placename= (String) holder.textViewName.getText();
                 String place= RegPrefManager.getInstance(context).getPlace();
                 if(place.equals("From")) {
-                    RegPrefManager.getInstance(context).setTrainFromPlace(placename);
+                    RegPrefManager.getInstance(context).setCabFromPlace(placename);
                 }
                 else {
-                    RegPrefManager.getInstance(context).setTainToPlace(placename);
+                    RegPrefManager.getInstance(context).setCabToPlace(placename);
                 }
                 context.startActivity(new Intent(context,CabBookingActivity.class));
             }
