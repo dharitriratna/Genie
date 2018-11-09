@@ -158,7 +158,8 @@
         <activity
             android:name=".FlightActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EventManagement" />
+        <activity android:name=".EventManagement"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".PlaceFlightActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -184,11 +185,11 @@
             android:name=".PNRStatusActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-
             android:name=".TrainAvailability"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".HomeDeliveryGrocery"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".HomeDeliveryGrocery"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BusBookingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -201,7 +202,13 @@
         <activity
             android:name=".RentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SellRentActivity"
+        <activity
+            android:name=".SellRentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SurprisePlanner"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".GiftsList"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

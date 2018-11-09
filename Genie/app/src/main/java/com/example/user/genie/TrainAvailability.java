@@ -30,7 +30,7 @@ public class TrainAvailability extends AppCompatActivity {
                 finish();
             }
         });
-        tabLayout = findViewById(R.id.events_tabs);
+        tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
 
         no_of_categories=YOUR_NO_CATEGORIES;

@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
   //  LinearLayout ac_mechanic, tv_mechanic, labour, driver, home_tutor;
     LinearLayout home_delivery, events, prepaid, electricity,train_booking,
-          dth, broadband, landline, water,moviesLinear,flightLinear,linearBus,cabBookingLin,rentLin;
+          dth, broadband, landline, water,moviesLinear,flightLinear,linearBus,cabBookingLin,rentLin,birthday_planners;
     Button button1, button2, button3, button4, button5;
 
     TextView tagline_text;
@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         linearBus=findViewById(R.id.linearBus);
         cabBookingLin=findViewById(R.id.cabBookingLin);
         rentLin=findViewById(R.id.rentLin);
+        birthday_planners=findViewById(R.id.birthday_planners);
 
         prepaid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         home_delivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, VerticalFragment.class));
+                startActivity(new Intent(MainActivity.this, HomeDeliveryGrocery.class));
             }
         });
 
@@ -241,6 +242,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this,RentActivity.class));
             }
         });
+
+        birthday_planners.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,SurprisePlanner.class));
+            }
+        });
+
         service_recyclerview = findViewById(R.id.service_recyclerview);
 
         GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
