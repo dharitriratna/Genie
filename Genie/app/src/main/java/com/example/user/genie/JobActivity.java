@@ -67,8 +67,8 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.searchBtn:
-                startActivity(new Intent(JobActivity.this,JobSearchActivity.class));
-                finish();
+             /*   startActivity(new Intent(JobActivity.this,JobSearchActivity.class));
+                finish();*/
                 break;
         }
     }

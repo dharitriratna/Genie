@@ -38,6 +38,7 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     String login_user="";
+    private TextView noMesgTv;
 
 
     @Override
@@ -67,6 +68,7 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
 
         rentRecyclerview=findViewById(R.id.rentRecyclerview);
         sellFrame=findViewById(R.id.sellFrame);
+        noMesgTv=findViewById(R.id.noMesgTv);
         sellFrame.setOnClickListener(this);
         rentarray=new ArrayList<>();
         rentRecyclerview.setHasFixedSize(true);
@@ -111,22 +113,28 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
                 if(status==true){
                     rentarray=response.body().getData();
                     if(rentarray.size()>0) {
+                        rentRecyclerview.setVisibility(View.VISIBLE);
+                        noMesgTv.setVisibility(View.GONE);
                         rentCustomAdapter = new RentCustomAdapter(RentActivity.this, rentarray);
 
                         rentRecyclerview.setAdapter(rentCustomAdapter);
                     }
                     else {
-
+                        rentRecyclerview.setVisibility(View.GONE);
+                        noMesgTv.setVisibility(View.VISIBLE);
                     }
                 }
                 else {
-
+                    rentRecyclerview.setVisibility(View.GONE);
+                    noMesgTv.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<RentResponse> call, Throwable t) {
-
+                Log.d("Tag","Error");
+                rentRecyclerview.setVisibility(View.GONE);
+                noMesgTv.setVisibility(View.VISIBLE);
             }
         });
     }

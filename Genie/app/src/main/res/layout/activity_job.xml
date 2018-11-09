@@ -221,7 +221,7 @@
                     android:textSize="18dp" />
             </LinearLayout>
     <Button
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/searchBtn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -234,7 +234,8 @@
         android:textAllCaps="false"
         android:background="@drawable/my_button"
         android:textColor="@color/colorPrimary"
-        android:textSize="18dp" />
+        android:textSize="18dp"
+        />
         </LinearLayout>
         </ScrollView>
 </LinearLayout>
