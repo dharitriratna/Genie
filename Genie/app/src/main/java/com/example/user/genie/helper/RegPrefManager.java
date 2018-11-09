@@ -126,5 +126,11 @@ public class RegPrefManager {
     public String getTripRadio(){
         return mSharedPreferences.getString("trip",null);
     }
+    public void setPhoneNo(String phone){
+        mSharedPreferences.edit().putString("phoneno",phone).apply();
+    }
+    public String getPhoneNo(){
+        return mSharedPreferences.getString("phoneno",null);
+    }
 }
 

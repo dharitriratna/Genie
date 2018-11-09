@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.genie.helper.RegPrefManager;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
@@ -98,6 +100,7 @@ public class LogIn extends AppCompatActivity {
                     password.setError("Enter Your Password");
                 }
                 else {
+                    RegPrefManager.getInstance(LogIn.this).setPhoneNo(user_phone);
                     new AsynSignInDetails().execute();
                 //  startActivity(new Intent(LogIn.this,MainActivity.class));
                 }

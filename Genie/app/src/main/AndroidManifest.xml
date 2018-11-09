@@ -203,7 +203,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SellRentActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".JobActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".JobSearchActivity"

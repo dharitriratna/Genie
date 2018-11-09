@@ -2,6 +2,7 @@ package com.example.user.genie.client;
 
 import com.example.user.genie.ObjectNew.CabResponse;
 import com.example.user.genie.ObjectNew.GenPNRResponse;
+import com.example.user.genie.ObjectNew.JobResponse;
 import com.example.user.genie.ObjectNew.RentResponse;
 import com.example.user.genie.ObjectNew.SellResponse;
 import com.example.user.genie.ObjectNew.ServiceImage;
@@ -45,4 +46,10 @@ public interface ApiInterface {
                                         @Part("category") RequestBody category, @Part("price") RequestBody price,
                                         @Part("description") RequestBody description,@Part("phone") RequestBody phone,
                                         @Part("address") RequestBody address);
+    @Multipart
+    @POST("api/service/job")
+    Call<JobResponse> uploadFile(@Part MultipartBody.Part file, @Part("user_id") RequestBody user_id,
+                                 @Part("name") RequestBody name,@Part("number") RequestBody number,
+                                 @Part("highest_qulification") RequestBody highest_qulification,
+                                 @Part("desc") RequestBody desc);
 }

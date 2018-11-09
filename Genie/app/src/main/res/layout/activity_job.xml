@@ -54,7 +54,7 @@
             android:singleLine="true"
             android:background="@drawable/edittext_top_bg"
             android:padding="10dp"
-            android:focusable="false"
+
             android:layout_marginRight="10dp"
             tools:ignore="RtlCompat" />
     <EditText
@@ -71,11 +71,12 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="15sp"
         android:inputType="phone"
+        android:maxLength="10"
         android:imeOptions="actionNext"
         android:singleLine="true"
         android:background="@drawable/edittext_top_bg"
         android:padding="10dp"
-        android:focusable="false"
+
         android:layout_marginRight="10dp"
         tools:ignore="RtlCompat" />
     <RelativeLayout
@@ -83,6 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:padding="10dp"
+        android:visibility="gone"
         android:background="@drawable/edittext_top_bg">
         <Spinner
             android:id="@+id/spinner"
@@ -109,7 +111,7 @@
         android:singleLine="true"
         android:background="@drawable/edittext_top_bg"
         android:padding="10dp"
-        android:focusable="false"
+
         android:layout_marginRight="10dp"
         tools:ignore="RtlCompat" />
     <RelativeLayout
@@ -132,6 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:padding="10dp"
+                android:visibility="gone"
                 android:background="@drawable/edittext_top_bg">
                 <Spinner
                     android:id="@+id/tittlespinner"
@@ -160,7 +163,8 @@
                 android:padding="10dp"
                 android:focusable="false"
                 android:layout_marginRight="10dp"
-                tools:ignore="RtlCompat" />
+                tools:ignore="RtlCompat"
+                android:visibility="gone"/>
             <EditText
                 android:id="@+id/descriptionTv"
                 android:layout_width="match_parent"
@@ -175,14 +179,26 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp"
                 android:inputType="text"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
 
                 android:background="@drawable/edittext_top_bg"
                 android:padding="10dp"
-                android:focusable="false"
+
                 android:gravity="top"
                 android:layout_marginRight="10dp"
                 tools:ignore="RtlCompat" />
+            <TextView
+                android:id="@+id/pdfTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:singleLine="true"
+                android:lines="1"
+                android:visibility="gone"
+                android:textColor="@color/colorPrimaryDark"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
