@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.user.genie.JobActivity"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:popupTheme="@style/MyDarkToolbarStyle"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextColor="@android:color/black">
+
+        <TextView
+            android:id="@+id/order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Profile"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/colorPrimary" />
+    </android.support.v7.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/nameTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cursorVisible="false"
+            android:textAlignment="viewStart"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="10dp"
+            android:hint="Name"
+            android:textColorHint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:background="@drawable/edittext_top_bg"
+            android:padding="10dp"
+            android:focusable="false"
+            android:layout_marginRight="10dp"
+            tools:ignore="RtlCompat" />
+    <EditText
+        android:id="@+id/numberTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+        android:textAlignment="viewStart"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="10dp"
+        android:hint="Number"
+        android:textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="15sp"
+        android:inputType="phone"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:background="@drawable/edittext_top_bg"
+        android:padding="10dp"
+        android:focusable="false"
+        android:layout_marginRight="10dp"
+        tools:ignore="RtlCompat" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@drawable/edittext_top_bg">
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            ></Spinner>
+    </RelativeLayout>
+    <EditText
+        android:id="@+id/qualiTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+        android:textAlignment="viewStart"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="10dp"
+        android:hint="Highest Qualification"
+        android:textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="15sp"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:background="@drawable/edittext_top_bg"
+        android:padding="10dp"
+        android:focusable="false"
+        android:layout_marginRight="10dp"
+        tools:ignore="RtlCompat" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@drawable/edittext_top_bg"
+        android:visibility="gone">
+        <Spinner
+            android:id="@+id/fieldSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            ></Spinner>
+    </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:background="@drawable/edittext_top_bg">
+                <Spinner
+                    android:id="@+id/tittlespinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    ></Spinner>
+            </RelativeLayout>
+            <EditText
+                android:id="@+id/locationTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:textAlignment="viewStart"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="10dp"
+                android:hint="Location"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp"
+                android:inputType="text"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:background="@drawable/edittext_top_bg"
+                android:padding="10dp"
+                android:focusable="false"
+                android:layout_marginRight="10dp"
+                tools:ignore="RtlCompat" />
+            <EditText
+                android:id="@+id/descriptionTv"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:cursorVisible="false"
+                android:textAlignment="viewStart"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="10dp"
+                android:hint="Description"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp"
+                android:inputType="text"
+                android:imeOptions="actionNext"
+
+                android:background="@drawable/edittext_top_bg"
+                android:padding="10dp"
+                android:focusable="false"
+                android:gravity="top"
+                android:layout_marginRight="10dp"
+                tools:ignore="RtlCompat" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+    <Button
+        android:visibility="visible"
+        android:id="@+id/uploadBtn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp"
+        android:text="Upload CV"
+        android:textAllCaps="false"
+        android:background="@drawable/my_button"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18dp" />
+                <Button
+                    android:visibility="visible"
+                    android:id="@+id/postBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="Create Porfile"
+                    android:textAllCaps="false"
+                    android:background="@drawable/my_button"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18dp" />
+            </LinearLayout>
+    <Button
+        android:visibility="gone"
+        android:id="@+id/searchBtn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp"
+        android:text="Job Search"
+        android:textAllCaps="false"
+        android:background="@drawable/my_button"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18dp"
+        />
+        </LinearLayout>
+        </ScrollView>
+</LinearLayout>

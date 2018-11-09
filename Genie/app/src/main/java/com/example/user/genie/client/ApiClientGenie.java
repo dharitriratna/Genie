@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClientGenie {
-    public static final String BASE_URL = "http://demo.ratnatechnology.co.in/genie/index.php/api/";
+    public static final String BASE_URL = "http://demo.ratnatechnology.co.in/genie/";
     private static Retrofit retrofit = null;
 
 

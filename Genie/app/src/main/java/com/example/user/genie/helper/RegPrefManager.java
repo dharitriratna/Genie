@@ -108,6 +108,23 @@ public class RegPrefManager {
     public String getTainToPlace(){
         return mSharedPreferences.getString("FlightTrainToPlace",null);
     }
-
+    public void setCabToPlace(String place){
+        mSharedPreferences.edit().putString("CabToPlace",place).apply();
+    }
+    public String getCabToPlace(){
+        return mSharedPreferences.getString("CabToPlace",null);
+    }
+    public void setCabFromPlace(String place){
+        mSharedPreferences.edit().putString("CabFromPlace",place).apply();
+    }
+    public String getCabFromPlace(){
+        return mSharedPreferences.getString("CabFromPlace",null);
+    }
+    public void setTripRadio(String trip){
+        mSharedPreferences.edit().putString("trip",trip).apply();
+    }
+    public String getTripRadio(){
+        return mSharedPreferences.getString("trip",null);
+    }
 }
 

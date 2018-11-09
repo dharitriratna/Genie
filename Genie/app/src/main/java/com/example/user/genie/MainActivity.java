@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
   //  LinearLayout ac_mechanic, tv_mechanic, labour, driver, home_tutor;
     LinearLayout home_delivery, events, prepaid, electricity,train_booking,
-          dth, broadband, landline, water,moviesLinear,flightLinear,linearBus,cabBookingLin,rentLin,birthday_planners;
+          dth, broadband, landline, water,moviesLinear,flightLinear,linearBus,cabBookingLin,rentLin,birthday_planners, joblin;
     Button button1, button2, button3, button4, button5;
 
     TextView tagline_text;
@@ -151,7 +151,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         linearBus=findViewById(R.id.linearBus);
         cabBookingLin=findViewById(R.id.cabBookingLin);
         rentLin=findViewById(R.id.rentLin);
+
         birthday_planners=findViewById(R.id.birthday_planners);
+
+        joblin=findViewById(R.id.joblin);
 
         prepaid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,6 +253,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        joblin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,JobActivity.class));
+            }
+        });
         service_recyclerview = findViewById(R.id.service_recyclerview);
 
         GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
