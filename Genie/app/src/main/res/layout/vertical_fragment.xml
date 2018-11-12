@@ -49,19 +49,19 @@
         android:layout_height="wrap_content"
         android:scrollbars="none">
         <LinearLayout
-            android:weightSum="3"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
             <android.support.v7.widget.RecyclerView
-                android:layout_weight="1"
+
                 android:visibility="visible"
                 android:id="@+id/vertical_fragment_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_margin="5dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"/>
 
 
 
