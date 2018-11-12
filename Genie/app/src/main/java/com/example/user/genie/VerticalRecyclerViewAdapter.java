@@ -129,8 +129,6 @@ public class VerticalRecyclerViewAdapter extends RecyclerView
         notifyItemRemoved(index);
     }
 
-
-
     interface MyClickListener {
         void onItemClick(int position, View v);
 

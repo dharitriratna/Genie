@@ -128,7 +128,7 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
         tittlespinner.setAdapter(aaa);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
     @Override
     public void onClick(View view) {
         switch (view.getId()){

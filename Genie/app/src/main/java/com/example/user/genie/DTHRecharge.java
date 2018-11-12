@@ -137,7 +137,7 @@ public class DTHRecharge extends AppCompatActivity {
 
             if(status.equals("SUCCESS"))
             {
-                Toast.makeText(getApplicationContext(),status, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Recharge Successful", Toast.LENGTH_LONG).show();
 
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
@@ -147,7 +147,7 @@ public class DTHRecharge extends AppCompatActivity {
                 // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
             }
             else{
-                Toast.makeText(getApplicationContext(),err_msg, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Error Occured", Toast.LENGTH_LONG).show();
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.remove("OPERATOR_NAME");
