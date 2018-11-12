@@ -143,17 +143,19 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
     //Requesting permission
     private void requestStoragePermission() {
         if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-                || (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED))
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+                ||(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED))
             return;
 
         if ((ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) ||
-                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))) {
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))
+                || (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE))) {
             //If the user has denied the permission previously your code will come to this block
             //Here you can explain why you need this permission
             //Explain here why you need this permission
         }
         //And finally ask for the permission
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, STORAGE_PERMISSION_CODE);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
     }
 
 
@@ -205,19 +207,22 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
 
 
         //creating a file
-       // String path = filePath
-        String root = Environment.getExternalStorageDirectory().toString();
+        // String path = filePath
+     /*   String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + filePath.getPath());
         myDir.mkdirs();
         String fname = "TestPdf-01A.pdf";
 
         File file = new File(myDir, fname);
-        if (file.exists()) file.delete();
+        if (file.exists()) file.delete();*/
+        //String fm=filePath.getPath();
+        //Uri uu=Uri.parse(fm);
 
-       // File file = new File(getRealPathFromURI(filePath));
+        // File file = new File(FilePath.getPath(this,filePath));
+        File file = new File(getPath(this,filePath));
 
         //creating request body for file
-        RequestBody mFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody mFile = RequestBody.create(MediaType.parse("application/pdf"), file);
         MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
 
         // RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(selectedImage)), file);
@@ -239,12 +244,13 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onResponse(Call<JobResponse> call, Response<JobResponse> response) {
                 progressDialog.dismiss();
+                //Response{protocol=http/1.1, code=400, message=Bad Request, url=http://demo.ratnatechnology.co.in/genie/api/service/job}
                 String v = response.body().toString();
                 //Log.d("Tag", response.body().toString());
                 boolean status = response.body().isStatus();
                 if(status==true){
                     String data=response.body().getData();
-                    Toast.makeText(getApplicationContext(),data,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),data,Toast.LENGTH_LONG).show();
                     startActivity(new Intent(JobActivity.this,MainActivity.class));
                     finish();
                 }
@@ -259,53 +265,135 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
 
 
     }
-
+    /**
+     * Get a file path from a Uri. This will get the the path for Storage Access
+     * Framework Documents, as well as the _data field for the MediaStore and
+     * other file-based ContentProviders.
+     *
+     * @param context The context.
+     * @param uri The Uri to query.
+     * @author paulburke
+     */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private String getRealPathFromURI(Uri uri) {
-        String filePath = "";
-        filePath = uri.getPath();
+    public static String getPath(final Context context, final Uri uri) {
 
-        if (filePath.startsWith("/storage"))
-            return filePath;
+        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
-        String wholeID = DocumentsContract.getDocumentId(uri);
+        // DocumentProvider
+        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+            // ExternalStorageProvider
+            if (isExternalStorageDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
 
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
 
+                // TODO handle non-primary volumes
+            }
+            // DownloadsProvider
+            else if (isDownloadsDocument(uri)) {
 
-        // Split at colon, use second item in the array
-        String id = wholeID.split(":")[1];
+                final String id = DocumentsContract.getDocumentId(uri);
+                final Uri contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/all_downloads"), Long.valueOf(id));
 
-        Log.e("Tag", "id = " + id);
+                return getDataColumn(context, contentUri, null, null);
+            }
+            // MediaProvider
+            else if (isMediaDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
 
-        String[] column = { MediaStore.Files.FileColumns.DATA };
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
 
+                final String selection = "_id=?";
+                final String[] selectionArgs = new String[] {
+                        split[1]
+                };
 
-
-        String sel = MediaStore.Files.FileColumns.DATA + " LIKE '%" + id + "%'";
-
-
-        Cursor cursor = getContentResolver().query(MediaStore.Files.getContentUri("external"),
-                column, sel, null, null);
-
-
-
-        int columnIndex = cursor.getColumnIndex(column[0]);
-
-        if (cursor.moveToFirst()) {
-            filePath = cursor.getString(columnIndex);
+                return getDataColumn(context, contentUri, selection, selectionArgs);
+            }
         }
-        cursor.close();
-        return filePath;
+        // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            return getDataColumn(context, uri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
+
+        return null;
     }
-    private String getRealPathFromURI1(Uri contentUri) {
-        String[] proj = {MediaStore.Files.FileColumns.DATA};
-        CursorLoader loader = new CursorLoader(this, contentUri, proj, null, null, null);
-        Cursor cursor = loader.loadInBackground();
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA);
-        cursor.moveToFirst();
-        String result = cursor.getString(column_index);
-        cursor.close();
-        return result;
+
+    /**
+     * Get the value of the data column for this Uri. This is useful for
+     * MediaStore Uris, and other file-based ContentProviders.
+     *
+     * @param context The context.
+     * @param uri The Uri to query.
+     * @param selection (Optional) Filter used in the query.
+     * @param selectionArgs (Optional) Selection arguments used in the query.
+     * @return The value of the _data column, which is typically a file path.
+     */
+    public static String getDataColumn(Context context, Uri uri, String selection,
+                                       String[] selectionArgs) {
+
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int column_index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(column_index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
     }
+
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    public static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    public static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    public static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
 
 }
