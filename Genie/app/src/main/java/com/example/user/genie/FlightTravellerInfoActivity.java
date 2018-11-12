@@ -32,6 +32,6 @@ public class FlightTravellerInfoActivity extends AppCompatActivity {
         listTv.setText(fromplace+" - "+toplace);
 
         priceTv=findViewById(R.id.priceTv);
-        priceTv.setText(getResources().getString(R.string.Rs)+"22,600");
+        priceTv.setText(getResources().getString(R.string.rupee)+"22,600");
     }
 }

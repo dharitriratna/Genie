@@ -9,29 +9,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.genie.Model.EventsModel;
-import com.example.user.genie.Model.WaterBoardModel;
+import com.example.user.genie.Model.GiftsModel;
 import com.example.user.genie.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
+public class GiftsAdapter extends RecyclerView.Adapter<GiftsAdapter.ViewHolder> {
 
-    private List<EventsModel> eventsModels;
+    private List<GiftsModel> giftsModels;
     private Context context;
 
    /* String fontPath = "fonts/Raleway-Light.ttf";
     String fontPath2 = "fonts/Raleway-Thin.ttf";
     String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
 
-    public EventsAdapter(List<EventsModel> eventsModels, Context context) {
-        this.eventsModels = eventsModels;
+    public GiftsAdapter(List<GiftsModel> giftsModels, Context context) {
+        this.giftsModels = giftsModels;
         this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_events,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_gifts_row, parent, false);
         return new ViewHolder(v);
     }
 
@@ -39,7 +39,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     @Override
 
     public void onBindViewHolder(ViewHolder holder, int position) {
-        EventsModel listItem = eventsModels.get(position);
+        GiftsModel listItem = giftsModels.get(position);
 
       /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
         Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
@@ -47,10 +47,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
 
         //   holder.samagri_amt.setTypeface(tf3);
-        holder.event_id.setText(listItem.getEvent_id());
-        holder.event_name.setText(listItem.getEvent_name());
-        holder.event_entry_fees.setText(context.getResources().getString(R.string.rupee)+listItem.getEvent_price());
-        Picasso.with(context).load(listItem.getEvent_image()).into(holder.event_image);
+        holder.gift_id.setText(listItem.getGift_id());
+        holder.gift_name.setText(listItem.getGift_name());
+        holder.gift_price.setText(context.getResources().getString(R.string.rupee) + listItem.getGift_price());
+        Picasso.with(context).load(listItem.getGift_image()).into(holder.gift_image);
 
 
        /* holder.mob_operator_id.setText(listItem.getOperator_id());
@@ -63,23 +63,22 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return eventsModels.size();
+        return giftsModels.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView event_name,event_entry_fees,event_id;
-        private ImageView event_image;
+        private TextView gift_name, gift_price, gift_id;
+        private ImageView gift_image;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            event_name = itemView.findViewById(R.id.event_name);
-            event_entry_fees = itemView.findViewById(R.id.event_entry_fees);
-            event_id = itemView.findViewById(R.id.event_id);
-            event_image = itemView.findViewById(R.id.event_image);
+            gift_name = itemView.findViewById(R.id.gift_name);
+            gift_price = itemView.findViewById(R.id.gift_price);
+            gift_id = itemView.findViewById(R.id.gift_id);
+            gift_image = itemView.findViewById(R.id.gift_image);
 
         }
-
     }
 }

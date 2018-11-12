@@ -29,6 +29,48 @@
             android:textColor="@color/colorPrimary" />
     </android.support.v7.widget.Toolbar>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@color/colorPrimary"
+        android:id="@+id/gift_image"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:gravity="center"
+        android:id="@+id/gift_id"
+        android:textColor="@color/colorPrimaryDark"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="gift name"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:id="@+id/gift_name"
+        android:textColor="@color/colorPrimaryDark"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="price"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="15sp"
+        android:id="@+id/gift_price"
+        android:gravity="center"/>
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none">
 
     <LinearLayout
         android:weightSum="2"
@@ -42,7 +84,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -184,6 +226,8 @@
 
 
     </LinearLayout>
+
+</ScrollView>
 
 
 </LinearLayout>

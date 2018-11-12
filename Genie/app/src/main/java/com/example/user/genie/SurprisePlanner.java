@@ -2,7 +2,9 @@ package com.example.user.genie;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,8 +13,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,11 +26,17 @@ import java.util.Locale;
 public class SurprisePlanner extends AppCompatActivity {
     Toolbar toolbar;
     Button btn_proceed;
-    TextView date, time;
+    TextView date, time, gift_price, gift_name, gift_id;
+    ImageView gift_image;
     private DatePickerDialog fromDatePickerDialog;
     Calendar mcurrenttime;
     private SimpleDateFormat dateFormatter;
     String Date_;
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
+    String login_user="";
+    String giftId, giftName, giftPrice, giftImage;
+
 
 
     @Override
@@ -46,7 +57,38 @@ public class SurprisePlanner extends AppCompatActivity {
 
         date = findViewById(R.id.date);
         time = findViewById(R.id.time);
+        gift_price = findViewById(R.id.gift_price);
+        gift_name = findViewById(R.id.gift_name);
+        gift_image = findViewById(R.id.gift_image);
+        gift_id = findViewById(R.id.gift_id);
 
+
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        login_user=sharedpreferences.getString("FLAG", "");
+        editor.commit(); // commit changes
+
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if(bundle != null){
+
+            giftId = bundle.getString("GIFT_ID");
+            giftName=bundle.getString("GIFT_NAME");
+            giftPrice = bundle.getString("GIFT_PRICE");
+            giftImage  = bundle.getString("GIFT_IMAGE");
+
+            //    deiverydate=bundle.getString("DELIVERYDATE");
+
+            //    Log.d("deiverydate",deiverydate);
+            gift_name.setText(giftName);
+            gift_price.setText(this.getResources().getString(R.string.rupee)+giftPrice);
+            gift_id.setText(giftId);
+            Picasso.with(this).load(giftImage).into(gift_image);
+        }
         btn_proceed = findViewById(R.id.btn_proceed);
         btn_proceed.setOnClickListener(new View.OnClickListener() {
             @Override

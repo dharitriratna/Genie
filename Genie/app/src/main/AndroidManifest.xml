@@ -158,8 +158,9 @@
         <activity
             android:name=".FlightActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EventManagement"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".EventManagement"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PlaceFlightActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -204,24 +205,22 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SellRentActivity"
-
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-
-
-
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".SurprisePlanner"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".GiftsList"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-
-        <activity android:name=".JobActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".JobSearchActivity"
-
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".GiftsList"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".JobActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".JobSearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Cart" />
+        <activity android:name=".CartActivity"></activity>
     </application>
 
 </manifest>

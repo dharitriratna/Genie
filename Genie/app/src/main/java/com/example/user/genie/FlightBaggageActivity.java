@@ -49,7 +49,7 @@ public class FlightBaggageActivity extends AppCompatActivity implements View.OnC
         flightListRecyclerview=findViewById(R.id.flightListRecyclerview);
         continueBtn=findViewById(R.id.continueBtn);
         priceTv=findViewById(R.id.priceTv);
-        priceTv.setText(getResources().getString(R.string.Rs)+"22,600");
+        priceTv.setText(getResources().getString(R.string.rupee)+"22,600");
         continueBtn.setOnClickListener(this);
         toolbarRelative=findViewById(R.id.toolbarRelative);
 

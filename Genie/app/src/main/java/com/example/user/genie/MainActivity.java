@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         birthday_planners.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,SurprisePlanner.class));
+                startActivity(new Intent(MainActivity.this,GiftsList.class));
             }
         });
 
