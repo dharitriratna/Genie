@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 public class CartActivity extends AppCompatActivity {
 
+String cart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

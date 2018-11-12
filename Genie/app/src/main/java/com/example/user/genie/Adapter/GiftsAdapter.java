@@ -19,6 +19,7 @@ public class GiftsAdapter extends RecyclerView.Adapter<GiftsAdapter.ViewHolder> 
 
     private List<GiftsModel> giftsModels;
     private Context context;
+    String demo;
 
    /* String fontPath = "fonts/Raleway-Light.ttf";
     String fontPath2 = "fonts/Raleway-Thin.ttf";

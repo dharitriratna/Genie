@@ -36,6 +36,7 @@ public class SurprisePlanner extends AppCompatActivity {
     public static final String mypreference = "mypref";
     String login_user="";
     String giftId, giftName, giftPrice, giftImage;
+    String demo;
 
 
 
