@@ -84,7 +84,7 @@ public class EventManagement extends AppCompatActivity implements ViewPagerEx.On
                 intent.putExtra("EVENT_PRICE",eventPrice);
                 intent.putExtra("EVENT_IMAGE",eventImage);
                 startActivity(intent);
-                finish();
+               // finish();
 
                 return true;
             }

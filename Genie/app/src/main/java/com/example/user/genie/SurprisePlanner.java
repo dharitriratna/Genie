@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.user.genie.helper.RegPrefManager;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
@@ -71,6 +72,7 @@ public class SurprisePlanner extends AppCompatActivity {
         date = findViewById(R.id.date);
         to_name = findViewById(R.id.to_name);
         to_number = findViewById(R.id.to_number);
+        to_number.setText(RegPrefManager.getInstance(this).getPhoneNo());
         to_address = findViewById(R.id.to_address);
         from_address = findViewById(R.id.from_address);
         time = findViewById(R.id.time);
@@ -97,6 +99,11 @@ public class SurprisePlanner extends AppCompatActivity {
             giftName=bundle.getString("GIFT_NAME");
             giftPrice = bundle.getString("GIFT_PRICE");
             giftImage  = bundle.getString("GIFT_IMAGE");
+
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+            SharedPreferences.Editor editor1 = pref.edit();
+            editor1.putString("GIFT_PRICE", giftPrice.toString());
+            editor1.commit();
 
             //    deiverydate=bundle.getString("DELIVERYDATE");
 

@@ -32,6 +32,7 @@ import com.example.user.genie.Adapter.ViewPagerAdapter;
 import com.example.user.genie.Fragments.AboutEventsFragment;
 import com.example.user.genie.Fragments.ShowTimeFragment;
 import com.example.user.genie.Fragments.TrailerFragment;
+import com.example.user.genie.helper.RegPrefManager;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
@@ -96,6 +97,7 @@ public class EventDetails extends AppCompatActivity {
        eventid = findViewById(R.id.eventid);
        organizer_name = findViewById(R.id.organizer_name);
        organizer_number = findViewById(R.id.organizer_number);
+       organizer_number.setText(RegPrefManager.getInstance(this).getPhoneNo());
        organizer_address = findViewById(R.id.organizer_address);
        btn_submit = findViewById(R.id.btn_submit);
        date = findViewById(R.id.date);

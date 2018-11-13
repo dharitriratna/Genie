@@ -42,23 +42,26 @@ public class ThankYouActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.myorder:
-                if(back.equals("CabBook")){
+                /*if(back.equals("CabBook")){
                  startActivity(new Intent(ThankYouActivity.this,CabBookingActivity.class));
                  finish();
                 }else {
                     startActivity(new Intent(getApplicationContext(), MyOrders.class));
                     finish();
-                }
-
+                }*/
+                startActivity(new Intent(getApplicationContext(), MyOrders.class));
+                finish();
                 break;
             case R.id.continue_shopping:
-                if(back.equals("CabBook")){
+              /*  if(back.equals("CabBook")){
                     startActivity(new Intent(ThankYouActivity.this,CabBookingActivity.class));
                     finish();
                 }else {
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
-                }
+                }*/
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
                 break;
         }
     }

@@ -173,7 +173,7 @@
         <activity
             android:name=".EventDetails"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".TrainSeatAvailableActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -192,7 +192,7 @@
         <activity
             android:name=".HomeDeliveryGrocery"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".BusBookingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -221,10 +221,13 @@
         <activity
             android:name=".JobSearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".CartActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ThankYouActivity"
+        <activity
+            android:name=".CartActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ThankYouActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".WalletActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

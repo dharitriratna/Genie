@@ -45,122 +45,122 @@
             />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <RelativeLayout
 
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/reLn"
+            <RelativeLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_above="@+id/imageLin">
-
-            <android.support.v7.widget.RecyclerView
-
-                android:visibility="visible"
-                android:id="@+id/vertical_fragment_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_margin="5dp"
-                android:layout_height="wrap_content"/>
-
-
-
-            <TextView
-                android:layout_weight="1"
-                android:id="@+id/no_item"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="No Items Added Yet"
-                android:gravity="center"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/imageLin"
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-               android:layout_above="@+id/nextLn"
-               >
+                android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/reLn"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="2dp"
-                    android:weightSum="2">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_above="@+id/imageLin">
+
+                    <android.support.v7.widget.RecyclerView
+
+                        android:visibility="visible"
+                        android:id="@+id/vertical_fragment_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_height="wrap_content"/>
+
+
 
                     <TextView
                         android:layout_weight="1"
+                        android:id="@+id/no_item"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="No Items Added Yet"
+                        android:gravity="center"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/imageLin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_above="@+id/nextLn">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="SELECT IMAGES"
-                        android:textSize="15sp"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:layout_marginTop="5dp" />
+                        android:orientation="horizontal"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="2dp"
+                        android:weightSum="2">
 
-                    <Button
-                        android:layout_weight="1"
-                        android:id="@+id/select_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@drawable/background2"
-                        android:textSize="12sp"
-                        android:text="SELECT"
-                        android:textColor="@color/colorPrimary"
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="SELECT IMAGES"
+                            android:textSize="15sp"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:layout_marginTop="5dp" />
+
+                        <Button
+                            android:layout_weight="1"
+                            android:id="@+id/select_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/background2"
+                            android:textSize="12sp"
+                            android:text="SELECT"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            />
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:visibility="gone"
                         android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        />
+                        android:id="@+id/selcted_image"/>
+
                 </LinearLayout>
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:visibility="gone"
-                    android:layout_gravity="center"
-                    android:id="@+id/selcted_image"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/nextLn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_alignParentBottom="true">
-                <Button
-                    android:visibility="visible"
-                    android:id="@+id/btn_submit"
+                <LinearLayout
+                    android:id="@+id/nextLn"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="20dp"
-                    android:text="Next"
-                    android:textAllCaps="false"
-                    android:background="@drawable/my_button"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_alignParentBottom="true">
+                    <Button
+                        android:visibility="visible"
+                        android:id="@+id/btn_submit"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="20dp"
+                        android:text="Next"
+                        android:textAllCaps="false"
+                        android:background="@drawable/my_button"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18dp" />
 
-            </LinearLayout>
+                </LinearLayout>
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
 
-    </LinearLayout>
-
+        </LinearLayout>
 
 </LinearLayout>

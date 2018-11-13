@@ -28,11 +28,12 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="height" value="48" />
-                            <entry key="outputName" value="ic_smile" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="height" value="32" />
+                            <entry key="outputName" value="raw_meat" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\user" />
-                            <entry key="width" value="48" />
+                            <entry key="sourceFile" value="C:\Users\user\Documents\burrito.svg" />
+                            <entry key="width" value="32" />
                           </map>
                         </option>
                       </PersistentState>

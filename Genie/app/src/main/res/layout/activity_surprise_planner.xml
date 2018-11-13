@@ -44,7 +44,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:src="@color/colorPrimary"
         android:id="@+id/gift_image"
         android:scaleType="fitXY"/>
@@ -129,6 +129,7 @@
                     android:textSize="15sp"
                     android:textColorHint="@color/colorPrimaryDark"
                     android:inputType="number"
+                    android:maxLength="10"
                     android:gravity="start|center"
                     android:padding="10dp"
                     android:textColor="#000" />

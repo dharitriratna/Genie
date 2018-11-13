@@ -76,7 +76,7 @@ public class GiftsList extends AppCompatActivity {
                 intent.putExtra("GIFT_PRICE",giftPrice);
                 intent.putExtra("GIFT_IMAGE",giftImage);
                 startActivity(intent);
-                finish();
+               // finish();
 
                 return true;
             }

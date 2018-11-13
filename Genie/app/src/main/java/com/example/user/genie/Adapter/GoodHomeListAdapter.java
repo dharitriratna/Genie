@@ -65,14 +65,14 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
 
             @Override
             public void afterTextChanged(Editable s) {
-               if(flagItem==true) {
-                   goodsArray.get(position).setItem(holder.vertical_list_item_title.getText().toString());
-                   goodsArray.get(position).setFlagItemqty(true);
-               }else {
-                   flagItem=false;
-                   goodsArray.get(position).setItem(holder.vertical_list_item_title.getText().toString());
-                   goodsArray.get(position).setFlagItemqty(false);
-               }
+                if(flagItem==true) {
+                    goodsArray.get(position).setItem(holder.vertical_list_item_title.getText().toString());
+                    goodsArray.get(position).setFlagItemqty(true);
+                }else {
+                    flagItem=false;
+                    goodsArray.get(position).setItem(holder.vertical_list_item_title.getText().toString());
+                    goodsArray.get(position).setFlagItemqty(false);
+                }
             }
         });
         holder.vertical_list_item_subtitle.addTextChangedListener(new TextWatcher() {
@@ -98,15 +98,19 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
                 }
             }
         });
+/*
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 // Remove the item on remove/button click
-               goodsArray.remove(position);
+*/
+/*               goodsArray.remove(position);
                 goodsArray.get(position).setQty("");
                 goodsArray.get(position).setItem("");
-                /*
+                *//*
+         */
+/*
                     public final void notifyItemRemoved (int position)
                         Notify any registered observers that the item previously located at position
                         has been removed from the data set. The items previously located at and
@@ -118,10 +122,14 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
 
                     Parameters
                         position : Position of the item that has now been removed
-                */
+                *//*
+         */
+/*
                 notifyItemRemoved(position);
 
-                /*
+                *//*
+         */
+/*
                     public final void notifyItemRangeChanged (int positionStart, int itemCount)
                         Notify any registered observers that the itemCount items starting at
                         position positionStart have changed. Equivalent to calling
@@ -134,15 +142,24 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
                     Parameters
                         positionStart : Position of the first item that has changed
                         itemCount : Number of items that have changed
-                */
+                *//*
+         */
+/*
               //  notifyItemRangeChanged(position,goodsArray.size());
 
                 // Show the removed item label
-           //     Toast.makeText(mContext,"Removed : " + itemLabel,Toast.LENGTH_SHORT).show();
+           //     Toast.makeText(mContext,"Removed : " + itemLabel,Toast.LENGTH_SHORT).show();*//*
+
             }
         });
 
+*/
 
+    }
+
+    public void delete(int position) { //removes the row
+        goodsArray.remove(position);
+        notifyItemRemoved(position);
     }
 
     @Override
@@ -150,7 +167,7 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
         return goodsArray.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
 
         EditText vertical_list_item_title,vertical_list_item_subtitle;
@@ -162,7 +179,12 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
             vertical_list_item_title = (EditText) itemView.findViewById(R.id.vertical_list_item_title);
             vertical_list_item_subtitle=(EditText)itemView.findViewById(R.id.vertical_list_item_subtitle);
             delete=(ImageView)itemView.findViewById(R.id.delete);
+            delete.setOnClickListener(this); //button onclick listener
+        }
 
+        @Override
+        public void onClick(View view) {
+            delete(getAdapterPosition());
         }
     }
     //This method will filter the list

@@ -1,7 +1,9 @@
 package com.example.user.genie;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -36,6 +38,7 @@ public class PaymentActivity extends AppCompatActivity {
     String Date_;
     LinearLayout payment_card_layout;
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,14 @@ public class PaymentActivity extends AppCompatActivity {
         debitcard_method = findViewById(R.id.debitcard_method);
         creditcard_method = findViewById(R.id.creditcard_method);
         payment_card_layout = findViewById(R.id.payment_card_layout);
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        // commit changes
+        String price=pref.getString("GIFT_PRICE", null);
+        editor.commit();
+
+        paid_amount.setText(this.getResources().getString(R.string.rupee)+" "+price);
 
         cod_method.setOnClickListener(new View.OnClickListener() {
             @Override

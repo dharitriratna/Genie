@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Button button1, button2, button3, button4, button5;
 
     TextView tagline_text;
+    ImageView account_wallet;
 
     RecyclerView service_recyclerview;
     ProgressDialog progressDialog;
@@ -124,6 +125,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         button5 = findViewById(R.id.button5);
 
         tagline_text = findViewById(R.id.tagline_text);
+        account_wallet = findViewById(R.id.account_wallet);
+        account_wallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),WalletActivity.class));
+            }
+        });
 
         String fontPath = "fonts/Raleway-Light.ttf";
         String fontPath2 = "fonts/Raleway-Thin.ttf";
