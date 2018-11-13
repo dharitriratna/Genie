@@ -106,7 +106,7 @@ private Button bookingBtn;
         fromEd.setText(RegPrefManager.getInstance(this).getCabFromPlace());
 
      //   toEd.setText(RegPrefManager.getInstance(this).getCabToPlace());
-        
+
 
     }
 
