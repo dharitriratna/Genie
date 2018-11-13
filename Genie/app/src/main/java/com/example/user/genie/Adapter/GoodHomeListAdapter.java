@@ -66,9 +66,11 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
             @Override
             public void afterTextChanged(Editable s) {
                if(flagItem==true) {
+                   goodsArray.get(position).setItem(holder.vertical_list_item_title.getText().toString());
                    goodsArray.get(position).setFlagItemqty(true);
                }else {
                    flagItem=false;
+                   goodsArray.get(position).setItem(holder.vertical_list_item_title.getText().toString());
                    goodsArray.get(position).setFlagItemqty(false);
                }
             }
@@ -87,9 +89,11 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
             @Override
             public void afterTextChanged(Editable s) {
                 if(flagqty==true) {
+                    goodsArray.get(position).setQty(holder.vertical_list_item_subtitle.getText().toString());
                     goodsArray.get(position).setFlagItemqty(true);
                 }else {
                     flagqty=false;
+                    goodsArray.get(position).setQty(holder.vertical_list_item_subtitle.getText().toString());
                     goodsArray.get(position).setFlagItemqty(false);
                 }
             }
@@ -99,8 +103,9 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
             @Override
             public void onClick(View view) {
 // Remove the item on remove/button click
-                goodsArray.remove(position);
-
+               goodsArray.remove(position);
+                goodsArray.get(position).setQty("");
+                goodsArray.get(position).setItem("");
                 /*
                     public final void notifyItemRemoved (int position)
                         Notify any registered observers that the item previously located at position
@@ -130,7 +135,7 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
                         positionStart : Position of the first item that has changed
                         itemCount : Number of items that have changed
                 */
-                notifyItemRangeChanged(position,goodsArray.size());
+              //  notifyItemRangeChanged(position,goodsArray.size());
 
                 // Show the removed item label
            //     Toast.makeText(mContext,"Removed : " + itemLabel,Toast.LENGTH_SHORT).show();

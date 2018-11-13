@@ -107,6 +107,7 @@ private Button bookingBtn;
 
      //   toEd.setText(RegPrefManager.getInstance(this).getCabToPlace());
 
+
     }
 
     public void bookingDatePicker(){
@@ -362,8 +363,9 @@ private Button bookingBtn;
                 boolean status=response.body().isStatus();
                 String data=response.body().getData();
                 Toast.makeText(getApplicationContext(),data,Toast.LENGTH_SHORT).show();
-              //  startActivity(new Intent(CabBookingActivity.this,MainActivity.class));
-             //   finish();
+                RegPrefManager.getInstance(CabBookingActivity.this).setBack("CabBook");
+                startActivity(new Intent(CabBookingActivity.this,ThankYouActivity.class));
+                finish();
                 fromEd.getText().clear();
                 toEd.getText().clear();
                 deppEd.getText().clear();

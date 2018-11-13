@@ -1,7 +1,6 @@
 package com.example.user.genie.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.user.genie.MoviesListActivity;
+import com.example.user.genie.Model.RentFilterModel;
 import com.example.user.genie.ObjectNew.RentResponse;
 import com.example.user.genie.R;
-import com.example.user.genie.helper.RegPrefManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,11 +19,11 @@ import java.util.ArrayList;
  * Created by RatnaDev008 on 10/29/2018.
  */
 
-public class RentCustomAdapter extends RecyclerView.Adapter<RentCustomAdapter.ViewHolder> {
+public class RentCustomAdapter1 extends RecyclerView.Adapter<RentCustomAdapter1.ViewHolder> {
     private Context context;
-    private ArrayList<RentResponse.Data> names;
+    private ArrayList<RentFilterModel> names;
 
-    public RentCustomAdapter(Context context, ArrayList<RentResponse.Data> names) {
+    public RentCustomAdapter1(Context context, ArrayList<RentFilterModel> names) {
         this.names = names;
         this.context=context;
     }
@@ -50,7 +48,7 @@ public class RentCustomAdapter extends RecyclerView.Adapter<RentCustomAdapter.Vi
                 context.startActivity(i);
             }
         });*/
-        RentResponse.Data data=names.get(position);
+        RentFilterModel data=names.get(position);
         holder.nameTv.setText(data.getCategory());
         holder.addressTv.setText("Address"+"\n"+data.getAddress());
         holder.priceTv.setText("Rs."+data.getPrice());
@@ -84,7 +82,7 @@ public class RentCustomAdapter extends RecyclerView.Adapter<RentCustomAdapter.Vi
     //This method will filter the list
     //here we are passing the filtered data
     //and assigning it to the list with notifydatasetchanged method
-    public void filterList(ArrayList<RentResponse.Data> filterdNames) {
+    public void filterList(ArrayList<RentFilterModel> filterdNames) {
         this.names = filterdNames;
         notifyDataSetChanged();
     }

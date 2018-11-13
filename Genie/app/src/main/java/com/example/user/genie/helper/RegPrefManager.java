@@ -132,5 +132,11 @@ public class RegPrefManager {
     public String getPhoneNo(){
         return mSharedPreferences.getString("phoneno",null);
     }
+    public void setBack(String back){
+        mSharedPreferences.edit().putString("back",back).apply();
+    }
+    public String getBack(){
+        return mSharedPreferences.getString("back",null);
+    }
 }
 
