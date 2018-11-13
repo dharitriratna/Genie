@@ -106,6 +106,7 @@ private Button bookingBtn;
         fromEd.setText(RegPrefManager.getInstance(this).getCabFromPlace());
 
      //   toEd.setText(RegPrefManager.getInstance(this).getCabToPlace());
+        
 
     }
 
@@ -362,6 +363,7 @@ private Button bookingBtn;
                 boolean status=response.body().isStatus();
                 String data=response.body().getData();
                 Toast.makeText(getApplicationContext(),data,Toast.LENGTH_SHORT).show();
+                RegPrefManager.getInstance(CabBookingActivity.this).setBack("CabBook");
                 startActivity(new Intent(CabBookingActivity.this,ThankYouActivity.class));
                 finish();
                 fromEd.getText().clear();
