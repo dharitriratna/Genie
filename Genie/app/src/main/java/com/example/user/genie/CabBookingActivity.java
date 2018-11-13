@@ -97,7 +97,7 @@ private Button bookingBtn;
         arrivalEd.setOnClickListener(this);
         timeEd.setOnClickListener(this);
         fromEd.setOnClickListener(this);
-        toEd.setOnClickListener(this);
+       // toEd.setOnClickListener(this);
         onewayRB.setOnClickListener(this);
         roundtrip.setOnClickListener(this);
         bookingBtn.setOnClickListener(this);
@@ -105,7 +105,7 @@ private Button bookingBtn;
 
         fromEd.setText(RegPrefManager.getInstance(this).getCabFromPlace());
 
-        toEd.setText(RegPrefManager.getInstance(this).getCabToPlace());
+     //   toEd.setText(RegPrefManager.getInstance(this).getCabToPlace());
 
     }
 
@@ -196,24 +196,12 @@ private Button bookingBtn;
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.arrivalEd:
-                if(trip_value!=0) {
-                    returnDatePicker();
-                }
-                break;
-            case R.id.depEd:
-                if(trip_value!=0) {
-                    bookingDatePicker();
-                }else {
-                    Toast.makeText(getApplicationContext(),"Please Select Trip",Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.deppEd:
-                if(trip_value!=0) {
-                    bookingDatePicker();
-                }else {
-                    Toast.makeText(getApplicationContext(),"Please Select Trip",Toast.LENGTH_SHORT).show();
-                }
+            case R.id.onewayRB:
+                trip_value=1;
+                RegPrefManager.getInstance(this).setTripRadio(String.valueOf(trip_value));
+                arrivalEd.setVisibility(View.GONE);
+                depEd.setVisibility(View.GONE);
+                deppEd.setVisibility(View.VISIBLE);
                 break;
             case R.id.roundtrip:
                 trip_value=2;
@@ -223,12 +211,33 @@ private Button bookingBtn;
                 deppEd.setVisibility(View.GONE);
                 break;
 
-            case R.id.onewayRB:
-                trip_value=1;
-                RegPrefManager.getInstance(this).setTripRadio(String.valueOf(trip_value));
-                arrivalEd.setVisibility(View.GONE);
-                depEd.setVisibility(View.GONE);
-                deppEd.setVisibility(View.VISIBLE);
+            case R.id.arrivalEd:
+
+                 if(trip_value==0) {
+                     trip_value=4;
+                 }
+                returnDatePicker();
+                //  }
+                break;
+            case R.id.depEd:
+                  if(trip_value==0) {
+                      trip_value = 4;
+                  }
+                bookingDatePicker();
+              /*  }else {
+                    Toast.makeText(getApplicationContext(),"Please Select Trip",Toast.LENGTH_SHORT).show();
+                }*/
+                break;
+
+            case R.id.deppEd:
+
+                 if(trip_value==0) {
+                     trip_value=3;
+                 }
+                bookingDatePicker();
+              /*  }else {
+                    Toast.makeText(getApplicationContext(),"Please Select Trip",Toast.LENGTH_SHORT).show();
+                }*/
                 break;
             case R.id.timeEd:
                 // Get Current Time
@@ -244,15 +253,20 @@ private Button bookingBtn;
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
 
-                                timeEd.setText(hourOfDay + ":" + minute);
+                                String AM_PM ;
+                                if(hourOfDay < 12) {
+                                    AM_PM = "AM";
+                                }else if(hourOfDay==12){
+                                    AM_PM="PM";
+                                }
+                                else {
+                                    AM_PM = "PM";
+                                }
+
+                                timeEd.setText(hourOfDay + ":" + minute+" "+AM_PM);
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
-                break;
-            case R.id.toEd:
-                RegPrefManager.getInstance(this).setPlace("To");
-                    startActivity(new Intent(CabBookingActivity.this,PlaceCabActivity.class));
-                    finish();
                 break;
             case R.id.fromEd:
                 RegPrefManager.getInstance(this).setPlace("From");
@@ -263,15 +277,23 @@ private Button bookingBtn;
                 if(trip_value==1){
                     traveldate=deppEd.getText().toString();
                     returndate="";
-                }else {
+                }else if(trip_value==0){
+                    Toast.makeText(getApplicationContext(),"Please Select Trip Radio button",Toast.LENGTH_SHORT).show();
+                }else if(trip_value==3){
+                    Toast.makeText(getApplicationContext(),"Please Select Trip Radio button",Toast.LENGTH_SHORT).show();
+                }else if(trip_value==4){
+                    Toast.makeText(getApplicationContext(),"Please Select Trip Radio button",Toast.LENGTH_SHORT).show();
+                }else  {
                     traveldate=depEd.getText().toString();
                     returndate=arrivalEd.getText().toString();
                 }
-                if(validationNew()) {
-                    if(isNetworkAvailable()) {
-                        networkService();
-                    } else {
-                        noNetwrokErrorMessage();
+                if(trip_value!=0 && trip_value!=3 && trip_value!=4) {
+                    if (validationNew()) {
+                        if (isNetworkAvailable()) {
+                            networkService();
+                        } else {
+                            noNetwrokErrorMessage();
+                        }
                     }
                 }
                 break;
@@ -303,7 +325,7 @@ private Button bookingBtn;
         super.onResume();
         fromEd.setText(RegPrefManager.getInstance(this).getCabFromPlace());
 
-        toEd.setText(RegPrefManager.getInstance(this).getCabToPlace());
+    //    toEd.setText(RegPrefManager.getInstance(this).getCabToPlace());
 
         String tripv=RegPrefManager.getInstance(this).getTripRadio();
         if(tripv!=null) {
@@ -312,11 +334,13 @@ private Button bookingBtn;
                 roundtrip.setChecked(false);
                 arrivalEd.setVisibility(View.GONE);
                 depEd.setVisibility(View.GONE);
+                trip_value=1;
                 deppEd.setVisibility(View.VISIBLE);
 
             } else {
                 roundtrip.setChecked(true);
                 onewayRB.setChecked(false);
+                trip_value=2;
                 arrivalEd.setVisibility(View.VISIBLE);
                 depEd.setVisibility(View.VISIBLE);
                 deppEd.setVisibility(View.GONE);
@@ -338,14 +362,21 @@ private Button bookingBtn;
                 boolean status=response.body().isStatus();
                 String data=response.body().getData();
                 Toast.makeText(getApplicationContext(),data,Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(CabBookingActivity.this,MainActivity.class));
-                finish();
+              //  startActivity(new Intent(CabBookingActivity.this,MainActivity.class));
+             //   finish();
+                fromEd.getText().clear();
+                toEd.getText().clear();
+                deppEd.getText().clear();
+                depEd.getText().clear();
+                arrivalEd.getText().clear();
+                timeEd.getText().clear();
               //  Log.d("Tag","sta");
 
             }
 
             @Override
             public void onFailure(Call<CabResponse> call, Throwable t) {
+                progressDialog.dismiss();
                 Log.d("Tag","Failure");
             }
         });

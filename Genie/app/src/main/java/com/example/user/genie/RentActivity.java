@@ -72,7 +72,7 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
         sellFrame.setOnClickListener(this);
         rentarray=new ArrayList<>();
         rentRecyclerview.setHasFixedSize(true);
-        rentRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+        rentRecyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
        /* rentarray = new ArrayList<>();
 
@@ -133,6 +133,7 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onFailure(Call<RentResponse> call, Throwable t) {
                 Log.d("Tag","Error");
+                progressDialog.dismiss();
                 rentRecyclerview.setVisibility(View.GONE);
                 noMesgTv.setVisibility(View.VISIBLE);
             }

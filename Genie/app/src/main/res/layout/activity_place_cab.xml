@@ -68,4 +68,12 @@
         android:layout_below="@+id/searchED">
 
     </android.support.v7.widget.RecyclerView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/noMesgTv"
+        android:text="No Data Found"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 </LinearLayout>

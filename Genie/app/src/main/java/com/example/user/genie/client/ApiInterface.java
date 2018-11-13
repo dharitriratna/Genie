@@ -3,6 +3,7 @@ package com.example.user.genie.client;
 import com.example.user.genie.ObjectNew.CabResponse;
 import com.example.user.genie.ObjectNew.GenPNRResponse;
 import com.example.user.genie.ObjectNew.JobResponse;
+import com.example.user.genie.ObjectNew.PlaceCabResponse;
 import com.example.user.genie.ObjectNew.RentResponse;
 import com.example.user.genie.ObjectNew.SellResponse;
 import com.example.user.genie.ObjectNew.ServiceImage;
@@ -52,4 +53,7 @@ public interface ApiInterface {
                                  @Part("name") RequestBody name,@Part("number") RequestBody number,
                                  @Part("highest_qulification") RequestBody highest_qulification,
                                  @Part("desc") RequestBody desc);
+
+    @GET("index.php/api/service/getpin")
+    Call<PlaceCabResponse> getCabServiceLocation();
 }
