@@ -1,8 +1,10 @@
 package com.example.user.genie;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -32,11 +34,15 @@ import android.widget.Toast;
 import com.example.user.genie.Adapter.GoodHomeListAdapter;
 import com.example.user.genie.Model.GoodHomeModel;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
-
+@SuppressWarnings("ALL")
 public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnClickListener{
     Toolbar toolbar;
 
@@ -47,11 +53,15 @@ public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnCl
     private GoodHomeListAdapter goodHomeListAdapter;
     private ArrayList<GoodHomeModel> goodHomeModelArrayList,getGoodHomeModelArrayList;
     private Random mRandom = new Random();
-    private String imagefilePath="";
+    private String imagefilePath="",login_user;
     private LinearLayout nextLn;
     File file;
     private static final int PICK_PHOTO = 1958;
     private final int requestCode = 20;
+    private JSONObject objectDataMain;
+    ProgressDialog progressDialog;
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
 
 
 
@@ -69,14 +79,19 @@ public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnCl
                 finish();
             }
         });
-
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        login_user=sharedpreferences.getString("FLAG", "");
+        editor.commit(); // commit changes
         intialize();
 
 
     }
     private void intialize(){
         nextLn=findViewById(R.id.nextLn);
-        nextLn.setOnClickListener(this);
+
+
         goodHomeModelArrayList=new ArrayList<>();
         getGoodHomeModelArrayList=new ArrayList<>();
         GoodHomeModel goodHomeModel=new GoodHomeModel();
@@ -89,6 +104,7 @@ public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnCl
         select_btn=findViewById(R.id.select_btn);
         selcted_image=findViewById(R.id.selcted_image);
         btn_submit=findViewById(R.id.btn_submit);
+        btn_submit.setOnClickListener(this);
         add_beat=findViewById(R.id.add_beat);
 
         add_beat.setOnClickListener(this);
@@ -253,7 +269,7 @@ public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnCl
                 });
                 builder.show();
                 break;
-            case R.id.nextLn:
+            case R.id.btn_submit:
                 getGoodHomeModelArrayList=goodHomeListAdapter.getGoodsArray();
                 for(int i=0;i<getGoodHomeModelArrayList.size();i++){
                     GoodHomeModel goodHomeModel1=getGoodHomeModelArrayList.get(i);
@@ -261,8 +277,45 @@ public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnCl
                     if(checkflag==false){
                         Toast.makeText(this, "Please Enter All Item Details(name,Quantity)", Toast.LENGTH_SHORT).show();
                     }
+                    getArray();
+
                 }
                 break;
         }
+    }
+    private void getArray(){
+        objectDataMain=new JSONObject();
+        JSONObject objectMain=new JSONObject();
+        JSONArray array=new JSONArray();
+        for(int i=0;i<getGoodHomeModelArrayList.size();i++) {
+            JSONObject innerobject = new JSONObject();
+            try {
+                innerobject.put("user_id", login_user);
+                innerobject.put("item_name", getGoodHomeModelArrayList.get(i).getItem());
+                innerobject.put("quantity", getGoodHomeModelArrayList.get(i).getQty());
+                innerobject.put("image", imagefilePath);
+
+                array.put(innerobject);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            objectMain.put("order", array);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            objectDataMain.put("data",objectMain);
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        Log.d("TAG","JSON_OBJECT---->"+objectDataMain);
+
     }
 }

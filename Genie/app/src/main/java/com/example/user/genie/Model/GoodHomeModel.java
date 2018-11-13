@@ -33,4 +33,14 @@ public class GoodHomeModel {
     }
 
     public boolean flagItemqty;
+
+    public String getImageurl() {
+        return imageurl;
+    }
+
+    public void setImageurl(String imageurl) {
+        this.imageurl = imageurl;
+    }
+
+    private String imageurl;
 }

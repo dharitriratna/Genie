@@ -190,7 +190,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HomeDeliveryGrocery"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".BusBookingActivity"
             android:theme="@style/AppTheme.NoActionBar" />

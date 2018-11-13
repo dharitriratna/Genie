@@ -45,6 +45,11 @@
             />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <RelativeLayout
 
             android:layout_width="match_parent"
@@ -91,10 +96,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="2dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="2dp"
                     android:weightSum="2">
 
                     <TextView
@@ -122,8 +127,8 @@
                         />
                 </LinearLayout>
                 <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:visibility="gone"
                     android:layout_gravity="center"
                     android:id="@+id/selcted_image"/>
@@ -155,6 +160,7 @@
         </RelativeLayout>
 
 
+    </LinearLayout>
 
 
 </LinearLayout>
