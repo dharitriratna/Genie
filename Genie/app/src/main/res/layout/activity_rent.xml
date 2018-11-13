@@ -8,8 +8,6 @@
     android:orientation="vertical"
     tools:context="com.example.user.genie.RentActivity">
 
-
-
     <include layout="@layout/rentlistlayout" />
 
     <FrameLayout

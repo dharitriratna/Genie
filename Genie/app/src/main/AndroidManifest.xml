@@ -172,7 +172,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EventDetails"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".TrainSeatAvailableActivity"
             android:theme="@style/AppTheme.NoActionBar" />

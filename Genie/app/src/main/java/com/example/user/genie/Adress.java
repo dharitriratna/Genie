@@ -41,7 +41,7 @@ import java.util.List;
 
 public class Adress extends AppCompatActivity {
     Toolbar toolbar;
-    EditText user_name, user_address, user_landmark, user_city, user_state, user_country;
+    EditText user_name, user_address, user_landmark, user_city, user_pin,  user_state, user_country;
     String name, address, landmark, city, state, country;
     Button btn_post_next;
     String service_id,service_name,pin,service_fees;
@@ -110,9 +110,12 @@ public class Adress extends AppCompatActivity {
         user_address = findViewById(R.id.user_address);
         user_landmark = findViewById(R.id.user_landmark);
         user_city = findViewById(R.id.user_city);
+        user_pin = findViewById(R.id.user_pin);
         user_state = findViewById(R.id.user_state);
         user_country = findViewById(R.id.user_country);
         btn_post_next = findViewById(R.id.btn_post_next);
+
+        user_pin.setText(pin);
 
         btn_post_next.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -33,7 +33,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scrollbars="none">
 
         <LinearLayout
@@ -206,9 +206,10 @@
                     android:background="@drawable/edittext_top_bg"
                     android:cursorVisible="true"
                     android:hint="To Address"
+                    android:imeOptions="actionNext"
                     android:textSize="15sp"
                     android:textColorHint="@color/colorPrimaryDark"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:gravity="start"
                     android:singleLine="false"
                     android:padding="10dp"
@@ -230,9 +231,10 @@
                     android:background="@drawable/edittext_top_bg"
                     android:cursorVisible="true"
                     android:hint="Sender Address"
+                    android:imeOptions="actionDone"
                     android:textSize="15sp"
                     android:textColorHint="@color/colorPrimaryDark"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:gravity="start"
                     android:padding="10dp"
                     android:singleLine="false"
@@ -247,12 +249,16 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="100dp"
             android:text="Proceed"
             android:textAllCaps="false"
             android:background="@drawable/my_button"
             android:textColor="@color/colorPrimary"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            />
 
 
     </LinearLayout>
