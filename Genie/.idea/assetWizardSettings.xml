@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Users/user/Documents/EGDownloads/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_account_balance_wallet_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Users/user/Documents/EGDownloads/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_tag_faces_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,11 +28,11 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="height" value="32" />
-                            <entry key="outputName" value="ic_account_wallet" />
+                            <entry key="height" value="48" />
+                            <entry key="outputName" value="ic_smile" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\user" />
-                            <entry key="width" value="32" />
+                            <entry key="width" value="48" />
                           </map>
                         </option>
                       </PersistentState>

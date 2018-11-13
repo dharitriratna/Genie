@@ -237,7 +237,7 @@ public class SurprisePlanner extends AppCompatActivity {
             {
                 Toast.makeText(getApplicationContext(),"Gift Added Successfully", Toast.LENGTH_LONG).show();
 
-                startActivity(new Intent(SurprisePlanner.this,MainActivity.class));finish();
+                startActivity(new Intent(SurprisePlanner.this,ThankYouActivity.class));finish();
             }
             else{
                 Toast.makeText(getApplicationContext(),data, Toast.LENGTH_LONG).show();

@@ -30,6 +30,18 @@
             android:textColor="@color/colorPrimary" />
     </android.support.v7.widget.Toolbar>
 
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -68,16 +80,7 @@
         android:id="@+id/gift_price"
         android:gravity="center"/>
 
- <ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scrollbars="none">
 
-    <LinearLayout
-        android:weightSum="2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
 
         <LinearLayout
@@ -207,6 +210,7 @@
                     android:textColorHint="@color/colorPrimaryDark"
                     android:inputType="text"
                     android:gravity="start"
+                    android:singleLine="false"
                     android:padding="10dp"
                     android:textColor="#000" />
             </LinearLayout>
@@ -225,12 +229,13 @@
                     android:layout_height="100dp"
                     android:background="@drawable/edittext_top_bg"
                     android:cursorVisible="true"
-                    android:hint="From Address"
+                    android:hint="Sender Address"
                     android:textSize="15sp"
                     android:textColorHint="@color/colorPrimaryDark"
                     android:inputType="text"
                     android:gravity="start"
                     android:padding="10dp"
+                    android:singleLine="false"
                     android:textColor="#000"
                     />
             </LinearLayout>

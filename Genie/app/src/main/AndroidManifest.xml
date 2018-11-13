@@ -219,8 +219,11 @@
         <activity
             android:name=".JobSearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Cart" />
-        <activity android:name=".CartActivity"></activity>
+
+        <activity android:name=".CartActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ThankYouActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

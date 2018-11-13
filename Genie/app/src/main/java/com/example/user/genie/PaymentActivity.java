@@ -19,6 +19,8 @@ public class PaymentActivity extends AppCompatActivity {
     SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
     Date date = new Date();
     String month_no;
+    TextView paid_amount;
+    String amount;
 
     private DatePickerDialog fromDatePickerDialog;
     Calendar mcurrenttime;
@@ -37,6 +39,7 @@ public class PaymentActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        paid_amount = findViewById(R.id.paid_amount);
       //  month = findViewById(R.id.month);
 
 /*
