@@ -52,12 +52,12 @@ public class RentCustomAdapter extends RecyclerView.Adapter<RentCustomAdapter.Vi
         });*/
         RentResponse.Data data=names.get(position);
         holder.nameTv.setText(data.getCategory());
-        holder.addressTv.setText(data.getAddress());
+        holder.addressTv.setText("Address"+"\n"+data.getAddress());
         holder.priceTv.setText("Rs."+data.getPrice());
-        holder.phoneTv.setText("Phone:"+data.getPhone());
+        holder.phoneTv.setText("Phone: "+data.getPhone());
         String image=data.getImage_url();
         if(data.getImage_url()!=null){
-            Picasso.with(context).load(data.getImage_url()).resize(400,400).centerCrop().into(holder.image);
+            Picasso.with(context).load(data.getImage_url()).into(holder.image);
         }
     }
 
