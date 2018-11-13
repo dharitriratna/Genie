@@ -8,10 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class ThankYouActivity extends AppCompatActivity {
+import com.example.user.genie.helper.RegPrefManager;
+
+public class ThankYouActivity extends AppCompatActivity implements View.OnClickListener {
     Toolbar toolbar;
     TextView myorder;
     Button continue_shopping;
+    String back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,21 +31,35 @@ public class ThankYouActivity extends AppCompatActivity {
         });
         myorder = findViewById(R.id.myorder);
         continue_shopping = findViewById(R.id.continue_shopping);
-        myorder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MyOrders.class));
-                finish();
-            }
-        });
+        myorder.setOnClickListener(this);
+        continue_shopping.setOnClickListener(this);
 
-        continue_shopping.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                finish();
-            }
-        });
+        back= RegPrefManager.getInstance(this).getBack();
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.myorder:
+                if(back.equals("CabBook")){
+                 startActivity(new Intent(ThankYouActivity.this,CabBookingActivity.class));
+                 finish();
+                }else {
+                    startActivity(new Intent(getApplicationContext(), MyOrders.class));
+                    finish();
+                }
+
+                break;
+            case R.id.continue_shopping:
+                if(back.equals("CabBook")){
+                    startActivity(new Intent(ThankYouActivity.this,CabBookingActivity.class));
+                    finish();
+                }else {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                }
+                break;
+        }
     }
 }

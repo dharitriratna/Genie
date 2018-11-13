@@ -26,6 +26,20 @@
             android:textColor="@color/colorPrimary" />
     </android.support.v7.widget.Toolbar>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@drawable/edittext_top_bg">
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            ></Spinner>
+    </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rentRecyclerview"
         android:background="@color/colorPrimary"

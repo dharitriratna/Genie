@@ -31,6 +31,7 @@ public class RentResponse {
     private ArrayList<Data> data;
 
     public class Data{
+
         @SerializedName("id")
         private String id;
         @SerializedName("user_id")

@@ -38,6 +38,7 @@ import com.example.user.genie.ObjectNew.JobResponse;
 import com.example.user.genie.ObjectNew.SellResponse;
 import com.example.user.genie.client.ApiClientGenie1;
 import com.example.user.genie.client.ApiInterface;
+import com.example.user.genie.helper.RegPrefManager;
 
 import java.io.File;
 
@@ -119,6 +120,8 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
         searchBtn=findViewById(R.id.searchBtn);
         uploadBtn.setOnClickListener(this);
         postBtn.setOnClickListener(this);
+        numberTv.setText(RegPrefManager.getInstance(this).getPhoneNo());
+
         //Creating the ArrayAdapter instance having the country list
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,exp);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -158,7 +161,12 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
             case R.id.postBtn:
                 if (validationNew()) {
                     if (isNetworkAvailable()) {
-                        networkService();
+                        if (flagupload==false){
+                            Toast.makeText(getApplicationContext(),"Please Select Files To Upload",Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            networkService();
+                        }
                     }
                 }
                 break;
