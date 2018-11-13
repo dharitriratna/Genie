@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -52,6 +54,7 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
     private EditText nameTv,qualiTv;
     private EditText locationTv;
     private TextView pdfTv;
+    private boolean flagupload=false;
     private EditText numberTv,descriptionTv;
     private Button uploadBtn,searchBtn,postBtn;
     String[] exp = { "Total Experience","Less then 1 year", "1 year", "2 year","3 year","4 year","5 year"
@@ -153,7 +156,11 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
 
                 break;
             case R.id.postBtn:
-                networkService();
+                if (validationNew()) {
+                    if (isNetworkAvailable()) {
+                        networkService();
+                    }
+                }
                 break;
         }
     }
@@ -210,6 +217,7 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
             pdfTv.setVisibility(View.VISIBLE);
             filePath = data.getData();
            // String path = FileUtils.getPath(this, uri);
+            flagupload=true;
             pdfTv.setText(filePath.getPath());
             Log.d("Tag","fils");
         }
@@ -414,5 +422,59 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
+    private Boolean validationNew() {
 
+
+        if (nameTv.getText().toString().trim().isEmpty()) {
+
+            nameTv.setError("Please Enter name");
+
+            return false;
+        }
+
+
+        if (numberTv.getText().toString().trim().isEmpty()) {
+
+            numberTv.setError("Please Enter number");
+
+            return false;
+        }
+
+
+        if (qualiTv.getText().toString().trim().isEmpty()) {
+
+            qualiTv.setError("Please Enter Highest Qualification");
+
+            return false;
+        }
+        if (descriptionTv.getText().toString().trim().isEmpty()) {
+
+            descriptionTv.setError("Please Enter Description");
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void noNetwrokErrorMessage() {
+        alertDialog.setTitle("Error!");
+        alertDialog.setMessage("No internet connection. Please check your internet setting.");
+        alertDialog.setCancelable(true);
+        alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = alertDialog.create();
+        alert.show();
+
+    }
 }

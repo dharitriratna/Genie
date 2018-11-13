@@ -330,7 +330,7 @@ public class SellRentActivity extends AppCompatActivity implements View.OnClickL
                 if(status==true){
                     String data=response.body().getData();
                     Toast.makeText(getApplicationContext(),data,Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(SellRentActivity.this,MainActivity.class));
+                    startActivity(new Intent(SellRentActivity.this,RentActivity.class));
                     finish();
                 }
 

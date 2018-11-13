@@ -106,7 +106,7 @@
             android:singleLine="true"
             android:background="@drawable/edittext_top_bg"
             android:padding="10dp"
-            android:focusable="false"
+
             android:layout_marginRight="10dp"
             tools:ignore="RtlCompat" />
     </LinearLayout>
@@ -137,14 +137,15 @@
             android:background="@drawable/edittext_top_bg"
             android:padding="10dp"
             android:focusable="false"
-
+            android:visibility="visible"
             tools:ignore="RtlCompat"
-            android:visibility="gone"/>
+           />
         <RelativeLayout
             android:id="@+id/depRel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+           >
             <EditText
                 android:id="@+id/depEd"
                 android:layout_weight="1"
@@ -165,13 +166,15 @@
                 android:padding="10dp"
                 android:focusable="false"
                 android:layout_marginRight="10dp"
-                tools:ignore="RtlCompat" />
+                tools:ignore="RtlCompat"
+                android:visibility="gone"/>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/arrRel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:visibility="visible">
             <EditText
                 android:id="@+id/arrivalEd"
                 android:layout_weight="1"
@@ -191,7 +194,8 @@
                 android:background="@drawable/edittext_top_bg"
                 android:padding="10dp"
                 android:enabled="true"
-                tools:ignore="RtlCompat" />
+                tools:ignore="RtlCompat"
+                android:visibility="gone"/>
         </RelativeLayout>
     </LinearLayout>
     <EditText
