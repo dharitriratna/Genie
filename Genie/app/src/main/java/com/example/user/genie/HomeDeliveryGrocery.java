@@ -51,7 +51,7 @@ public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnCl
     private Button select_btn,btn_submit;
     private ImageView selcted_image,add_beat;
     private GoodHomeListAdapter goodHomeListAdapter;
-    private ArrayList<GoodHomeModel> goodHomeModelArrayList,getGoodHomeModelArrayList;
+    private ArrayList<GoodHomeModel> goodHomeModelArrayList,getGoodHomeModelArrayList,arrayList;
     private Random mRandom = new Random();
     private String imagefilePath="",login_user;
     private LinearLayout nextLn;
@@ -94,6 +94,7 @@ public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnCl
 
         goodHomeModelArrayList=new ArrayList<>();
         getGoodHomeModelArrayList=new ArrayList<>();
+        arrayList=new ArrayList<>();
         GoodHomeModel goodHomeModel=new GoodHomeModel();
         goodHomeModel.setItem("");
         goodHomeModel.setQty("");
@@ -215,6 +216,7 @@ public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnCl
                 // Add an item to animals list
                 goodHomeModelArrayList.add(position,goodHomeModel);
 
+
                 /*
                     public final void notifyItemInserted (int position)
                         Notify any registered observers that the item reflected at position has been
@@ -273,11 +275,14 @@ public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnCl
                 getGoodHomeModelArrayList=goodHomeListAdapter.getGoodsArray();
                 for(int i=0;i<getGoodHomeModelArrayList.size();i++){
                     GoodHomeModel goodHomeModel1=getGoodHomeModelArrayList.get(i);
-                    boolean checkflag=goodHomeModel1.isFlagItemqty();
-                    if(checkflag==false){
-                        Toast.makeText(this, "Please Enter All Item Details(name,Quantity)", Toast.LENGTH_SHORT).show();
+                    String checkitem=goodHomeModel1.getItem();
+                    String checkqty=goodHomeModel1.getQty();
+                    if(checkitem.isEmpty()||checkqty.isEmpty()){
+                        Toast.makeText(this, "Please Enter All Item Details(name,Quantity)", Toast.LENGTH_LONG).show();
+                    }else {
+                        getArray();
                     }
-                    getArray();
+
 
                 }
                 break;
