@@ -59,7 +59,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_shoppingcart"/>
+                android:src="@drawable/ic_account_wallet"/>
         </LinearLayout>
 
     </android.support.v7.widget.Toolbar>

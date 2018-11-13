@@ -123,7 +123,7 @@ public class EventDetails extends AppCompatActivity {
             //    deiverydate=bundle.getString("DELIVERYDATE");
 
             //    Log.d("deiverydate",deiverydate);
-            event_price.setText(this.getResources().getString(R.string.rupee)+eventprice);
+            event_price.setText("Starting from" + this.getResources().getString(R.string.rupee)+eventprice);
             eventid.setText(event_id);
             Picasso.with(this).load(event_image).into(eventimage);
         }
@@ -281,7 +281,7 @@ public class EventDetails extends AppCompatActivity {
             {
                 Toast.makeText(getApplicationContext(),"Event Registered Successfully", Toast.LENGTH_LONG).show();
 
-                startActivity(new Intent(EventDetails.this,MainActivity.class));finish();
+                startActivity(new Intent(EventDetails.this,ThankYouActivity.class));finish();
             }
             else{
                 Toast.makeText(getApplicationContext(),data, Toast.LENGTH_LONG).show();

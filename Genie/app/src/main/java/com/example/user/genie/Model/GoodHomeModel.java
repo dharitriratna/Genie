@@ -23,4 +23,14 @@ public class GoodHomeModel {
 
     private String item;
     private String qty;
+
+    public boolean isFlagItemqty() {
+        return flagItemqty;
+    }
+
+    public void setFlagItemqty(boolean flagItemqty) {
+        this.flagItemqty = flagItemqty;
+    }
+
+    public boolean flagItemqty;
 }

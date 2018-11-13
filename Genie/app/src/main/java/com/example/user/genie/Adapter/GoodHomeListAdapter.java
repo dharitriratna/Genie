@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,14 +31,14 @@ import java.util.ArrayList;
 
 public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<GoodHomeModel> names;
-    private ArrayList<String> seatAvail;
+    private ArrayList<GoodHomeModel> goodsArray;
+    private boolean flagItem=false,flagqty=false;
 
 
-    public GoodHomeListAdapter(Context context, ArrayList<GoodHomeModel> names) {
-        this.names = names;
+    public GoodHomeListAdapter(Context context, ArrayList<GoodHomeModel> goodsArray) {
+        this.goodsArray = goodsArray;
         this.context=context;
-        seatAvail=new ArrayList<>();
+
     }
 
     @Override
@@ -48,13 +50,56 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        GoodHomeModel goodHomeModel=names.get(position);
+        GoodHomeModel goodHomeModel=goodsArray.get(position);
+
+        holder.vertical_list_item_title.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                flagItem=true;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+               if(flagItem==true) {
+                   goodsArray.get(position).setFlagItemqty(true);
+               }else {
+                   flagItem=false;
+                   goodsArray.get(position).setFlagItemqty(false);
+               }
+            }
+        });
+        holder.vertical_list_item_subtitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                flagqty=true;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(flagqty==true) {
+                    goodsArray.get(position).setFlagItemqty(true);
+                }else {
+                    flagqty=false;
+                    goodsArray.get(position).setFlagItemqty(false);
+                }
+            }
+        });
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 // Remove the item on remove/button click
-                names.remove(position);
+                goodsArray.remove(position);
 
                 /*
                     public final void notifyItemRemoved (int position)
@@ -85,7 +130,7 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
                         positionStart : Position of the first item that has changed
                         itemCount : Number of items that have changed
                 */
-                notifyItemRangeChanged(position,names.size());
+                notifyItemRangeChanged(position,goodsArray.size());
 
                 // Show the removed item label
            //     Toast.makeText(mContext,"Removed : " + itemLabel,Toast.LENGTH_SHORT).show();
@@ -97,7 +142,7 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
 
     @Override
     public int getItemCount() {
-        return names.size();
+        return goodsArray.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -119,8 +164,12 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
     //here we are passing the filtered data
     //and assigning it to the list with notifydatasetchanged method
     public void filterList(ArrayList<GoodHomeModel> filterdNames) {
-        this.names = filterdNames;
+        this.goodsArray = filterdNames;
         notifyDataSetChanged();
+    }
+
+    public ArrayList<GoodHomeModel> getGoodsArray(){
+        return goodsArray;
     }
 
 

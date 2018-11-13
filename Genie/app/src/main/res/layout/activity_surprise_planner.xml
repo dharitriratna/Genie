@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:layout_margin="2dp"
+    android:layout_margin="0dp"
     android:orientation="vertical"
     tools:context=".SurprisePlanner">
 
@@ -29,6 +29,18 @@
             android:fontFamily="sans-serif"
             android:textColor="@color/colorPrimary" />
     </android.support.v7.widget.Toolbar>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
@@ -68,16 +80,7 @@
         android:id="@+id/gift_price"
         android:gravity="center"/>
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scrollbars="none">
 
-    <LinearLayout
-        android:weightSum="2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
 
         <LinearLayout
@@ -107,6 +110,30 @@
                     android:padding="10dp"
                     android:textColor="#000" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                >
+
+                <EditText
+                    android:id="@+id/to_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edittext_top_bg"
+                    android:cursorVisible="true"
+                    android:hint="Phone Number"
+                    android:textSize="15sp"
+                    android:textColorHint="@color/colorPrimaryDark"
+                    android:inputType="number"
+                    android:gravity="start|center"
+                    android:padding="10dp"
+                    android:textColor="#000" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -173,7 +200,7 @@
                 >
 
                 <EditText
-                    android:id="@+id/t0_address"
+                    android:id="@+id/to_address"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:background="@drawable/edittext_top_bg"
@@ -183,6 +210,7 @@
                     android:textColorHint="@color/colorPrimaryDark"
                     android:inputType="text"
                     android:gravity="start"
+                    android:singleLine="false"
                     android:padding="10dp"
                     android:textColor="#000" />
             </LinearLayout>
@@ -201,12 +229,13 @@
                     android:layout_height="100dp"
                     android:background="@drawable/edittext_top_bg"
                     android:cursorVisible="true"
-                    android:hint="From Address"
+                    android:hint="Sender Address"
                     android:textSize="15sp"
                     android:textColorHint="@color/colorPrimaryDark"
                     android:inputType="text"
                     android:gravity="start"
                     android:padding="10dp"
+                    android:singleLine="false"
                     android:textColor="#000"
                     />
             </LinearLayout>

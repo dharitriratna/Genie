@@ -289,7 +289,7 @@ public class Adress extends AppCompatActivity {
             {
                 Toast.makeText(getApplicationContext(),"Order Successful", Toast.LENGTH_LONG).show();
 
-                startActivity(new Intent(Adress.this,MainActivity.class));finish();
+                startActivity(new Intent(Adress.this,ThankYouActivity.class));finish();
             }
             else{
                 Toast.makeText(getApplicationContext(),data, Toast.LENGTH_LONG).show();

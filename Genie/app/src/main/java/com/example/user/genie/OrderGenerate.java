@@ -59,7 +59,8 @@ import static com.example.user.genie.VerticalFragment.hasPermissions;
 public class OrderGenerate extends AppCompatActivity {
     Toolbar toolbar;
     TextView edt;
-    EditText serv_name, amount,user_name, user_address, user_landmark, user_city, user_state, user_country;
+    EditText serv_name,user_name, user_address, user_landmark, user_city, user_state, user_country;
+    TextView  amount;
     String[] pincodes = {"", "", "", "", "", ""};
     String pincode,name, address, landmark, city, state, country;
     String service_id, service_name, service_fees, service_img;

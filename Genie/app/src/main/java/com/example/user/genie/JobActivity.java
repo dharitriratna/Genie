@@ -132,12 +132,28 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
         tittlespinner.setAdapter(aaa);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.uploadBtn:
-                chooseFiles();
+                new AlertDialog.Builder(JobActivity.this)
+                        .setTitle("Select Files")
+                        .setMessage("Open from FileManager")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                                chooseFiles();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
                 break;
             case R.id.postBtn:
                 if (validationNew()) {
@@ -286,6 +302,7 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static String getPath(final Context context, final Uri uri) {
 
+
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
         // DocumentProvider
@@ -366,6 +383,7 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
         };
 
         try {
+
             cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
                     null);
             if (cursor != null && cursor.moveToFirst()) {
