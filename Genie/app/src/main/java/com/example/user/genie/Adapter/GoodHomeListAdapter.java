@@ -51,6 +51,8 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         GoodHomeModel goodHomeModel=goodsArray.get(position);
+        holder.vertical_list_item_title.setText(goodHomeModel.getItem());
+        holder.vertical_list_item_subtitle.setText(goodHomeModel.getQty());
 
         holder.vertical_list_item_title.addTextChangedListener(new TextWatcher() {
             @Override
@@ -104,8 +106,8 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
             public void onClick(View view) {
 // Remove the item on remove/button click
                goodsArray.remove(position);
-                goodsArray.get(position).setQty("");
-                goodsArray.get(position).setItem("");
+              //  goodsArray.get(position).setQty("");
+                //goodsArray.get(position).setItem("");
                 /*
                     public final void notifyItemRemoved (int position)
                         Notify any registered observers that the item previously located at position
@@ -120,6 +122,9 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
                         position : Position of the item that has now been removed
                 */
                 notifyItemRemoved(position);
+            //    holder.vertical_list_item_title.getText().clear();
+             //   holder.vertical_list_item_subtitle.getText().clear();
+                notifyDataSetChanged();
 
                 /*
                     public final void notifyItemRangeChanged (int positionStart, int itemCount)
@@ -143,6 +148,11 @@ public class GoodHomeListAdapter extends RecyclerView.Adapter<GoodHomeListAdapte
         });
 
 
+    }
+
+    public void delete(int position) { //removes the row
+        goodsArray.remove(position);
+        notifyItemRemoved(position);
     }
 
     @Override
