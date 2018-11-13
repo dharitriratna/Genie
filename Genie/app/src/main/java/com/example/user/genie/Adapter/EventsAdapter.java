@@ -49,7 +49,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         //   holder.samagri_amt.setTypeface(tf3);
         holder.event_id.setText(listItem.getEvent_id());
         holder.event_name.setText(listItem.getEvent_name());
-        holder.event_entry_fees.setText("Starting From" + context.getResources().getString(R.string.rupee)+listItem.getEvent_price());
+        holder.event_entry_fees.setText("Starting From" +" "+context.getResources().getString(R.string.rupee)+listItem.getEvent_price());
         Picasso.with(context).load(listItem.getEvent_image()).into(holder.event_image);
 
 

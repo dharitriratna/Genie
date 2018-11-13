@@ -123,7 +123,7 @@ public class EventDetails extends AppCompatActivity {
             //    deiverydate=bundle.getString("DELIVERYDATE");
 
             //    Log.d("deiverydate",deiverydate);
-            event_price.setText("Starting from" + this.getResources().getString(R.string.rupee)+eventprice);
+            event_price.setText("Starting from" +" "+this.getResources().getString(R.string.rupee)+eventprice);
             eventid.setText(event_id);
             Picasso.with(this).load(event_image).into(eventimage);
         }
@@ -161,7 +161,18 @@ public class EventDetails extends AppCompatActivity {
                mTimePicker = new TimePickerDialog(EventDetails.this, new TimePickerDialog.OnTimeSetListener() {
                    @Override
                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                       time.setText( selectedHour + ":" + selectedMinute);
+
+                       String AM_PM ;
+                       if(selectedHour < 12) {
+                           AM_PM = "AM";
+                       }else if(selectedHour==12){
+                           AM_PM="PM";
+                       }
+                       else {
+                           AM_PM = "PM";
+                       }
+
+                       time.setText( selectedHour + ":" + selectedMinute+" "+AM_PM);
                    }
                }, hour, minute, false);//Yes 24 hour time
                mTimePicker.setTitle("Select Time");

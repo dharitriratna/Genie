@@ -1,10 +1,15 @@
 package com.example.user.genie;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,11 +26,15 @@ public class PaymentActivity extends AppCompatActivity {
     String month_no;
     TextView paid_amount;
     String amount;
+    RadioGroup radioGroup;
+    RadioButton cod_method, debitcard_method, creditcard_method;
+    Button proceed_payment_btn;
 
     private DatePickerDialog fromDatePickerDialog;
     Calendar mcurrenttime;
     private SimpleDateFormat dateFormatter;
     String Date_;
+    LinearLayout payment_card_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +49,38 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
         paid_amount = findViewById(R.id.paid_amount);
-      //  month = findViewById(R.id.month);
+        proceed_payment_btn = findViewById(R.id.proceed_payment_btn);
+        radioGroup = findViewById(R.id.radioGroup);
+        cod_method = findViewById(R.id.cod_method);
+        debitcard_method = findViewById(R.id.debitcard_method);
+        creditcard_method = findViewById(R.id.creditcard_method);
+        payment_card_layout = findViewById(R.id.payment_card_layout);
 
+        cod_method.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                proceed_payment_btn.setVisibility(View.VISIBLE);
+                payment_card_layout.setVisibility(View.GONE);
+            }
+        });
+
+        debitcard_method.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                proceed_payment_btn.setVisibility(View.VISIBLE);
+                payment_card_layout.setVisibility(View.VISIBLE);
+            }
+        });
+
+        proceed_payment_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Gift Ordered Successfully", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(),ThankYouActivity.class));
+            }
+        });
+
+      //  month = findViewById(R.id.month);
 /*
         month.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +93,5 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
 */
-
-
     }
 }

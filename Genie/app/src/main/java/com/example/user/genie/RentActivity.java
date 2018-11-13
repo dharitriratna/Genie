@@ -54,8 +54,7 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rent);
-        apiService =
-                ApiClientGenie.getClient().create(ApiInterface.class);
+        apiService = ApiClientGenie.getClient().create(ApiInterface.class);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

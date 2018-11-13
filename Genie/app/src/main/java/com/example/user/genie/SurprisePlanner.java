@@ -174,7 +174,17 @@ public class SurprisePlanner extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(SurprisePlanner.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        time.setText( selectedHour + ":" + selectedMinute);
+                        String AM_PM ;
+                        if(selectedHour < 12) {
+                            AM_PM = "AM";
+                        }else if(selectedHour==12){
+                            AM_PM="PM";
+                        }
+                        else {
+                            AM_PM = "PM";
+                        }
+
+                        time.setText( selectedHour + ":" + selectedMinute+" "+AM_PM);
                     }
                 }, hour, minute, false);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -235,9 +245,8 @@ public class SurprisePlanner extends AppCompatActivity {
 
             if(status.equals("true"))
             {
-                Toast.makeText(getApplicationContext(),"Gift Added Successfully", Toast.LENGTH_LONG).show();
 
-                startActivity(new Intent(SurprisePlanner.this,ThankYouActivity.class));finish();
+                startActivity(new Intent(SurprisePlanner.this,PaymentActivity.class));finish();
             }
             else{
                 Toast.makeText(getApplicationContext(),data, Toast.LENGTH_LONG).show();
