@@ -47,6 +47,7 @@ import com.example.user.genie.Fragments.FragmentMain;
 import com.example.user.genie.Fragments.FragmentProfile;
 import com.example.user.genie.Model.CardModel;
 import com.example.user.genie.Model.ServicesModel;
+import com.example.user.genie.MoneyTransfer.MoneyTransferActivity;
 import com.example.user.genie.ObjectNew.ServiceImage;
 import com.example.user.genie.Utils.GlobalClass;
 import com.example.user.genie.client.ApiClientGenie;
@@ -80,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
   //  LinearLayout ac_mechanic, tv_mechanic, labour, driver, home_tutor;
     LinearLayout home_delivery, events, prepaid, electricity,train_booking,
-          dth, broadband, landline, water,moviesLinear,flightLinear,linearBus,cabBookingLin,rentLin,birthday_planners, joblin;
+          dth, broadband, landline, water,moviesLinear,flightLinear,linearBus,
+          cabBookingLin,rentLin,birthday_planners, joblin,money_transfer;
     Button button1, button2, button3, button4, button5;
 
     TextView tagline_text;
@@ -159,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         linearBus=findViewById(R.id.linearBus);
         cabBookingLin=findViewById(R.id.cabBookingLin);
         rentLin=findViewById(R.id.rentLin);
+        money_transfer=findViewById(R.id.money_transfer);
 
         birthday_planners=findViewById(R.id.birthday_planners);
 
@@ -265,6 +268,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this,JobActivity.class));
+            }
+        });
+        money_transfer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, MoneyTransferActivity.class));
+
             }
         });
         service_recyclerview = findViewById(R.id.service_recyclerview);

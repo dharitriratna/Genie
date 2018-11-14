@@ -1,0 +1,86 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    android:layout_margin="10dp"
+    tools:context="com.example.user.genie.Fragments.UPIFragment">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Transfer from Your Bank to Other Bank"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="normal"
+        android:padding="10dp"
+        />
+
+    <EditText
+        android:id="@+id/nameEd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="true"
+        android:textAlignment="viewStart"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:hint="Name of the Person"
+
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:inputType="textPersonName"
+        android:singleLine="true"
+        android:background="@drawable/edittext_top_bg"
+        android:padding="10dp"
+        android:layout_marginRight="10dp"
+        tools:ignore="RtlCompat" />
+    <EditText
+        android:id="@+id/accontNumberEd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="true"
+        android:textAlignment="viewStart"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="3dp"
+        android:hint="Bank Account Number"
+
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:inputType="number"
+        android:singleLine="true"
+        android:background="@drawable/edittext_top_bg"
+        android:padding="10dp"
+        android:layout_marginRight="10dp"
+        tools:ignore="RtlCompat" />
+    <EditText
+        android:id="@+id/ifscEd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="true"
+        android:textAlignment="viewStart"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="3dp"
+        android:hint="IFSC Code"
+
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:inputType="text"
+        android:singleLine="true"
+        android:background="@drawable/edittext_top_bg"
+        android:padding="10dp"
+        android:layout_marginRight="10dp"
+        tools:ignore="RtlCompat" />
+    <Button
+        android:id="@+id/continueBtn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:text="Continue"
+        android:textAllCaps="false"
+        android:background="@drawable/my_button"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18dp" />
+</LinearLayout>

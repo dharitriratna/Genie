@@ -228,7 +228,13 @@
         <activity
             android:name=".ThankYouActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".WalletActivity"
+        <activity
+            android:name=".WalletActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MoneyTransfer.MoneyTransferActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MoneyTransfer.SendPaymentActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

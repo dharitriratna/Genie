@@ -57,4 +57,7 @@ pregnancy. How it affects the whole family, especially two grown up sons, forms 
     </string-array>
     <string name="rupee">\u20B9</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
