@@ -169,6 +169,8 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
                     filterModel.setUser_id(data.getUser_id());
                     filterModel.setPhone(data.getPhone());
                     filterModel.setImage_url(data.getImage_url());
+                    filterModel.setLatitude(data.getLatitude());
+                    filterModel.setLongitude(data.getLongitude());
 
                     filtterarray.add(filterModel);
 
@@ -201,7 +203,8 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
                     filterModel.setUser_id(data.getUser_id());
                     filterModel.setPhone(data.getPhone());
                     filterModel.setImage_url(data.getImage_url());
-
+                    filterModel.setLatitude(data.getLatitude());
+                    filterModel.setLongitude(data.getLongitude());
                     filtterarray.add(filterModel);
 
                 }
@@ -233,7 +236,8 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
                     filterModel.setUser_id(data.getUser_id());
                     filterModel.setPhone(data.getPhone());
                     filterModel.setImage_url(data.getImage_url());
-
+                    filterModel.setLatitude(data.getLatitude());
+                    filterModel.setLongitude(data.getLongitude());
                     filtterarray.add(filterModel);
 
                 }

@@ -144,15 +144,37 @@
                     ></Spinner>
             </RelativeLayout>
             <EditText
-                android:id="@+id/locationTv"
+                android:id="@+id/expTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:cursorVisible="false"
+                android:cursorVisible="true"
                 android:textAlignment="viewStart"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="3dp"
                 android:layout_marginLeft="10dp"
-                android:hint="Location"
+                android:hint="Experience"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp"
+                android:inputType="number"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:background="@drawable/edittext_top_bg"
+                android:padding="10dp"
+                android:focusable="true"
+                android:layout_marginRight="10dp"
+                tools:ignore="RtlCompat"
+                android:visibility="visible"/>
+            <EditText
+                android:id="@+id/lastCompanyTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="true"
+                android:textAlignment="viewStart"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="10dp"
+                android:hint="Last Company Name"
                 android:textColorHint="@color/colorPrimaryDark"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp"
@@ -161,10 +183,10 @@
                 android:singleLine="true"
                 android:background="@drawable/edittext_top_bg"
                 android:padding="10dp"
-                android:focusable="false"
+                android:focusable="true"
                 android:layout_marginRight="10dp"
                 tools:ignore="RtlCompat"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
             <EditText
                 android:id="@+id/descriptionTv"
                 android:layout_width="match_parent"
@@ -196,8 +218,10 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:singleLine="true"
+                android:padding="5dp"
                 android:lines="1"
                 android:visibility="gone"
+                android:scrollbars="horizontal"
                 android:textColor="@color/colorPrimaryDark"/>
             <LinearLayout
                 android:layout_width="match_parent"

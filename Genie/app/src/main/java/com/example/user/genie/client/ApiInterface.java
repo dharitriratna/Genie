@@ -7,6 +7,7 @@ import com.example.user.genie.ObjectNew.PlaceCabResponse;
 import com.example.user.genie.ObjectNew.RentResponse;
 import com.example.user.genie.ObjectNew.SellResponse;
 import com.example.user.genie.ObjectNew.ServiceImage;
+import com.example.user.genie.helper.RegPrefManager;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -46,13 +47,17 @@ public interface ApiInterface {
     Call<SellResponse> postSellResponse(@Part MultipartBody.Part file, @Part("user_id")RequestBody user_id,
                                         @Part("category") RequestBody category, @Part("price") RequestBody price,
                                         @Part("description") RequestBody description,@Part("phone") RequestBody phone,
-                                        @Part("address") RequestBody address);
+                                        @Part("address") RequestBody address,
+                                        @Part("latitude") RequestBody latitude,
+                                        @Part("longitude") RequestBody longitude);
     @Multipart
     @POST("api/service/job")
     Call<JobResponse> uploadFile(@Part MultipartBody.Part file, @Part("user_id") RequestBody user_id,
-                                 @Part("name") RequestBody name,@Part("number") RequestBody number,
+                                 @Part("name") RequestBody name, @Part("number") RequestBody number,
                                  @Part("highest_qulification") RequestBody highest_qulification,
-                                 @Part("desc") RequestBody desc);
+                                 @Part("desc") RequestBody desc,
+                                 @Part("experience")RequestBody experience,
+                                 @Part("last_company") RequestBody last_company);
 
     @GET("index.php/api/service/getpin")
     Call<PlaceCabResponse> getCabServiceLocation();

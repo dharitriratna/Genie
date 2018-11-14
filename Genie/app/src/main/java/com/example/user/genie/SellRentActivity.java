@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -29,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.user.genie.LocationUtils.PermissionUtils;
 import com.example.user.genie.ObjectNew.CabResponse;
 import com.example.user.genie.ObjectNew.SellResponse;
 import com.example.user.genie.client.ApiClientGenie1;
@@ -36,8 +40,11 @@ import com.example.user.genie.client.ApiInterface;
 import com.example.user.genie.handler.AsyncTaskHandlerImage;
 import com.example.user.genie.handler.AsyncTaskImageListener;
 import com.example.user.genie.helper.Constants;
+import com.example.user.genie.helper.RegPrefManager;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.File;
+import java.util.ArrayList;
 
 
 import okhttp3.MediaType;
@@ -47,7 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SellRentActivity extends AppCompatActivity implements View.OnClickListener,AsyncTaskImageListener {
+public class SellRentActivity extends AppCompatActivity implements View.OnClickListener, AsyncTaskImageListener, LocationListener {
     private Spinner spinner;
     String[] rent = {"Room Rents", "Office Rents", "Shop rent"};
     private Toolbar toolbar;
@@ -60,8 +67,15 @@ public class SellRentActivity extends AppCompatActivity implements View.OnClickL
     ProgressDialog progressDialog;
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
-    String login_user = "",imagepath="";
+    String login_user = "", imagepath = "";
     Uri selectedImage;
+    private final static int PLAY_SERVICES_REQUEST = 1000;
+    private final static int REQUEST_CHECK_SETTINGS = 2000;
+
+    private LocationManager mLastLocation;
+
+    double longitude,latitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +103,21 @@ public class SellRentActivity extends AppCompatActivity implements View.OnClickL
                 finish();
             }
         });
+        mLastLocation = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location location = mLastLocation.getLastKnownLocation(mLastLocation.NETWORK_PROVIDER);
+
+        onLocationChanged(location);
         intialize();
 
     }
@@ -120,17 +149,21 @@ public class SellRentActivity extends AppCompatActivity implements View.OnClickL
     //Requesting permission
     private void requestStoragePermission() {
         if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-                || (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED))
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+                ||(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                ||(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED))
             return;
 
         if ((ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) ||
-                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))) {
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION))||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION))) {
             //If the user has denied the permission previously your code will come to this block
             //Here you can explain why you need this permission
             //Explain here why you need this permission
         }
         //And finally ask for the permission
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, STORAGE_PERMISSION_CODE);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, STORAGE_PERMISSION_CODE);
     }
 
 
@@ -160,11 +193,11 @@ public class SellRentActivity extends AppCompatActivity implements View.OnClickL
                 if (validationNew()) {
                     if (isNetworkAvailable()) {
                         if(imagepath.isEmpty()){
-                         Toast.makeText(getApplicationContext(),"Please Upload Image",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Please Upload Image",Toast.LENGTH_SHORT).show();
                         }else {
                             networkService();
                         }
-                     //   postimage();
+                        //   postimage();
                     } else {
                         noNetwrokErrorMessage();
                     }
@@ -297,7 +330,9 @@ public class SellRentActivity extends AppCompatActivity implements View.OnClickL
         String desc = descripEd.getText().toString();
         String address = addressEd.getText().toString();
         //  String phone= RegPrefManager.getInstance(SellRentActivity.this).getPhoneNo();
-        String phone = "9738748330";
+        String phone = RegPrefManager.getInstance(SellRentActivity.this).getPhoneNo();
+        String lat=String.valueOf(latitude);
+        String lang=String.valueOf(longitude);
 
 
         //creating a file
@@ -313,13 +348,15 @@ public class SellRentActivity extends AppCompatActivity implements View.OnClickL
         RequestBody descBody = RequestBody.create(MediaType.parse("text/plain"), desc);
         RequestBody phoneBody = RequestBody.create(MediaType.parse("text/plain"), phone);
         RequestBody addressBody = RequestBody.create(MediaType.parse("text/plain"), address);
+        RequestBody latitudeBody = RequestBody.create(MediaType.parse("text/plain"), lat);
+        RequestBody logitudeBody = RequestBody.create(MediaType.parse("text/plain"), lang);
 
         progressDialog.setMessage("Loading");
         progressDialog.show();
 
         //creating a call and calling the upload image method
         Call<SellResponse> call = apiService.postSellResponse(fileToUpload, useridBody, categoryBody,
-                priceBody, descBody, phoneBody, addressBody);
+                priceBody, descBody, phoneBody, addressBody,latitudeBody,logitudeBody);
         call.enqueue(new Callback<SellResponse>() {
             @Override
             public void onResponse(Call<SellResponse> call, Response<SellResponse> response) {
@@ -402,6 +439,28 @@ public class SellRentActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onTaskCompleteImage(String result) {
         Log.d("Tag",result);
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+         longitude=location.getLongitude();
+         latitude=location.getLatitude();
+        Log.d("Tag","lat:"+latitude+"lang:"+longitude);
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
 
     }
 }

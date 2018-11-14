@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.example.user.genie.ObjectNew.JobResponse;
 import com.example.user.genie.ObjectNew.SellResponse;
+import com.example.user.genie.client.ApiClientGenie;
 import com.example.user.genie.client.ApiClientGenie1;
 import com.example.user.genie.client.ApiInterface;
 import com.example.user.genie.helper.RegPrefManager;
@@ -48,11 +49,11 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+@SuppressWarnings("All")
 public class JobActivity extends AppCompatActivity implements View.OnClickListener{
     private Toolbar toolbar;
     private Spinner spinner,tittlespinner;
-    private EditText nameTv,qualiTv;
+    private EditText nameTv,qualiTv,expTv,lastCompanyTv;
     private EditText locationTv;
     private TextView pdfTv;
     private boolean flagupload=false;
@@ -111,7 +112,8 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
         nameTv=findViewById(R.id.nameTv);
         qualiTv=findViewById(R.id.qualiTv);
         numberTv=findViewById(R.id.numberTv);
-        locationTv=findViewById(R.id.locationTv);
+        expTv=findViewById(R.id.expTv);
+        lastCompanyTv=findViewById(R.id.lastCompanyTv);
         pdfTv=findViewById(R.id.pdfTv);
        // tittleTv=findViewById(R.id.tittleTv);
         descriptionTv=findViewById(R.id.descriptionTv);
@@ -236,6 +238,8 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
         String number = numberTv.getText().toString();
         String highqual = qualiTv.getText().toString();
         String desc = descriptionTv.getText().toString();
+        String exp=expTv.getText().toString();
+        String lastcompany=lastCompanyTv.getText().toString();
         //  String phone= RegPrefManager.getInstance(SellRentActivity.this).getPhoneNo();
 
 
@@ -264,7 +268,8 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
         RequestBody numberBody = RequestBody.create(MediaType.parse("text/plain"), number);
         RequestBody highqualBody = RequestBody.create(MediaType.parse("text/plain"), highqual);
         RequestBody descBody = RequestBody.create(MediaType.parse("text/plain"), desc);
-
+        RequestBody expBody = RequestBody.create(MediaType.parse("text/plain"), exp);
+        RequestBody lastcompanyBody = RequestBody.create(MediaType.parse("text/plain"), lastcompany);
 
         progressDialog.setMessage("Loading");
         progressDialog.show();
@@ -272,7 +277,7 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
 
         //creating a call and calling the upload image method
         Call<JobResponse> call = apiService.uploadFile(fileToUpload, useridBody,nameBody, numberBody,
-                highqualBody, descBody);
+                highqualBody, descBody,expBody,lastcompanyBody);
         call.enqueue(new Callback<JobResponse>() {
             @Override
             public void onResponse(Call<JobResponse> call, Response<JobResponse> response) {
@@ -284,7 +289,7 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
                 if(status==true){
                     String data=response.body().getData();
                     Toast.makeText(getApplicationContext(),data,Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(JobActivity.this,MainActivity.class));
+                    startActivity(new Intent(JobActivity.this,ThankYouActivity.class));
                     finish();
                 }
             }
@@ -458,6 +463,18 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
         if (descriptionTv.getText().toString().trim().isEmpty()) {
 
             descriptionTv.setError("Please Enter Description");
+
+            return false;
+        }
+        if (expTv.getText().toString().trim().isEmpty()) {
+
+            expTv.setError("Please Enter your Experience");
+
+            return false;
+        }
+        if (lastCompanyTv.getText().toString().trim().isEmpty()) {
+
+            lastCompanyTv.setError("Please Enter Last Company Name");
 
             return false;
         }

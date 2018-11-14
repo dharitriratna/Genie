@@ -2,6 +2,7 @@ package com.example.user.genie.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,7 @@ public class RentCustomAdapter extends RecyclerView.Adapter<RentCustomAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder,final int position) {
       //  holder.nameTv.setText(names.get(position));
 
         /*holder.textViewName.setOnClickListener(new View.OnClickListener() {
@@ -56,9 +57,31 @@ public class RentCustomAdapter extends RecyclerView.Adapter<RentCustomAdapter.Vi
         holder.priceTv.setText("Rs."+data.getPrice());
         holder.phoneTv.setText("Phone: "+data.getPhone());
         String image=data.getImage_url();
+         String latitude=data.getLatitude();
+         String longitude=data.getLongitude();
+        final double lat=Double.valueOf(latitude);
+        final double lang=Double.valueOf(longitude);
         if(data.getImage_url()!=null){
             Picasso.with(context).load(data.getImage_url()).fit().into(holder.image);
         }
+        holder.phoneTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RentResponse.Data data=names.get(position);
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+data.getPhone()));
+                context.startActivity(intent);
+            }
+        });
+        holder.addressTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(android.content.Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("geo:"+lat+","+lang));
+                Intent.createChooser(intent,"Launch Maps");
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

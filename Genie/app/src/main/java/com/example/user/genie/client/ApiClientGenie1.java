@@ -19,8 +19,8 @@ public class ApiClientGenie1 {
 
     public static Retrofit getClient() {
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(100, TimeUnit.SECONDS)
-                .readTimeout(100,TimeUnit.SECONDS).build();
+                .connectTimeout(5, TimeUnit.MINUTES)
+                .readTimeout(5,TimeUnit.MINUTES).build();
         if (retrofit==null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL).client(client)

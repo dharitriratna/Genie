@@ -608,40 +608,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //initializing the fragment object which is selected
         switch (itemId) {
-           /* case R.id.about:
-                startActivity(new Intent(MainActivity.this, About.class));
-                break;
 
-            case R.id.contact:
-                startActivity(new Intent(MainActivity.this, Contacts.class));
-                break;
-            *//*case R.id.nav_menu3:
-                break;*//*
-
-            case R.id.subscription:
-                startActivity(new Intent(MainActivity.this,Subscription_status.class));
-                break;
-
-            case R.id.wishlist:
-                startActivity(new Intent(MainActivity.this,Wishlist.class));
-                break;
-
-            case R.id.mycart:
-                startActivity(new Intent(MainActivity.this, Cart.class));
-                break;
-
-            case R.id.order:
-                startActivity(new Intent(MainActivity.this, Order.class));
-                break;
-
-            case R.id.share_app:
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.bloomandwild&hl=en");//share_cont + "\n" + "https://play.google.com/store/apps/details?id=com.nursevibe.vibe.nurse");
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
-                break;
-*/
             case R.id.my_order:
                 Intent intent_ordr = new Intent(MainActivity.this,MyOrders.class);
                 startActivity(intent_ordr);
