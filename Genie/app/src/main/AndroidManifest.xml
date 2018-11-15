@@ -234,7 +234,16 @@
         <activity
             android:name=".MoneyTransfer.MoneyTransferActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MoneyTransfer.SendPaymentActivity"
+        <activity
+            android:name=".MoneyTransfer.SendPaymentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DataCardActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DataCardOperatorActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DataCardCircleActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

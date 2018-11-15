@@ -1,12 +1,15 @@
 package com.example.user.genie.client;
 
 import com.example.user.genie.ObjectNew.CabResponse;
+import com.example.user.genie.ObjectNew.DatacardRechargeResponse;
 import com.example.user.genie.ObjectNew.GenPNRResponse;
 import com.example.user.genie.ObjectNew.JobResponse;
 import com.example.user.genie.ObjectNew.PlaceCabResponse;
 import com.example.user.genie.ObjectNew.RentResponse;
 import com.example.user.genie.ObjectNew.SellResponse;
 import com.example.user.genie.ObjectNew.ServiceImage;
+import com.example.user.genie.ObjectNew.getDataCardCircle;
+import com.example.user.genie.ObjectNew.getDataCardOperatorResponse;
 import com.example.user.genie.helper.RegPrefManager;
 
 import okhttp3.MultipartBody;
@@ -61,4 +64,16 @@ public interface ApiInterface {
 
     @GET("index.php/api/service/getpin")
     Call<PlaceCabResponse> getCabServiceLocation();
+
+    @GET("api/service/getdatacard")
+    Call<getDataCardOperatorResponse> getDataCardOperator();
+
+    @GET("api/service/getcircle")
+    Call<getDataCardCircle> getDataCardCircle();
+
+    @POST("api/service/mobile_dth_datacard_recharge")
+    @FormUrlEncoded
+    Call<DatacardRechargeResponse> postDatacardRecharge(@Field("user_id") int user_id, @Field("customer_id") String customer_id,
+                                                        @Field("operator") String operator,
+                                                  @Field("circle") int circle, @Field("amount") int amount);
 }

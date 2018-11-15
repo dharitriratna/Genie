@@ -138,5 +138,26 @@ public class RegPrefManager {
     public String getBack(){
         return mSharedPreferences.getString("back",null);
     }
+
+    public void setDataCardOperator(String operator,String code){
+        mSharedPreferences.edit().putString("operator",operator).apply();
+        mSharedPreferences.edit().putString("opearator_code",code).apply();
+    }
+    public String getDataCardOperator(){
+        return mSharedPreferences.getString("operator",null);
+    }
+    public String getDataCardOperatorCode(){
+        return mSharedPreferences.getString("opearator_code",null);
+    }
+    public void setDataCardCircle(String name,String code){
+        mSharedPreferences.edit().putString("circlename",name).apply();
+        mSharedPreferences.edit().putString("circlecode",code).apply();
+    }
+    public String getDDataCardCirclename(){
+        return mSharedPreferences.getString("circlename",null);
+    }
+    public String gettDDataCardCircleCode(){
+        return mSharedPreferences.getString("circlecode",null);
+    }
 }
 
