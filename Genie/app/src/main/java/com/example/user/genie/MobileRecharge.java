@@ -172,6 +172,32 @@ public class MobileRecharge extends AppCompatActivity {
         });
 
 
+        btn_postpaid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                phone_number = contact_number.getText().toString();
+                carrierName = operator.getText().toString();
+                operator_circle_name = circle.getText().toString();
+                recharge_amount = amount.getText().toString();
+
+                if (phone_number.length() < 1){
+                    contact_number.setError("Enter Your Mobile Number");
+                }
+               /* else if (phone_number.length()>1){
+                    new AsyngetOperator().execute();
+                }*/
+                else if (carrierName.length()< 1){
+                    operator.setError("Enter Your Operator");
+                }
+                else if (recharge_amount.length() < 1){
+                    amount.setError("Enter Your Amount");
+                }
+                else {
+                    new AsynSignInDetails().execute();
+                }
+
+            }
+        });
 
         operator.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -305,14 +331,14 @@ public class MobileRecharge extends AppCompatActivity {
             pDialog.show();
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
             //  cred.add(new BasicNameValuePair("user_id",login_user));//user_email
-            cred.add(new BasicNameValuePair("phone",phone_number ));
+            cred.add(new BasicNameValuePair("customer_id",phone_number ));
             cred.add(new BasicNameValuePair("operator",operator_code ));
             cred.add(new BasicNameValuePair("circle",circle_code ));
             cred.add(new BasicNameValuePair("amount",recharge_amount ));
             Log.v("RES","Sending data " + phone_number+ operator_code +circle_code+recharge_amount);
 
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_recharge";
+            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_dth_datacard_recharge";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 
@@ -343,7 +369,7 @@ public class MobileRecharge extends AppCompatActivity {
 
             if(status.equals("SUCCESS"))
             {
-                Toast.makeText(getApplicationContext(),status, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"pending", Toast.LENGTH_LONG).show();
 
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
