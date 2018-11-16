@@ -110,6 +110,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LandLine"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".WaterBill"
@@ -244,6 +245,7 @@
             android:name=".DataCardOperatorActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".DataCardCircleActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

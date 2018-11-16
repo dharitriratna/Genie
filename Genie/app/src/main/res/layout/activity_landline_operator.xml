@@ -45,12 +45,37 @@
             android:layout_marginRight="10dp"
             />
     </LinearLayout>
-
+    <RelativeLayout
+        android:id="@+id/searchED"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="10dp">
+        <EditText
+            android:id="@+id/searchEd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:hint="Search"
+            android:textSize="17sp"
+            android:inputType="text"
+            android:fontFamily="sans-serif"
+            android:imeOptions="actionDone"
+            android:background="@null"/>
+    </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/landlines_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp">
     </android.support.v7.widget.RecyclerView>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/noMesgTv"
+        android:text="No Data Found"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 </LinearLayout>

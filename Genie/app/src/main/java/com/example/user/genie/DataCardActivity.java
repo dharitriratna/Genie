@@ -143,6 +143,7 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
                 startActivityForResult(intent, PICK_CONTACT);
                 break;
             case R.id.operatorTv:
+                RegPrefManager.getInstance(this).setPhoneNo(contact_number.getText().toString());
                 startActivity(new Intent(DataCardActivity.this,DataCardOperatorActivity.class));
                 finish();
                 break;
@@ -162,6 +163,7 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
 
                 break;
             case R.id.circleTv:
+                RegPrefManager.getInstance(this).setPhoneNo(contact_number.getText().toString());
                 startActivity(new Intent(DataCardActivity.this,DataCardCircleActivity.class));
                 finish();
                 break;
@@ -187,6 +189,7 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
                                 num = numbers.getString(numbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                 //       Toast.makeText(MobileRecharge.this, "Number="+num, Toast.LENGTH_LONG).show();
                                 contact_number.setText(num);
+                                RegPrefManager.getInstance(this).setPhoneNo(num);
                             }
                         }
                     }
@@ -208,6 +211,10 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
         String circlename=RegPrefManager.getInstance(this).getDDataCardCirclename();
         if(circlename!=null){
             circleTv.setText(circlename);
+        }
+        String phone=RegPrefManager.getInstance(this).getPhoneNo();
+        if(phone!=null) {
+            contact_number.setText(phone);
         }
 
     }

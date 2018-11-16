@@ -4,6 +4,8 @@ import com.example.user.genie.ObjectNew.CabResponse;
 import com.example.user.genie.ObjectNew.DatacardRechargeResponse;
 import com.example.user.genie.ObjectNew.GenPNRResponse;
 import com.example.user.genie.ObjectNew.JobResponse;
+import com.example.user.genie.ObjectNew.LandlineResponse;
+import com.example.user.genie.ObjectNew.LandlineResponseModel;
 import com.example.user.genie.ObjectNew.PlaceCabResponse;
 import com.example.user.genie.ObjectNew.RentResponse;
 import com.example.user.genie.ObjectNew.SellResponse;
@@ -76,4 +78,13 @@ public interface ApiInterface {
     Call<DatacardRechargeResponse> postDatacardRecharge(@Field("user_id") int user_id, @Field("customer_id") String customer_id,
                                                         @Field("operator") String operator,
                                                   @Field("circle") int circle, @Field("amount") int amount);
+    @GET("api/service/getlandline")
+    Call<LandlineResponseModel> getLandlineOperator();
+
+    @POST("api/service/Postpaidmobile_Landline_Broadband")
+    @FormUrlEncoded
+    Call<LandlineResponse> postLandlineRecharge(@Field("user_id") int user_id, @Field("customer_id") String customer_id,
+                                                @Field("operator") String operator,
+                                                @Field("circle") int circle, @Field("amount") int amount,
+                                                @Field("account_number") String account_number,@Field("std_code") String std_code);
 }

@@ -26,6 +26,7 @@ import com.example.user.genie.ObjectNew.getDataCardCircle;
 import com.example.user.genie.ObjectNew.getDataCardOperatorResponse;
 import com.example.user.genie.client.ApiClientGenie;
 import com.example.user.genie.client.ApiInterface;
+import com.example.user.genie.helper.RegPrefManager;
 
 import java.util.ArrayList;
 
@@ -57,8 +58,15 @@ public class DataCardCircleActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DataCardCircleActivity.this,DataCardActivity.class));
-                finish();
+                String back= RegPrefManager.getInstance(DataCardCircleActivity.this).getBack();
+                if(back.equals("Landline")){
+                    startActivity(new Intent(DataCardCircleActivity.this,LandLine.class));
+                    finish();
+                }else {
+                    startActivity(new Intent(DataCardCircleActivity.this,DataCardActivity.class));
+                    finish();
+                }
+
             }
         });
         intialize();
