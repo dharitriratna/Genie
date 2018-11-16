@@ -5,18 +5,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.TextView;
 
-import com.example.user.genie.Model.CardModel;
+import com.example.user.genie.MobileOperators;
 import com.example.user.genie.Model.MobileOperatorsModel;
 import com.example.user.genie.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperatorsAdapter.ViewHolder> {
 
     private List<MobileOperatorsModel> operatorsModels;
+    private List<MobileOperatorsModel> models;
     private Context context;
+    private Filter filter;
+
 
    /* String fontPath = "fonts/Raleway-Light.ttf";
     String fontPath2 = "fonts/Raleway-Thin.ttf";
@@ -25,7 +30,12 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
     public MobileOperatorsAdapter(List<MobileOperatorsModel> operatorsModels, Context context) {
         this.operatorsModels = operatorsModels;
         this.context = context;
+
     }
+
+    public MobileOperatorsAdapter(MobileOperators mobileOperators, int row_mobile_operators, ArrayList<MobileOperatorsModel> models) {
+    }
+
 
     @Override
     public MobileOperatorsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -56,13 +66,65 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
         holder.service_type.setText(listItem.getService_type());
         //   holder.pro_name.setTypeface(tf3);
         holder.operator_code.setText(listItem.getOperator_code());*/
-
     }
+
+
 
     @Override
     public int getItemCount() {
         return operatorsModels.size();
     }
+
+    public Filter getFilter() {
+        if (filter == null){
+            filter = new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+
+                    constraint = constraint.toString().toLowerCase();
+                    FilterResults result = new FilterResults();
+
+                    if(constraint != null && constraint.toString().length() > 0)
+                    {
+                        ArrayList<MobileOperatorsModel> operatorsModels1 = new ArrayList<MobileOperatorsModel>();
+
+                        for(int i = 0, l = operatorsModels.size(); i < l; i++)
+                        {
+                            MobileOperatorsModel model = operatorsModels.get(i);
+                            if(model.toString().toLowerCase().contains(constraint))
+                                operatorsModels1.add(model);
+                        }
+                        result.count = operatorsModels1.size();
+                        result.values = operatorsModels1;
+                    }
+                    else
+                    {
+                        synchronized(this)
+                        {
+                            result.values = operatorsModels;
+                            result.count = operatorsModels.size();
+                        }
+                    }
+                    return result;
+                }
+
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    models = (ArrayList<MobileOperatorsModel>)results.values;
+                    notifyDataSetChanged();
+                    for(int i = 0, l = models.size(); i < l; i++)
+                       // add(models.get(i));
+                    notifyDataSetInvalidated();
+                }
+            };
+        }
+
+        return filter;
+    }
+
+    private void notifyDataSetInvalidated() {
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -75,8 +137,6 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
             operator_name = itemView.findViewById(R.id.operator_name);
             service_type = itemView.findViewById(R.id.service_type);
             operator_code = itemView.findViewById(R.id.operator_code);
-
         }
-
     }
 }

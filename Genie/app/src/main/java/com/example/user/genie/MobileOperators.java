@@ -8,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,6 +39,8 @@ public class MobileOperators extends AppCompatActivity {
     private List<MobileOperatorsModel> operatorsModels;
     RecyclerView mob_operators_recyclerview;
 
+    EditText searchEd;
+    String opSearch;
 
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
@@ -53,6 +58,11 @@ public class MobileOperators extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        searchEd = findViewById(R.id.searchEd);
+        displayList();
+
+
+
 
       /*  Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -73,6 +83,7 @@ public class MobileOperators extends AppCompatActivity {
         mob_operators_recyclerview.setLayoutManager(manager);
 
 
+
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         // commit changes
@@ -83,6 +94,7 @@ public class MobileOperators extends AppCompatActivity {
 
 
         operatorsModels = new ArrayList<>();
+
         getMobileOperators();
 
         mob_operators_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, mob_operators_recyclerview, new RecyclerTouchListener.ClickListener() {
@@ -107,6 +119,35 @@ public class MobileOperators extends AppCompatActivity {
             }
         }));
     }
+
+    private void displayList() {
+        ArrayList<MobileOperatorsModel> models = new ArrayList<MobileOperatorsModel>();
+        mobileOperatorsAdapter = new MobileOperatorsAdapter(this,
+                R.layout.row_mobile_operators, models);
+
+        models.add((MobileOperatorsModel) operatorsModels);
+        searchEd.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mobileOperatorsAdapter.getFilter().filter(s.toString());
+            }
+        });
+    }
+
+ /*   private void displayFromListView() {
+        int position = 0;
+        MobileOperatorsModel mobileOperatorsModel = operatorsModels.get(position);
+        opSearch = mobileOperatorsModel.getOperator_code().toString();
+    }*/
+
+
+   
 
     private void getMobileOperators() {
         progressDialog.setMessage("Loading");
@@ -158,6 +199,7 @@ public class MobileOperators extends AppCompatActivity {
 
                             mobileOperatorsAdapter = new MobileOperatorsAdapter(operatorsModels, getApplicationContext());
                             mob_operators_recyclerview.setAdapter(mobileOperatorsAdapter);
+
 
 
                         } catch (JSONException e) {
