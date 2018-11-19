@@ -29,16 +29,22 @@
             android:textColor="@color/colorPrimary" />
     </android.support.v7.widget.Toolbar>
 
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="5dp"
-        android:layout_marginTop="5dp"
+
+        android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:padding="10dp">
+        android:padding="5dp">
 
 
 
@@ -51,12 +57,12 @@
             android:textAlignment="viewStart"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
+
             android:hint="Operator Name"
-            android:textColorHint="@color/colorPrimaryDark"
+
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
-            android:inputType="number"
+            android:inputType="text"
             android:singleLine="true"
             android:background="@drawable/edittext_top_bg"
             android:padding="10dp"
@@ -68,11 +74,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="5dp"
+
         android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:padding="10dp">
+        android:padding="5dp">
+
+
+
+        <TextView
+            android:id="@+id/circleTv"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cursorVisible="true"
+            android:textAlignment="viewStart"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+
+            android:hint="Circle Name"
+
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            android:inputType="text"
+            android:singleLine="true"
+            android:background="@drawable/edittext_top_bg"
+            android:padding="10dp"
+            android:layout_marginRight="10dp"
+            tools:ignore="RtlCompat" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:padding="5dp">
 
 
 
@@ -87,7 +127,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:hint="Account Number/User Name"
-            android:textColorHint="@color/colorPrimaryDark"
+
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
             android:inputType="number"
@@ -98,8 +138,150 @@
             tools:ignore="RtlCompat" />
 
     </LinearLayout>
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:padding="5dp"
+            >
 
 
+
+            <EditText
+                android:id="@+id/phoneTv"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="true"
+                android:textAlignment="viewStart"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+
+                android:hint="Landline number"
+
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:inputType="text"
+                android:singleLine="true"
+                android:background="@drawable/edittext_top_bg"
+                android:padding="10dp"
+
+                android:layout_marginRight="10dp"
+                tools:ignore="RtlCompat" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/stdlinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:padding="5dp"
+            android:visibility="gone">
+
+
+
+            <EditText
+                android:id="@+id/stdTv"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="true"
+                android:textAlignment="viewStart"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+
+                android:hint="STD Code"
+
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:inputType="text"
+                android:singleLine="true"
+                android:background="@drawable/edittext_top_bg"
+                android:padding="10dp"
+
+                android:layout_marginRight="10dp"
+                tools:ignore="RtlCompat" />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:padding="5dp">
+
+
+
+        <EditText
+            android:id="@+id/amountEd"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cursorVisible="true"
+            android:textAlignment="viewStart"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:hint="Amount"
+
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            android:inputType="number"
+            android:singleLine="true"
+            android:background="@drawable/edittext_top_bg"
+            android:padding="10dp"
+            android:layout_marginRight="10dp"
+            tools:ignore="RtlCompat" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/noteTv"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cursorVisible="true"
+            android:textAlignment="viewStart"
+            android:layout_marginLeft="2dp"
+            android:gravity="center"
+            android:fontFamily="sans-serif"
+            android:text="NOTE:  Paying amount should be exactly same as the bill amount for BSNL Landlines, BSNL Mobile, MTNL Delhi Landlines, if paying after the due date then please add the late payment fee as mentioned in your bill."
+
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp"
+            android:inputType="textMultiLine"
+
+
+            android:padding="5dp"
+            android:layout_marginRight="2dp"
+            tools:ignore="RtlCompat" />
+
+
+
+    </LinearLayout>
     <Button
         android:visibility="visible"
         android:id="@+id/btn_lb_proceed"
@@ -111,5 +293,8 @@
         android:textAllCaps="false"
         android:background="@drawable/my_button"
         android:textColor="@color/colorPrimary"
-        android:textSize="18dp" />
+        android:textSize="18dp"
+        android:layout_marginBottom="200dp"/>
+    </LinearLayout>
+</ScrollView>
 </LinearLayout>

@@ -10,8 +10,9 @@ import android.widget.TextView;
 
 import com.example.user.genie.DataCardActivity;
 import com.example.user.genie.LandLine;
-import com.example.user.genie.Model.DataOperatorListModel;
 import com.example.user.genie.ObjectNew.DataCardCircleResponse;
+import com.example.user.genie.ObjectNew.LandLineData;
+import com.example.user.genie.ObjectNew.LandlineResponseModel;
 import com.example.user.genie.R;
 import com.example.user.genie.helper.RegPrefManager;
 
@@ -21,13 +22,13 @@ import java.util.ArrayList;
  * Created by RatnaDev008 on 10/29/2018.
  */
 
-public class DatacardOperatorCircleCustomAdapter extends RecyclerView.Adapter<DatacardOperatorCircleCustomAdapter.ViewHolder> {
+public class LandLineCustomAdapter extends RecyclerView.Adapter<LandLineCustomAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<DataCardCircleResponse> operatorList;
+    private ArrayList<LandLineData> operatorList;
 
 
 
-    public DatacardOperatorCircleCustomAdapter(Context context, ArrayList<DataCardCircleResponse> operatorList) {
+    public LandLineCustomAdapter(Context context, ArrayList<LandLineData> operatorList) {
         this.operatorList = operatorList;
         this.context=context;
 
@@ -36,31 +37,25 @@ public class DatacardOperatorCircleCustomAdapter extends RecyclerView.Adapter<Da
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.movies_citylayout, parent, false);
+                .inflate(R.layout.row_landline_operators, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder,final int position) {
 
-        final DataCardCircleResponse data=operatorList.get(position);
+        final LandLineData data=operatorList.get(position);
 
-        holder.textViewName.setText(data.getCircle_name());
+        holder.operator_name.setText(data.getOperator_name());
+        holder.service_type.setText(data.getService_type());
 
-        holder.textViewName.setOnClickListener(new View.OnClickListener() {
+        holder.operator_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String back= RegPrefManager.getInstance(context).getBack();
-                if(back.equals("Landline")) {
-                    RegPrefManager.getInstance(context).setLandlineCircle(data.getCircle_name(), data.getCircle_code());
 
-                    context.startActivity(new Intent(context, LandLine.class));
-                }
-                else {
-                    RegPrefManager.getInstance(context).setDataCardCircle(data.getCircle_name(), data.getCircle_code());
+                RegPrefManager.getInstance(context).setLandlineOperator(data.getOperator_name(),data.getOperator_code());
 
-                    context.startActivity(new Intent(context, DataCardActivity.class));
-                }
+                context.startActivity(new Intent(context,LandLine.class));
             }
         });
     }
@@ -75,19 +70,20 @@ public class DatacardOperatorCircleCustomAdapter extends RecyclerView.Adapter<Da
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewName;
+        TextView operator_name,service_type;
 
         ViewHolder(View itemView) {
             super(itemView);
 
-            textViewName = (TextView) itemView.findViewById(R.id.textViewName);
+            operator_name = (TextView) itemView.findViewById(R.id.operator_name);
+            service_type=(TextView)itemView.findViewById(R.id.service_type);
         }
     }
 
     //This method will filter the list
     //here we are passing the filtered data
     //and assigning it to the list with notifydatasetchanged method
-    public void filterList(ArrayList<DataCardCircleResponse > filterdNames) {
+    public void filterList(ArrayList<LandLineData > filterdNames) {
         this.operatorList = filterdNames;
         notifyDataSetChanged();
     }

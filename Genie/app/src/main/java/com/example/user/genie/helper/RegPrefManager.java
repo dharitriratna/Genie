@@ -159,5 +159,27 @@ public class RegPrefManager {
     public String gettDDataCardCircleCode(){
         return mSharedPreferences.getString("circlecode",null);
     }
+    public void setLandlineOperator(String name,String code){
+        mSharedPreferences.edit().putString("landlineoperatorname",name).apply();
+        mSharedPreferences.edit().putString("landlineoperatorcode",code).apply();
+    }
+    public String getLandlineOperatorname(){
+        return mSharedPreferences.getString("landlineoperatorname",null);
+    }
+    public String getLandlineOperatorcode(){
+        return mSharedPreferences.getString("landlineoperatorcode",null);
+    }
+
+    public void setLandlineCircle(String name,String code){
+        mSharedPreferences.edit().putString("landlinecirclename",name).apply();
+        mSharedPreferences.edit().putString("landlinecirclecode",code).apply();
+    }
+    public String getLandlinecirclename(){
+        return mSharedPreferences.getString("landlinecirclename",null);
+    }
+    public String getLandlinecirclecode(){
+        return mSharedPreferences.getString("landlinecirclecode",null);
+    }
+
 }
 
