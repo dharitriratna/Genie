@@ -6,46 +6,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
-    tools:context=".WaterBoards">
+    tools:context=".GasproviderActivity">
 
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimaryDark"
+        app:popupTheme="@style/MyDarkToolbarStyle"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextColor="@android:color/black">
 
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            app:popupTheme="@style/MyDarkToolbarStyle"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:titleTextColor="@android:color/black">
-
-            <TextView
-                android:id="@+id/order"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Water Boards"
-                android:textSize="18sp"
-                android:textAllCaps="false"
-                android:layout_gravity="center"
-                android:fontFamily="sans-serif"
-                android:textColor="@color/colorPrimary" />
-        </android.support.v7.widget.Toolbar>
-        <ImageView
-            android:visibility="gone"
-            android:id="@+id/refresh"
+        <TextView
+            android:id="@+id/order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_refresh_black_24dp"
+            android:text="Gas Provider"
+            android:textSize="18sp"
+            android:textAllCaps="false"
             android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            />
-    </LinearLayout>
-
+            android:fontFamily="sans-serif"
+            android:textColor="@color/colorPrimary" />
+    </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:id="@+id/searchOp"
@@ -68,12 +50,12 @@
             android:background="@null"/>
     </RelativeLayout>
 
-
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/water_board_recyclerview"
+        android:id="@+id/gasProviderRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
-
+        android:layout_margin="5dp"
+        android:orientation="vertical">
     </android.support.v7.widget.RecyclerView>
+
 </LinearLayout>

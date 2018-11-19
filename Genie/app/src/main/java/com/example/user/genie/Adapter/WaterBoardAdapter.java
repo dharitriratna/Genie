@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.user.genie.Model.DTHOperatorsModel;
+import com.example.user.genie.Model.ElectricityBoardModel;
 import com.example.user.genie.Model.WaterBoardModel;
 import com.example.user.genie.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WaterBoardAdapter extends RecyclerView.Adapter<WaterBoardAdapter.ViewHolder> {
@@ -77,6 +79,9 @@ public class WaterBoardAdapter extends RecyclerView.Adapter<WaterBoardAdapter.Vi
             operator_code = itemView.findViewById(R.id.operator_code);
 
         }
-
+    }
+    public void filterList(ArrayList<WaterBoardModel> filterdNames) {
+        this.waterBoardModels = filterdNames;
+        notifyDataSetChanged();
     }
 }

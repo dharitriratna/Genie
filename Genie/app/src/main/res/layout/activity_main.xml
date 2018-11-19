@@ -595,6 +595,7 @@
                             android:layout_margin="10dp">
 
                             <LinearLayout
+                                android:id="@+id/gasLayout"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
@@ -645,6 +646,7 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/hotelLayout"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
@@ -758,7 +760,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:visibility="invisible"
+                                android:visibility="visible"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
@@ -767,14 +769,14 @@
                                     android:layout_width="40dp"
                                     android:layout_gravity="center"
                                     android:layout_height="40dp"
-                                    android:src="@drawable/ic_hotel"
+                                    android:src="@drawable/ic_motorcycle"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="hotel"
+                                    android:text="Bike Insurance"
                                     android:textAllCaps="true"
                                     android:textSize="10sp"
                                     android:textColor="#000"
@@ -783,7 +785,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:visibility="invisible"
+                                android:visibility="visible"
 
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -793,14 +795,14 @@
                                     android:layout_width="40dp"
                                     android:layout_gravity="center"
                                     android:layout_height="40dp"
-                                    android:src="@drawable/ic_plane"
+                                    android:src="@drawable/ic_directions_car_black_24dp"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="flight"
+                                    android:text="Car Insurance"
                                     android:textAllCaps="true"
                                     android:textSize="10sp"
                                     android:textColor="#000"

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context=".RawMeatActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:popupTheme="@style/MyDarkToolbarStyle"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextColor="@android:color/black">
+
+        <TextView
+            android:id="@+id/order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Raw Meats"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/colorPrimary" />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="MINIMUM PRICE"
+            android:textSize="15sp"
+            android:cursorVisible="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_margin="10dp" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="100"
+                android:padding="10dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:inputType="number"
+                android:background="@drawable/edittext_top_bg"
+                android:textSize="15sp"
+                android:gravity="start"
+                android:layout_margin="10dp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="MEAT TYPE"
+            android:textSize="15sp"
+            android:cursorVisible="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_margin="10dp" />
+
+
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="@drawable/edittext_top_bg">
+                <Spinner
+                    android:id="@+id/year_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/meats_array"
+                    android:spinnerMode="dialog">
+                </Spinner>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="PIN CODE"
+            android:textSize="15sp"
+            android:cursorVisible="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_margin="10dp" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/edit_pin"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="751016"
+                android:textColorHint="#585656"
+                android:padding="10dp"
+                android:inputType="number"
+                android:background="@drawable/edittext_top_bg"
+                android:textSize="15sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:cursorVisible="false"
+                android:gravity="start"
+                android:layout_margin="10dp"
+                />
+
+        </LinearLayout>
+
+</LinearLayout>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="Next"
+        android:textAllCaps="false"
+        android:background="@drawable/my_button"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18dp" />
+</LinearLayout>

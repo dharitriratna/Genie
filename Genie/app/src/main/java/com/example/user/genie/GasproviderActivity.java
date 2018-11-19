@@ -20,10 +20,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.user.genie.Adapter.DTHOperatorAdapter;
+import com.example.user.genie.Adapter.GasProviderAdapter;
 import com.example.user.genie.Adapter.WaterBoardAdapter;
-import com.example.user.genie.Model.DTHOperatorsModel;
-import com.example.user.genie.Model.MobileOperatorsModel;
+import com.example.user.genie.Model.GasProviderModel;
 import com.example.user.genie.Model.WaterBoardModel;
 
 import org.json.JSONArray;
@@ -33,19 +32,20 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WaterBoards extends AppCompatActivity {
+public class GasproviderActivity extends AppCompatActivity {
     Toolbar toolbar;
+    RecyclerView gasProviderRecyclerView;
     ProgressDialog progressDialog;
     int i=0;
-    private WaterBoardAdapter waterBoardAdapter;
-    private List<WaterBoardModel> waterBoardModels;
-    RecyclerView water_board_recyclerview;
+    private GasProviderAdapter gasProviderAdapter;
+    private List<GasProviderModel> gasProviderModels;
     EditText searchEd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_water_boards);
+        setContentView(R.layout.activity_gasprovider);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -74,21 +74,21 @@ public class WaterBoards extends AppCompatActivity {
         });
 
         progressDialog = new ProgressDialog(this);
-        water_board_recyclerview = findViewById(R.id.water_board_recyclerview);
+        gasProviderRecyclerView = findViewById(R.id.gasProviderRecyclerView);
 
         GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
-        water_board_recyclerview.setLayoutManager(manager);
+        gasProviderRecyclerView.setLayoutManager(manager);
 
-        waterBoardModels = new ArrayList<>();
-        getWaterBoards();
+        gasProviderModels = new ArrayList<>();
+        getGasBoards();
 
-        water_board_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, water_board_recyclerview, new RecyclerTouchListener.ClickListener() {
+        gasProviderRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, gasProviderRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public boolean onClick(View view, int position) {
-                WaterBoardModel list = waterBoardModels.get(position);
-                String operator_name = list.getWater_board_name();
+                GasProviderModel list = gasProviderModels.get(position);
+                String operator_name = list.getGas_board_name();
 
-                Intent intent = new Intent(WaterBoards.this,WaterBill.class);
+                Intent intent = new Intent(GasproviderActivity.this,GasBillActivity.class);
                 intent.putExtra("OPERATOR_NAME",operator_name);
                 startActivity(intent);
                 finish();
@@ -101,15 +101,14 @@ public class WaterBoards extends AppCompatActivity {
 
             }
         }));
-
     }
 
 
     private void filter(String text) {
         //new array list that will hold the filtered data
-        ArrayList<WaterBoardModel> filterdNames = new ArrayList<>();
+        ArrayList<GasProviderModel> filterdNames = new ArrayList<>();
 
-        for(int i=0;i<waterBoardModels.size();i++) {
+        for(int i=0;i<gasProviderModels.size();i++) {
             //looping through existing elements
             /*for (String s : placeList) {
                 //if the existing elements contains the search input
@@ -118,23 +117,22 @@ public class WaterBoards extends AppCompatActivity {
                     filterdNames.add(s);
                 }
             }*/
-            WaterBoardModel circleModel=waterBoardModels.get(i);
-            if(circleModel.getWater_board_name().toLowerCase().contains(text.toLowerCase())){
+            GasProviderModel circleModel=gasProviderModels.get(i);
+            if(circleModel.getGas_board_name().toLowerCase().contains(text.toLowerCase())){
                 filterdNames.add(circleModel);
             }
         }
 
         //calling a method of the adapter class and passing the filtered list
-        waterBoardAdapter.filterList(filterdNames);
+        gasProviderAdapter.filterList(filterdNames);
     }
 
-
-    private void getWaterBoards() {
+    private void getGasBoards() {
         progressDialog.setMessage("Loading");
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "http://demo.ratnatechnology.co.in/genie/api/service/getwater",
+                "http://demo.ratnatechnology.co.in/genie/api/service/getGas",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -150,33 +148,33 @@ public class WaterBoards extends AppCompatActivity {
                                 if (array.length()>0) {
 
                                     for (int i = 0; i < array.length(); i++) {
-                                        String water_board_id = "", water_board_name = "", water_board_code="", water_board_type = "";
+                                        String gas_board_id = "", gas_board_name = "", gas_board_code="", gas_board_type = "";
                                         JSONObject o = array.getJSONObject(i);
 
-                                        water_board_id = o.getString("id");
-                                        water_board_name = o.getString("operator_name");
+                                        gas_board_id = o.getString("id");
+                                        gas_board_name = o.getString("operator_name");
 
-                                        water_board_code = o.getString("operator_code");
-                                        water_board_type = o.getString("service_type");
+                                        gas_board_code = o.getString("operator_code");
+                                        gas_board_type = o.getString("service_type");
 
-                                        WaterBoardModel item = new WaterBoardModel(
-                                                water_board_id,water_board_name, water_board_code, water_board_type);
+                                        GasProviderModel item = new GasProviderModel(
+                                                gas_board_id,gas_board_name, gas_board_code, gas_board_type);
 
 
-                                        waterBoardModels.add(item);
+                                        gasProviderModels.add(item);
 
                                     }
                                 }
                                 else {
-                                Toast.makeText(getApplicationContext(), "No Data Found",
-                                        Toast.LENGTH_LONG).show();
-                                    water_board_recyclerview.setVisibility(View.GONE);
+                                    Toast.makeText(getApplicationContext(), "No Data Found",
+                                            Toast.LENGTH_LONG).show();
+                                    gasProviderRecyclerView.setVisibility(View.GONE);
                                     // no_orders_text.setVisibility(View.VISIBLE);
                                 }
                             }
 
-                            waterBoardAdapter = new WaterBoardAdapter(waterBoardModels, getApplicationContext());
-                            water_board_recyclerview.setAdapter(waterBoardAdapter);
+                            gasProviderAdapter = new GasProviderAdapter(gasProviderModels, getApplicationContext());
+                            gasProviderRecyclerView.setAdapter(gasProviderAdapter);
 
 
                         } catch (JSONException e) {
@@ -194,15 +192,15 @@ public class WaterBoards extends AppCompatActivity {
                         i++;
                     } else {
                         progressDialog.dismiss();
-                        Toast.makeText(WaterBoards.this, "Check your network connection.",
+                        Toast.makeText(GasproviderActivity.this, "Check your network connection.",
                                 Toast.LENGTH_LONG).show();
                     }
                 } else
-                    Toast.makeText(WaterBoards.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(GasproviderActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(WaterBoards.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(GasproviderActivity.this);
         requestQueue.add(stringRequest);
     }
 

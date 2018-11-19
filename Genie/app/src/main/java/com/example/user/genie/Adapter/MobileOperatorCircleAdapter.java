@@ -11,6 +11,7 @@ import com.example.user.genie.Model.MobileOperatorCircleModel;
 import com.example.user.genie.Model.MobileOperatorsModel;
 import com.example.user.genie.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MobileOperatorCircleAdapter extends RecyclerView.Adapter<MobileOperatorCircleAdapter.ViewHolder> {
@@ -71,5 +72,10 @@ public class MobileOperatorCircleAdapter extends RecyclerView.Adapter<MobileOper
             operator_circle_code = itemView.findViewById(R.id.operator_circle_code);
         }
 
+    }
+
+    public void filterList(ArrayList<MobileOperatorCircleModel> filterdNames) {
+        this.operatorCircleModels = filterdNames;
+        notifyDataSetChanged();
     }
 }

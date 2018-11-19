@@ -8,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -20,6 +23,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.user.genie.Adapter.MobileOperatorCircleAdapter;
 import com.example.user.genie.Model.MobileOperatorCircleModel;
+import com.example.user.genie.Model.MobileOperatorsModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +41,7 @@ public class MobileOperatorCircle extends AppCompatActivity {
     RecyclerView mob_operators_circle_recyclerview;
     String operator_name, operator_code;
     String number;
+    EditText searchEd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,25 @@ public class MobileOperatorCircle extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        searchEd = findViewById(R.id.searchEd);
+
+        searchEd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
+
 
         progressDialog = new ProgressDialog(this);
         mob_operators_circle_recyclerview = findViewById(R.id.mob_operators_circle_recyclerview);
@@ -108,6 +132,30 @@ public class MobileOperatorCircle extends AppCompatActivity {
         }));
     }
 
+    private void filter(String text) {
+        //new array list that will hold the filtered data
+        ArrayList<MobileOperatorCircleModel> filterdNames = new ArrayList<>();
+
+        for(int i=0;i<mobileOperatorCircleModels.size();i++) {
+            //looping through existing elements
+            /*for (String s : placeList) {
+                //if the existing elements contains the search input
+                if (s.toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdNames.add(s);
+                }
+            }*/
+            MobileOperatorCircleModel circleModel=mobileOperatorCircleModels.get(i);
+            if(circleModel.getOperator_circle_name().toLowerCase().contains(text.toLowerCase())){
+                filterdNames.add(circleModel);
+            }
+        }
+
+        //calling a method of the adapter class and passing the filtered list
+        mobileOperatorCircleAdapter.filterList(filterdNames);
+    }
+
+
     private void getMobileOperators() {
         progressDialog.setMessage("Loading");
         progressDialog.show();
@@ -147,8 +195,8 @@ public class MobileOperatorCircle extends AppCompatActivity {
                                     }
                                 }
                                 else {
-                                /*Toast.makeText(getApplicationContext(), "No Data Found",
-                                        Toast.LENGTH_LONG).show();*/
+                                Toast.makeText(getApplicationContext(), "No Data Found",
+                                        Toast.LENGTH_LONG).show();
                                     mob_operators_circle_recyclerview.setVisibility(View.GONE);
                                     // no_orders_text.setVisibility(View.VISIBLE);
                                 }

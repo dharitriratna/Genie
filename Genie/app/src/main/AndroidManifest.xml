@@ -243,7 +243,23 @@
         <activity
             android:name=".DataCardOperatorActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DataCardCircleActivity"
+        <activity
+            android:name=".DataCardCircleActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RawMeatActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".BrowsePlansActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".HotelActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".GasBillActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".GasproviderActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

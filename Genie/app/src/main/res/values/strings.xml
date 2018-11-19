@@ -23,6 +23,14 @@ pregnancy. How it affects the whole family, especially two grown up sons, forms 
         <item>751052</item>
     </string-array>
 
+    <string-array name="meats_array">
+        <item>Mutton</item>
+        <item>Chicken</item>
+        <item>Fish</item>
+        <item>Prawn</item>
+        <item>Crab</item>
+    </string-array>
+
     <string-array name="months_array">
         <item>MM</item>
         <item>01</item>

@@ -9,6 +9,7 @@ import android.widget.Filter;
 import android.widget.TextView;
 
 import com.example.user.genie.MobileOperators;
+import com.example.user.genie.Model.DataOperatorListModel;
 import com.example.user.genie.Model.MobileOperatorsModel;
 import com.example.user.genie.R;
 
@@ -75,52 +76,6 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
         return operatorsModels.size();
     }
 
-    public Filter getFilter() {
-        if (filter == null){
-            filter = new Filter() {
-                @Override
-                protected FilterResults performFiltering(CharSequence constraint) {
-
-                    constraint = constraint.toString().toLowerCase();
-                    FilterResults result = new FilterResults();
-
-                    if(constraint != null && constraint.toString().length() > 0)
-                    {
-                        ArrayList<MobileOperatorsModel> operatorsModels1 = new ArrayList<MobileOperatorsModel>();
-
-                        for(int i = 0, l = operatorsModels.size(); i < l; i++)
-                        {
-                            MobileOperatorsModel model = operatorsModels.get(i);
-                            if(model.toString().toLowerCase().contains(constraint))
-                                operatorsModels1.add(model);
-                        }
-                        result.count = operatorsModels1.size();
-                        result.values = operatorsModels1;
-                    }
-                    else
-                    {
-                        synchronized(this)
-                        {
-                            result.values = operatorsModels;
-                            result.count = operatorsModels.size();
-                        }
-                    }
-                    return result;
-                }
-
-                @Override
-                protected void publishResults(CharSequence constraint, FilterResults results) {
-                    models = (ArrayList<MobileOperatorsModel>)results.values;
-                    notifyDataSetChanged();
-                    for(int i = 0, l = models.size(); i < l; i++)
-                       // add(models.get(i));
-                    notifyDataSetInvalidated();
-                }
-            };
-        }
-
-        return filter;
-    }
 
     private void notifyDataSetInvalidated() {
     }
@@ -138,5 +93,10 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
             service_type = itemView.findViewById(R.id.service_type);
             operator_code = itemView.findViewById(R.id.operator_code);
         }
+    }
+
+    public void filterList(ArrayList<MobileOperatorsModel> filterdNames) {
+        this.operatorsModels = filterdNames;
+        notifyDataSetChanged();
     }
 }

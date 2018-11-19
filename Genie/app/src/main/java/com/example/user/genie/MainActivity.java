@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
   //  LinearLayout ac_mechanic, tv_mechanic, labour, driver, home_tutor;
     LinearLayout home_delivery, events, prepaid, electricity,train_booking,
           dth, broadband, landline, water,moviesLinear,flightLinear,linearBus,
-          cabBookingLin,rentLin,birthday_planners, joblin,money_transfer,datacardLn;
+          cabBookingLin,rentLin,birthday_planners, joblin,money_transfer,datacardLn, rawMeat, gasLayout, hotelLayout;
     Button button1, button2, button3, button4, button5;
 
     TextView tagline_text;
@@ -163,6 +163,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         rentLin=findViewById(R.id.rentLin);
         money_transfer=findViewById(R.id.money_transfer);
         datacardLn=findViewById(R.id.datacardLn);
+        rawMeat = findViewById(R.id.raw_meat);
+        gasLayout = findViewById(R.id.gasLayout);
+        hotelLayout = findViewById(R.id.hotelLayout);
 
         birthday_planners=findViewById(R.id.birthday_planners);
 
@@ -284,6 +287,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this,DataCardActivity.class));
             }
         });
+
+        rawMeat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,RawMeatActivity.class));
+            }
+        });
+
+        gasLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,GasBillActivity.class));
+            }
+        });
+
+        hotelLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,HotelActivity.class));
+            }
+        });
+
         service_recyclerview = findViewById(R.id.service_recyclerview);
 
         GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
@@ -460,7 +485,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mDemoSlider.addSlider(textSliderView);
         }
 
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(3000);
