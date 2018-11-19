@@ -110,8 +110,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LandLine"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name=".WaterBill"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -244,9 +244,17 @@
         <activity
             android:name=".DataCardOperatorActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DataCardCircleActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".DataCardCircleActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".AllInsuranseActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".InsuranceDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
     </application>
 
 </manifest>

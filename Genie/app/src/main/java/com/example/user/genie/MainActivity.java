@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
   //  LinearLayout ac_mechanic, tv_mechanic, labour, driver, home_tutor;
     LinearLayout home_delivery, events, prepaid, electricity,train_booking,
           dth, broadband, landline, water,moviesLinear,flightLinear,linearBus,
-          cabBookingLin,rentLin,birthday_planners, joblin,money_transfer,datacardLn;
+          cabBookingLin,rentLin,birthday_planners, joblin,money_transfer,datacardLn,insuranceLn;
     Button button1, button2, button3, button4, button5;
 
     TextView tagline_text;
@@ -165,6 +165,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         datacardLn=findViewById(R.id.datacardLn);
 
         birthday_planners=findViewById(R.id.birthday_planners);
+
+        insuranceLn=findViewById(R.id.insuranceLn);
 
         joblin=findViewById(R.id.joblin);
 
@@ -282,6 +284,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this,DataCardActivity.class));
+            }
+        });
+        insuranceLn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,AllInsuranseActivity.class));
             }
         });
         service_recyclerview = findViewById(R.id.service_recyclerview);

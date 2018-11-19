@@ -3,6 +3,9 @@ package com.example.user.genie.client;
 import com.example.user.genie.ObjectNew.CabResponse;
 import com.example.user.genie.ObjectNew.DatacardRechargeResponse;
 import com.example.user.genie.ObjectNew.GenPNRResponse;
+import com.example.user.genie.ObjectNew.GetInsuranseResponse;
+import com.example.user.genie.ObjectNew.InsuranceDetailResponse;
+import com.example.user.genie.ObjectNew.InsurancePaymentResponse;
 import com.example.user.genie.ObjectNew.JobResponse;
 import com.example.user.genie.ObjectNew.LandlineResponse;
 import com.example.user.genie.ObjectNew.LandlineResponseModel;
@@ -87,4 +90,17 @@ public interface ApiInterface {
                                                 @Field("operator") String operator,
                                                 @Field("circle") int circle, @Field("amount") int amount,
                                                 @Field("account_number") String account_number,@Field("std_code") String std_code);
+
+    @GET("api/service/getallinsurnce")
+    Call<GetInsuranseResponse> getAllInsurance();
+    @POST("api/service/verify_insuranceDetails")
+    @FormUrlEncoded
+    Call<InsuranceDetailResponse> postVerifyInsurance(@Field("user_id") String  user_id, @Field("id") String id,
+                                                      @Field("policyNo") String policyNo,
+                                                      @Field("dob") String dob);
+    @POST("api/service/insurancePayment")
+    @FormUrlEncoded
+    Call<InsurancePaymentResponse> postInsurancePayment(@Field("user_id") String  user_id, @Field("req_id") String req_id,
+                                                       @Field("policyNo") String policyNo);
+
 }

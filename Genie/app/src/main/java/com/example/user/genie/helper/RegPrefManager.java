@@ -181,5 +181,20 @@ public class RegPrefManager {
         return mSharedPreferences.getString("landlinecirclecode",null);
     }
 
+    public void setInsuranceId(String id){
+        mSharedPreferences.edit().putString("InsuranceID",id).apply();
+
+    }
+    public String getInsuranceId(){
+        return mSharedPreferences.getString("InsuranceID",null);
+    }
+    public void setReqId(String id){
+        mSharedPreferences.edit().putString("ReqID",id).apply();
+
+    }
+    public String getReqId(){
+        return mSharedPreferences.getString("ReqID",null);
+    }
+
 }
 
