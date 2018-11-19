@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.user.genie">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -244,6 +245,7 @@
         <activity
             android:name=".DataCardOperatorActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".DataCardCircleActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -255,6 +257,29 @@
         <activity android:name=".InsuranceDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
+
+
+        <activity
+            android:name=".RawMeatActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".BrowsePlansActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".HotelActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".GasBillActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".GasproviderActivity"/>
+
+        <activity android:name=".DataCardCircleActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="DuplicateActivity"></activity>
+
     </application>
 
 </manifest>

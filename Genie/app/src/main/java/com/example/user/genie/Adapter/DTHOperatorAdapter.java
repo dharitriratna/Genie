@@ -11,6 +11,7 @@ import com.example.user.genie.Model.DTHOperatorsModel;
 import com.example.user.genie.Model.MobileOperatorsModel;
 import com.example.user.genie.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.ViewHolder> {
@@ -77,6 +78,10 @@ public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.
             operator_code = itemView.findViewById(R.id.operator_code);
 
         }
+    }
 
+    public void filterList(ArrayList<DTHOperatorsModel> filterdNames) {
+        this.dthOperatorsModels = filterdNames;
+        notifyDataSetChanged();
     }
 }

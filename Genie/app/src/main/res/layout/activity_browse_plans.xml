@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
-    tools:context=".WalletActivity">
-
+    tools:context=".BrowsePlansActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -19,10 +18,10 @@
         app:titleTextColor="@android:color/black">
 
         <TextView
-            android:id="@+id/order"
+            android:id="@+id/listTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My Wallet"
+            android:text="Browsing Plans"
             android:textSize="18sp"
             android:textAllCaps="false"
             android:layout_gravity="center"
@@ -30,20 +29,11 @@
             android:textColor="@color/colorPrimary" />
     </android.support.v7.widget.Toolbar>
 
-
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/browsing_plans"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Wallet is empty!"
-            android:gravity="center|center_vertical"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"/>
-    </LinearLayout>
+        android:layout_margin="5dp"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

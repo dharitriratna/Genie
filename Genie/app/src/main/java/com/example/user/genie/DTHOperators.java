@@ -7,8 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -19,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.user.genie.Adapter.DTHOperatorAdapter;
 import com.example.user.genie.Model.DTHOperatorsModel;
+import com.example.user.genie.Model.MobileOperatorCircleModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +38,8 @@ public class DTHOperators extends AppCompatActivity {
     private DTHOperatorAdapter dthOperatorAdapter;
     private List<DTHOperatorsModel> dthOperatorsModels;
     RecyclerView dth_operators_recyclerview;
+    EditText searchEd;
+
 
 
     @Override
@@ -48,6 +54,25 @@ public class DTHOperators extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        searchEd = findViewById(R.id.searchEd);
+        searchEd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
+
 
         progressDialog = new ProgressDialog(this);
         dth_operators_recyclerview = findViewById(R.id.dth_operators_recyclerview);
@@ -79,6 +104,29 @@ public class DTHOperators extends AppCompatActivity {
 
             }
         }));
+    }
+
+    private void filter(String text) {
+        //new array list that will hold the filtered data
+        ArrayList<DTHOperatorsModel> filterdNames = new ArrayList<>();
+
+        for(int i=0;i<dthOperatorsModels.size();i++) {
+            //looping through existing elements
+            /*for (String s : placeList) {
+                //if the existing elements contains the search input
+                if (s.toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdNames.add(s);
+                }
+            }*/
+            DTHOperatorsModel circleModel=dthOperatorsModels.get(i);
+            if(circleModel.getDth_operator_name().toLowerCase().contains(text.toLowerCase())){
+                filterdNames.add(circleModel);
+            }
+        }
+
+        //calling a method of the adapter class and passing the filtered list
+        dthOperatorAdapter.filterList(filterdNames);
     }
 
     private void getMobileOperators() {
@@ -121,8 +169,8 @@ public class DTHOperators extends AppCompatActivity {
                                     }
                                 }
                                 else {
-                                /*Toast.makeText(getApplicationContext(), "No Data Found",
-                                        Toast.LENGTH_LONG).show();*/
+                                Toast.makeText(getApplicationContext(), "No Data Found",
+                                        Toast.LENGTH_LONG).show();
                                     dth_operators_recyclerview.setVisibility(View.GONE);
                                     // no_orders_text.setVisibility(View.VISIBLE);
                                 }

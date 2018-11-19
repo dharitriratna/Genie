@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,7 +38,7 @@ public class SurprisePlanner extends AppCompatActivity {
     Toolbar toolbar;
     Button btn_proceed;
     TextView date, time, gift_price, gift_name, gift_id;
-    TextView to_name,to_number, to_address, from_address;
+    EditText to_name,sender_name, to_number, sender_number, to_address, from_address;
     ImageView gift_image;
     private DatePickerDialog fromDatePickerDialog;
     Calendar mcurrenttime;
@@ -49,7 +50,7 @@ public class SurprisePlanner extends AppCompatActivity {
     String giftId, giftName, giftPrice, giftImage;
     String demo;
 
-    String toName, toNumber, entry_date,  entry_time, toAddress, fromAddress;
+    String toName, senderName, toNumber, senderNo, entry_date,  entry_time, toAddress, fromAddress;
 
 
 
@@ -71,8 +72,10 @@ public class SurprisePlanner extends AppCompatActivity {
 
         date = findViewById(R.id.date);
         to_name = findViewById(R.id.to_name);
+        sender_name = findViewById(R.id.sender_name);
         to_number = findViewById(R.id.to_number);
-        to_number.setText(RegPrefManager.getInstance(this).getPhoneNo());
+        sender_number = findViewById(R.id.sender_number);
+        sender_number.setText(RegPrefManager.getInstance(this).getPhoneNo());
         to_address = findViewById(R.id.to_address);
         from_address = findViewById(R.id.from_address);
         time = findViewById(R.id.time);
@@ -90,7 +93,7 @@ public class SurprisePlanner extends AppCompatActivity {
         editor.commit(); // commit changes
 
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
         if(bundle != null){
@@ -118,7 +121,9 @@ public class SurprisePlanner extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 toName = to_name.getText().toString().trim();
+                senderName = sender_name.getText().toString().trim();
                 toNumber = to_number.getText().toString().trim();
+                senderNo = sender_number.getText().toString().trim();
                 entry_date = date.getText().toString().trim();
                 entry_time = time.getText().toString().trim();
                 toAddress = to_address.getText().toString().trim();
@@ -127,8 +132,15 @@ public class SurprisePlanner extends AppCompatActivity {
                 if (toName.length() < 1){
                     to_name.setError("Enter Name");
                 }
+                else if (senderName.length() < 1){
+                    sender_name.setError("Enter Sender Name");
+                }
                 else if (toNumber.length() < 1){
                     to_number.setError("Enter Phone Number");
+                }
+
+                else if (senderNo.length() < 1){
+                    sender_number.setError("Enter Sender Phone Number");
                 }
                 else if (entry_date.length() < 1){
                     date.setError("Enter Date");
@@ -140,7 +152,7 @@ public class SurprisePlanner extends AppCompatActivity {
                     to_address.setError("Enter To Address");
                 }
                 else if (fromAddress.length() < 1){
-                    from_address.setError("Enter From Address");
+                    from_address.setError("Enter Sender Address");
                 }
                 else {
                     new AsynGiftSubmit().execute();
@@ -211,12 +223,14 @@ public class SurprisePlanner extends AppCompatActivity {
             cred.add(new BasicNameValuePair("user_id",login_user));//user_email
             cred.add(new BasicNameValuePair("gift_id",giftId ));
             cred.add(new BasicNameValuePair("to_name",toName ));
+            cred.add(new BasicNameValuePair("sender_name",senderName ));
             cred.add(new BasicNameValuePair("phone",toNumber ));
+            cred.add(new BasicNameValuePair("sender_no",senderNo ));
             cred.add(new BasicNameValuePair("date",entry_date ));
             cred.add(new BasicNameValuePair("time",entry_time ));
             cred.add(new BasicNameValuePair("to_address",toAddress ));
             cred.add(new BasicNameValuePair("from_address",fromAddress ));
-            Log.v("RES","Sending data" +login_user+ giftId+ toName+ toNumber +entry_date+entry_time
+            Log.v("RES","Sending data" +login_user+ giftId+ toName+ senderName+ toNumber + senderNo +entry_date+entry_time
                     +toAddress+fromAddress);
 
 

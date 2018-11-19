@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -22,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.user.genie.Adapter.MobileOperatorsAdapter;
+import com.example.user.genie.Model.DataOperatorListModel;
 import com.example.user.genie.Model.MobileOperatorsModel;
 
 import org.json.JSONArray;
@@ -41,6 +43,7 @@ public class MobileOperators extends AppCompatActivity {
 
     EditText searchEd;
     String opSearch;
+    TextView noMesgTv;
 
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
@@ -59,8 +62,24 @@ public class MobileOperators extends AppCompatActivity {
             }
         });
         searchEd = findViewById(R.id.searchEd);
-        displayList();
+        noMesgTv = findViewById(R.id.noMesgTv);
 
+        searchEd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
 
 
 
@@ -120,25 +139,6 @@ public class MobileOperators extends AppCompatActivity {
         }));
     }
 
-    private void displayList() {
-        ArrayList<MobileOperatorsModel> models = new ArrayList<MobileOperatorsModel>();
-        mobileOperatorsAdapter = new MobileOperatorsAdapter(this,
-                R.layout.row_mobile_operators, models);
-
-        models.add((MobileOperatorsModel) operatorsModels);
-        searchEd.addTextChangedListener(new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mobileOperatorsAdapter.getFilter().filter(s.toString());
-            }
-        });
-    }
 
  /*   private void displayFromListView() {
         int position = 0;
@@ -146,8 +146,31 @@ public class MobileOperators extends AppCompatActivity {
         opSearch = mobileOperatorsModel.getOperator_code().toString();
     }*/
 
+    private void filter(String text) {
+        //new array list that will hold the filtered data
+        ArrayList<MobileOperatorsModel> filterdNames = new ArrayList<>();
 
-   
+        for(int i=0;i<operatorsModels.size();i++) {
+            //looping through existing elements
+            /*for (String s : placeList) {
+                //if the existing elements contains the search input
+                if (s.toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdNames.add(s);
+                }
+            }*/
+            MobileOperatorsModel model=operatorsModels.get(i);
+            if(model.getOperator_name().toLowerCase().contains(text.toLowerCase())){
+                filterdNames.add(model);
+            }
+        }
+
+        //calling a method of the adapter class and passing the filtered list
+        mobileOperatorsAdapter.filterList(filterdNames);
+    }
+
+
+
 
     private void getMobileOperators() {
         progressDialog.setMessage("Loading");
@@ -189,10 +212,10 @@ public class MobileOperators extends AppCompatActivity {
                                     }
                                 }
                                 else {
-                                /*Toast.makeText(getApplicationContext(), "No Data Found",
-                                        Toast.LENGTH_LONG).show();*/
+                                Toast.makeText(getApplicationContext(), "No Data Found",
+                                        Toast.LENGTH_LONG).show();
                                     mob_operators_recyclerview.setVisibility(View.GONE);
-                                    // no_orders_text.setVisibility(View.VISIBLE);
+                                     noMesgTv.setVisibility(View.VISIBLE);
                                 }
                             }
 

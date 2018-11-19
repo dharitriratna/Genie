@@ -131,8 +131,8 @@ public class GiftsList extends AppCompatActivity {
                                     }
                                 }
                                 else {
-                                /*Toast.makeText(getApplicationContext(), "No Data Found",
-                                        Toast.LENGTH_LONG).show();*/
+                                Toast.makeText(getApplicationContext(), "No Data Found",
+                                        Toast.LENGTH_LONG).show();
                                     gifts_recyclerview.setVisibility(View.GONE);
                                     // no_orders_text.setVisibility(View.VISIBLE);
                                 }

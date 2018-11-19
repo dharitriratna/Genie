@@ -1,13 +1,17 @@
 package com.example.user.genie;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -16,7 +20,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.user.genie.Adapter.ElectricityBoardsAdapter;
 import com.example.user.genie.Adapter.WaterBoardAdapter;
+import com.example.user.genie.Model.DTHOperatorsModel;
+import com.example.user.genie.Model.ElectricityBoardModel;
+import com.example.user.genie.Model.MobileOperatorCircleModel;
 import com.example.user.genie.Model.WaterBoardModel;
 
 import org.json.JSONArray;
@@ -30,9 +38,10 @@ public class ElectricityBoards extends AppCompatActivity {
     Toolbar toolbar;
     ProgressDialog progressDialog;
     int i=0;
-    private WaterBoardAdapter waterBoardAdapter;
-    private List<WaterBoardModel> waterBoardModels;
+    private ElectricityBoardsAdapter electricityBoardsAdapter;
+    private List<ElectricityBoardModel> electricityBoardModels;
     RecyclerView electricity_board_recyclerview;
+    EditText searchEd;
 
 
     @Override
@@ -48,15 +57,83 @@ public class ElectricityBoards extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        searchEd = findViewById(R.id.searchEd);
+        searchEd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
+
         progressDialog = new ProgressDialog(this);
         electricity_board_recyclerview = findViewById(R.id.electricity_board_recyclerview);
 
         GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
         electricity_board_recyclerview.setLayoutManager(manager);
 
-        waterBoardModels = new ArrayList<>();
+        electricityBoardModels = new ArrayList<>();
         getElectricityBoards();
+
+        electricity_board_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, electricity_board_recyclerview, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public boolean onClick(View view, int position) {
+                ElectricityBoardModel list = electricityBoardModels.get(position);
+                String name = list.getElectricity_board_name();
+                String circle_code = list.getElectricity_board_code();
+
+
+                Intent intent = new Intent(ElectricityBoards.this,PayForElectricity.class);
+                intent.putExtra("BOARD_NAME", name);
+                intent.putExtra("BOARD_CODE", circle_code);
+
+                startActivity(intent);
+                finish();
+
+                return true;
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
     }
+
+
+    private void filter(String text) {
+        //new array list that will hold the filtered data
+        ArrayList<ElectricityBoardModel> filterdNames = new ArrayList<>();
+
+        for(int i=0;i<electricityBoardModels.size();i++) {
+            //looping through existing elements
+            /*for (String s : placeList) {
+                //if the existing elements contains the search input
+                if (s.toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdNames.add(s);
+                }
+            }*/
+            ElectricityBoardModel circleModel=electricityBoardModels.get(i);
+            if(circleModel.getElectricity_board_name().toLowerCase().contains(text.toLowerCase())){
+                filterdNames.add(circleModel);
+            }
+        }
+
+        //calling a method of the adapter class and passing the filtered list
+        electricityBoardsAdapter.filterList(filterdNames);
+    }
+
 
     private void getElectricityBoards() {
         progressDialog.setMessage("Loading");
@@ -88,11 +165,11 @@ public class ElectricityBoards extends AppCompatActivity {
                                         electricity_board_code = o.getString("operator_code");
                                         electricity_board_type = o.getString("service_type");
 
-                                        WaterBoardModel item = new WaterBoardModel(
+                                        ElectricityBoardModel item = new ElectricityBoardModel(
                                                 electricity_board_id,electricity_board_name, electricity_board_code, electricity_board_type);
 
 
-                                        waterBoardModels.add(item);
+                                        electricityBoardModels.add(item);
 
                                     }
                                 }
@@ -105,8 +182,8 @@ public class ElectricityBoards extends AppCompatActivity {
                             }
 
 
-                            waterBoardAdapter = new WaterBoardAdapter(waterBoardModels, getApplicationContext());
-                            electricity_board_recyclerview.setAdapter(waterBoardAdapter);
+                            electricityBoardsAdapter = new ElectricityBoardsAdapter(electricityBoardModels, getApplicationContext());
+                            electricity_board_recyclerview.setAdapter(electricityBoardsAdapter);
 
 
                         } catch (JSONException e) {

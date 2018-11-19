@@ -186,8 +186,8 @@ public class EventManagement extends AppCompatActivity implements ViewPagerEx.On
                                     }
                                 }
                                 else {
-                                /*Toast.makeText(getApplicationContext(), "No Data Found",
-                                        Toast.LENGTH_LONG).show();*/
+                                Toast.makeText(getApplicationContext(), "No Data Found",
+                                        Toast.LENGTH_LONG).show();
                                     events_recyclerview.setVisibility(View.GONE);
                                     // no_orders_text.setVisibility(View.VISIBLE);
                                 }

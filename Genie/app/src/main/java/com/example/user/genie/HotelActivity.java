@@ -1,26 +1,28 @@
 package com.example.user.genie;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class WalletActivity extends AppCompatActivity {
+public class HotelActivity extends AppCompatActivity {
     Toolbar toolbar;
+    RecyclerView cityList_recyclerview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wallet);
+        setContentView(R.layout.activity_hotel);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                finish();
+                onBackPressed();
             }
         });
+        cityList_recyclerview = findViewById(R.id.cityList_recyclerview);
+
     }
 }
