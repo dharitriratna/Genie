@@ -15,6 +15,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
         android:name="com.orm.SugarApp"
@@ -245,7 +247,6 @@
         <activity
             android:name=".DataCardOperatorActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".DataCardCircleActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -254,32 +255,46 @@
             android:name=".AllInsuranseActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".InsuranceDetailsActivity"
+        <activity
+            android:name=".InsuranceDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
-
-
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".RawMeatActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".BrowsePlansActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".HotelActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".GasBillActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".GasproviderActivity"/>
-
-        <activity android:name=".DataCardCircleActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-
+        <activity
+            android:name=".BrowsePlansActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HotelActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GasBillActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".GasproviderActivity" />
+        <activity
+            android:name=".DataCardCircleActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="DuplicateActivity"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="DuplicateActivity" />
+        <activity
+            android:name=".RemiterRegistrationActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".AddBeneficiaryActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
+        <receiver android:name=".helper.MySMSBroadCastReceiver">
+            <intent-filter android:priority="999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".RemiterDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
     </application>
 
 </manifest>

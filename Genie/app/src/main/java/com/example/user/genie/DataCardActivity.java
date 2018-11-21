@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.user.genie.ObjectNew.DataCardCircleResponse;
 import com.example.user.genie.ObjectNew.DatacardRechargeResponse;
+import com.example.user.genie.ObjectNew.DatacardResponse;
 import com.example.user.genie.ObjectNew.getDataCardCircle;
 import com.example.user.genie.client.ApiClientGenie;
 import com.example.user.genie.client.ApiInterface;
@@ -130,7 +131,7 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
             case R.id.btn_postpaid:
                 if (validationNew()) {
                     if (isNetworkAvailable()) {
-                        networkRecharge();
+                       // networkRecharge();
                     }
                     else {
                         noNetwrokErrorMessage();
@@ -163,6 +164,7 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
 
                 break;
             case R.id.circleTv:
+                RegPrefManager.getInstance(this).setBack("Datacard");
                 RegPrefManager.getInstance(this).setPhoneNo(contact_number.getText().toString());
                 startActivity(new Intent(DataCardActivity.this,DataCardCircleActivity.class));
                 finish();
@@ -244,7 +246,7 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         String v=contact_number.getText().toString();
-        Log.d("Tagvalue",v);
+        Log.d("Tag:value",v);
        String cus=contact_number.getText().toString();
 
             amount=Integer.parseInt(amountTv.getText().toString());
@@ -255,28 +257,31 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
             }
 
         operatorcode=RegPrefManager.getInstance(this).getDataCardOperatorCode();
-        Call<DatacardRechargeResponse> call=apiService.postDatacardRecharge(Integer.parseInt(login_user),cus,operatorcode,circlecode,amount);
-        call.enqueue(new Callback<DatacardRechargeResponse>() {
+        Call<DatacardResponse> call=apiService.postDatacardRecharge(Integer.parseInt(login_user),cus,operatorcode,circlecode,amount);
+        call.enqueue(new Callback<DatacardResponse>() {
             @Override
-            public void onResponse(Call<DatacardRechargeResponse> call, Response<DatacardRechargeResponse> response) {
+            public void onResponse(Call<DatacardResponse> call, Response<DatacardResponse> response) {
                 progressDialog.dismiss();
-                String id=response.body().getApiTransID();
-                String status=response.body().getStatus();
+                String id=response.body().getData().getApiTransID();
+                String status=response.body().getData().getStatus();
 
-                startActivity(new Intent(DataCardActivity.this,ThankYouActivity.class));
-                finish();
+                Toast.makeText(getApplicationContext(),status,Toast.LENGTH_LONG).show();
+                //startActivity(new Intent(DataCardActivity.this,ThankYouActivity.class));
+                //finish();
 
 
 
             }
 
             @Override
-            public void onFailure(Call<DatacardRechargeResponse> call, Throwable t) {
+            public void onFailure(Call<DatacardResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_LONG).show();
             }
         });
     }
+
+
 
     private Boolean validationNew() {
 

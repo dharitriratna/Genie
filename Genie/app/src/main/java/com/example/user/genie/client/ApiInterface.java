@@ -1,7 +1,10 @@
 package com.example.user.genie.client;
 
+import com.example.user.genie.ObjectNew.BeneficiaryRegisterResponse;
+import com.example.user.genie.ObjectNew.BeneficiaryValidateResponse;
 import com.example.user.genie.ObjectNew.CabResponse;
 import com.example.user.genie.ObjectNew.DatacardRechargeResponse;
+import com.example.user.genie.ObjectNew.DatacardResponse;
 import com.example.user.genie.ObjectNew.GenPNRResponse;
 import com.example.user.genie.ObjectNew.GetInsuranseResponse;
 import com.example.user.genie.ObjectNew.InsuranceDetailResponse;
@@ -10,7 +13,10 @@ import com.example.user.genie.ObjectNew.JobResponse;
 import com.example.user.genie.ObjectNew.LandlineResponse;
 import com.example.user.genie.ObjectNew.LandlineResponseModel;
 import com.example.user.genie.ObjectNew.PlaceCabResponse;
+import com.example.user.genie.ObjectNew.RemiterDetailsResponse;
+import com.example.user.genie.ObjectNew.RemiterRegisterResponse;
 import com.example.user.genie.ObjectNew.RentResponse;
+import com.example.user.genie.ObjectNew.ResendOTPResponse;
 import com.example.user.genie.ObjectNew.SellResponse;
 import com.example.user.genie.ObjectNew.ServiceImage;
 import com.example.user.genie.ObjectNew.getDataCardCircle;
@@ -78,9 +84,9 @@ public interface ApiInterface {
 
     @POST("api/service/mobile_dth_datacard_recharge")
     @FormUrlEncoded
-    Call<DatacardRechargeResponse> postDatacardRecharge(@Field("user_id") int user_id, @Field("customer_id") String customer_id,
-                                                        @Field("operator") String operator,
-                                                  @Field("circle") int circle, @Field("amount") int amount);
+    Call<DatacardResponse> postDatacardRecharge(@Field("user_id") int user_id, @Field("customer_id") String customer_id,
+                                                @Field("operator") String operator,
+                                                @Field("circle") int circle, @Field("amount") int amount);
     @GET("api/service/getlandline")
     Call<LandlineResponseModel> getLandlineOperator();
 
@@ -102,5 +108,28 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<InsurancePaymentResponse> postInsurancePayment(@Field("user_id") String  user_id, @Field("req_id") String req_id,
                                                        @Field("policyNo") String policyNo);
+    @POST("api/service/remiterRegistation")
+    @FormUrlEncoded
+    Call<RemiterRegisterResponse> postRemiterRegister(@Field("phone") String  phone, @Field("name") String name,
+                                                       @Field("pincode") String pincode);
+
+    @POST("api/service/BeneficiaryRegistration")
+    @FormUrlEncoded
+    Call<BeneficiaryRegisterResponse> postBeneficiaryRegister(@Field("RemitterID") String  RemitterID, @Field("name") String name,
+                                                          @Field("phone") String phone,@Field("ifsc") String ifsc,
+                                                              @Field("Account") String Account);
+    @POST("api/service/BeneficiaryRegistration_ResendOTP")
+    @FormUrlEncoded
+    Call<ResendOTPResponse> postResendOTP(@Field("RemitterID") String  RemitterID, @Field("BeneficiaryID") String BeneficiaryID);
+
+    @POST("api/service/BeneficiaryRegistration_Validate")
+    @FormUrlEncoded
+    Call<BeneficiaryValidateResponse> postBeneficiaryValidate(@Field("RemitterID") String  RemitterID,
+                                                              @Field("BeneficiaryID") String BeneficiaryID,
+                                                              @Field("otp") String otp);
+
+    @POST("api/service/RemitterDetails")
+    @FormUrlEncoded
+    Call<RemiterDetailsResponse> postRemiterDetails(@Field("remitter_phone") String  remitter_phone);
 
 }

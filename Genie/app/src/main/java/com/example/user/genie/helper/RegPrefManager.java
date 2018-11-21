@@ -195,6 +195,28 @@ public class RegPrefManager {
     public String getReqId(){
         return mSharedPreferences.getString("ReqID",null);
     }
+    public void setRemitterId(String id){
+        mSharedPreferences.edit().putString("RemitterId",id).apply();
+
+    }
+    public String getRemitterId(){
+        return mSharedPreferences.getString("RemitterId",null);
+    }
+
+    public void setBeneficaryId(String id){
+        mSharedPreferences.edit().putString("BeneficaryId",id).apply();
+
+    }
+    public String getBeneficaryId(){
+        return mSharedPreferences.getString("BeneficaryId",null);
+    }
+    public void setRemiterName(String name){
+        mSharedPreferences.edit().putString("RemiterName",name).apply();
+
+    }
+    public String getRemiterName(){
+        return mSharedPreferences.getString("RemiterName",null);
+    }
 
 }
 

@@ -52,6 +52,7 @@ import com.example.user.genie.ObjectNew.ServiceImage;
 import com.example.user.genie.Utils.GlobalClass;
 import com.example.user.genie.client.ApiClientGenie;
 import com.example.user.genie.client.ApiInterface;
+import com.example.user.genie.helper.RegPrefManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -282,7 +283,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         money_transfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, MoneyTransferActivity.class));
+                String id= RegPrefManager.getInstance(MainActivity.this).getRemitterId();
+                if(id!=null) {
+                    startActivity(new Intent(MainActivity.this, RemiterDetailsActivity.class));
+                }else {
+                    startActivity(new Intent(MainActivity.this, RemiterRegistrationActivity.class));
+                }
 
             }
         });
