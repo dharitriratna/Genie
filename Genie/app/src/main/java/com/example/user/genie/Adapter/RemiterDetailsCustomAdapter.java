@@ -2,6 +2,7 @@ package com.example.user.genie.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.user.genie.BeneficiaryDeleteActivity;
 import com.example.user.genie.DataCardActivity;
 import com.example.user.genie.LandLine;
 import com.example.user.genie.Model.BeneficiaryDetailsResponse;
@@ -46,29 +48,23 @@ public class RemiterDetailsCustomAdapter extends RecyclerView.Adapter<RemiterDet
 
         final BeneficiaryDetailsResponse data=operatorList.get(position);
 
-        holder.accountTv.setText(data.getAccount());
+        holder.accountTv.setText("A/c: "+data.getAccount());
         holder.banknameTv.setText(data.getBank());
         holder.ifscTv.setText(data.getIfsc());
-        holder.nameTv.setText(data.getName());
-        holder.mobileTv.setText(data.getMobile());
+        holder.nameTv.setText("Name: "+data.getName());
+        holder.mobileTv.setText("Mobile: "+data.getMobile());
 
 
-       /* holder.textViewName.setOnClickListener(new View.OnClickListener() {
+        holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String back= RegPrefManager.getInstance(context).getBack();
-                if(back.equals("Landline")) {
-                    RegPrefManager.getInstance(context).setLandlineCircle(data.getCircle_name(), data.getCircle_code());
+            RegPrefManager.getInstance(context).setRemiterDetails(data.getId(),data.getAccount(),
+                    data.getBank(),data.getIfsc(),data.getName(),data.getMobile(),data.getLast_success_date());
 
-                    context.startActivity(new Intent(context, LandLine.class));
-                }
-                else {
-                    RegPrefManager.getInstance(context).setDataCardCircle(data.getCircle_name(), data.getCircle_code());
+             context.startActivity(new Intent(context, BeneficiaryDeleteActivity.class));
 
-                    context.startActivity(new Intent(context, DataCardActivity.class));
-                }
             }
-        });*/
+        });
     }
 
     @Override
@@ -83,6 +79,7 @@ public class RemiterDetailsCustomAdapter extends RecyclerView.Adapter<RemiterDet
 
         TextView accountTv,banknameTv,ifscTv,nameTv,mobileTv;
         ImageView sendImg,deleteImg;
+        CardView card_view;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -95,6 +92,7 @@ public class RemiterDetailsCustomAdapter extends RecyclerView.Adapter<RemiterDet
 
             sendImg=(ImageView)itemView.findViewById(R.id.sendImg);
             deleteImg=(ImageView)itemView.findViewById(R.id.deleteImg);
+            card_view=(CardView)itemView.findViewById(R.id.card_view);
         }
     }
 

@@ -1,10 +1,15 @@
 package com.example.user.genie.client;
 
+import com.example.user.genie.Model.BeneficiaryDetailsResponse;
+import com.example.user.genie.ObjectNew.BeneficiaryDeleteResponse;
+import com.example.user.genie.ObjectNew.BeneficiaryDeleteValidateResponse;
 import com.example.user.genie.ObjectNew.BeneficiaryRegisterResponse;
 import com.example.user.genie.ObjectNew.BeneficiaryValidateResponse;
 import com.example.user.genie.ObjectNew.CabResponse;
 import com.example.user.genie.ObjectNew.DatacardRechargeResponse;
 import com.example.user.genie.ObjectNew.DatacardResponse;
+import com.example.user.genie.ObjectNew.FundTransferResponse;
+import com.example.user.genie.ObjectNew.FundTransferStatusResponse;
 import com.example.user.genie.ObjectNew.GenPNRResponse;
 import com.example.user.genie.ObjectNew.GetInsuranseResponse;
 import com.example.user.genie.ObjectNew.InsuranceDetailResponse;
@@ -131,5 +136,25 @@ public interface ApiInterface {
     @POST("api/service/RemitterDetails")
     @FormUrlEncoded
     Call<RemiterDetailsResponse> postRemiterDetails(@Field("remitter_phone") String  remitter_phone);
+
+    @POST("api/service/BeneficiaryDelete")
+    @FormUrlEncoded
+    Call<BeneficiaryDeleteResponse> postBeneficiaryDelete(@Field("RemitterID") String  RemitterID,
+                                                          @Field("BeneficiaryID") String  BeneficiaryID);
+    @POST("api/service/BeneficiaryDelete_Validate")
+    @FormUrlEncoded
+    Call<BeneficiaryDeleteValidateResponse> postBeneficiaryDeleteValidate(@Field("RemitterID") String  RemitterID,
+                                                                          @Field("BeneficiaryID") String  BeneficiaryID,
+                                                                          @Field("otp") String otp);
+    @POST("api/service/FundTransfer")
+    @FormUrlEncoded
+    Call<FundTransferResponse> postFundTransfer(@Field("remitter_mobile") String  remitter_mobile,
+                                                @Field("BeneficiaryID") String  BeneficiaryID,
+                                                @Field("amount") String amount, @Field("mode") String mode);
+
+    @POST("api/service/FundTransfer_Status")
+    @FormUrlEncoded
+    Call<FundTransferStatusResponse> postFundTransferStatus(@Field("cyrus_id") String  cyrus_id);
+
 
 }

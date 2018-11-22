@@ -44,7 +44,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="3dp"
         android:hint="Bank Account Number"
-
+        android:focusable="false"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp"
         android:inputType="number"
@@ -63,7 +63,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="3dp"
         android:hint="IFSC Code"
-
+        android:focusable="false"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp"
         android:inputType="text"

@@ -36,7 +36,7 @@
         android:textStyle="normal"
         android:text="Amount"/>
     <EditText
-        android:id="@+id/nameEd"
+        android:id="@+id/amountEd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:cursorVisible="true"
@@ -63,8 +63,11 @@
         android:textStyle="normal"
         android:padding="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="2dp"/>
+        android:layout_marginBottom="2dp"
+        android:visibility="gone"
+        />
     <TextView
+        android:id="@+id/banknameTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="State Bank"
@@ -72,7 +75,31 @@
         android:textStyle="normal"
         android:padding="10dp"
         android:layout_marginTop="1dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_top_bg"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginRight="10dp">
+        <Spinner
+            android:id="@+id/bankSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="3dp"
+            android:textSize="16sp"
+            android:inputType="text"
+            android:singleLine="true"
+            android:background="@drawable/edittext_top_bg"
+            android:padding="10dp"
+            android:layout_marginRight="10dp"></Spinner>
+    </RelativeLayout>
     <Button
         android:id="@+id/continueBtn"
         android:layout_width="match_parent"

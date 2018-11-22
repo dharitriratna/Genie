@@ -292,7 +292,11 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".RemiterDetailsActivity"
+        <activity
+            android:name=".RemiterDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".BeneficiaryDeleteActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
     </application>
