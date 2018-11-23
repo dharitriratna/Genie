@@ -19,22 +19,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.user.genie.Adapter.BusCitiesAdapter;
 import com.example.user.genie.Adapter.BusToCitiesAdapter;
-import com.example.user.genie.Adapter.RemiterDetailsCustomAdapter;
-import com.example.user.genie.Model.destinationInput;
-import com.example.user.genie.ObjectNew.BusCitesResponse;
 import com.example.user.genie.ObjectNew.BusToCitiesResponse;
-import com.example.user.genie.ObjectNew.ToCitesRequest;
+import com.example.user.genie.ObjectNew.Cites;
+
 import com.example.user.genie.ObjectNew.destinationCities;
-import com.example.user.genie.ObjectNew.oRiginCities;
 import com.example.user.genie.client.ApiClientGenie;
 import com.example.user.genie.client.ApiInterface;
 import com.example.user.genie.helper.RegPrefManager;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -43,6 +39,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ToCitesActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -155,8 +152,61 @@ public class ToCitesActivity extends AppCompatActivity {
         String originId= RegPrefManager.getInstance(this).getBusFromID();
 
 
-        destinationInput toCitesRequest=new destinationInput(Integer.parseInt(originId));
+       /* Cites cites=new Cites();
+        cites.setOriginId(Integer.parseInt(originId));*/
+    /*    String request=new Gson().toJson(cites);
 
+        //Here the json data is add to a hash map with key data
+        Map<String,String> params = new HashMap<String, String>();
+        params.put("DestinationInput", request);*/
+
+        JSONObject jsonObject=new JSONObject();
+        try {
+            jsonObject.put("OriginId",originId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject mainjson=new JSONObject();
+        try {
+            mainjson.put("DestinationInput",jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String value=mainjson.toString();
+
+        Log.d("Tag", String.valueOf(value));
+
+        Call<BusToCitiesResponse> call = apiService.postDestinationDetails(value);
+
+        call.enqueue(new Callback<BusToCitiesResponse>() {
+            @Override
+            public void onResponse(Call<BusToCitiesResponse> call, Response<BusToCitiesResponse> response) {
+                progressDialog.dismiss();
+                boolean status=response.body().isStatus();
+                int code=response.body().getData().getResponseStatus();
+                Log.d("Tag",String.valueOf(status));
+                destinationCitiesModels=response.body().getData().getDestinationOutput().getDestinationCities();
+                if(destinationCitiesModels.size()>0){
+                    tocitiesRecyclerView.setHasFixedSize(true);
+                    tocitiesRecyclerView.setLayoutManager(new LinearLayoutManager(ToCitesActivity.this));
+                    //placeRecyclerview.setItemAnimator(new DefaultItemAnimator());
+                    busToCitiesAdapter=new BusToCitiesAdapter(destinationCitiesModels);
+                    tocitiesRecyclerView.setAdapter(busToCitiesAdapter);
+                }
+                else {
+                    // noMesgTv.setVisibility(View.VISIBLE);
+                    tocitiesRecyclerView.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BusToCitiesResponse> call, Throwable t) {
+
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(),"Try again. After some times",Toast.LENGTH_LONG).show();
+            }
+        });
       /*  String request=new Gson().toJson(toCitesRequest);
         JsonElement je = new Gson().toJsonTree(request);
         JsonObject jsonObject=new JsonObject();

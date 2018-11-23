@@ -5,11 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class BusToCitiesResponse  {
-    @SerializedName("status")
-    private boolean status;
-    @SerializedName("data")
-    private Data data;
-
     public boolean isStatus() {
         return status;
     }
@@ -26,43 +21,48 @@ public class BusToCitiesResponse  {
         this.data = data;
     }
 
-    public class Data {
-        @SerializedName("ResponseStatus")
-        private int ResponseStatus;
-        @SerializedName("DestinationOutput")
-        private destinationOutput DestinationOutput;
+    @SerializedName("status")
+        private boolean status;
+        @SerializedName("data")
+        private Data data;
 
-        public int getResponseStatus() {
-            return ResponseStatus;
+        public class Data{
+            public int getResponseStatus() {
+                return ResponseStatus;
+            }
+
+            public void setResponseStatus(int responseStatus) {
+                ResponseStatus = responseStatus;
+            }
+
+            public dDestinationOutput getDestinationOutput() {
+                return DestinationOutput;
+            }
+
+            public void setDestinationOutput(dDestinationOutput destinationOutput) {
+                DestinationOutput = destinationOutput;
+            }
+
+            @SerializedName("ResponseStatus")
+            private int ResponseStatus;
+            @SerializedName("DestinationOutput")
+            private dDestinationOutput DestinationOutput;
+
+
         }
 
-        public void setResponseStatus(int responseStatus) {
-            ResponseStatus = responseStatus;
+        public class dDestinationOutput{
+            public ArrayList<destinationCities> getDestinationCities() {
+                return DestinationCities;
+            }
+
+            public void setDestinationCities(ArrayList<destinationCities> destinationCities) {
+                DestinationCities = destinationCities;
+            }
+
+            @SerializedName("DestinationCities")
+            private ArrayList<destinationCities> DestinationCities;
+
         }
-
-        public destinationOutput getDestinationOutput() {
-            return DestinationOutput;
-        }
-
-        public void setDestinationOutput(destinationOutput destinationOutput) {
-            DestinationOutput = destinationOutput;
-        }
-    }
-
-
-    public class  destinationOutput{
-
-
-        @SerializedName("DestinationCities")
-        private ArrayList<destinationCities> DestinationCities;
-
-        public ArrayList<destinationCities> getDestinationCities() {
-            return DestinationCities;
-        }
-
-        public void setDestinationCities(ArrayList<destinationCities> destinationCities) {
-            this.DestinationCities = destinationCities;
-        }
-    }
     }
 

@@ -312,7 +312,8 @@
             android:name=".BusCitiesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ToCitesActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
     </application>
 
 </manifest>

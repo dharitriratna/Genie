@@ -148,7 +148,7 @@ public interface ApiInterface {
 
     @POST("api/service/Bus_GetDestination")
     @FormUrlEncoded
-    Call<BusToCitiesResponse> postDestinationDetails(@FieldMap Map<String,String> params);
+    Call<BusToCitiesResponse> postDestinationDetails(@Field("InputParameter") String  InputParameter);
 
     @POST("api/service/BeneficiaryDelete")
     @FormUrlEncoded
