@@ -56,31 +56,30 @@ public class MoneyTransferActivity extends AppCompatActivity {
 
         tabOne.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         // tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_favourite, 0, 0);
-        htab_tabs.getTabAt(0).setCustomView(tabOne);
+        htab_tabs.getTabAt(1).setCustomView(tabOne);
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
         tabTwo.setText("Wallet");
 
         tabTwo.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         // tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_call, 0, 0);
-        htab_tabs.getTabAt(1).setCustomView(tabTwo);
+        htab_tabs.getTabAt(2).setCustomView(tabTwo);
 
         TextView tabthree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
-        tabthree.setText("IMPS");
+        tabthree.setText("BANK");
 
         tabthree.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         // tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_call, 0, 0);
-        htab_tabs.getTabAt(2).setCustomView(tabthree);
+        htab_tabs.getTabAt(0).setCustomView(tabthree);
 
 
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new IMPSFragment(), "BANK");
         adapter.addFragment(new UPIFragment(), "UPI");
         adapter.addFragment(new WalletFragment(), "Wallet");
-        adapter.addFragment(new IMPSFragment(), "IMPS");
-
         viewPager.setAdapter(adapter);
     }
 }

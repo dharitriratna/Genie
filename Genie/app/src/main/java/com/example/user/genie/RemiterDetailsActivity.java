@@ -1,11 +1,15 @@
 package com.example.user.genie;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,10 +26,12 @@ import com.example.user.genie.Adapter.RemiterDetailsCustomAdapter;
 import com.example.user.genie.Model.BeneficiaryDetailsResponse;
 import com.example.user.genie.ObjectNew.RemiterDetailsResponse;
 import com.example.user.genie.client.ApiClientGenie;
+import com.example.user.genie.client.ApiClientGenie1;
 import com.example.user.genie.client.ApiInterface;
 import com.example.user.genie.helper.RegPrefManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,9 +53,10 @@ public class RemiterDetailsActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remiter_details);
+
         toolbar = findViewById(R.id.toolbar);
         apiService =
-                ApiClientGenie.getClient().create(ApiInterface.class);
+                ApiClientGenie1.getClient().create(ApiInterface.class);
         progressDialog =new ProgressDialog(this);
         alertDialog=new AlertDialog.Builder(this);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
@@ -159,6 +166,10 @@ public class RemiterDetailsActivity extends AppCompatActivity implements View.On
             @Override
             public void onResponse(Call<RemiterDetailsResponse> call, Response<RemiterDetailsResponse> response) {
                 progressDialog.dismiss();
+                String remitterid=response.body().getData().getData().getRemitter().getId();
+                RegPrefManager.getInstance(RemiterDetailsActivity.this).setRemitterId(remitterid);
+                RegPrefManager.getInstance(RemiterDetailsActivity.this).setRemiterName(response.body().getData().getData().getRemitter().getName());
+                RegPrefManager.getInstance(RemiterDetailsActivity.this).setRemiterPhone(response.body().getData().getData().getRemitter().getMobile());
                 beneficiaryArraylist=response.body().getData().getData().getBeneficiary();
                 if(beneficiaryArraylist.size()>0){
                     noMesgTv.setVisibility(View.GONE);
@@ -184,6 +195,8 @@ public class RemiterDetailsActivity extends AppCompatActivity implements View.On
             }
         });
     }
+
+
 
 
 }

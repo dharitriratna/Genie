@@ -4,6 +4,8 @@ package com.example.user.genie.helper;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.HashMap;
+
 
 /**
  * Created by Raju Satheesh on 10/18/2016.
@@ -214,6 +216,13 @@ public class RegPrefManager {
         mSharedPreferences.edit().putString("RemiterName",name).apply();
 
     }
+    public String getRemiterPhone(){
+        return mSharedPreferences.getString("RemiterPhone",null);
+    }
+    public void setRemiterPhone(String phone){
+        mSharedPreferences.edit().putString("RemiterPhone",phone).apply();
+
+    }
     public String getRemiterName(){
         return mSharedPreferences.getString("RemiterName",null);
     }
@@ -246,5 +255,39 @@ public class RegPrefManager {
     public String getBusToName(){
         return mSharedPreferences.getString("BusToName",null);
     }
+
+    public void setRemiterDetails(String beneficiaryId,String account,String bankname,
+                                  String ifsc,String name,String mobile,String lastAccessDate){
+        mSharedPreferences.edit().putString("BeneID",beneficiaryId).apply();
+        mSharedPreferences.edit().putString("Account",account).apply();
+        mSharedPreferences.edit().putString("BankName",bankname).apply();
+        mSharedPreferences.edit().putString("IFSC",ifsc).apply();
+        mSharedPreferences.edit().putString("Name",name).apply();
+        mSharedPreferences.edit().putString("Mobile",mobile).apply();
+        mSharedPreferences.edit().putString("LastAccessDate",lastAccessDate).apply();
+
+    }
+    public HashMap<String, String>  getRemiterDetails(){
+        HashMap<String, String> user = new HashMap<String, String>();
+        user.put("BeneID",mSharedPreferences.getString("BeneID",null));
+        user.put("Account", mSharedPreferences.getString("Account",null));
+        user.put("BankName",mSharedPreferences.getString("BankName",null));
+        user.put("IFSC",mSharedPreferences.getString("IFSC",null));
+        user.put("Name",mSharedPreferences.getString("Name",null));
+        user.put("Mobile", mSharedPreferences.getString("Mobile",null));
+        user.put("LastAccessDate",mSharedPreferences.getString("LastAccessDate",null));
+
+        return user;
+    }
+
+    public void setAgentId(String id){
+        mSharedPreferences.edit().putString("AgentId",id).apply();
+
+    }
+    public String getAgentId(){
+        return mSharedPreferences.getString("AgentId",null);
+    }
+
+
 }
 
