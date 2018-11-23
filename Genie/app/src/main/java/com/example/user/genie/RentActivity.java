@@ -24,6 +24,7 @@ import com.example.user.genie.Adapter.RentCustomAdapter1;
 import com.example.user.genie.Model.RentFilterModel;
 import com.example.user.genie.ObjectNew.RentResponse;
 import com.example.user.genie.client.ApiClientGenie;
+import com.example.user.genie.client.ApiClientGenie1;
 import com.example.user.genie.client.ApiInterface;
 
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rent);
-        apiService = ApiClientGenie.getClient().create(ApiInterface.class);
+        apiService = ApiClientGenie1.getClient().create(ApiInterface.class);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

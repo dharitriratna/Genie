@@ -88,17 +88,18 @@
         <Spinner
             android:id="@+id/bankSpinner"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="45dp"
 
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="3dp"
-            android:textSize="16sp"
+
+
+
+            android:textSize="12sp"
             android:inputType="text"
             android:singleLine="true"
-            android:background="@drawable/edittext_top_bg"
-            android:padding="10dp"
-            android:layout_marginRight="10dp"></Spinner>
+
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            ></Spinner>
     </RelativeLayout>
     <Button
         android:id="@+id/continueBtn"
