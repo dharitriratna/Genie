@@ -2,6 +2,8 @@ package com.example.user.genie.client;
 
 import com.example.user.genie.ObjectNew.BeneficiaryRegisterResponse;
 import com.example.user.genie.ObjectNew.BeneficiaryValidateResponse;
+import com.example.user.genie.ObjectNew.BusCitesResponse;
+import com.example.user.genie.ObjectNew.BusToCitiesResponse;
 import com.example.user.genie.ObjectNew.CabResponse;
 import com.example.user.genie.ObjectNew.DatacardRechargeResponse;
 import com.example.user.genie.ObjectNew.DatacardResponse;
@@ -23,10 +25,13 @@ import com.example.user.genie.ObjectNew.getDataCardCircle;
 import com.example.user.genie.ObjectNew.getDataCardOperatorResponse;
 import com.example.user.genie.helper.RegPrefManager;
 
+import java.util.Map;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -131,5 +136,13 @@ public interface ApiInterface {
     @POST("api/service/RemitterDetails")
     @FormUrlEncoded
     Call<RemiterDetailsResponse> postRemiterDetails(@Field("remitter_phone") String  remitter_phone);
+
+    @GET("index.php/api/service/Bus_GetOrigin?InputParameter")
+    Call<BusCitesResponse> getBusCities();
+
+    @POST("api/service/Bus_GetDestination")
+    @FormUrlEncoded
+    Call<BusToCitiesResponse> postDestinationDetails(@FieldMap Map<String,String> params);
+
 
 }

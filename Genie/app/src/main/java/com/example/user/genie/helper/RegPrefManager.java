@@ -217,6 +217,34 @@ public class RegPrefManager {
     public String getRemiterName(){
         return mSharedPreferences.getString("RemiterName",null);
     }
+    public void setBusFromID(String id){
+        mSharedPreferences.edit().putString("BusFromID",id).apply();
 
+    }
+    public String getBusFromID(){
+        return mSharedPreferences.getString("BusFromID",null);
+    }
+    public void setBusFromName(String name){
+        mSharedPreferences.edit().putString("BusFromName",name).apply();
+
+    }
+    public String getBusFromName(){
+        return mSharedPreferences.getString("BusFromName",null);
+    }
+
+
+    public void setBusToID(String id){
+        mSharedPreferences.edit().putString("BusToID",id).apply();
+
+    }
+    public String getBusToID(){
+        return mSharedPreferences.getString("BusToID",null);
+    }
+    public void setBusToName(String name){
+        mSharedPreferences.edit().putString("BusToName",name).apply();
+    }
+    public String getBusToName(){
+        return mSharedPreferences.getString("BusToName",null);
+    }
 }
 

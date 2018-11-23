@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context=".AllHotelsActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:popupTheme="@style/MyDarkToolbarStyle"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextColor="@android:color/black">
+
+        <TextView
+            android:id="@+id/order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All Hotels"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/colorPrimary" />
+    </android.support.v7.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/checkIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check-in Today"
+            android:textSize="14sp"
+            android:layout_gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:padding="5dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background2"
+            />
+
+        <TextView
+            android:id="@+id/cityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="City Name"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"/>
+
+
+
+        <TextView
+            android:id="@+id/editOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 Room for 1 Adult for 1 Night"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/sort"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="true"
+                android:textAlignment="viewStart"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:hint="Sort"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:inputType="text"
+                android:singleLine="true"
+                android:padding="10dp"
+                android:background="@drawable/edittext_top_bg"
+                android:layout_marginRight="10dp"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/filter"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="true"
+                android:textAlignment="viewStart"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:hint="Filter"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:inputType="text"
+                android:singleLine="true"
+                android:padding="10dp"
+                android:background="@drawable/edittext_top_bg"
+                android:layout_marginRight="10dp"
+                tools:ignore="RtlCompat" />
+        </LinearLayout>
+
+
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:id="@+id/allhotelsRecyclerView"
+            ></android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+</LinearLayout>

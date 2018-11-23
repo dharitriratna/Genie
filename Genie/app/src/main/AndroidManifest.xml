@@ -273,11 +273,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".GasproviderActivity" />
         <activity
-            android:name=".DataCardCircleActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="DuplicateActivity" />
-        <activity
             android:name=".RemiterRegistrationActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -292,9 +287,27 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".RemiterDetailsActivity"
+        <activity
+            android:name=".RemiterDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".AllHotelsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HotelDetails"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BusSeatBookingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AllBusSearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BusCitiesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ToCitesActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

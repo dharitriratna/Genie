@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#fff"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:contentPadding="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone"
+                android:textSize="16sp"
+                android:layout_margin="2dp"
+                android:textColor="#000"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#f7f6d6">
+
+                        <ImageView
+                            android:src="@drawable/bus_banner"
+                            android:id="@+id/bus_banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"
+                            android:scaleType="fitXY"
+                            />
+
+                        <ProgressBar
+                            android:visibility="gone"
+                            android:id="@+id/homeprogress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
+                    </FrameLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:visibility="visible"
+                            android:id="@+id/busName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="bus name"
+                            android:textSize="16sp"
+                            android:layout_margin="2dp"
+                            android:textColor="#000"
+                            android:layout_weight="1"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:text="1800"
+                            android:textStyle="bold"
+                            android:padding="2.5dp"
+                            android:id="@+id/fees"
+                            android:textSize="14sp"
+                            android:textColor="#000"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:text="2h 30min"
+                            android:gravity="center"
+                            android:padding="2.5dp"
+                            android:id="@+id/duration"
+                            android:textSize="13sp"
+                            android:textColor="#000"
+                            android:layout_weight="1"/>
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/event_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Patia BigBazaar"
+                            android:gravity="start"
+                            android:textSize="13sp"
+                            android:layout_margin="2dp"
+                            android:textColor="#000"
+                            android:layout_weight="1"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>
