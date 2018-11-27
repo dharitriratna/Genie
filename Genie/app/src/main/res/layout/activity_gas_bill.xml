@@ -99,6 +99,41 @@
     </LinearLayout>
 
 
+    <LinearLayout
+        android:id="@+id/amountLayout"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/paidAmount"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cursorVisible="true"
+            android:textAlignment="viewStart"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:hint="Amount"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            android:inputType="number"
+            android:background="@drawable/edittext_top_bg"
+            android:padding="10dp"
+            android:layout_marginRight="10dp"
+            tools:ignore="RtlCompat" />
+
+    </LinearLayout>
+
+
     <Button
         android:visibility="visible"
         android:id="@+id/btn_gas_proceed"

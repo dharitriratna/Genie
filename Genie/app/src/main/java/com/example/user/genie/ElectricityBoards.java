@@ -107,7 +107,6 @@ public class ElectricityBoards extends AppCompatActivity {
 
             }
         }));
-
     }
 
 
@@ -125,7 +124,7 @@ public class ElectricityBoards extends AppCompatActivity {
                 }
             }*/
             ElectricityBoardModel circleModel=electricityBoardModels.get(i);
-            if(circleModel.getElectricity_board_name().toLowerCase().contains(text.toLowerCase())){
+            if(circleModel.getElectricity_board_name().toUpperCase().contains(text.toUpperCase())){
                 filterdNames.add(circleModel);
             }
         }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/steering"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/lst_items"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:layout_margin="5dp"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/txt_seat_selected"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/my_button"
+        android:gravity="center"
+        android:text="Book"
+        android:textColor="@color/colorPrimary"/>
+
+</LinearLayout>

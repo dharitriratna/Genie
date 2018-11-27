@@ -146,7 +146,7 @@ public class MobileOperatorCircle extends AppCompatActivity {
                 }
             }*/
             MobileOperatorCircleModel circleModel=mobileOperatorCircleModels.get(i);
-            if(circleModel.getOperator_circle_name().toLowerCase().contains(text.toLowerCase())){
+            if(circleModel.getOperator_circle_name().toUpperCase().contains(text.toUpperCase())){
                 filterdNames.add(circleModel);
             }
         }

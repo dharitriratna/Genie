@@ -4,11 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -17,22 +22,30 @@ import android.widget.TextView;
 
 import com.example.user.genie.Adapter.AirplaneAdapter;
 import com.example.user.genie.Adapter.CustomGridViewAdapter;
+import com.example.user.genie.Adapter.ViewPagerAdapter;
+import com.example.user.genie.Fragments.BusSeatCumSleeperFragment;
+import com.example.user.genie.Fragments.BusSeatFragment;
+import com.example.user.genie.Fragments.BusSleeperFragment;
+import com.example.user.genie.Fragments.ShowTimeFragment;
+import com.example.user.genie.Fragments.TrailerFragment;
 import com.example.user.genie.Utils.AbstractItem;
 import com.example.user.genie.Utils.CenterItem;
 import com.example.user.genie.Utils.EdgeItem;
 import com.example.user.genie.Utils.EmptyItem;
-import com.example.user.genie.Utils.OnSeatSelected;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusSeatBookingActivity extends AppCompatActivity implements OnSeatSelected {
+public class BusSeatBookingActivity extends AppCompatActivity  {
     Toolbar toolbar;
     private static final int COLUMNS = 5;
     private TextView txtSeatSelected;
+    private TabLayout htab_tabs;
+    private ViewPager viewPager;
 
 
-    @SuppressLint("ResourceType")
+    @SuppressLint({"ResourceType", "NewApi"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +58,7 @@ public class BusSeatBookingActivity extends AppCompatActivity implements OnSeatS
                 onBackPressed();
             }
         });
-        txtSeatSelected = (TextView)findViewById(R.id.txt_seat_selected);
+       /* txtSeatSelected = (TextView)findViewById(R.id.txt_seat_selected);
 
         List<AbstractItem> items = new ArrayList<>();
         for (int i=0; i<50; i++) {
@@ -64,12 +77,49 @@ public class BusSeatBookingActivity extends AppCompatActivity implements OnSeatS
         recyclerView.setLayoutManager(manager);
 
         AirplaneAdapter adapter = new AirplaneAdapter(this, items);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);*/
+
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        setupViewPager(viewPager);
+
+        htab_tabs = (TabLayout) findViewById(R.id.htab_tabs);
+        htab_tabs.setupWithViewPager(viewPager);
+        setupTabIcons();
     }
 
-    @Override
-    public void onSeatSelected(int count) {
 
-        txtSeatSelected.setText("Book "+count+" seats");
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private void setupTabIcons() {
+
+        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabOne.setText("Seats");
+
+        tabOne.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        // tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_favourite, 0, 0);
+        htab_tabs.getTabAt(0).setCustomView(tabOne);
+
+        TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabTwo.setText("Sleepers");
+
+        tabTwo.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        // tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_call, 0, 0);
+        htab_tabs.getTabAt(1).setCustomView(tabTwo);
+
+        TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabThree.setText("Seat/Sleepers");
+
+        tabThree.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        htab_tabs.getTabAt(2).setCustomView(tabThree);
+    }
+
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new BusSeatFragment(), "Seats Only");
+        adapter.addFragment(new BusSleeperFragment(), "Sleepers");
+        adapter.addFragment(new BusSeatCumSleeperFragment(), "Seat/Sleepers");
+
+        viewPager.setAdapter(adapter);
     }
 }

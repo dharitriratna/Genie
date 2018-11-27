@@ -1,12 +1,15 @@
 package com.example.user.genie.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.user.genie.BusBookingActivity;
 import com.example.user.genie.ObjectNew.destinationCities;
 import com.example.user.genie.R;
 import com.example.user.genie.helper.RegPrefManager;
@@ -22,10 +25,12 @@ public class BusToCitiesAdapter extends RecyclerView.Adapter<BusToCitiesAdapter.
     String fontPath2 = "fonts/Raleway-Thin.ttf";
     String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
 
-    public BusToCitiesAdapter(ArrayList<destinationCities> destinationCitiesModels) {
+    public BusToCitiesAdapter(ArrayList<destinationCities> destinationCitiesModels, Context context) {
         this.destinationCitiesModels = destinationCitiesModels;
         this.context = context;
+
     }
+
 
     @Override
     public BusToCitiesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -50,9 +55,12 @@ public class BusToCitiesAdapter extends RecyclerView.Adapter<BusToCitiesAdapter.
             public void onClick(View v) {
                 destinationCities cities=destinationCitiesModels.get(position);
                 int id=cities.getDestinationId();
-                RegPrefManager.getInstance(context).setBusFromID(String.valueOf(id));
-                RegPrefManager.getInstance(context).setBusFromName(cities.getDestinationName());
-              //  context.startActivity(new Intent(context, ToCitesActivity.class));
+                RegPrefManager.getInstance(context).setBusToID(String.valueOf(id));
+                RegPrefManager.getInstance(context).setBusToName(cities.getDestinationName());
+
+                Intent intent = new Intent(context,BusBookingActivity.class);
+                context.startActivity(intent);
+
 
             }
         });

@@ -103,6 +103,7 @@ public class MobileRecharge extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MobileRecharge.this, MobileOperatorCircle.class));
+                finish();
             }
         });
 
@@ -233,7 +234,6 @@ public class MobileRecharge extends AppCompatActivity {
          //   Log.d("CIRCLE_NAME", operator_circle_name);
             carrierName = bundle.getString("OPERATOR_NAME");
             operator_code = bundle.getString("OPERATOR_CODE");
-            Log.d("OPERATOR_CODE", operator_code);
 //            number = bundle.getString("NUMBER");
             operator.setText(carrierName);
             circle.setText(operator_circle_name);

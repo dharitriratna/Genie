@@ -3,6 +3,8 @@ package com.example.user.genie;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
@@ -19,11 +21,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.user.genie.Adapter.BusCitiesAdapter;
 import com.example.user.genie.Adapter.BusToCitiesAdapter;
 import com.example.user.genie.ObjectNew.BusToCitiesResponse;
 import com.example.user.genie.ObjectNew.Cites;
 
 import com.example.user.genie.ObjectNew.destinationCities;
+import com.example.user.genie.ObjectNew.oRiginCities;
 import com.example.user.genie.client.ApiClientGenie;
 import com.example.user.genie.client.ApiInterface;
 import com.example.user.genie.helper.RegPrefManager;
@@ -99,6 +103,32 @@ public class ToCitesActivity extends AppCompatActivity {
         } else {
             noNetwrokErrorMessage();
         }
+
+
+        tocitiesRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, tocitiesRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public boolean onClick(View view, int position) {
+                destinationCities list = destinationCitiesModels.get(position);
+                String destination_name = list.getDestinationName();
+                int circle_code = list.getDestinationId();
+
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("DESTINATION_NAME", destination_name.toString());
+                editor.commit();
+                Intent intent = new Intent(ToCitesActivity.this,BusBookingActivity.class);
+                startActivity(intent);
+                finish();
+
+                return true;
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
     }
 
 
@@ -184,19 +214,20 @@ public class ToCitesActivity extends AppCompatActivity {
             public void onResponse(Call<BusToCitiesResponse> call, Response<BusToCitiesResponse> response) {
                 progressDialog.dismiss();
                 boolean status=response.body().isStatus();
-                int code=response.body().getData().getResponseStatus();
-                Log.d("Tag",String.valueOf(status));
-                destinationCitiesModels=response.body().getData().getDestinationOutput().getDestinationCities();
-                if(destinationCitiesModels.size()>0){
-                    tocitiesRecyclerView.setHasFixedSize(true);
-                    tocitiesRecyclerView.setLayoutManager(new LinearLayoutManager(ToCitesActivity.this));
-                    //placeRecyclerview.setItemAnimator(new DefaultItemAnimator());
-                    busToCitiesAdapter=new BusToCitiesAdapter(destinationCitiesModels);
-                    tocitiesRecyclerView.setAdapter(busToCitiesAdapter);
-                }
-                else {
-                    // noMesgTv.setVisibility(View.VISIBLE);
-                    tocitiesRecyclerView.setVisibility(View.GONE);
+                if(status==true){
+                    destinationCitiesModels=response.body().getData().getDestinationOutput().getDestinationCities();
+                    if(destinationCitiesModels.size()>0){
+                        busToCitiesAdapter = new BusToCitiesAdapter(destinationCitiesModels, getApplicationContext());
+                        tocitiesRecyclerView.setAdapter(busToCitiesAdapter);
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "No Data Found",
+                                Toast.LENGTH_LONG).show();
+                        tocitiesRecyclerView.setVisibility(View.GONE);
+                        // no_orders_text.setVisibility(View.VISIBLE);
+                    }
+                }else {
+                    Toast.makeText(getApplicationContext(),"Try again. After some times",Toast.LENGTH_LONG).show();
                 }
             }
 

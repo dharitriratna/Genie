@@ -3,6 +3,8 @@ package com.example.user.genie;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
@@ -29,6 +31,7 @@ import com.example.user.genie.Adapter.BusCitiesAdapter;
 import com.example.user.genie.Adapter.DatacardOperatorCircleCustomAdapter;
 import com.example.user.genie.Adapter.WaterBoardAdapter;
 import com.example.user.genie.Model.BusCitiesModel;
+import com.example.user.genie.Model.MobileOperatorCircleModel;
 import com.example.user.genie.Model.WaterBoardModel;
 import com.example.user.genie.ObjectNew.BusCitesResponse;
 import com.example.user.genie.ObjectNew.getDataCardCircle;
@@ -102,11 +105,37 @@ public class BusCitiesActivity extends AppCompatActivity {
         busCitiesModels = new ArrayList<>();
 
 
+
+
         if (isNetworkAvailable()) {
             networkCircleService();
         } else {
             noNetwrokErrorMessage();
         }
+
+        citiesRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, citiesRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public boolean onClick(View view, int position) {
+                oRiginCities list = busCitiesModels.get(position);
+                String origin_name = list.getOriginName();
+                int circle_code = list.getOriginId();
+
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("ORIGIN_NAME", origin_name.toString());
+                editor.commit();
+                Intent intent = new Intent(BusCitiesActivity.this,ToCitesActivity.class);
+                startActivity(intent);
+                finish();
+
+                return true;
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
 
     }
 

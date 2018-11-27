@@ -1,7 +1,9 @@
 package com.example.user.genie.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +61,7 @@ public class BusCitiesAdapter extends RecyclerView.Adapter<BusCitiesAdapter.View
                 RegPrefManager.getInstance(context).setBusFromID(String.valueOf(id));
                 RegPrefManager.getInstance(context).setBusFromName(cities.getOriginName());
                 context.startActivity(new Intent(context, ToCitesActivity.class));
+
             }
         });
 
