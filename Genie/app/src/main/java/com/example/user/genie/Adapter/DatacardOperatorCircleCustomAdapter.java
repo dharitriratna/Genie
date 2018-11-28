@@ -51,7 +51,7 @@ public class DatacardOperatorCircleCustomAdapter extends RecyclerView.Adapter<Da
             @Override
             public void onClick(View view) {
                 String back= RegPrefManager.getInstance(context).getBack();
-                if(back.equals("Landline")) {
+                if(back.equals("Landline1")) {
                     RegPrefManager.getInstance(context).setLandlineCircle(data.getCircle_name(), data.getCircle_code());
 
                     context.startActivity(new Intent(context, LandLine.class));

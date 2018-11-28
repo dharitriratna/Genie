@@ -32,7 +32,7 @@
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/service_recyclerview"
@@ -40,7 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="2.5dp">
+        android:layout_margin="2.5dp"
+        android:visibility="gone">
 
     </android.support.v7.widget.RecyclerView>
     <LinearLayout
@@ -50,7 +51,8 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:visibility="gone">
         <TextView
             android:id="@+id/allTv"
             android:layout_width="wrap_content"
@@ -62,7 +64,8 @@
             android:padding="10dp"
             android:textSize="15sp"
             android:fontFamily="sans-serif"
-            android:foreground="@drawable/abc_btn_selector"/>
+            android:foreground="@drawable/abc_btn_selector"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/hindiTv"
             android:layout_width="wrap_content"
@@ -75,7 +78,8 @@
             android:textSize="15sp"
             android:fontFamily="sans-serif"
             android:layout_marginLeft="10dp"
-            android:foreground="@drawable/abc_btn_selector"/>
+            android:foreground="@drawable/abc_btn_selector"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/englishTv"
             android:layout_width="wrap_content"
@@ -88,19 +92,29 @@
             android:textSize="15sp"
             android:fontFamily="sans-serif"
             android:layout_marginLeft="10dp"
-            android:foreground="@drawable/abc_btn_selector"/>
+            android:foreground="@drawable/abc_btn_selector"
+            android:visibility="gone"/>
 
     </LinearLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvNumbers"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"/>
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/noMesgTv"
+                android:text="No Data Found"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:padding="10dp"
-            >
+           android:visibility="gone" >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -123,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="2.5dp"
-               >
+               android:visibility="gone">
 
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>

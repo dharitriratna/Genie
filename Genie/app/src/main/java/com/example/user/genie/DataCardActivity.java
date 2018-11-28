@@ -1,16 +1,20 @@
 package com.example.user.genie;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -84,8 +88,29 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
 
 
         Log.d("login_user", login_user);
+        int Permission_All = 1;
 
+        String[] Permissions = {
+//                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+//                android.Manifest.permission.ACCESS_FINE_LOCATION,
+//                Manifest.permission.CALL_PHONE,
+                Manifest.permission.INTERNET,
+                Manifest.permission.READ_CONTACTS,};
+        if(!hasPermissions(this, Permissions)){
+            ActivityCompat.requestPermissions(this, Permissions, Permission_All);
+        }
         intialize();
+    }
+    public static boolean hasPermissions(Context context, String... permissions){
+
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.N_MR1 && context!=null && permissions!=null){
+            for(String permission: permissions){
+                if(ActivityCompat.checkSelfPermission(context, permission)!= PackageManager.PERMISSION_GRANTED){
+                    return  false;
+                }
+            }
+        }
+        return true;
     }
     private void intialize(){
         prepaid=findViewById(R.id.prepaid);
@@ -139,12 +164,12 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
             case R.id.contact_list:
-                Intent intent= new Intent(Intent.ACTION_PICK,  ContactsContract.Contacts.CONTENT_URI);
+               /* Intent intent= new Intent(Intent.ACTION_PICK,  ContactsContract.Contacts.CONTENT_URI);
 
-                startActivityForResult(intent, PICK_CONTACT);
+                startActivityForResult(intent, PICK_CONTACT);*/
                 break;
             case R.id.operatorTv:
-                RegPrefManager.getInstance(this).setPhoneNo(contact_number.getText().toString());
+                RegPrefManager.getInstance(this).setDataCardNo(contact_number.getText().toString());
                 startActivity(new Intent(DataCardActivity.this,DataCardOperatorActivity.class));
                 finish();
                 break;
@@ -165,7 +190,7 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.circleTv:
                 RegPrefManager.getInstance(this).setBack("Datacard");
-                RegPrefManager.getInstance(this).setPhoneNo(contact_number.getText().toString());
+                RegPrefManager.getInstance(this).setDataCardNo(contact_number.getText().toString());
                 startActivity(new Intent(DataCardActivity.this,DataCardCircleActivity.class));
                 finish();
                 break;
@@ -214,11 +239,10 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
         if(circlename!=null){
             circleTv.setText(circlename);
         }
-        String phone=RegPrefManager.getInstance(this).getPhoneNo();
+        String phone=RegPrefManager.getInstance(this).getDataCardNo();
         if(phone!=null) {
             contact_number.setText(phone);
         }
-
     }
 
     //flightPlaceCustomAdapter.setClickListener(this);

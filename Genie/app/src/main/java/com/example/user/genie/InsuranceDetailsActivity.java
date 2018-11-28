@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.genie.Model.InsuranceDetails;
 import com.example.user.genie.ObjectNew.InsuranceDetailResponse;
 import com.example.user.genie.ObjectNew.InsurancePaymentResponse;
 import com.example.user.genie.client.ApiClientGenie;
@@ -154,6 +155,7 @@ public class InsuranceDetailsActivity extends AppCompatActivity implements View.
                     tvInstallmentNum.setText("Number of Installment: "+response.body().getData().getNumber_of_Installment());
                     tvTotalPremium.setText("Total Premium: "+response.body().getData().getTotal_Premium());
                     tvDueAmount.setText("Due Amount: "+response.body().getData().getDue_Amount());
+                    RegPrefManager.getInstance(InsuranceDetailsActivity.this).setServiceAmount(response.body().getData().getTotal_Premium());
                     RegPrefManager.getInstance(InsuranceDetailsActivity.this).setReqId(response.body().getData().getRequestId());
 
 
@@ -202,11 +204,16 @@ public class InsuranceDetailsActivity extends AppCompatActivity implements View.
                 dobdatepicker.show();
                 break;
             case R.id.btnPayment:
-                if (isNetworkAvailable()) {
+              /*  if (isNetworkAvailable()) {
                 paymentNetwork();
                 } else {
                     noNetwrokErrorMessage();
-                }
+                }*/
+                String policyno=policynoEd.getText().toString();
+                RegPrefManager.getInstance(this).setPolicyId(policyno);
+              RegPrefManager.getInstance(this).setBackService("Insurance");
+              startActivity(new Intent(InsuranceDetailsActivity.this,PaymentCartActivity.class));
+              finish();
                 break;
         }
     }
@@ -283,12 +290,14 @@ public class InsuranceDetailsActivity extends AppCompatActivity implements View.
                 progressDialog.dismiss();
                 String status=response.body().getData().getStatus();
                 if(status.equals("success")){
-                Toast.makeText(getApplicationContext(),response.body().getData().getMessage(),Toast.LENGTH_LONG).show();
-                startActivity(new Intent(InsuranceDetailsActivity.this,ThankYouActivity.class));
+                    RegPrefManager.getInstance(InsuranceDetailsActivity.this).setInsuranceMessage(response.body().getData().getMessage());
+              //  Toast.makeText(getApplicationContext(),response.body().getData().getMessage(),Toast.LENGTH_LONG).show();
+                startActivity(new Intent(InsuranceDetailsActivity.this,ThankuActivity.class));
                 finish();
                 }
                 else {
                     progressDialog.dismiss();
+
                     Toast.makeText(getApplicationContext(),"Failed.Try again!",Toast.LENGTH_LONG).show();
                 }
             }

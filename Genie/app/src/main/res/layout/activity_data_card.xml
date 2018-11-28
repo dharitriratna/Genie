@@ -62,7 +62,8 @@
                 android:layout_height="wrap_content"
                 android:text="Postpaid"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:visibility="gone"/>
 
         </RadioGroup>
 

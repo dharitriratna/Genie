@@ -19,6 +19,8 @@ import com.example.user.genie.ObjectNew.InsurancePaymentResponse;
 import com.example.user.genie.ObjectNew.JobResponse;
 import com.example.user.genie.ObjectNew.LandlineResponse;
 import com.example.user.genie.ObjectNew.LandlineResponseModel;
+import com.example.user.genie.ObjectNew.MovieCityResponse;
+import com.example.user.genie.ObjectNew.MovieListResponse;
 import com.example.user.genie.ObjectNew.PlaceCabResponse;
 import com.example.user.genie.ObjectNew.RemiterDetailsResponse;
 import com.example.user.genie.ObjectNew.RemiterRegisterResponse;
@@ -100,7 +102,8 @@ public interface ApiInterface {
     @GET("api/service/getlandline")
     Call<LandlineResponseModel> getLandlineOperator();
 
-    @POST("api/service/Postpaidmobile_Landline_Broadband")
+   // @POST("api/service/Postpaidmobile_Landline_Broadband")
+    @POST("api/service/Postpaidmobile_Landline_Broadband_recharge")
     @FormUrlEncoded
     Call<LandlineResponse> postLandlineRecharge(@Field("user_id") int user_id, @Field("customer_id") String customer_id,
                                                 @Field("operator") String operator,
@@ -169,6 +172,11 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<FundTransferStatusResponse> postFundTransferStatus(@Field("cyrus_id") String  cyrus_id);
 
+    @GET("api/service/MovieCityFind ")
+    Call<MovieCityResponse> getMoviesCity();
 
+    @POST("api/service/GetMovieList")
+    @FormUrlEncoded
+    Call<MovieListResponse> postMovieList(@Field("city_id") String  city_id);
 
 }

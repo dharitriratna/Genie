@@ -54,7 +54,7 @@ public class AllInsuranceCustomAdapter extends RecyclerView.Adapter<AllInsurance
             public void onClick(View view) {
 
                     RegPrefManager.getInstance(context).setInsuranceId(data.getId());
-
+                    RegPrefManager.getInstance(context).setServiceName(data.getName());
                     context.startActivity(new Intent(context, InsuranceDetailsActivity.class));
 
             }

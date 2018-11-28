@@ -2,6 +2,9 @@ package com.example.user.genie;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -10,11 +13,14 @@ import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,6 +37,12 @@ import android.widget.Toast;
 
 import com.example.user.genie.Adapter.CityMoviesCustomAdapter;
 import com.example.user.genie.LocationUtils.PermissionUtils;
+import com.example.user.genie.Model.MovieCityModel;
+import com.example.user.genie.ObjectNew.DatacardResponse;
+import com.example.user.genie.ObjectNew.MovieCityResponse;
+import com.example.user.genie.client.ApiClientGenie;
+import com.example.user.genie.client.ApiInterface;
+import com.example.user.genie.helper.RegPrefManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -49,13 +61,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MovieActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,ActivityCompat.OnRequestPermissionsResultCallback,
         PermissionUtils.PermissionResultCallback {
     Toolbar toolbar;
     private EditText cityEd;
     private RecyclerView cityRecyclerview;
-    ArrayList<String> names;
+    ArrayList<MovieCityModel> names;
+    private TextView noMesgTv;
 
     CityMoviesCustomAdapter adapter;
     private TextView currentlocationTv;
@@ -78,7 +95,9 @@ public class MovieActivity extends AppCompatActivity implements GoogleApiClient.
     PermissionUtils permissionUtils;
 
     boolean isPermissionGranted;
-
+    private AlertDialog.Builder alertDialog;
+    ApiInterface apiService;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,10 +107,14 @@ public class MovieActivity extends AppCompatActivity implements GoogleApiClient.
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+               startActivity(new Intent(MovieActivity.this,MainActivity.class));
+               finish();
             }
         });
-
+        apiService =
+                ApiClientGenie.getClient().create(ApiInterface.class);
+        progressDialog =new ProgressDialog(this);
+        alertDialog=new AlertDialog.Builder(this);
         permissionUtils=new PermissionUtils(MovieActivity.this);
 
         permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -113,28 +136,19 @@ public class MovieActivity extends AppCompatActivity implements GoogleApiClient.
         cityEd = findViewById(R.id.cityEd);
         cityRecyclerview = findViewById(R.id.cityRecyclerview);
         currentlocationTv=findViewById(R.id.currentlocationTv);
-        names = new ArrayList<>();
+        names=new ArrayList<>();
 
-        names.add("Abohar");
-        names.add("Achmpet");
-        names.add("Azad");
-        names.add("Badami");
-        names.add("Badepally");
-        names.add("Cheeka");
-        names.add("Cheepurupalli");
-        names.add("Dahod");
-        names.add("Dhar");
 
 
         cityRecyclerview = (RecyclerView) findViewById(R.id.cityRecyclerview);
+        noMesgTv=findViewById(R.id.noMesgTv);
 
 
-        cityRecyclerview.setHasFixedSize(true);
-        cityRecyclerview.setLayoutManager(new LinearLayoutManager(this));
-
-        adapter = new CityMoviesCustomAdapter(MovieActivity.this,names);
-
-        cityRecyclerview.setAdapter(adapter);
+        if (isNetworkAvailable()) {
+            networkMovie();
+        } else {
+            noNetwrokErrorMessage();
+        }
 
 
         cityEd.addTextChangedListener(new TextWatcher() {
@@ -178,17 +192,23 @@ public class MovieActivity extends AppCompatActivity implements GoogleApiClient.
 
     private void filter(String text) {
         //new array list that will hold the filtered data
-        ArrayList<String> filterdNames = new ArrayList<>();
+        ArrayList<MovieCityModel> filterdNames = new ArrayList<>();
 
         //looping through existing elements
-        for (String s : names) {
+       /* for (String s : names) {
             //if the existing elements contains the search input
             if (s.toLowerCase().contains(text.toLowerCase())) {
                 //adding the element to filtered list
                 filterdNames.add(s);
             }
         }
-
+*/
+        for(int i=0;i<names.size();i++) {
+            MovieCityModel model=names.get(i);
+            if(model.getCity().toLowerCase().contains(text.toLowerCase())){
+                filterdNames.add(model);
+            }
+        }
         //calling a method of the adapter class and passing the filtered list
         adapter.filterList(filterdNames);
     }
@@ -444,6 +464,67 @@ public class MovieActivity extends AppCompatActivity implements GoogleApiClient.
     {
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
+
+
+    public boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager= (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    public void noNetwrokErrorMessage(){
+        alertDialog.setTitle("Error!");
+        alertDialog.setMessage("No internet connection. Please check your internet setting.");
+        alertDialog.setCancelable(true);
+        alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert=alertDialog.create();
+        alert.show();
+
+    }
+    private void networkMovie(){
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+
+
+        Call<MovieCityResponse> call=apiService.getMoviesCity();
+        call.enqueue(new Callback<MovieCityResponse>() {
+            @Override
+            public void onResponse(Call<MovieCityResponse> call, Response<MovieCityResponse> response) {
+                progressDialog.dismiss();
+                boolean status=response.body().isStatus();
+
+                if (status==true) {
+                    names = response.body().getData();
+                    noMesgTv.setVisibility(View.GONE);
+                    cityRecyclerview.setVisibility(View.VISIBLE);
+                    cityRecyclerview.setHasFixedSize(true);
+                    cityRecyclerview.setLayoutManager(new LinearLayoutManager(MovieActivity.this));
+
+
+                    adapter = new CityMoviesCustomAdapter(MovieActivity.this, names);
+                    cityRecyclerview.setAdapter(adapter);
+                }
+                else {
+                    noMesgTv.setVisibility(View.VISIBLE);
+                    cityRecyclerview.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieCityResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                noMesgTv.setVisibility(View.VISIBLE);
+                cityRecyclerview.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
 
 
 }
