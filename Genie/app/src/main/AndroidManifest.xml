@@ -314,6 +314,9 @@
         <activity android:name=".ToCitesActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
+        <!--<activity android:name=".BrowsePlansActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="DuplicateActivity" />-->
     </application>
 
 </manifest>

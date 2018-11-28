@@ -5,6 +5,7 @@ import com.example.user.genie.ObjectNew.BeneficiaryDeleteResponse;
 import com.example.user.genie.ObjectNew.BeneficiaryDeleteValidateResponse;
 import com.example.user.genie.ObjectNew.BeneficiaryRegisterResponse;
 import com.example.user.genie.ObjectNew.BeneficiaryValidateResponse;
+import com.example.user.genie.ObjectNew.BrowsePlansResponse;
 import com.example.user.genie.ObjectNew.BusCitesResponse;
 import com.example.user.genie.ObjectNew.BusToCitiesResponse;
 import com.example.user.genie.ObjectNew.CabResponse;
@@ -100,12 +101,18 @@ public interface ApiInterface {
     @GET("api/service/getlandline")
     Call<LandlineResponseModel> getLandlineOperator();
 
+    @GET("api/service/get_mobileoperator")
+    Call<LandlineResponseModel> get_mobileoperator();
+
     @POST("api/service/Postpaidmobile_Landline_Broadband")
     @FormUrlEncoded
     Call<LandlineResponse> postLandlineRecharge(@Field("user_id") int user_id, @Field("customer_id") String customer_id,
                                                 @Field("operator") String operator,
                                                 @Field("circle") int circle, @Field("amount") int amount,
                                                 @Field("account_number") String account_number,@Field("std_code") String std_code);
+
+
+
 
     @GET("api/service/getallinsurnce")
     Call<GetInsuranseResponse> getAllInsurance();
@@ -149,6 +156,15 @@ public interface ApiInterface {
     @POST("api/service/Bus_GetDestination")
     @FormUrlEncoded
     Call<BusToCitiesResponse> postDestinationDetails(@Field("InputParameter") String  InputParameter);
+
+    @POST("api/service/plan_fetch")
+    @FormUrlEncoded
+    Call<BrowsePlansResponse> postPlan_Fetch(@Field("user_id") String customerId,
+                                             @Field("phone") String  phoneNumber,
+                                             @Field("operator")String operatorCode,
+                                             @Field("circle") String circleCode);
+
+
 
     @POST("api/service/BeneficiaryDelete")
     @FormUrlEncoded

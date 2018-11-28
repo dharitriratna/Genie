@@ -96,7 +96,6 @@ public class WaterBill extends AppCompatActivity {
                 else {
                     new AsynBillSubmit().execute();
                 }
-
             }
         });
     }

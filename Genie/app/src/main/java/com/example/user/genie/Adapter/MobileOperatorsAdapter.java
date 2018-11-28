@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.user.genie.MobileOperators;
 import com.example.user.genie.Model.DataOperatorListModel;
 import com.example.user.genie.Model.MobileOperatorsModel;
+import com.example.user.genie.ObjectNew.MobileOperatorData;
 import com.example.user.genie.R;
 
 import java.util.ArrayList;
@@ -19,7 +20,6 @@ import java.util.List;
 public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperatorsAdapter.ViewHolder> {
 
     private List<MobileOperatorsModel> operatorsModels;
-    private List<MobileOperatorsModel> models;
     private Context context;
     private Filter filter;
 
@@ -34,8 +34,7 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
 
     }
 
-    public MobileOperatorsAdapter(MobileOperators mobileOperators, int row_mobile_operators, ArrayList<MobileOperatorsModel> models) {
-    }
+
 
 
     @Override
