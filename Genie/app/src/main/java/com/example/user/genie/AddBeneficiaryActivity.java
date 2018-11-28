@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.genie.MoneyTransfer.MoneyTransferActivity;
 import com.example.user.genie.ObjectNew.BeneficiaryRegisterResponse;
 import com.example.user.genie.ObjectNew.BeneficiaryValidateResponse;
 import com.example.user.genie.ObjectNew.ResendOTPResponse;
@@ -52,7 +53,8 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     String  otp_name;
     private boolean flag;
-     Dialog dialog;
+    Dialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +69,7 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddBeneficiaryActivity.this,MainActivity.class));
+                startActivity(new Intent(AddBeneficiaryActivity.this,RemiterDetailsActivity.class));
                 finish();
             }
         });
@@ -263,9 +265,9 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
     public void onResume() {
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("otp"));
         super.onResume();
-        String ph=RegPrefManager.getInstance(this).getPhoneNo();
-        phoneTv.setText(ph);
-        nameTv.setText(RegPrefManager.getInstance(this).getRemiterName());
+        //String ph=RegPrefManager.getInstance(this).getPhoneNo();
+        //phoneTv.setText(ph);
+       // nameTv.setText(RegPrefManager.getInstance(this).getRemiterName());
     }
 
     @Override

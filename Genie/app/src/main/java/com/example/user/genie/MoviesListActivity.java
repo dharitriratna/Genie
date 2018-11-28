@@ -1,8 +1,14 @@
 package com.example.user.genie;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -19,10 +25,18 @@ import com.example.user.genie.Adapter.MovielistAdapter;
 import com.example.user.genie.Adapter.MoviesGridListAdapter;
 import com.example.user.genie.Adapter.UpcomingMovielistAdapter;
 import com.example.user.genie.Model.Movies;
+import com.example.user.genie.ObjectNew.MovieListModel;
+import com.example.user.genie.ObjectNew.MovieListResponse;
+import com.example.user.genie.client.ApiClientGenie;
+import com.example.user.genie.client.ApiInterface;
 import com.example.user.genie.helper.RegPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MoviesListActivity extends AppCompatActivity implements GridMoviesAdapter.ItemClickListener,View.OnClickListener {
     RecyclerView service_recyclerview,upcomingMovieRecyclerview,rvNumbers;
@@ -32,7 +46,7 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
     final int duration = 50;
     final int pixelsToMove =30;
     Toolbar toolbar;
-    TextView allTv,hindiTv,englishTv,locationTv;
+    TextView allTv,hindiTv,englishTv,locationTv,noMesgTv;
     //private GridView gridList;
     MoviesGridListAdapter gridadapter;
    public GridMoviesAdapter gridMoviesAdapter;
@@ -53,6 +67,11 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
 
 
     };
+    int numberOfColumns = 2;
+    ArrayList<MovieListModel> movieList;
+    private AlertDialog.Builder alertDialog;
+    ApiInterface apiService;
+    ProgressDialog progressDialog;
 
     private final Runnable SCROLLING_RUNNABLE = new Runnable() {
 
@@ -73,15 +92,20 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
      //   gridList=findViewById(R.id.gridList);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         locationTv=toolbar.findViewById(R.id.locationTv);
-
+        apiService =
+                ApiClientGenie.getClient().create(ApiInterface.class);
+        progressDialog =new ProgressDialog(this);
+        alertDialog=new AlertDialog.Builder(this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+              startActivity(new Intent(MoviesListActivity.this,MovieActivity.class));
+              finish();
             }
         });
         String location= RegPrefManager.getInstance(MoviesListActivity.this).getCity();
         locationTv.setText(location);
+        noMesgTv=findViewById(R.id.noMesgTv);
         service_recyclerview=findViewById(R.id.service_recyclerview);
         upcomingMovieRecyclerview=findViewById(R.id.upcomingMovieRecyclerview);
         allTv=findViewById(R.id.allTv);
@@ -92,7 +116,7 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
         hindiTv.setOnClickListener(this);
 
         data = fill_with_data();
-
+        movieList=new ArrayList<>();
 
         horizontalAdapter=new MovielistAdapter(data, getApplication());
 
@@ -139,12 +163,16 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
             }
         });*/
 
-        int numberOfColumns = 2;
         rvNumbers=findViewById(R.id.rvNumbers);
         rvNumbers.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-        gridMoviesAdapter = new GridMoviesAdapter(MoviesListActivity.this, web,imageId);
-      //  gridMoviesAdapter.setClickListener(this);
-        rvNumbers.setAdapter(gridMoviesAdapter);
+        if (isNetworkAvailable()) {
+            networkMovieList();
+        } else {
+            noNetwrokErrorMessage();
+        }
+
+
+
     }
 
 
@@ -194,5 +222,62 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
                 hindiTv.setBackgroundResource(R.drawable.edittext_top_bg);
                 break;
         }
+    }
+
+    public boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager= (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    public void noNetwrokErrorMessage(){
+        alertDialog.setTitle("Error!");
+        alertDialog.setMessage("No internet connection. Please check your internet setting.");
+        alertDialog.setCancelable(true);
+        alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert=alertDialog.create();
+        alert.show();
+
+    }
+
+    private void   networkMovieList(){
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        String cityid=RegPrefManager.getInstance(this).getMovieCityId();
+        Call<MovieListResponse> call=apiService.postMovieList(cityid);
+        call.enqueue(new Callback<MovieListResponse>() {
+            @Override
+            public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
+                progressDialog.dismiss();
+                boolean status=response.body().isStatus();
+                if(status==true){
+                    noMesgTv.setVisibility(View.GONE);
+                    rvNumbers.setVisibility(View.VISIBLE);
+                    movieList=response.body().getData();
+                    gridMoviesAdapter = new GridMoviesAdapter(MoviesListActivity.this, movieList);
+                    //  gridMoviesAdapter.setClickListener(this);
+                    rvNumbers.setAdapter(gridMoviesAdapter);
+                }
+                else {
+                    noMesgTv.setVisibility(View.VISIBLE);
+                    rvNumbers.setVisibility(View.GONE);
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<MovieListResponse> call, Throwable t) {
+            progressDialog.dismiss();
+                noMesgTv.setVisibility(View.VISIBLE);
+                rvNumbers.setVisibility(View.GONE);
+            }
+        });
+
     }
 }

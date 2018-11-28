@@ -17,6 +17,8 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission  android:name = " android.permission. READ_CONTACTS " />
+    <uses-permission  android:name = " android.permission. WRITE_CONTACTS " />
 
     <application
         android:name=".Utils.MyApplication"
@@ -289,11 +291,10 @@
 
         <activity
             android:name=".RemiterDetailsActivity"
-
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".BeneficiaryDeleteActivity"
-
+        <activity
+            android:name=".BeneficiaryDeleteActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
@@ -311,12 +312,25 @@
         <activity
             android:name=".BusCitiesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ToCitesActivity"
+        <activity
+            android:name=".ToCitesActivity"
             android:theme="@style/AppTheme.NoActionBar"
+
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <!--<activity android:name=".BrowsePlansActivity"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="DuplicateActivity" />-->
+
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ThankuActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PaymentCartActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FailureActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>

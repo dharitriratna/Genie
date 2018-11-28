@@ -59,7 +59,7 @@ public class DataCardCircleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String back= RegPrefManager.getInstance(DataCardCircleActivity.this).getBack();
-                if(back.equals("Landline")){
+                if(back.equals("Landline1")){
                     startActivity(new Intent(DataCardCircleActivity.this,LandLine.class));
                     finish();
                 }else {
@@ -76,7 +76,7 @@ public class DataCardCircleActivity extends AppCompatActivity {
         opeartorRecyclerview=findViewById(R.id.opeartorRecyclerview);
         noMesgTv=findViewById(R.id.noMesgTv);
         searchEd=findViewById(R.id.searchEd);
-
+        data=new ArrayList<>();
         if (isNetworkAvailable()) {
             networkCircleService();
         } else {

@@ -12,21 +12,25 @@ import android.widget.TextView;
 
 
 import com.example.user.genie.MovieShowDetailsActivity;
+import com.example.user.genie.ObjectNew.MovieListModel;
 import com.example.user.genie.R;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 /**
  * Created by RatnaDev008 on 10/30/2018.
  */
 
 public class GridMoviesAdapter extends RecyclerView.Adapter<GridMoviesAdapter.ViewHolder> {
-    private String[] mData;
+    private  ArrayList<MovieListModel> mData;
     private  int[] Imageid;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Context context;
 
     // data is passed into the constructor
-    public GridMoviesAdapter(Context context, String[] data,int[] Imageid) {
+    public GridMoviesAdapter(Context context, ArrayList<MovieListModel> data) {
         this.mInflater = LayoutInflater.from(context);
         this.context=context;
         this.mData = data;
@@ -44,8 +48,13 @@ public class GridMoviesAdapter extends RecyclerView.Adapter<GridMoviesAdapter.Vi
     // binds the data to the TextView in each cell
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView.setText(mData[position]);
-        holder.imageView.setImageResource(Imageid[position]);
+        MovieListModel model=mData.get(position);
+
+        holder.textView.setText(model.getMovie());
+
+       // holder.imageView.setImageResource(R.drawable.movie1);
+        String url="https://www.softcareinfotech.in/System/API/Movies"+model.getPosterURL();
+        Picasso.with(context).load(url).into(holder.imageView);
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +67,7 @@ public class GridMoviesAdapter extends RecyclerView.Adapter<GridMoviesAdapter.Vi
     // total number of cells
     @Override
     public int getItemCount() {
-        return mData.length;
+        return mData.size();
     }
 
 
@@ -84,9 +93,9 @@ public class GridMoviesAdapter extends RecyclerView.Adapter<GridMoviesAdapter.Vi
     }
 
     // convenience method for getting data at click position
-    String getItem(int id) {
+   /* String getItem(int id) {
         return mData[id];
-    }
+    }*/
 
     // allows clicks events to be caught
     void setClickListener(ItemClickListener itemClickListener) {

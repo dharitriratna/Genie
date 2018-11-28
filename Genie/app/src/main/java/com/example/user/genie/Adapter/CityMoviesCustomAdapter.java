@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.user.genie.Model.MovieCityModel;
 import com.example.user.genie.MoviesListActivity;
 import com.example.user.genie.R;
 import com.example.user.genie.helper.RegPrefManager;
@@ -20,9 +21,9 @@ import java.util.ArrayList;
 
 public class CityMoviesCustomAdapter extends RecyclerView.Adapter<CityMoviesCustomAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<String> names;
+    private ArrayList<MovieCityModel> names;
 
-    public CityMoviesCustomAdapter(Context context, ArrayList<String> names) {
+    public CityMoviesCustomAdapter(Context context, ArrayList<MovieCityModel> names) {
         this.names = names;
         this.context=context;
     }
@@ -36,12 +37,16 @@ public class CityMoviesCustomAdapter extends RecyclerView.Adapter<CityMoviesCust
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.textViewName.setText(names.get(position));
+        final MovieCityModel movieCityModel=names.get(position);
+
+        holder.textViewName.setText(movieCityModel.getCity());
 
         holder.textViewName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String city= (String) holder.textViewName.getText();
+                RegPrefManager.getInstance(context).setMovieCityId(""+movieCityModel.getProviderId());
                 Intent i=new Intent(context, MoviesListActivity.class);
                 RegPrefManager.getInstance(context).setCity(city);
                 context.startActivity(i);
@@ -67,7 +72,7 @@ public class CityMoviesCustomAdapter extends RecyclerView.Adapter<CityMoviesCust
     //This method will filter the list
     //here we are passing the filtered data
     //and assigning it to the list with notifydatasetchanged method
-    public void filterList(ArrayList<String> filterdNames) {
+    public void filterList(ArrayList<MovieCityModel> filterdNames) {
         this.names = filterdNames;
         notifyDataSetChanged();
     }

@@ -290,11 +290,25 @@ private Button bookingBtn;
                 }
                 if(trip_value!=0 && trip_value!=3 && trip_value!=4) {
                     if (validationNew()) {
-                        if (isNetworkAvailable()) {
+                        RegPrefManager.getInstance(this).setServiceName("Tour and Travels");
+                        RegPrefManager.getInstance(this).setTourTravels(String.valueOf(trip_value),
+                                fromEd.getText().toString().trim(),toEd.getText().toString().trim(),
+                                traveldate,returndate,timeEd.getText().toString().trim());
+                        RegPrefManager.getInstance(this).setBackService("Tour");
+                        fromEd.getText().clear();
+                        toEd.getText().clear();
+                        deppEd.getText().clear();
+                        depEd.getText().clear();
+                        arrivalEd.getText().clear();
+                        timeEd.getText().clear();
+                        startActivity(new Intent(CabBookingActivity.this,PaymentCartActivity.class));
+                        finish();
+                       /* if (isNetworkAvailable()) {
                             networkService();
+
                         } else {
                             noNetwrokErrorMessage();
-                        }
+                        }*/
                     }
                 }
                 break;
@@ -364,7 +378,7 @@ private Button bookingBtn;
                 String data=response.body().getData();
                 Toast.makeText(getApplicationContext(),data,Toast.LENGTH_SHORT).show();
                 RegPrefManager.getInstance(CabBookingActivity.this).setBack("CabBook");
-                startActivity(new Intent(CabBookingActivity.this,ThankYouActivity.class));
+                startActivity(new Intent(CabBookingActivity.this,ThankuActivity.class));
                 finish();
                 fromEd.getText().clear();
                 toEd.getText().clear();

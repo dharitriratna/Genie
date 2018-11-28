@@ -84,7 +84,7 @@ public class LandlineOperator extends AppCompatActivity {
         alertDialog=new AlertDialog.Builder(this);
         searchEd=findViewById(R.id.searchEd);
         noMesgTv=findViewById(R.id.noMesgTv);
-
+        data=new ArrayList<>();
         if (isNetworkAvailable()) {
             networkCircleService();
         } else {

@@ -134,6 +134,12 @@ public class RegPrefManager {
     public String getPhoneNo(){
         return mSharedPreferences.getString("phoneno",null);
     }
+    public void setDataCardNo(String phone){
+        mSharedPreferences.edit().putString("datacardno",phone).apply();
+    }
+    public String getDataCardNo(){
+        return mSharedPreferences.getString("datacardno",null);
+    }
     public void setBack(String back){
         mSharedPreferences.edit().putString("back",back).apply();
     }
@@ -288,6 +294,108 @@ public class RegPrefManager {
         return mSharedPreferences.getString("AgentId",null);
     }
 
+    public void setInsuranceMessage(String msg){
+        mSharedPreferences.edit().putString("InsuranceMessage",msg).apply();
+
+    }
+    public String getInsuranceMessage(){
+        return mSharedPreferences.getString("InsuranceMessage",null);
+    }
+    public void setMovieCityId(String msg){
+        mSharedPreferences.edit().putString("MovieCityId",msg).apply();
+
+    }
+    public String getMovieCityId(){
+        return mSharedPreferences.getString("MovieCityId",null);
+    }
+    public void setPolicyId(String id){
+        mSharedPreferences.edit().putString("InsurancePolicyID",id).apply();
+
+    }
+    public String getPolicyId(){
+        return mSharedPreferences.getString("InsurancePolicyID",null);
+    }
+
+    public void setServiceName(String name){
+        mSharedPreferences.edit().putString("ServiceName",name).apply();
+
+    }
+    public String getServiceName(){
+        return mSharedPreferences.getString("ServiceName",null);
+    }
+
+    public void setServiceAmount(String amount){
+        mSharedPreferences.edit().putString("ServiceAmount",amount).apply();
+
+    }
+    public String getServiceAmount(){
+        return mSharedPreferences.getString("ServiceAmount",null);
+    }
+
+    public void setLandlineBroadband(String customerid,String operartorid,String accountno,String amount){
+        mSharedPreferences.edit().putString("Landline_customerid",customerid).apply();
+        mSharedPreferences.edit().putString("Landline_operatorid",operartorid).apply();
+        mSharedPreferences.edit().putString("Landline_accountno",accountno).apply();
+        mSharedPreferences.edit().putString("Landline_amount",amount).apply();
+
+    }
+
+    public String  getLandlineBroadbandCustid(){
+
+        return mSharedPreferences.getString("Landline_customerid",null);
+    }
+    public String  getLandlineBroadbandoperatorid(){
+
+        return mSharedPreferences.getString("Landline_operatorid",null);
+    }
+    public String  getLandlineBroadbandaccountno(){
+
+        return mSharedPreferences.getString("Landline_accountno",null);
+    }
+    public String  getLandlineBroadbandamount(){
+
+        return mSharedPreferences.getString("Landline_amount",null);
+    }
+
+    public void setBackService(String name){
+        mSharedPreferences.edit().putString("BackServiceName",name).apply();
+
+    }
+    public String getBackService(){
+        return mSharedPreferences.getString("BackServiceName",null);
+    }
+
+    public void setTourTravels(String tripvalue,String form,String to,String traveldate,String returndate,String time){
+        mSharedPreferences.edit().putString("CAB_TRIPVALUE",tripvalue).apply();
+        mSharedPreferences.edit().putString("CAB_FORM",form).apply();
+        mSharedPreferences.edit().putString("CAB_TO",to).apply();
+        mSharedPreferences.edit().putString("CAB_TRAVELDATE",traveldate).apply();
+        mSharedPreferences.edit().putString("CAB_RETURNDATE",returndate).apply();
+        mSharedPreferences.edit().putString("CAB_TIME",time).apply();
+
+    }
+    public String getCABTRIPVALUE(){
+        return mSharedPreferences.getString("CAB_TRIPVALUE",null);
+    }
+
+    public String getCABFORM(){
+        return mSharedPreferences.getString("CAB_FORM",null);
+    }
+
+    public String getCABTO(){
+        return mSharedPreferences.getString("CAB_TO",null);
+    }
+
+    public String getCABTRAVELDATE(){
+        return mSharedPreferences.getString("CAB_TRAVELDATE",null);
+    }
+
+    public String getCABRETURNDATE(){
+        return mSharedPreferences.getString("CAB_RETURNDATE",null);
+    }
+    public String getCABTIME(){
+        return mSharedPreferences.getString("CAB_TIME",null);
+    }
 
 }
 

@@ -116,7 +116,7 @@ public class LandLine extends AppCompatActivity implements View.OnClickListener 
 
             return false;
         }
-        if(flag==true){
+     /*   if(flag==true){
 
             if (stdTv.getText().toString().trim().isEmpty()) {
 
@@ -124,7 +124,7 @@ public class LandLine extends AppCompatActivity implements View.OnClickListener 
 
                 return false;
             }
-        }
+        }*/
 
 
         if (amountEd.getText().toString().trim().isEmpty()) {
@@ -146,17 +146,19 @@ public class LandLine extends AppCompatActivity implements View.OnClickListener 
                 finish();
                 break;
             case R.id.circleTv:
-                RegPrefManager.getInstance(this).setBack("Landline");
+                RegPrefManager.getInstance(this).setBack("Landline1");
                 startActivity(new Intent(getApplicationContext(), DataCardCircleActivity.class));
                 finish();
                 break;
             case R.id.btn_lb_proceed:
                 if(validationNew()) {
-                    if (isNetworkAvailable()) {
-                        networkCircleService();
-                    } else {
-                        noNetwrokErrorMessage();
-                    }
+                RegPrefManager.getInstance(this).setLandlineBroadband(
+                        phoneTv.getText().toString(),lb_operator_name.getText().toString(),
+                        acc_user_name.getText().toString(),amountEd.getText().toString());
+                    RegPrefManager.getInstance(this).setBackService("Landline");
+                    RegPrefManager.getInstance(this).setServiceName("LandLine/BroadBand");
+                startActivity(new Intent(LandLine.this,PaymentCartActivity.class));
+                finish();
                 }
                 break;
         }
@@ -195,7 +197,7 @@ public class LandLine extends AppCompatActivity implements View.OnClickListener 
         }
         if(lb_operator_name.getText().toString().contains("BSNL")||lb_operator_name.getText().toString().contains("Airtel")){
             flag=true;
-            stdlinear.setVisibility(View.VISIBLE);
+            stdlinear.setVisibility(View.GONE);
         }
         else {
             flag=false;
@@ -215,10 +217,18 @@ public class LandLine extends AppCompatActivity implements View.OnClickListener 
         progressDialog.show();
         String customer_id=phoneTv.getText().toString();
         String operator=lb_operator_name.getText().toString();
-        String circle=circleTv.getText().toString();
+        String back= RegPrefManager.getInstance(this).getBack();
+        String circle;
+        if(back.equals("Landline1"))
+        {
+             circle=RegPrefManager.getInstance(this).getLandlinecirclecode();
+        }else {
+             circle=RegPrefManager.getInstance(this).gettDDataCardCircleCode();
+        }
+       // String circle=circleTv.getText().toString();
         String accountno=acc_user_name.getText().toString();
         String amount=amountEd.getText().toString();
-        String std=stdTv.getText().toString();
+        String std="00";
 
         Call<LandlineResponse> call=apiService.postLandlineRecharge(Integer.parseInt(login_user),
                 customer_id,operator,Integer.parseInt(circle),Integer.parseInt(amount),accountno,std);
@@ -228,7 +238,8 @@ public class LandLine extends AppCompatActivity implements View.OnClickListener 
             public void onResponse(Call<LandlineResponse> call, Response<LandlineResponse> response) {
                 progressDialog.dismiss();
                 boolean status=response.body().isStatus();
-                Toast.makeText(getApplicationContext(),"Recharge Successfully",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
+
             }
 
             @Override
