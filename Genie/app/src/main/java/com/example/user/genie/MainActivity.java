@@ -295,6 +295,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         datacardLn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity.this).setDataCardNo("");
+                RegPrefManager.getInstance(MainActivity.this).setDataCardOperator("","");
+                RegPrefManager.getInstance(MainActivity.this).setDataCardCircle("","");
+
                 startActivity(new Intent(MainActivity.this,DataCardActivity.class));
             }
         });

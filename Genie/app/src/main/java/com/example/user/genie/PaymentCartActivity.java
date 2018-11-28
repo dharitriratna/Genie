@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.genie.ObjectNew.CabResponse;
+import com.example.user.genie.ObjectNew.DatacardResponse;
 import com.example.user.genie.ObjectNew.InsurancePaymentResponse;
 import com.example.user.genie.ObjectNew.LandlineResponse;
 import com.example.user.genie.client.ApiClientGenie;
@@ -71,6 +72,10 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     startActivity(new Intent(PaymentCartActivity.this,CabBookingActivity.class));
                     finish();
                 }
+                else if(back.equals("Datacard")){
+                    startActivity(new Intent(PaymentCartActivity.this,DataCardActivity.class));
+                    finish();
+                }
 
             }
         });
@@ -117,6 +122,10 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
             mobileTv.setText(RegPrefManager.getInstance(this).getCABFORM()+" - "+RegPrefManager.getInstance(this).getCABTO());
 
+        }else   if(back.equals("Datacard")) {
+            servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
+            mobileTv.setText(RegPrefManager.getInstance(this).getDatacardCus());
+            amountpTv.setText(RegPrefManager.getInstance(this).getDatacardAmount());
         }
     }
 
@@ -143,6 +152,13 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     if (isNetworkAvailable()) {
                         networkCabService();
 
+                    } else {
+                        noNetwrokErrorMessage();
+                    }
+                }
+                if(back.equals("Datacard")) {
+                    if (isNetworkAvailable()) {
+                        networkDataCardRecharge();
                     } else {
                         noNetwrokErrorMessage();
                     }
@@ -293,6 +309,52 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
                 finish();
                 Log.d("Tag","Failure");
+            }
+        });
+    }
+
+    private void networkDataCardRecharge(){
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        String v=RegPrefManager.getInstance(this).getDatacardCus();
+        Log.d("Tag:value",v);
+        String cus=RegPrefManager.getInstance(this).getDatacardCus();
+
+        int amount=Integer.parseInt(RegPrefManager.getInstance(this).getDatacardAmount());
+        //if (prepaid.isChecked()) {
+          int  circlecode = Integer.parseInt(RegPrefManager.getInstance(this).gettDDataCardCircleCode());
+        //}else {
+        //    circlecode=0;
+        //}
+
+        String operatorcode=RegPrefManager.getInstance(this).getDataCardOperatorCode();
+        Call<DatacardResponse> call=apiService.postDatacardRecharge(Integer.parseInt(login_user),cus,operatorcode,circlecode,amount);
+        call.enqueue(new Callback<DatacardResponse>() {
+            @Override
+            public void onResponse(Call<DatacardResponse> call, Response<DatacardResponse> response) {
+                progressDialog.dismiss();
+                String id=response.body().getData().getApiTransID();
+                String status=response.body().getData().getStatus();
+                if (status.equals("Failure")){
+                    startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
+                    finish();
+                }else {
+
+                    Toast.makeText(getApplicationContext(), status, Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
+                    finish();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<DatacardResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
+                finish();
+                Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_LONG).show();
             }
         });
     }

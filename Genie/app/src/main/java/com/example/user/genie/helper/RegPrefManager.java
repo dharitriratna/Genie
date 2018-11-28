@@ -396,6 +396,17 @@ public class RegPrefManager {
     public String getCABTIME(){
         return mSharedPreferences.getString("CAB_TIME",null);
     }
+    public void setDatacardService(String cus,String amount){
+        mSharedPreferences.edit().putString("DatacardCus",cus).apply();
+        mSharedPreferences.edit().putString("DatacardAmount",amount).apply();
+
+    }
+    public String getDatacardCus(){
+        return mSharedPreferences.getString("DatacardCus",null);
+    }
+    public String getDatacardAmount(){
+        return mSharedPreferences.getString("DatacardAmount",null);
+    }
 
 }
 
