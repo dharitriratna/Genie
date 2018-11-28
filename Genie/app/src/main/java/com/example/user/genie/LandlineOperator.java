@@ -91,6 +91,8 @@ public class LandlineOperator extends AppCompatActivity {
             noNetwrokErrorMessage();
         }
 
+
+
         searchEd.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -107,6 +109,7 @@ public class LandlineOperator extends AppCompatActivity {
                 filter(editable.toString());
             }
         });
+
     }
 
     //flightPlaceCustomAdapter.setClickListener(this);
