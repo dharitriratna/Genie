@@ -315,6 +315,12 @@
         <activity
             android:name=".ToCitesActivity"
             android:theme="@style/AppTheme.NoActionBar"
+
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+        <!--<activity android:name=".BrowsePlansActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="DuplicateActivity" />-->
+
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".ThankuActivity"
@@ -324,6 +330,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".FailureActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>

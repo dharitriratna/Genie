@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class MobileRecharge extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton prepaid, postpaid;
     Button btn_prepaid,btn_postpaid;
+    LinearLayout browseplansLayout;
 
     private static final int REQUEST_CODE = 1995;
 
@@ -75,6 +77,7 @@ public class MobileRecharge extends AppCompatActivity {
 
 
         radioGroup = findViewById(R.id.radioGroup);
+        browseplansLayout = findViewById(R.id.browseplansLayout);
 
       //  int selectedId=radioGroup.getCheckedRadioButtonId();
         prepaid = findViewById(R.id.prepaid);
@@ -197,6 +200,28 @@ public class MobileRecharge extends AppCompatActivity {
                     new AsynSignInDetails().execute();
                 }
 
+            }
+        });
+
+        browseplansLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (phone_number.length() < 1){
+                    contact_number.setError("Enter Your Mobile Number");
+                }
+                else if (carrierName.length()< 1){
+                    operator.setError("Enter Your Operator");
+                }
+                else if (operator_circle_name.length()< 1){
+                    circle.setError("Enter Your Circle");
+                }
+                else {
+                    Intent intent = new Intent(MobileRecharge.this,BrowsePlansActivity.class);
+                    intent.putExtra("PhoneNumber",phone_number );
+                    intent.putExtra("OperatorName",carrierName );
+                    intent.putExtra("CircleName",operator_circle_name);
+                    startActivity(intent);
+                }
             }
         });
 

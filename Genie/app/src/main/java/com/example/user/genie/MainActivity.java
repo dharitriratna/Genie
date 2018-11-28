@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentProfile fragmentprofile;
     FrameLayout container;
     MenuItem menu_home;
-    int[] image={ R.drawable.air_ticket_ad, R.drawable.ad_movie, R.drawable.ad_money_transfer, R.drawable.bday_ad};
+    int[] image={ R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5, R.drawable.image_6, R.drawable.image_7, R.drawable.image_8};
     private SliderLayout mDemoSlider;
     ImageView start_nav;
 
