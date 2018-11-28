@@ -22,6 +22,7 @@ import com.example.user.genie.ObjectNew.LandlineResponse;
 import com.example.user.genie.ObjectNew.LandlineResponseModel;
 import com.example.user.genie.ObjectNew.MovieCityResponse;
 import com.example.user.genie.ObjectNew.MovieListResponse;
+import com.example.user.genie.ObjectNew.MyWalletResponse;
 import com.example.user.genie.ObjectNew.PlaceCabResponse;
 import com.example.user.genie.ObjectNew.RemiterDetailsResponse;
 import com.example.user.genie.ObjectNew.RemiterRegisterResponse;
@@ -197,5 +198,9 @@ public interface ApiInterface {
     @POST("api/service/GetMovieList")
     @FormUrlEncoded
     Call<MovieListResponse> postMovieList(@Field("city_id") String  city_id);
+
+    @POST("api/service/getWalletBalance")
+    @FormUrlEncoded
+    Call<MyWalletResponse> postWallet(@Field("user_id") String  user_id);
 
 }
