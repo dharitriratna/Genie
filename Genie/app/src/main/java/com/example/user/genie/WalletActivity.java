@@ -90,7 +90,7 @@ public class WalletActivity extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        login_user="40";
+       // login_user="40";
         Call<MyWalletResponse> call=apiService.postWallet(login_user);
 
         call.enqueue(new Callback<MyWalletResponse>() {

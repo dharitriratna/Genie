@@ -82,14 +82,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
   //  LinearLayout ac_mechanic, tv_mechanic, labour, driver, home_tutor;
     LinearLayout home_delivery, events, prepaid, electricity,train_booking,
-          dth, broadband, landline, water,moviesLinear,flightLinear,linearBus,
+          dth, broadband, landline, water,moviesLinear,flightLinear,linearBus,carLinear,bikeLinear,
 
 
           cabBookingLin,rentLin,birthday_planners, joblin,money_transfer,datacardLn, rawMeat, gasLayout, hotelLayout,insuranceLn;
 
     Button button1, button2, button3, button4, button5;
 
-    TextView tagline_text;
+    TextView tagline_text,keyname,keyphone;
     ImageView account_wallet;
 
     RecyclerView service_recyclerview;
@@ -170,6 +170,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         rawMeat = findViewById(R.id.raw_meat);
         gasLayout = findViewById(R.id.gasLayout);
         hotelLayout = findViewById(R.id.hotelLayout);
+        bikeLinear=findViewById(R.id.bikeLinear);
+        carLinear=findViewById(R.id.carLinear);
 
         birthday_planners=findViewById(R.id.birthday_planners);
 
@@ -331,6 +333,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this,HotelActivity.class));
             }
         });
+        bikeLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,ComingSoonActivity.class));
+
+            }
+        });
 
 
         service_recyclerview = findViewById(R.id.service_recyclerview);
@@ -405,6 +414,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
+        View headerView = navigationView.getHeaderView(0);
+
+        keyphone=(TextView) headerView.findViewById(R.id.keyphone);
+        keyname=(TextView) headerView.findViewById(R.id.keyname);
+
+        keyphone.setText(RegPrefManager.getInstance(this).getPhoneNo());
+        keyname.setText(RegPrefManager.getInstance(this).getUserName());
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);

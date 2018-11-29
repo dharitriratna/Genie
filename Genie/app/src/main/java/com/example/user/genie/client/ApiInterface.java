@@ -20,6 +20,7 @@ import com.example.user.genie.ObjectNew.InsurancePaymentResponse;
 import com.example.user.genie.ObjectNew.JobResponse;
 import com.example.user.genie.ObjectNew.LandlineResponse;
 import com.example.user.genie.ObjectNew.LandlineResponseModel;
+import com.example.user.genie.ObjectNew.LoginResponse;
 import com.example.user.genie.ObjectNew.MovieCityResponse;
 import com.example.user.genie.ObjectNew.MovieListResponse;
 import com.example.user.genie.ObjectNew.MyWalletResponse;
@@ -202,5 +203,9 @@ public interface ApiInterface {
     @POST("api/service/getWalletBalance")
     @FormUrlEncoded
     Call<MyWalletResponse> postWallet(@Field("user_id") String  user_id);
+
+    @POST("index.php/api/user/login")
+    @FormUrlEncoded
+    Call<LoginResponse> postLogin(@Field("phone") String  phone,@Field("user_pwd") String user_pwd);
 
 }

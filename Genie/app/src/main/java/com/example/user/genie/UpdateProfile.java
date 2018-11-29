@@ -33,6 +33,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.user.genie.helper.RegPrefManager;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -58,9 +59,9 @@ public class UpdateProfile extends Activity {
     File file;
     private static final int PICK_PHOTO = 1958;
     private final int requestCode = 20;
-    FrameLayout set_image;
+  //  FrameLayout set_image;
     private String imagefilePath="";
-    ImageView selected_image;
+    ImageView selected_image,set_image;
 
 
     @Override
@@ -85,7 +86,7 @@ public class UpdateProfile extends Activity {
         password = findViewById(R.id.password);*/
         btn_update = findViewById(R.id.btn_update);
         set_image = findViewById(R.id.set_image);
-        selected_image = findViewById(R.id.selected_image);
+        //selected_image = findViewById(R.id.selected_image);
         TextView address = findViewById(R.id.address);
         address.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,7 +188,8 @@ public class UpdateProfile extends Activity {
 
             Uri imageUri = data.getData();
             imagefilePath = getPath(imageUri);
-            selected_image.setImageURI(imageUri);
+
+            set_image.setImageURI(imageUri);
           //  add_img1.setVisibility(View.GONE);
           //  btn_submit.setVisibility(View.VISIBLE);
             file=new File(imagefilePath);
@@ -201,7 +203,7 @@ public class UpdateProfile extends Activity {
         else if(this.requestCode == requestCode && resultCode == RESULT_OK)
         {
             Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-            selected_image.setImageBitmap(bitmap);
+            set_image.setImageBitmap(bitmap);
           //  btn_submit.setVisibility(View.VISIBLE);
           //  add_img1.setVisibility(View.GONE);
             Uri cameraUri= getImageUri(this,bitmap);
@@ -280,6 +282,9 @@ public class UpdateProfile extends Activity {
                                 phone_no.setText(mobile);
                                 email_id.setText(email_address);
 
+                                RegPrefManager.getInstance(UpdateProfile.this).setPhoneNo(mobile);
+                                RegPrefManager.getInstance(UpdateProfile.this).setUserName(name);
+                                RegPrefManager.getInstance(UpdateProfile.this).setUserEmail(email_address);
 
 
 
@@ -340,8 +345,17 @@ public class UpdateProfile extends Activity {
                 Log.v(" ", "Response is " + route_response);
                 success = route_response;
                 JSONObject jsonObject = new JSONObject(success);
-                // status =jsonObject.getString("status");
+                 //status =jsonObject.getString("status");
                 message = jsonObject.getString("message");
+
+                String user_phone=jsonObject.getJSONObject("data").getString("phone");
+                String user_name=jsonObject.getJSONObject("data").getString("first_name");
+                String user_email=jsonObject.getJSONObject("data").getString("email");
+
+                RegPrefManager.getInstance(UpdateProfile.this).setPhoneNo(user_phone);
+                RegPrefManager.getInstance(UpdateProfile.this).setUserName(user_name);
+                RegPrefManager.getInstance(UpdateProfile.this).setUserEmail(user_email);
+
             } catch (Exception e)
 
             {
@@ -357,6 +371,7 @@ public class UpdateProfile extends Activity {
             {
                 Toast.makeText(UpdateProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(UpdateProfile.this,MainActivity.class));
+                finish();
             }
             else
             {

@@ -408,5 +408,22 @@ public class RegPrefManager {
         return mSharedPreferences.getString("DatacardAmount",null);
     }
 
+    public void setUserName(String name){
+        mSharedPreferences.edit().putString("Username",name).apply();
+
+    }
+    public String getUserName(){
+        return mSharedPreferences.getString("Username",null);
+    }
+
+    public void setUserEmail(String name){
+        mSharedPreferences.edit().putString("Useremail",name).apply();
+
+    }
+    public String getUserEmail(){
+        return mSharedPreferences.getString("Useremail",null);
+    }
+
+
 }
 

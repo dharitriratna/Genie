@@ -46,23 +46,23 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"/>
 
-            <FrameLayout
+           <!-- <FrameLayout
                 android:visibility="invisible"
                 android:id="@+id/set_image"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
-                android:background="@drawable/image_backgroud"
-                >
+
+                >-->
                 <ImageView
-                    android:id="@+id/selected_image"
+                    android:id="@+id/set_image"
                     android:scaleType="fitXY"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:src="@drawable/ic_user_sign"
                     android:padding="5dp"
                     android:layout_gravity="center"/>
-            </FrameLayout>
+            <!--</FrameLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -151,7 +151,8 @@
                     android:inputType="text"
                     android:gravity="start|center"
                     android:padding="10dp"
-                    android:textColor="#000" />
+                    android:textColor="#000"
+                    android:visibility="gone"/>
 
 
             </LinearLayout>
