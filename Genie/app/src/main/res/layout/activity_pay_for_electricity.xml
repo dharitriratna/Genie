@@ -58,6 +58,7 @@
                     android:textSize="16sp"/>
 
                 <RadioButton
+                    android:visibility="gone"
                     android:layout_weight="1"
                     android:id="@+id/apartments"
                     android:layout_width="match_parent"

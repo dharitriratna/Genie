@@ -69,6 +69,8 @@ public class BrowsePlansActivity extends AppCompatActivity {
             }
         });
         browsing_plans = findViewById(R.id.browsing_plans);
+        progressDialog = new ProgressDialog(this);
+        searchEd = findViewById(R.id.searchEd);
 
         operatorList=new ArrayList<>();
 
@@ -107,7 +109,6 @@ public class BrowsePlansActivity extends AppCompatActivity {
             //    deiverydate=bundle.getString("DELIVERYDATE");
 
             //    Log.d("deiverydate",deiverydate);
-
         }
 
         sharedpreferences = getSharedPreferences(mypreference,

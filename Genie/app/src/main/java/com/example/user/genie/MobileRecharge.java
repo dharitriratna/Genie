@@ -27,6 +27,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.genie.helper.RegPrefManager;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
@@ -169,7 +171,14 @@ public class MobileRecharge extends AppCompatActivity {
                     amount.setError("Enter Your Amount");
                 }
                 else {
-                    new AsynSignInDetails().execute();
+                    RegPrefManager.getInstance(MobileRecharge.this).setBackService("MobileRecharge");
+                    RegPrefManager.getInstance(MobileRecharge.this).setServiceName("MobileRecharge");
+                    Intent intent = new Intent(MobileRecharge.this,PaymentCartActivity.class);
+                    intent.putExtra("PhoneNumber",phone_number);
+                    intent.putExtra("CarrierName", carrierName);
+                    intent.putExtra("CircleName", operator_circle_name);
+                    intent.putExtra("RechargeAmount", recharge_amount);
+                    startActivity(intent);
                 }
 
             }
@@ -197,7 +206,7 @@ public class MobileRecharge extends AppCompatActivity {
                     amount.setError("Enter Your Amount");
                 }
                 else {
-                    new AsynSignInDetails().execute();
+                  //  new AsynSignInDetails().execute();
                 }
 
             }
@@ -206,6 +215,10 @@ public class MobileRecharge extends AppCompatActivity {
         browseplansLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                phone_number = contact_number.getText().toString();
+                carrierName = operator.getText().toString();
+                operator_circle_name = circle.getText().toString();
+
                 if (phone_number.length() < 1){
                     contact_number.setError("Enter Your Mobile Number");
                 }
@@ -345,6 +358,7 @@ public class MobileRecharge extends AppCompatActivity {
 
 
 
+/*
     private class AsynSignInDetails extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
         String success = null,data="",status="true";
@@ -423,6 +437,7 @@ public class MobileRecharge extends AppCompatActivity {
             pDialog.show();
         }
     }
+*/
 
 /*
     private class AsyngetOperator extends AsyncTask<Void, Void, Void> {

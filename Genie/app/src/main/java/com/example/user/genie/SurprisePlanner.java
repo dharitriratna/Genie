@@ -155,7 +155,20 @@ public class SurprisePlanner extends AppCompatActivity {
                     from_address.setError("Enter Sender Address");
                 }
                 else {
-                    new AsynGiftSubmit().execute();
+                    Intent intentSendDatas = new Intent(SurprisePlanner.this,PaymentActivity.class);
+                    intentSendDatas.putExtra("Image",giftImage);
+                    intentSendDatas.putExtra("giftID",giftId);
+                    intentSendDatas.putExtra("ReceiverName",toName);
+                    intentSendDatas.putExtra("Sender", senderName);
+                    intentSendDatas.putExtra("ReceiverNumber",toNumber);
+                    intentSendDatas.putExtra("SenderNumber", senderNo);
+                    intentSendDatas.putExtra("EntryDate",entry_date);
+                    intentSendDatas.putExtra("EntryTime", entry_time);
+                    intentSendDatas.putExtra("ToAddress",toAddress);
+                    intentSendDatas.putExtra("FromAddress",fromAddress);
+                    startActivity(intentSendDatas);
+                    finish();
+                  //  new AsynGiftSubmit().execute();
                 }
             }
         });
@@ -212,76 +225,5 @@ public class SurprisePlanner extends AppCompatActivity {
         });
     }
 
-    private class AsynGiftSubmit extends AsyncTask<Void, Void, Void> {
-        ProgressDialog pDialog;
-        String success = null,data="",status="true";
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            pDialog.show();
-            ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
-            cred.add(new BasicNameValuePair("user_id",login_user));//user_email
-            cred.add(new BasicNameValuePair("gift_id",giftId ));
-            cred.add(new BasicNameValuePair("to_name",toName ));
-            cred.add(new BasicNameValuePair("sender_name",senderName ));
-            cred.add(new BasicNameValuePair("phone",toNumber ));
-            cred.add(new BasicNameValuePair("sender_no",senderNo ));
-            cred.add(new BasicNameValuePair("date",entry_date ));
-            cred.add(new BasicNameValuePair("time",entry_time ));
-            cred.add(new BasicNameValuePair("to_address",toAddress ));
-            cred.add(new BasicNameValuePair("from_address",fromAddress ));
-            Log.v("RES","Sending data" +login_user+ giftId+ toName+ senderName+ toNumber + senderNo +entry_date+entry_time
-                    +toAddress+fromAddress);
-
-
-            String urlRouteList = "http://demo.ratnatechnology.co.in/genie/index.php/api/service/addgift";
-            try {
-                String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
-
-                success = route_response;
-                JSONObject jsonObject = new JSONObject(success);
-
-                // user_email=jsonObject.getString("user_email");
-                status=jsonObject.getString("status");
-                if(status.equals("false")) {
-                    data = jsonObject.getString("data");
-                }
-                String data=jsonObject.getString("data");
-                // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
-                JSONObject jsonObject1 = new JSONObject(data);
-
-               /*  String user_id=jsonObject1.getString("user_id");
-                String user_email=jsonObject1.getString("user_email");*/
-
-
-            } catch (Exception e)
-
-            {
-                Log.v("Connection error", e.toString());
-
-            }return null;
-        }
-        protected void onPostExecute(Void result) {
-            pDialog.dismiss();
-
-            if(status.equals("true"))
-            {
-
-                startActivity(new Intent(SurprisePlanner.this,PaymentActivity.class));finish();
-            }
-            else{
-                Toast.makeText(getApplicationContext(),data, Toast.LENGTH_LONG).show();
-            }
-        }
-
-        @Override
-        protected void onPreExecute() {
-            pDialog = new ProgressDialog(SurprisePlanner.this);
-            pDialog.setMessage("Loading In...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-    }
 
 }

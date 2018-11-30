@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,12 +22,15 @@ import android.widget.Toast;
 import com.example.user.genie.ObjectNew.CabResponse;
 import com.example.user.genie.ObjectNew.InsurancePaymentResponse;
 import com.example.user.genie.ObjectNew.LandlineResponse;
-import com.example.user.genie.client.ApiClientGenie;
 import com.example.user.genie.client.ApiClientGenie1;
 import com.example.user.genie.client.ApiInterface;
 import com.example.user.genie.helper.RegPrefManager;
 
-import java.util.HashMap;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,6 +48,32 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     String login_user="";
+    String PhoneNumber;
+    String OperatorName;
+    String CircleName;
+    String RechargeAmount;
+
+    String operator;
+    String circle;
+    String landline_ca_number;
+    String other_values;
+
+    //electricity
+    String SelectStateName;
+    String ConsumerID;
+    String BillAmount;
+
+    //water
+    String Boardname;
+    String ConsumerId;
+    String PayAmount;
+
+    //DTH
+    String DTHoperatorName;
+    String DTHcustomerId;
+    String DTHbillAmount;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,25 +85,46 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         alertDialog=new AlertDialog.Builder(this);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
 
-          back= RegPrefManager.getInstance(this).getBackService();
+        back= RegPrefManager.getInstance(this).getBackService();
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(back.equals("Insurance")){
-                    startActivity(new Intent(PaymentCartActivity.this,InsuranceDetailsActivity.class));
+                 //   startActivity(new Intent(PaymentCartActivity.this,InsuranceDetailsActivity.class));
+                    onBackPressed();
                     finish();
                 }
                 else if(back.equals("Landline")){
-                    startActivity(new Intent(PaymentCartActivity.this,LandLine.class));
+                  //  startActivity(new Intent(PaymentCartActivity.this,LandLine.class));
+                    onBackPressed();
                     finish();
                 }else if(back.equals("Tour")){
-                    startActivity(new Intent(PaymentCartActivity.this,CabBookingActivity.class));
+                  //  startActivity(new Intent(PaymentCartActivity.this,CabBookingActivity.class));
+                    onBackPressed();
+                    finish();
+                }else if(back.equals("MobileRecharge")){
+                  //  startActivity(new Intent(PaymentCartActivity.this,MobileRecharge.class));
+                    onBackPressed();
                     finish();
                 }
-
+                else if(back.equals("Electricity")){
+                  //  startActivity(new Intent(PaymentCartActivity.this,PayForElectricity.class));
+                    onBackPressed();
+                    finish();
+                }
+                else if(back.equals("WaterBill")){
+                   // startActivity(new Intent(PaymentCartActivity.this,WaterBill.class));
+                    onBackPressed();
+                    finish();
+                }
+                else if(back.equals("DTH Bill")){
+                    onBackPressed();
+                    finish();
+                }
             }
         });
+
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor1 = sharedpreferences.edit();
@@ -93,10 +144,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         checkBox1=findViewById(R.id.checkBox1);
         btn_order=findViewById(R.id.btn_order);
         btn_order.setOnClickListener(this);
-
-
-
-
     }
 
     @Override
@@ -118,6 +165,81 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             mobileTv.setText(RegPrefManager.getInstance(this).getCABFORM()+" - "+RegPrefManager.getInstance(this).getCABTO());
 
         }
+        else if(back.equals("MobileRecharge")){
+
+            Intent intent = getIntent();
+            Bundle bundle = intent.getExtras();
+
+            if(bundle != null) {
+
+                PhoneNumber = bundle.getString("PhoneNumber");
+                OperatorName = bundle.getString("CarrierName");
+                CircleName = bundle.getString("CircleName");
+                RechargeAmount = bundle.getString("RechargeAmount");
+
+                Log.d("url", RechargeAmount);
+
+            }
+            servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
+            mobileTv.setText(OperatorName);
+            amountpTv.setText(getResources().getString(R.string.rupee)+RechargeAmount);
+        }
+
+        else if (back.equals("Electricity")){
+            Intent intent = getIntent();
+            Bundle bundle = intent.getExtras();
+
+            if(bundle != null) {
+
+                SelectStateName = bundle.getString("StateName");
+                ConsumerID = bundle.getString("ConsumerID");
+                BillAmount = bundle.getString("Amount");
+
+                Log.d("am", BillAmount);
+            }
+
+            servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
+            mobileTv.setText(SelectStateName);
+            amountpTv.setText(getResources().getString(R.string.rupee)+BillAmount);
+        }
+
+        else if (back.equals("WaterBill")){
+            Intent intent = getIntent();
+            Bundle bundle = intent.getExtras();
+
+            if(bundle != null) {
+
+                Boardname = bundle.getString("BoardName");
+                ConsumerId = bundle.getString("ConsumerID");
+                PayAmount = bundle.getString("Amount");
+
+                Log.d("wp", PayAmount);
+            }
+
+            servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
+            mobileTv.setText(Boardname);
+            amountpTv.setText(getResources().getString(R.string.rupee)+PayAmount);
+        }
+
+        else if (back.equals("DTH Bill")){
+            Intent intent = getIntent();
+            Bundle bundle = intent.getExtras();
+
+            if(bundle != null) {
+
+                DTHoperatorName = bundle.getString("OperatorName");
+                DTHcustomerId = bundle.getString("CostumerID");
+                DTHbillAmount = bundle.getString("DTHAmount");
+
+                Log.d("dtham", DTHbillAmount);
+            }
+
+            servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
+            mobileTv.setText(DTHoperatorName);
+            amountpTv.setText(getResources().getString(R.string.rupee)+DTHbillAmount);
+        }
+
+
     }
 
     @Override
@@ -147,8 +269,41 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                         noNetwrokErrorMessage();
                     }
                 }
+                if (back.equals("MobileRecharge")){
+                    if (isNetworkAvailable()) {
+                        new AsynSignInDetails().execute();
+                    } else {
+                        noNetwrokErrorMessage();
+                    }
+                }
+
+                if (back.equals("Electricity")){
+                    if (isNetworkAvailable()) {
+                      //  new AsynBillSubmit().execute();
+                    } else {
+                        noNetwrokErrorMessage();
+                    }
+                }
                 break;
-        }
+                }
+                if (back.equals("WaterBill")){
+                    if (isNetworkAvailable()){
+                        new AsynWaterBillSubmit().execute();
+                    }
+                    else {
+                        noNetwrokErrorMessage();
+                    }
+                }
+                if (back.equals("DTH Bill")){
+                    if (isNetworkAvailable()){
+                        new AsynDTHpayment().execute();
+                    }
+                    else {
+                        noNetwrokErrorMessage();
+                    }
+                }
+
+
     }
     private void InsurancePayment(){
         progressDialog.setMessage("Please wait...");
@@ -242,7 +397,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     finish();
                 }
              //  Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
-
             }
 
             @Override
@@ -296,4 +450,312 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             }
         });
     }
+
+
+    private class AsynSignInDetails extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pDialog;
+        String success = null,data="",status="true";
+        String status_response;
+        String err_msg;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            pDialog.show();
+            ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
+            //  cred.add(new BasicNameValuePair("user_id",login_user));//user_email
+            cred.add(new BasicNameValuePair("customer_id",PhoneNumber ));
+            cred.add(new BasicNameValuePair("operator",OperatorName ));
+            cred.add(new BasicNameValuePair("circle",CircleName ));
+            cred.add(new BasicNameValuePair("amount",RechargeAmount ));
+            Log.v("RES","Sending data " + PhoneNumber+ OperatorName +CircleName+RechargeAmount);
+
+
+            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_dth_datacard_recharge";
+            try {
+                String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
+
+                success = route_response;
+                JSONObject jsonObject = new JSONObject(success);
+
+                // user_email=jsonObject.getString("user_email");
+                status=jsonObject.getString("Status");
+                if(status.equals("Failure")) {
+                    data = jsonObject.getString("ErrorMessage");
+
+                }
+                String data=jsonObject.getString("Status");
+                // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
+                JSONObject jsonObject1 = new JSONObject(data);
+                status_response = jsonObject1.getString("Status");
+                err_msg = jsonObject1.getString("ErrorMessage");
+
+            } catch (Exception e)
+
+            {
+                Log.v("Connection error", e.toString());
+
+            }return null;
+        }
+        protected void onPostExecute(Void result) {
+            pDialog.dismiss();
+
+            if(status.equals("true"))
+            {
+                Toast.makeText(getApplicationContext(),"Recharge Successful", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(PaymentCartActivity.this,ThankYouActivity.class));
+              /*  SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("AMOUNT", recharge_amount = amount.getText().toString());
+                editor.commit();*/
+                // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
+                // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
+            }
+            else{
+                Toast.makeText(getApplicationContext(),err_msg, Toast.LENGTH_LONG).show();
+                startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.remove("PHONE_NUMBER");
+                editor.clear();
+                editor.commit();
+
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(PaymentCartActivity.this);
+            pDialog.setMessage("Loading In...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+    }
+
+
+    private class AsynBillSubmit extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pDialog;
+        String success = null,data="",status="true";
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            pDialog.show();
+            ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
+            cred.add(new BasicNameValuePair("user_id",login_user));//user_email
+            cred.add(new BasicNameValuePair("customer_id",SelectStateName ));
+            cred.add(new BasicNameValuePair("operator", operator ));
+            cred.add(new BasicNameValuePair("circle",circle ));
+            cred.add(new BasicNameValuePair("amount",BillAmount ));
+            cred.add(new BasicNameValuePair("landline_ca_number",landline_ca_number ));
+            cred.add(new BasicNameValuePair("other_values",other_values ));
+            Log.v("RES","Sending data" +login_user+ SelectStateName+ operator +circle+BillAmount
+                    +landline_ca_number+other_values);
+
+
+            String urlRouteList="http://demo.ratnatechnology.co.in/genie/index.php/api/service/electricity_insurance_gas_water";
+            try {
+                String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
+
+                success = route_response;
+                JSONObject jsonObject = new JSONObject(success);
+
+                // user_email=jsonObject.getString("user_email");
+                status=jsonObject.getString("status");
+                if(status.equals("false")) {
+                    data = jsonObject.getString("data");
+                }
+                String data=jsonObject.getString("data");
+                // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
+                JSONObject jsonObject1 = new JSONObject(data);
+
+  String user_id=jsonObject1.getString("user_id");
+                String user_email=jsonObject1.getString("user_email");
+
+
+
+            } catch (Exception e)
+
+            {
+                Log.v("Connection error", e.toString());
+
+            }return null;
+        }
+        protected void onPostExecute(Void result) {
+            pDialog.dismiss();
+
+            if(status.equals("true"))
+            {
+                Toast.makeText(getApplicationContext(),"Bill Paid Successfully", Toast.LENGTH_LONG).show();
+
+                startActivity(new Intent(PaymentCartActivity.this,ThankYouActivity.class));finish();
+            }
+            else{
+                Toast.makeText(getApplicationContext(),data, Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(),FailureActivity.class));
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(PaymentCartActivity.this);
+            pDialog.setMessage("Loading In...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+    }
+
+
+    private class AsynWaterBillSubmit extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pDialog;
+        String success = null,data="",status="true";
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            pDialog.show();
+            ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
+            cred.add(new BasicNameValuePair("user_id",login_user));//user_email
+            cred.add(new BasicNameValuePair("customer_id",Boardname ));
+            cred.add(new BasicNameValuePair("operator",operator ));
+            cred.add(new BasicNameValuePair("circle",circle ));
+            cred.add(new BasicNameValuePair("amount",BillAmount ));
+            cred.add(new BasicNameValuePair("landline_ca_number",landline_ca_number ));
+            cred.add(new BasicNameValuePair("other_values",other_values ));
+            Log.v("RES","Sending data" +login_user+ Boardname+ operator +circle+BillAmount
+                    +landline_ca_number+other_values);
+
+
+            String urlRouteList="http://demo.ratnatechnology.co.in/genie/index.php/api/service/electricity_insurance_gas_water";
+            try {
+                String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
+
+                success = route_response;
+                JSONObject jsonObject = new JSONObject(success);
+
+                // user_email=jsonObject.getString("user_email");
+                status=jsonObject.getString("status");
+                if(status.equals("false")) {
+                    data = jsonObject.getString("data");
+                }
+                String data=jsonObject.getString("data");
+                // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
+                JSONObject jsonObject1 = new JSONObject(data);
+
+               /*  String user_id=jsonObject1.getString("user_id");
+                String user_email=jsonObject1.getString("user_email");*/
+
+
+            } catch (Exception e)
+
+            {
+                Log.v("Connection error", e.toString());
+
+            }return null;
+        }
+        protected void onPostExecute(Void result) {
+            pDialog.dismiss();
+
+            if(status.equals("true"))
+            {
+                Toast.makeText(getApplicationContext(),"Bill Paid Successfully", Toast.LENGTH_LONG).show();
+
+                startActivity(new Intent(PaymentCartActivity.this,ThankYouActivity.class));finish();
+            }
+            else{
+                Toast.makeText(getApplicationContext(),data, Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(), FailureActivity.class));
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(PaymentCartActivity.this);
+            pDialog.setMessage("Loading In...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+    }
+
+
+    private class AsynDTHpayment extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pDialog;
+        String success = null,data="",status="true";
+        String status_response;
+        String err_msg;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            pDialog.show();
+            ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
+            //  cred.add(new BasicNameValuePair("user_id",login_user));//user_email
+            cred.add(new BasicNameValuePair("operator",DTHoperatorName ));
+            cred.add(new BasicNameValuePair("customer_id",DTHcustomerId ));
+            cred.add(new BasicNameValuePair("amount",DTHbillAmount ));
+            Log.v("RES","Sending data " + DTHoperatorName+ DTHcustomerId +DTHbillAmount);
+
+
+            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_dth_datacard_recharge";
+            try {
+                String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
+
+                success = route_response;
+                JSONObject jsonObject = new JSONObject(success);
+
+                // user_email=jsonObject.getString("user_email");
+                status=jsonObject.getString("Status");
+                if(status.equals("Failure")) {
+                    data = jsonObject.getString("ErrorMessage");
+
+                }
+                String data=jsonObject.getString("Status");
+                // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
+                JSONObject jsonObject1 = new JSONObject(data);
+                status_response = jsonObject1.getString("Status");
+                err_msg = jsonObject1.getString("ErrorMessage");
+
+            } catch (Exception e)
+
+            {
+                Log.v("Connection error", e.toString());
+
+            }return null;
+        }
+        protected void onPostExecute(Void result) {
+            pDialog.dismiss();
+
+            if(status.equals("true"))
+            {
+                Toast.makeText(getApplicationContext(),"Recharge Successful", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(),ThankYouActivity.class));
+
+               /* SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("AMOUNT", dth_recharge_amount = dth_amount.getText().toString());
+                editor.commit();*/
+                // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
+                // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
+            }
+            else{
+                Toast.makeText(getApplicationContext(),"Error Occured", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(),FailureActivity.class));
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.remove("OPERATOR_NAME");
+                editor.clear();
+                editor.commit();
+
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(PaymentCartActivity.this);
+            pDialog.setMessage("Loading In...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+    }
+
 }

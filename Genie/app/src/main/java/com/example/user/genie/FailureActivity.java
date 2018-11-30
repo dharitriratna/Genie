@@ -31,8 +31,6 @@ public class FailureActivity extends AppCompatActivity {
                     startActivity(new Intent(FailureActivity.this,PaymentCartActivity.class));
                     finish();
                 }
-
-
             }
         });
 

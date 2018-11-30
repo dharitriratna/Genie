@@ -57,7 +57,7 @@
             <ImageView
                 android:id="@+id/account_wallet"
                 android:layout_weight="1"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_account_wallet"/>
@@ -112,7 +112,9 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorPrimaryDark"></View>
+                android:background="@color/colorPrimaryDark">
+
+            </View>
 
             <FrameLayout
                 android:layout_weight="1"
@@ -264,9 +266,7 @@
                                     android:layout_width="40dp"
                                     android:layout_gravity="center"
                                     android:layout_height="40dp"
-                                    android:src="@drawable/ic_modem"
-
-                                    />
+                                    android:src="@drawable/ic_modem" />
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -402,9 +402,7 @@
                                     android:layout_width="40dp"
                                     android:layout_gravity="center"
                                     android:layout_height="40dp"
-                                    android:src="@drawable/ic_umbrella"
-
-                                    />
+                                    android:src="@drawable/ic_umbrella" />
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -540,8 +538,7 @@
                                     android:layout_width="40dp"
                                     android:layout_gravity="center"
                                     android:layout_height="40dp"
-                                    android:src="@drawable/ic_gift"
-
+                                    android:src="@drawable/ic_birthday_cake"
                                     />
 
                                 <TextView

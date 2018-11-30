@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.genie.helper.RegPrefManager;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
@@ -71,9 +73,15 @@ public class DTHRecharge extends AppCompatActivity {
                     dth_amount.setError("Enter Your Amount");
                 }
                 else {
-                    new AsynSignInDetails().execute();
+                    RegPrefManager.getInstance(DTHRecharge.this).setBackService("DTH Bill");
+                    RegPrefManager.getInstance(DTHRecharge.this).setServiceName("DTH Bill");
+                    Intent intent = new Intent(DTHRecharge.this,PaymentCartActivity.class);
+                    intent.putExtra("OperatorName",operator_name);
+                    intent.putExtra("CostumerID", cutomerId);
+                    intent.putExtra("DTHAmount", dth_recharge_amount);
+                    startActivity(intent);
+                  //  new AsynSignInDetails().execute();
                 }
-
             }
         });
 

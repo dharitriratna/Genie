@@ -134,7 +134,6 @@ public class LandLine extends AppCompatActivity implements View.OnClickListener 
             return false;
         }
 
-
         return true;
     }
 

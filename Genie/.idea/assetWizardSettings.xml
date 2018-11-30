@@ -28,9 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_sleeper" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_birthday_cake" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\user\Documents\sports_car.svg" />
+                            <entry key="sourceFile" value="C:\Users\user\Documents\birthday_cake.svg" />
                           </map>
                         </option>
                       </PersistentState>

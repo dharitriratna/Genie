@@ -43,10 +43,6 @@ public class JobSearchAdapter extends RecyclerView.Adapter<JobSearchAdapter.View
         holder.locationTv.setText(jobSearchModel.getLocation());
         holder.detailTv.setText(jobSearchModel.getDetails());
 
-
-
-
-
     }
 
     @Override
@@ -57,7 +53,6 @@ public class JobSearchAdapter extends RecyclerView.Adapter<JobSearchAdapter.View
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView titleTv,comapnyTv,locationTv,detailTv;
-
 
         ViewHolder(View itemView) {
             super(itemView);

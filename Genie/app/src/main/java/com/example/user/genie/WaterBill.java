@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.genie.helper.RegPrefManager;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
@@ -81,6 +83,7 @@ public class WaterBill extends AppCompatActivity {
         btn_water_proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                operator_circle_name = water_board.getText().toString().trim();
                 consumerId = acc_user_name.getText().toString().trim();
                 amount = paidAmount.getText().toString().trim();
 
@@ -94,7 +97,15 @@ public class WaterBill extends AppCompatActivity {
                     paidAmount.setError("Enter Amount");
                 }
                 else {
-                    new AsynBillSubmit().execute();
+
+                    RegPrefManager.getInstance(WaterBill.this).setBackService("WaterBill");
+                    RegPrefManager.getInstance(WaterBill.this).setServiceName("WaterBill");
+                    Intent intent = new Intent(WaterBill.this,PaymentCartActivity.class);
+                    intent.putExtra("BoardName",operator_circle_name);
+                    intent.putExtra("ConsumerID", consumerId);
+                    intent.putExtra("Amount", amount);
+                    startActivity(intent);
+                  //
                 }
             }
         });

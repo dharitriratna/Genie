@@ -131,6 +131,7 @@
             android:layout_marginRight="10dp"
             tools:ignore="RtlCompat" />
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/browse_dth_plans"
             android:layout_weight="1"
             android:layout_marginRight="20dp"
