@@ -3,10 +3,14 @@ package com.example.user.genie;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,6 +22,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.genie.ObjectNew.LoginResponse;
+import com.example.user.genie.client.ApiClientGenie;
+import com.example.user.genie.client.ApiClientGenie1;
+import com.example.user.genie.client.ApiInterface;
 import com.example.user.genie.helper.RegPrefManager;
 
 import org.apache.http.NameValuePair;
@@ -25,6 +33,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LogIn extends AppCompatActivity {
     Toolbar toolbar;
@@ -34,7 +46,9 @@ public class LogIn extends AppCompatActivity {
     String user_phone, user_pwd, user_id = "";
     ImageView eye;
     TextView terms;
-
+    private AlertDialog.Builder alertDialog;
+    ApiInterface apiService;
+    ProgressDialog progressDialog;
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     String login_user="";
@@ -44,6 +58,10 @@ public class LogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        apiService =
+                ApiClientGenie1.getClient().create(ApiInterface.class);
+        progressDialog =new ProgressDialog(this);
+        alertDialog=new AlertDialog.Builder(this);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +119,12 @@ public class LogIn extends AppCompatActivity {
                 }
                 else {
                     RegPrefManager.getInstance(LogIn.this).setPhoneNo(user_phone);
+                    /*if (isNetworkAvailable()) {
+                        networkRegister(); //register add beneficiary
+                    }
+                    else {
+                        noNetwrokErrorMessage();
+                    }*/
                     new AsynSignInDetails().execute();
                 //  startActivity(new Intent(LogIn.this,MainActivity.class));
                 }
@@ -126,7 +150,82 @@ public class LogIn extends AppCompatActivity {
         });
 */
     }
+    public boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager= (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    public void noNetwrokErrorMessage(){
+        alertDialog.setTitle("Error!");
+        alertDialog.setMessage("No internet connection. Please check your internet setting.");
+        alertDialog.setCancelable(true);
+        alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert=alertDialog.create();
+        alert.show();
 
+    }
+
+    private void networkRegister(){
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+
+
+
+
+        Call<LoginResponse> call=apiService.postLogin(user_phone,user_pwd);
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                progressDialog.dismiss();
+                boolean status=response.body().isStatus();
+
+                    if (status == true) {
+                        String message = response.body().getMessage();
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                        String user_id = response.body().getData().getUser_id();
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString("FLAG", user_id);
+                        Log.d("user_id", user_id);
+                        editor.commit();
+
+                        String user_email = response.body().getData().getUser_email();
+                        String user_name = response.body().getData().getUser_name();
+                        String user_phone = response.body().getData().getUser_phone();
+                        RegPrefManager.getInstance(LogIn.this).setPhoneNo(user_phone);
+                        RegPrefManager.getInstance(LogIn.this).setUserName(user_name);
+                        RegPrefManager.getInstance(LogIn.this).setUserEmail(user_email);
+
+                        SharedPreferences.Editor editor1 = sharedpreferences.edit();  //deb done code for one time login
+                        editor1.putString("LOGGED_IN_AS", "1");
+                        editor1.commit();
+                        startActivity(new Intent(LogIn.this, MainActivity.class));
+                        finish();
+
+
+                    } else {
+                        String message = response.body().getMessage();
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    }
+                }
+
+
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(),"Network Problem!!!", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+    }
     private class AsynSignInDetails extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
         String success = null,message="",status="true";
@@ -159,6 +258,11 @@ public class LogIn extends AppCompatActivity {
                 String user_id=jsonObject1.getString("user_id");
                 String user_email=jsonObject1.getString("user_email");
 
+                String user_name = jsonObject1.getString("user_name");
+                String user_phone = jsonObject1.getString("user_phone");
+                RegPrefManager.getInstance(LogIn.this).setPhoneNo(user_phone);
+                RegPrefManager.getInstance(LogIn.this).setUserName(user_name);
+                RegPrefManager.getInstance(LogIn.this).setUserEmail(user_email);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("FLAG", user_id);
                 Log.d("user_id", user_id);

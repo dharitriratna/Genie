@@ -15,13 +15,17 @@ import com.example.user.genie.ObjectNew.FundTransferResponse;
 import com.example.user.genie.ObjectNew.FundTransferStatusResponse;
 import com.example.user.genie.ObjectNew.GenPNRResponse;
 import com.example.user.genie.ObjectNew.GetInsuranseResponse;
+import com.example.user.genie.ObjectNew.GetProfileResponse;
+import com.example.user.genie.ObjectNew.HomeGroceryResponse;
 import com.example.user.genie.ObjectNew.InsuranceDetailResponse;
 import com.example.user.genie.ObjectNew.InsurancePaymentResponse;
 import com.example.user.genie.ObjectNew.JobResponse;
 import com.example.user.genie.ObjectNew.LandlineResponse;
 import com.example.user.genie.ObjectNew.LandlineResponseModel;
+import com.example.user.genie.ObjectNew.LoginResponse;
 import com.example.user.genie.ObjectNew.MovieCityResponse;
 import com.example.user.genie.ObjectNew.MovieListResponse;
+import com.example.user.genie.ObjectNew.MyWalletResponse;
 import com.example.user.genie.ObjectNew.PlaceCabResponse;
 import com.example.user.genie.ObjectNew.RemiterDetailsResponse;
 import com.example.user.genie.ObjectNew.RemiterRegisterResponse;
@@ -29,6 +33,7 @@ import com.example.user.genie.ObjectNew.RentResponse;
 import com.example.user.genie.ObjectNew.ResendOTPResponse;
 import com.example.user.genie.ObjectNew.SellResponse;
 import com.example.user.genie.ObjectNew.ServiceImage;
+import com.example.user.genie.ObjectNew.UpdateImageResponse;
 import com.example.user.genie.ObjectNew.getDataCardCircle;
 import com.example.user.genie.ObjectNew.getDataCardOperatorResponse;
 import com.example.user.genie.helper.RegPrefManager;
@@ -197,5 +202,29 @@ public interface ApiInterface {
     @POST("api/service/GetMovieList")
     @FormUrlEncoded
     Call<MovieListResponse> postMovieList(@Field("city_id") String  city_id);
+
+    @POST("api/service/getWalletBalance")
+    @FormUrlEncoded
+    Call<MyWalletResponse> postWallet(@Field("user_id") String  user_id);
+
+    @POST("index.php/api/user/login")
+    @FormUrlEncoded
+    Call<LoginResponse> postLogin(@Field("phone") String  phone,@Field("user_pwd") String user_pwd);
+
+    @POST("api/user/updateprofile")
+    @FormUrlEncoded
+    Call<GetProfileResponse> postUpdateProfile(@Field("first_name") String  first_name,
+                                               @Field("phone") String phone,
+                                               @Field("email") String email,
+                                               @Field("user_id") String user_id);
+
+    @Multipart
+    @POST("api/user/profileImage")
+    Call<UpdateImageResponse> postUpdateImageResponse(@Part MultipartBody.Part picture, @Part("user_id")RequestBody user_id);
+
+
+    @POST("api/service/allproduct")
+    @FormUrlEncoded
+    Call<HomeGroceryResponse> postHomeGrocery(@Field("order") String  order);
 
 }

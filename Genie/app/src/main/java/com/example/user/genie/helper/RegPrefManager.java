@@ -396,6 +396,41 @@ public class RegPrefManager {
     public String getCABTIME(){
         return mSharedPreferences.getString("CAB_TIME",null);
     }
+    public void setDatacardService(String cus,String amount){
+        mSharedPreferences.edit().putString("DatacardCus",cus).apply();
+        mSharedPreferences.edit().putString("DatacardAmount",amount).apply();
+
+    }
+    public String getDatacardCus(){
+        return mSharedPreferences.getString("DatacardCus",null);
+    }
+    public String getDatacardAmount(){
+        return mSharedPreferences.getString("DatacardAmount",null);
+    }
+
+    public void setUserName(String name){
+        mSharedPreferences.edit().putString("Username",name).apply();
+
+    }
+    public String getUserName(){
+        return mSharedPreferences.getString("Username",null);
+    }
+
+    public void setUserEmail(String name){
+        mSharedPreferences.edit().putString("Useremail",name).apply();
+
+    }
+    public String getUserEmail(){
+        return mSharedPreferences.getString("Useremail",null);
+    }
+    public void setUpdateProfileImage(String uri){
+        mSharedPreferences.edit().putString("UpdateProfileImage",uri).apply();
+
+    }
+    public String getUpdateProfileImage(){
+        return mSharedPreferences.getString("UpdateProfileImage",null);
+    }
+
 
 }
 

@@ -145,12 +145,17 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
         switch (view.getId()){
             case R.id.btn_prepaid:
                 if (validationNew()) {
-                    if (isNetworkAvailable()) {
+                    RegPrefManager.getInstance(this).setBackService("Datacard");
+                    RegPrefManager.getInstance(this).setServiceName("DataCard");
+                    RegPrefManager.getInstance(this).setDatacardService(contact_number.getText().toString(),amountTv.getText().toString());
+                   /* if (isNetworkAvailable()) {
                         networkRecharge();
                     }
                     else {
                         noNetwrokErrorMessage();
-                    }
+                    }*/
+                   startActivity(new Intent(DataCardActivity.this,PaymentCartActivity.class));
+                   finish();
                 }
                 break;
             case R.id.btn_postpaid:

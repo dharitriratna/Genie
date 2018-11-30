@@ -758,6 +758,7 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/bikeLinear"
                                 android:visibility="visible"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -783,6 +784,7 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/carLinear"
                                 android:visibility="visible"
 
                                 android:layout_width="match_parent"

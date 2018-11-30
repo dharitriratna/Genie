@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    tools:context="com.example.user.genie.ComingSoonActivity"
     android:background="@color/colorPrimary"
-    tools:context=".WalletActivity">
-
-
+   >
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -22,47 +20,58 @@
             android:id="@+id/order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My Wallet"
+            android:text="Coming Soon"
             android:textSize="18sp"
             android:textAllCaps="false"
             android:layout_gravity="center"
             android:fontFamily="sans-serif"
             android:textColor="@color/colorPrimary" />
     </android.support.v7.widget.Toolbar>
-
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+        android:layout_below="@+id/toolbar"
 
-        <TextView
-            android:id="@+id/noWalletTv"
+        >
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Wallet is empty!"
-            android:gravity="center|center_vertical"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"
-            android:visibility="gone"/>
-        <ImageView
-            android:id="@+id/walletImg"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="70dp"
-            android:src="@drawable/ic_wallet_filled_money_tool"
-            android:visibility="visible" />
-        <TextView
-            android:id="@+id/balanceTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="10"
-            android:gravity="center"
-            android:textSize="25sp"
-            android:layout_marginTop="50dp"/>
-    </LinearLayout>
 
-</LinearLayout>
+            android:layout_gravity="center"
+
+            android:orientation="vertical"
+            android:gravity="center">
+
+
+
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_come_in"
+                android:visibility="visible" />
+
+
+            <TextView
+                android:id="@+id/transactionTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Coming Soon !!!!!!"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+
+
+
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

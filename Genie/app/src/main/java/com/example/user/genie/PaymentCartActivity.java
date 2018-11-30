@@ -20,8 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.genie.ObjectNew.CabResponse;
+import com.example.user.genie.ObjectNew.DatacardResponse;
 import com.example.user.genie.ObjectNew.InsurancePaymentResponse;
 import com.example.user.genie.ObjectNew.LandlineResponse;
+import com.example.user.genie.client.ApiClientGenie;
 import com.example.user.genie.client.ApiClientGenie1;
 import com.example.user.genie.client.ApiInterface;
 import com.example.user.genie.helper.RegPrefManager;
@@ -31,6 +33,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,6 +51,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     String login_user="";
+
     String PhoneNumber;
     String OperatorName;
     String CircleName;
@@ -73,7 +77,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
     String DTHcustomerId;
     String DTHbillAmount;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,36 +88,38 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         alertDialog=new AlertDialog.Builder(this);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
 
-        back= RegPrefManager.getInstance(this).getBackService();
+          back= RegPrefManager.getInstance(this).getBackService();
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(back.equals("Insurance")){
-                 //   startActivity(new Intent(PaymentCartActivity.this,InsuranceDetailsActivity.class));
-                    onBackPressed();
+                    startActivity(new Intent(PaymentCartActivity.this,InsuranceDetailsActivity.class));
                     finish();
                 }
                 else if(back.equals("Landline")){
-                  //  startActivity(new Intent(PaymentCartActivity.this,LandLine.class));
-                    onBackPressed();
+                    startActivity(new Intent(PaymentCartActivity.this,LandLine.class));
                     finish();
                 }else if(back.equals("Tour")){
-                  //  startActivity(new Intent(PaymentCartActivity.this,CabBookingActivity.class));
-                    onBackPressed();
+                    startActivity(new Intent(PaymentCartActivity.this,CabBookingActivity.class));
                     finish();
-                }else if(back.equals("MobileRecharge")){
-                  //  startActivity(new Intent(PaymentCartActivity.this,MobileRecharge.class));
+                }
+                else if(back.equals("Datacard")){
+                    startActivity(new Intent(PaymentCartActivity.this,DataCardActivity.class));
+                    finish();
+                }
+                else if(back.equals("MobileRecharge")){
+                    //  startActivity(new Intent(PaymentCartActivity.this,MobileRecharge.class));
                     onBackPressed();
                     finish();
                 }
                 else if(back.equals("Electricity")){
-                  //  startActivity(new Intent(PaymentCartActivity.this,PayForElectricity.class));
+                    //  startActivity(new Intent(PaymentCartActivity.this,PayForElectricity.class));
                     onBackPressed();
                     finish();
                 }
                 else if(back.equals("WaterBill")){
-                   // startActivity(new Intent(PaymentCartActivity.this,WaterBill.class));
+                    // startActivity(new Intent(PaymentCartActivity.this,WaterBill.class));
                     onBackPressed();
                     finish();
                 }
@@ -124,7 +129,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 }
             }
         });
-
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor1 = sharedpreferences.edit();
@@ -144,6 +148,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         checkBox1=findViewById(R.id.checkBox1);
         btn_order=findViewById(R.id.btn_order);
         btn_order.setOnClickListener(this);
+
     }
 
     @Override
@@ -164,7 +169,12 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
             mobileTv.setText(RegPrefManager.getInstance(this).getCABFORM()+" - "+RegPrefManager.getInstance(this).getCABTO());
 
+        }else   if(back.equals("Datacard")) {
+            servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
+            mobileTv.setText(RegPrefManager.getInstance(this).getDatacardCus());
+            amountpTv.setText(RegPrefManager.getInstance(this).getDatacardAmount());
         }
+
         else if(back.equals("MobileRecharge")){
 
             Intent intent = getIntent();
@@ -238,8 +248,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             mobileTv.setText(DTHoperatorName);
             amountpTv.setText(getResources().getString(R.string.rupee)+DTHbillAmount);
         }
-
-
     }
 
     @Override
@@ -269,41 +277,15 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                         noNetwrokErrorMessage();
                     }
                 }
-                if (back.equals("MobileRecharge")){
+                if(back.equals("Datacard")) {
                     if (isNetworkAvailable()) {
-                        new AsynSignInDetails().execute();
-                    } else {
-                        noNetwrokErrorMessage();
-                    }
-                }
-
-                if (back.equals("Electricity")){
-                    if (isNetworkAvailable()) {
-                      //  new AsynBillSubmit().execute();
+                        networkDataCardRecharge();
                     } else {
                         noNetwrokErrorMessage();
                     }
                 }
                 break;
-                }
-                if (back.equals("WaterBill")){
-                    if (isNetworkAvailable()){
-                        new AsynWaterBillSubmit().execute();
-                    }
-                    else {
-                        noNetwrokErrorMessage();
-                    }
-                }
-                if (back.equals("DTH Bill")){
-                    if (isNetworkAvailable()){
-                        new AsynDTHpayment().execute();
-                    }
-                    else {
-                        noNetwrokErrorMessage();
-                    }
-                }
-
-
+        }
     }
     private void InsurancePayment(){
         progressDialog.setMessage("Please wait...");
@@ -397,6 +379,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     finish();
                 }
              //  Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
+
             }
 
             @Override
@@ -447,6 +430,52 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
                 finish();
                 Log.d("Tag","Failure");
+            }
+        });
+    }
+
+    private void networkDataCardRecharge(){
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        String v=RegPrefManager.getInstance(this).getDatacardCus();
+        Log.d("Tag:value",v);
+        String cus=RegPrefManager.getInstance(this).getDatacardCus();
+
+        int amount=Integer.parseInt(RegPrefManager.getInstance(this).getDatacardAmount());
+        //if (prepaid.isChecked()) {
+          int  circlecode = Integer.parseInt(RegPrefManager.getInstance(this).gettDDataCardCircleCode());
+        //}else {
+        //    circlecode=0;
+        //}
+
+        String operatorcode=RegPrefManager.getInstance(this).getDataCardOperatorCode();
+        Call<DatacardResponse> call=apiService.postDatacardRecharge(Integer.parseInt(login_user),cus,operatorcode,circlecode,amount);
+        call.enqueue(new Callback<DatacardResponse>() {
+            @Override
+            public void onResponse(Call<DatacardResponse> call, Response<DatacardResponse> response) {
+                progressDialog.dismiss();
+                String id=response.body().getData().getApiTransID();
+                String status=response.body().getData().getStatus();
+                if (status.equals("Failure")){
+                    startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
+                    finish();
+                }else {
+
+                    Toast.makeText(getApplicationContext(), status, Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
+                    finish();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<DatacardResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
+                finish();
+                Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -568,7 +597,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
                 JSONObject jsonObject1 = new JSONObject(data);
 
-  String user_id=jsonObject1.getString("user_id");
+                String user_id=jsonObject1.getString("user_id");
                 String user_email=jsonObject1.getString("user_email");
 
 
@@ -757,5 +786,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             pDialog.show();
         }
     }
+
 
 }
