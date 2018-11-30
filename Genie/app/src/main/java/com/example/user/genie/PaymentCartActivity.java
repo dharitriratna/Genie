@@ -786,6 +786,4 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             pDialog.show();
         }
     }
-
-
 }
