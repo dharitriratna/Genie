@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.LayerDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Button button1, button2, button3, button4, button5;
 
     TextView tagline_text,keyname,keyphone;
-    ImageView account_wallet;
+    ImageView account_wallet,imageHeader;
 
     RecyclerView service_recyclerview;
     ProgressDialog progressDialog;
@@ -340,6 +341,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+        carLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,ComingSoonActivity.class));
+            }
+        });
 
 
         service_recyclerview = findViewById(R.id.service_recyclerview);
@@ -421,6 +428,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         keyphone.setText(RegPrefManager.getInstance(this).getPhoneNo());
         keyname.setText(RegPrefManager.getInstance(this).getUserName());
+
+        imageHeader=(ImageView)headerView.findViewById(R.id.imageHeader);
+        String image_value=RegPrefManager.getInstance(MainActivity.this).getUpdateProfileImage();
+        if(image_value!=null) {
+            Uri image_uri = Uri.parse(image_value);
+            imageHeader.setImageURI(image_uri);
+        }
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);

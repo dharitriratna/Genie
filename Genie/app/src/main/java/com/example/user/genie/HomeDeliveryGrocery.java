@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -33,6 +35,10 @@ import android.widget.Toast;
 
 import com.example.user.genie.Adapter.GoodHomeListAdapter;
 import com.example.user.genie.Model.GoodHomeModel;
+import com.example.user.genie.ObjectNew.HomeGroceryResponse;
+import com.example.user.genie.client.ApiClientGenie;
+import com.example.user.genie.client.ApiClientGenie1;
+import com.example.user.genie.client.ApiInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +48,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 @SuppressWarnings("ALL")
 public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnClickListener{
     Toolbar toolbar;
@@ -62,7 +73,8 @@ public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnCl
     ProgressDialog progressDialog;
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
-
+    private AlertDialog.Builder alertDialog;
+    ApiInterface apiService;
 
 
     @Override
@@ -79,6 +91,9 @@ public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnCl
                 finish();
             }
         });
+        apiService =
+                ApiClientGenie1.getClient().create(ApiInterface.class);
+        progressDialog = new ProgressDialog(this);
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -295,10 +310,13 @@ public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnCl
         for(int i=0;i<getGoodHomeModelArrayList.size();i++) {
             JSONObject innerobject = new JSONObject();
             try {
-                innerobject.put("user_id", login_user);
+                innerobject.put("service_order_id", login_user);
+                innerobject.put("service_id", getGoodHomeModelArrayList.get(i).getItem());
                 innerobject.put("item_name", getGoodHomeModelArrayList.get(i).getItem());
-                innerobject.put("quantity", getGoodHomeModelArrayList.get(i).getQty());
-                innerobject.put("image", imagefilePath);
+                innerobject.put("qty", getGoodHomeModelArrayList.get(i).getQty());
+                innerobject.put("unit", "KG");
+                innerobject.put("price", "100");
+                innerobject.put("total", "100");
 
                 array.put(innerobject);
 
@@ -321,6 +339,69 @@ public class HomeDeliveryGrocery extends AppCompatActivity  implements View.OnCl
         }
 
         Log.d("TAG","JSON_OBJECT---->"+objectDataMain);
+        if (isNetworkAvailable()) {
+            networkDelivery(); //register add beneficiary
+        }
+        else {
+            noNetwrokErrorMessage();
+        }
+    }
+
+
+    public boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager= (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    public void noNetwrokErrorMessage(){
+        alertDialog.setTitle("Error!");
+        alertDialog.setMessage("No internet connection. Please check your internet setting.");
+        alertDialog.setCancelable(true);
+        alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert=alertDialog.create();
+        alert.show();
+
+    }
+
+
+
+    private void networkDelivery(){
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        String value=objectDataMain.toString();
+
+        Log.d("Tag", String.valueOf(value));
+
+        Call<HomeGroceryResponse> call=apiService.postHomeGrocery(value);
+
+        call.enqueue(new Callback<HomeGroceryResponse>() {
+            @Override
+            public void onResponse(Call<HomeGroceryResponse> call, Response<HomeGroceryResponse> response) {
+                progressDialog.dismiss();
+
+                boolean status=response.body().isStatus();
+                Log.d("Tag","status");
+                if (status==true){
+                    String data=response.body().getData();
+                    Toast.makeText(getApplicationContext(),data,Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<HomeGroceryResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 }

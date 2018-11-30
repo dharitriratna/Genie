@@ -423,6 +423,13 @@ public class RegPrefManager {
     public String getUserEmail(){
         return mSharedPreferences.getString("Useremail",null);
     }
+    public void setUpdateProfileImage(String uri){
+        mSharedPreferences.edit().putString("UpdateProfileImage",uri).apply();
+
+    }
+    public String getUpdateProfileImage(){
+        return mSharedPreferences.getString("UpdateProfileImage",null);
+    }
 
 
 }

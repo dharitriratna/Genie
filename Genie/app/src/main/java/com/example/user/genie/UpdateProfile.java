@@ -1,5 +1,6 @@
 package com.example.user.genie;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -9,12 +10,17 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -33,6 +39,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.user.genie.ObjectNew.GetProfileResponse;
+import com.example.user.genie.ObjectNew.SellResponse;
+import com.example.user.genie.ObjectNew.UpdateImageResponse;
+import com.example.user.genie.client.ApiClientGenie;
+import com.example.user.genie.client.ApiInterface;
 import com.example.user.genie.helper.RegPrefManager;
 
 import org.apache.http.NameValuePair;
@@ -44,6 +55,12 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class UpdateProfile extends Activity {
     Toolbar toolbar;
@@ -62,13 +79,17 @@ public class UpdateProfile extends Activity {
   //  FrameLayout set_image;
     private String imagefilePath="";
     ImageView selected_image,set_image;
-
+    private AlertDialog.Builder alertDialog;
+    ApiInterface apiService;
+    private static final int STORAGE_PERMISSION_CODE = 123;
+    Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        requestStoragePermission();
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -77,7 +98,8 @@ public class UpdateProfile extends Activity {
                 onBackPressed();
             }
         });
-
+        apiService =
+                ApiClientGenie.getClient().create(ApiInterface.class);
         progressDialog = new ProgressDialog(this);
         full_name = findViewById(R.id.full_name);
         email_id = findViewById(R.id.email_id);
@@ -122,7 +144,13 @@ public class UpdateProfile extends Activity {
                     password.setError("Enter Your Password");
                 }*/
                 else {
-                   new AsynUpdateDetails().execute();
+                    if (isNetworkAvailable()) {
+                        networkUpdate(); //register add beneficiary
+                    }
+                    else {
+                        noNetwrokErrorMessage();
+                    }
+               //    new AsynUpdateDetails().execute();
                    // Toast.makeText(UpdateProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                     //startActivity(new Intent(UpdateProfile.this,MainActivity.class));
                 }
@@ -154,7 +182,7 @@ public class UpdateProfile extends Activity {
             }
         });
 
-        int Permission_All = 1;
+       /* int Permission_All = 1;
 
         String[] Permissions = {
 //                android.Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -167,7 +195,7 @@ public class UpdateProfile extends Activity {
                 android.Manifest.permission.CAMERA, };
         if(!hasPermissions(this, Permissions)){
             ActivityCompat.requestPermissions(this, Permissions, Permission_All);
-        }
+        }*/
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
@@ -178,7 +206,7 @@ public class UpdateProfile extends Activity {
 
         Log.d("login_user", login_user);
 
-        getProfile();
+      //  getProfile();
     }
 
     @Override
@@ -186,31 +214,32 @@ public class UpdateProfile extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == PICK_PHOTO) {
 
-            Uri imageUri = data.getData();
+             imageUri = data.getData();
             imagefilePath = getPath(imageUri);
 
             set_image.setImageURI(imageUri);
-          //  add_img1.setVisibility(View.GONE);
-          //  btn_submit.setVisibility(View.VISIBLE);
-            file=new File(imagefilePath);
+           // String imageProfile=imageUri.toString();
+          //  RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
 
-          /*  SharedPreferences.Editor editor3 = sharedpreferences.edit();
-            editor3.putString("IMAGE", imagefilePath );
-            //   Log.d("user_id", user_id);
-            editor3.commit();*/
-            //getting image filepath
+            file=new File(imagefilePath);
+            Log.d("imagefilePath",imagefilePath);
+
         }
         else if(this.requestCode == requestCode && resultCode == RESULT_OK)
         {
             Bitmap bitmap = (Bitmap)data.getExtras().get("data");
             set_image.setImageBitmap(bitmap);
-          //  btn_submit.setVisibility(View.VISIBLE);
-          //  add_img1.setVisibility(View.GONE);
-            Uri cameraUri= getImageUri(this,bitmap);
-            imagefilePath = getPath(cameraUri);
+
+            imageUri= getImageUri(this,bitmap);
+            imagefilePath = getPath(imageUri);
+
+            //String imageProfile=imageUri.toString();
+            //RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
+
             Log.d("imagefilePath",imagefilePath);
             file=new File(imagefilePath);  // getting image captured filepath  < ----------------------------------------
         }
+        updateImage();
     }
 
     private String getPath(Uri uri) {
@@ -239,7 +268,7 @@ public class UpdateProfile extends Activity {
         return true;
     }
 
-    private void getProfile() {
+   /* private void getProfile() {
         progressDialog.setMessage("loading...");
         progressDialog.show();
         StringRequest stringRequest=new
@@ -262,21 +291,21 @@ public class UpdateProfile extends Activity {
                                 String mobile=object.getString("phone");
                                 String email_address=object.getString("email");
 
-                              /*  String profile_image = object.getString("profile_image");
+                              *//*  String profile_image = object.getString("profile_image");
 
                                 Picasso.with(getApplicationContext())
                                         .load(profile_image)
                                         .placeholder(R.drawable.round_background)   // optional
                                         .error(R.mipmap.ic_launcher)
-                                        .into(imageView);*//*
+                                        .into(imageView);*//**//*
 
-*//*
+*//**//*
                                 Picasso.with(getApplicationContext())
                                         .load("http://demo.ratnatechnology.co.in/dogai/uploads/IMG_20180612_150603.jpg")
                                         .placeholder(R.drawable.round_background)   // optional
                                         .error(R.mipmap.ic_launcher)
                                         .into(view_img);
-*/
+*//*
 
                                 full_name.setText(name);
                                 phone_no.setText(mobile);
@@ -290,12 +319,12 @@ public class UpdateProfile extends Activity {
 
 //                                userid.setText(user_id);
 
-                               /* if (spin_gender.equals(gender)){
+                               *//* if (spin_gender.equals(gender)){
                                     spin_gender.getSelectedItem();
                                 }
                                 if (spin_country.equals(country)){
                                     spin_country.getSelectedItem();
-                                }*/
+                                }*//*
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -320,9 +349,9 @@ public class UpdateProfile extends Activity {
 
         RequestQueue requestQueue= Volley.newRequestQueue(UpdateProfile.this);
         requestQueue.add(stringRequest);
-    }
+    }*/
 
-    private class AsynUpdateDetails extends AsyncTask<Void, Void, Void> {
+   /* private class AsynUpdateDetails extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
         String success = null;
         String status="true";
@@ -336,9 +365,9 @@ public class UpdateProfile extends Activity {
             cred.add(new BasicNameValuePair("phone",mobile_no ));
             cred.add(new BasicNameValuePair("email",email ));
             cred.add(new BasicNameValuePair("first_name",fullName ));
-           /* Log.v("RES","Sending data " +user_full_name+user_email_id+user_mobile_no+user_full_address+ user_pincode
+           *//* Log.v("RES","Sending data " +user_full_name+user_email_id+user_mobile_no+user_full_address+ user_pincode
                     +user_password );
-*/
+*//*
             String urlRouteList="http://demo.ratnatechnology.co.in/genie/index.php/api/user/updateprofile";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
@@ -388,9 +417,183 @@ public class UpdateProfile extends Activity {
             pDialog.setCancelable(false);
             pDialog.show();
         }
+    }*/
+
+
+
+    public boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager= (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    public void noNetwrokErrorMessage(){
+        alertDialog.setTitle("Error!");
+        alertDialog.setMessage("No internet connection. Please check your internet setting.");
+        alertDialog.setCancelable(true);
+        alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert=alertDialog.create();
+        alert.show();
+
+    }
+
+    private void networkUpdate(){
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        Call<GetProfileResponse> call=apiService.postUpdateProfile(fullName,mobile_no,
+                email,login_user);
+
+        call.enqueue(new Callback<GetProfileResponse>() {
+            @Override
+            public void onResponse(Call<GetProfileResponse> call, retrofit2.Response<GetProfileResponse> response) {
+                progressDialog.dismiss();
+                boolean status=response.body().isStatus();
+                Log.d("Tag","Value");
+                if(status==true){
+                    String message=response.body().getMessage();
+                    String user_phone=response.body().getData().getPhone();
+                    String user_name=response.body().getData().getFirst_name();
+                    String user_email=response.body().getData().getEmail();
+
+                    RegPrefManager.getInstance(UpdateProfile.this).setPhoneNo(user_phone);
+                    RegPrefManager.getInstance(UpdateProfile.this).setUserName(user_name);
+                    RegPrefManager.getInstance(UpdateProfile.this).setUserEmail(user_email);
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(UpdateProfile.this,MainActivity.class));
+                    finish();
+                }else {
+                    Toast.makeText(getApplicationContext(),"This Mail id is Already Updated",Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<GetProfileResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(),"Try again.",Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        full_name.setText(RegPrefManager.getInstance(this).getUserName());
+        email_id.setText(RegPrefManager.getInstance(this).getUserEmail());
+        phone_no.setText(RegPrefManager.getInstance(this).getPhoneNo());
+
+      /*  String image_value=RegPrefManager.getInstance(UpdateProfile.this).getUpdateProfileImage();
+        if(image_value!=null) {
+            Uri image_uri = Uri.parse(image_value);
+            set_image.setImageURI(image_uri);
+        }
+*/
     }
 
 
 
+
+
+    private void updateImage() {
+
+
+
+        //creating a file
+        File file = new File(getRealPathFromURI(imageUri));
+        //creating request body for file
+        RequestBody mFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
+        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("picture", file.getName(), mFile);
+
+        // RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(selectedImage)), file);
+        RequestBody useridBody = RequestBody.create(MediaType.parse("text/plain"), login_user);
+
+
+        progressDialog.setMessage("Loading");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+
+        //creating a call and calling the upload image method
+        Call<UpdateImageResponse> call = apiService.postUpdateImageResponse(fileToUpload, useridBody);
+       call.enqueue(new Callback<UpdateImageResponse>() {
+           @Override
+           public void onResponse(Call<UpdateImageResponse> call, retrofit2.Response<UpdateImageResponse> response) {
+               progressDialog.dismiss();
+               boolean status=response.body().isStatus();
+               Log.d("Tag","value");
+               if(status==true){
+                String image_value=response.body().getData().getImage();
+                String message=response.body().getMessage();
+                   Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+               }else {
+                   Toast.makeText(getApplicationContext(),"Failed.",Toast.LENGTH_SHORT).show();
+               }
+           }
+
+           @Override
+           public void onFailure(Call<UpdateImageResponse> call, Throwable t) {
+            progressDialog.dismiss();
+               Toast.makeText(getApplicationContext(),"Failed.",Toast.LENGTH_SHORT).show();
+           }
+       });
+
+    }
+    /*
+       * This method is fetching the absolute path of the image file
+       * if you want to upload other kind of files like .pdf, .docx
+       * you need to make changes on this method only
+       * Rest part will be the same
+       * */
+    private String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader loader = new CursorLoader(this, contentUri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String result = cursor.getString(column_index);
+        cursor.close();
+        return result;
+    }
+
+    //Requesting permission
+    private void requestStoragePermission() {
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+               )
+            return;
+
+        if ((ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) ||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))) {
+            //If the user has denied the permission previously your code will come to this block
+            //Here you can explain why you need this permission
+            //Explain here why you need this permission
+        }
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, STORAGE_PERMISSION_CODE);
+    }
+
+
+    //This method will be called when the user will tap on allow or deny
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        //Checking the request code of our request
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+
+            //If permission is granted
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //Displaying a toast
+                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
+            } else {
+                //Displaying another toast if permission is not granted
+                Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
 }
