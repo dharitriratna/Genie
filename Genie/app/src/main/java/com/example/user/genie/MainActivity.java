@@ -317,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         rawMeat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,RawMeatActivity.class));
+                startActivity(new Intent(MainActivity.this,ComingSoonActivity.class));
             }
         });
 
