@@ -173,19 +173,24 @@ public class BrowsePlansActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<BrowsePlansResponse> call, Response<BrowsePlansResponse> response) {
                 progressDialog.dismiss();
+                boolean status=response.body().isStatus();
+                if(status==true) {
 
-                operatorList=response.body().getData().getPlanDescription();
-                if(operatorList.size()>0){
-                  //  noMesgTv.setVisibility(View.GONE);
-                    browsing_plans.setVisibility(View.VISIBLE);
-                    browsing_plans.setHasFixedSize(true);
-                    browsing_plans.setLayoutManager(new LinearLayoutManager(BrowsePlansActivity.this));
-                    //placeRecyclerview.setItemAnimator(new DefaultItemAnimator());
-                    browsePlansAdapter=new BrowsePlansAdapter(BrowsePlansActivity.this,operatorList);
-                    browsing_plans.setAdapter(browsePlansAdapter);
+                    operatorList = response.body().getData().getPlanDescription();
+                    if (operatorList.size() > 0) {
+                        //  noMesgTv.setVisibility(View.GONE);
+                        browsing_plans.setVisibility(View.VISIBLE);
+                        browsing_plans.setHasFixedSize(true);
+                        browsing_plans.setLayoutManager(new LinearLayoutManager(BrowsePlansActivity.this));
+                        //placeRecyclerview.setItemAnimator(new DefaultItemAnimator());
+                        browsePlansAdapter = new BrowsePlansAdapter(BrowsePlansActivity.this, operatorList);
+                        browsing_plans.setAdapter(browsePlansAdapter);
+                    } else {
+                        //  noMesgTv.setVisibility(View.VISIBLE);
+                        browsing_plans.setVisibility(View.GONE);
+                    }
                 }
                 else {
-                  //  noMesgTv.setVisibility(View.VISIBLE);
                     browsing_plans.setVisibility(View.GONE);
                 }
             }
