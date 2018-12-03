@@ -217,6 +217,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         broadband.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setLandlineOperator("","");
+                RegPrefManager.getInstance(MainActivity.this).setLandlineCircle("","");
                 startActivity(new Intent(MainActivity.this, LandLine.class));
             }
         });
@@ -224,6 +226,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         landline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setLandlineOperator("","");
+                RegPrefManager.getInstance(MainActivity.this).setLandlineCircle("","");
                 startActivity(new Intent(MainActivity.this, LandLine.class));
             }
         });
