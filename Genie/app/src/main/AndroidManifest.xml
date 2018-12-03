@@ -133,9 +133,6 @@
             android:name=".LandlineOperator"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Datacard"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".PaymentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -324,7 +321,7 @@
             tools:ignore="DuplicateActivity" />
         -->
 
-        android:windowSoftInputMode="stateAlwaysHidden" />
+
         <activity
             android:name=".ThankuActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -337,7 +334,10 @@
         <activity
             android:name=".ComingSoonActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ElectricityStateSelectActivity"
+        <activity
+            android:name=".ElectricityStateSelectActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LoanPaymentActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

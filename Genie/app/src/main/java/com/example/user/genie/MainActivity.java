@@ -287,6 +287,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
+                RegPrefManager.getInstance(MainActivity.this).setCabFromPlace("");
                 startActivity(new Intent(MainActivity.this,CabBookingActivity.class));
             }
         });
@@ -349,7 +350,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,ComingSoonActivity.class));
+                startActivity(new Intent(MainActivity.this,LoanPaymentActivity.class));
             }
         });
 

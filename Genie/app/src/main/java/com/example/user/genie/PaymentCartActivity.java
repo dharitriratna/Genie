@@ -43,7 +43,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
     Toolbar toolbar;
     private AlertDialog.Builder alertDialog;
     ApiInterface apiService;
-    TextView servicenameTv,mobileTv,amountpTv,walletpTv;
+    TextView servicenameTv,mobileTv,amountpTv,walletpTv,amountTv;
     CheckBox checkBox1;
     String back;
     Button btn_order;
@@ -97,37 +97,37 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 if(back.equals("Insurance")){
-                   // startActivity(new Intent(PaymentCartActivity.this,InsuranceDetailsActivity.class));
-                    onBackPressed();
+                    startActivity(new Intent(PaymentCartActivity.this,InsuranceDetailsActivity.class));
+                   // onBackPressed();
                     finish();
                 }
                 else if(back.equals("Landline")){
-                   // startActivity(new Intent(PaymentCartActivity.this,LandLine.class));
-                    onBackPressed();
+                    startActivity(new Intent(PaymentCartActivity.this,LandLine.class));
+                   // onBackPressed();
                     finish();
                 }else if(back.equals("Tour")){
-                   // startActivity(new Intent(PaymentCartActivity.this,CabBookingActivity.class));
-                    onBackPressed();
+                    startActivity(new Intent(PaymentCartActivity.this,CabBookingActivity.class));
+                   // onBackPressed();
                     finish();
                 }
                 else if(back.equals("Datacard")){
-                   // startActivity(new Intent(PaymentCartActivity.this,DataCardActivity.class));
-                    onBackPressed();
+                    startActivity(new Intent(PaymentCartActivity.this,DataCardActivity.class));
+                   // onBackPressed();
                     finish();
                 }
                 else if(back.equals("MobileRecharge")){
-                    //  startActivity(new Intent(PaymentCartActivity.this,MobileRecharge.class));
-                    onBackPressed();
+                      startActivity(new Intent(PaymentCartActivity.this,MobileRecharge.class));
+                    //onBackPressed();
                     finish();
                 }
                 else if(back.equals("Electricity")){
-                    //  startActivity(new Intent(PaymentCartActivity.this,PayForElectricity.class));
-                    onBackPressed();
+                      startActivity(new Intent(PaymentCartActivity.this,PayForElectricity.class));
+                    //onBackPressed();
                     finish();
                 }
                 else if(back.equals("WaterBill")){
-                    // startActivity(new Intent(PaymentCartActivity.this,WaterBill.class));
-                    onBackPressed();
+                     startActivity(new Intent(PaymentCartActivity.this,WaterBill.class));
+                    //onBackPressed();
                     finish();
                 }
                 else if (back.equals("Gas")){
@@ -161,6 +161,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         checkBox1=findViewById(R.id.checkBox1);
         btn_order=findViewById(R.id.btn_order);
         btn_order.setOnClickListener(this);
+        amountTv=findViewById(R.id.amountTv);
 
     }
 
@@ -179,6 +180,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             amountpTv.setText(RegPrefManager.getInstance(this).getLandlineBroadbandamount());
 
         }else if(back.equals("Tour")){
+            amountTv.setVisibility(View.GONE);
             servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
             mobileTv.setText(RegPrefManager.getInstance(this).getCABFORM()+" - "+RegPrefManager.getInstance(this).getCABTO());
 
@@ -441,12 +443,16 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onResponse(Call<LandlineResponse> call, Response<LandlineResponse> response) {
                 progressDialog.dismiss();
-                String status=response.body().getData().getStatus();
+                String  status=response.body().getData().getStatus();
                 if(status.equals("FAILURE")){
+                    RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("Landline");
+                    RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(response.body().getData().getApiTransID());
+                    Toast.makeText(getApplicationContext(),response.body().getData().getErrorMessage(),Toast.LENGTH_LONG).show();
                     startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
                     finish();
                 }
                 else {
+                    RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(response.body().getData().getApiTransID());
                     startActivity(new Intent(PaymentCartActivity.this,ThankuActivity.class));
                     finish();
                 }
@@ -481,7 +487,8 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 boolean status=response.body().isStatus();
                 String data=response.body().getData();
                 Toast.makeText(getApplicationContext(),data,Toast.LENGTH_SHORT).show();
-                RegPrefManager.getInstance(PaymentCartActivity.this).setBack("CabBook");
+
+                RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("Tour");
                 startActivity(new Intent(PaymentCartActivity.this,ThankuActivity.class));
                 finish();
                 /*fromEd.getText().clear();
@@ -800,17 +807,14 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
 
                 // user_email=jsonObject.getString("user_email");
                 status=jsonObject.getString("Status");
-                if(status.equals("Failure")) {
-                    data = jsonObject.getString("ErrorMessage");
 
-                }else {
                     JSONObject jsonObject1 = new JSONObject(data);
                     status_response = jsonObject1.getString("Status");
                     err_msg = jsonObject1.getString("ErrorMessage");
                     Successid=jsonObject1.getString("ApiTransID");
 
                     RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
-                }
+
               /*  String data=jsonObject.getString("Status");
                 // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
                 JSONObject jsonObject1 = new JSONObject(data);
@@ -827,7 +831,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
 
-            if(status.equals("true"))
+            if(status_response.contains("S"))
             {
                 Toast.makeText(getApplicationContext(),"Recharge Successful", Toast.LENGTH_LONG).show();
                 RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
