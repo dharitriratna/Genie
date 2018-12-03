@@ -3,6 +3,7 @@ package com.example.user.genie.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +57,7 @@ public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.
         holder.operator_code.setText(listItem.getDth_operator_code());
         holder.service_type.setText(listItem.getDth_service_type());
 
-        holder.operator_name.setOnClickListener(new View.OnClickListener() {
+        holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -84,6 +85,7 @@ public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mob_operator_id,operator_name,service_type,operator_code;
+        private CardView card_view;
 
 
         public ViewHolder(View itemView) {
@@ -92,7 +94,7 @@ public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.
             operator_name = itemView.findViewById(R.id.operator_name);
             service_type = itemView.findViewById(R.id.service_type);
             operator_code = itemView.findViewById(R.id.operator_code);
-
+            card_view=itemView.findViewById(R.id.card_view);
         }
     }
 

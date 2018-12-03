@@ -53,7 +53,8 @@ public class DTHOperators extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                startActivity(new Intent(DTHOperators.this,DTHRecharge.class));
+                finish();
             }
         });
 

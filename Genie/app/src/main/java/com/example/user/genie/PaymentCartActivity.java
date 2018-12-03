@@ -27,6 +27,7 @@ import com.example.user.genie.client.ApiClientGenie;
 import com.example.user.genie.client.ApiClientGenie1;
 import com.example.user.genie.client.ApiInterface;
 import com.example.user.genie.helper.RegPrefManager;
+import com.google.gson.JsonObject;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -54,7 +55,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
 
     String PhoneNumber;
     String OperatorName;
-    String OperatorCode;
+    String OperatorCode,ApiTransID;
     String CircleName;
     String CircleCode;
     String RechargeAmount;
@@ -131,8 +132,11 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     finish();
                 }
                 else if (back.equals("Gas")){
-                    onBackPressed();
+                   // onBackPressed();
+                    startActivity(new Intent(PaymentCartActivity.this,GasBillActivity.class));
+
                     finish();
+
                 }
 
                 else if(back.equals("DTH")){
@@ -557,18 +561,19 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
 
     private class AsynSignInDetails extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
-        String success = null,data="",status="true";
+        String success = null,data="",status="";
         String status_response;
         String err_msg;
-
+         String value=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileOperatorCode();
+        String cirle_code=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileCircleCode();
         @Override
         protected Void doInBackground(Void... params) {
             pDialog.show();
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
             //  cred.add(new BasicNameValuePair("user_id",login_user));//user_email
             cred.add(new BasicNameValuePair("customer_id",PhoneNumber ));
-            cred.add(new BasicNameValuePair("operator",OperatorCode ));
-            cred.add(new BasicNameValuePair("circle",CircleCode ));
+            cred.add(new BasicNameValuePair("operator",value ));
+            cred.add(new BasicNameValuePair("circle",cirle_code ));
             Log.d("cn", CircleName);
             cred.add(new BasicNameValuePair("amount",RechargeAmount ));
             Log.v("RES","Sending data " + PhoneNumber+ OperatorCode +CircleCode+RechargeAmount);
@@ -581,17 +586,15 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 success = route_response;
                 JSONObject jsonObject = new JSONObject(success);
 
-                // user_email=jsonObject.getString("user_email");
-                status=jsonObject.getString("Status");
-                if(status.equals("Failure")) {
-                    data = jsonObject.getString("ErrorMessage");
 
-                }
-                String data=jsonObject.getString("Status");
-                // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
-                JSONObject jsonObject1 = new JSONObject(data);
+
+
+                JSONObject jsonObject1=jsonObject.getJSONObject("data");
                 status_response = jsonObject1.getString("Status");
                 err_msg = jsonObject1.getString("ErrorMessage");
+                Successid=jsonObject1.getString("ApiTransID");
+
+                RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
 
             } catch (Exception e)
 
@@ -603,7 +606,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
 
-            if(status.equals("true"))
+            if(status_response.contains("S"))
             {
                 Toast.makeText(getApplicationContext(),"Recharge Successful", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(PaymentCartActivity.this,ThankuActivity.class));
@@ -614,8 +617,14 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
                 // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
             }
+            else if(status_response.contains("P")){
+                Toast.makeText(getApplicationContext(),"Pending", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(PaymentCartActivity.this,ThankuActivity.class));
+            }
+
             else{
                 Toast.makeText(getApplicationContext(),"Recharge Failed! Try again", Toast.LENGTH_LONG).show();
+                RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
                 startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
@@ -806,9 +815,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 JSONObject jsonObject = new JSONObject(success);
 
                 // user_email=jsonObject.getString("user_email");
-                status=jsonObject.getString("Status");
-
-                    JSONObject jsonObject1 = new JSONObject(data);
+                    JSONObject jsonObject1=jsonObject.getJSONObject("data");
                     status_response = jsonObject1.getString("Status");
                     err_msg = jsonObject1.getString("ErrorMessage");
                     Successid=jsonObject1.getString("ApiTransID");
@@ -835,7 +842,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             {
                 Toast.makeText(getApplicationContext(),"Recharge Successful", Toast.LENGTH_LONG).show();
                 RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
-
+                RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("DTH");
                 startActivity(new Intent(getApplicationContext(),ThankuActivity.class));
 
 
@@ -846,8 +853,11 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
                 // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
             }
+
             else{
                 Toast.makeText(getApplicationContext(),"Error Occured", Toast.LENGTH_LONG).show();
+                RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
+                RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("DTH");
                 startActivity(new Intent(getApplicationContext(),FailureActivity.class));
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();

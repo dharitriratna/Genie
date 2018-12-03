@@ -3,6 +3,7 @@ package com.example.user.genie.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,14 +64,14 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
         holder.operator_code.setText(listItem.getOperator_code());
         holder.service_type.setText(listItem.getService_type());
 
-        holder.operator_name.setOnClickListener(new View.OnClickListener() {
+        holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 RegPrefManager.getInstance(context).setMobileOperator(listItem.getOperator_name(),listItem.getOperator_code());
 
                 context.startActivity(new Intent(context,MobileRecharge.class));
-                ((Activity)context).finish();
+              //  ((Activity)context).finish();
             }
         });
 
@@ -96,6 +97,7 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mob_operator_id,operator_name,service_type,operator_code;
+        private CardView card_view;
 
 
         public ViewHolder(View itemView) {
@@ -104,6 +106,7 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
             operator_name = itemView.findViewById(R.id.operator_name);
             service_type = itemView.findViewById(R.id.service_type);
             operator_code = itemView.findViewById(R.id.operator_code);
+            card_view=itemView.findViewById(R.id.card_view);
         }
     }
 

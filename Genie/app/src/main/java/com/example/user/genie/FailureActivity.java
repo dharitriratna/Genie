@@ -27,7 +27,16 @@ public class FailureActivity extends AppCompatActivity {
                     startActivity(new Intent(FailureActivity.this,PaymentCartActivity.class));
                     finish();
                 }
-                if(back.equals("Landline")){
+                else if(back.equals("Landline")){
+                    startActivity(new Intent(FailureActivity.this,PaymentCartActivity.class));
+                    finish();
+                }
+                else if(back.equals("MobileRecharge")){
+                    startActivity(new Intent(FailureActivity.this,PaymentCartActivity.class));
+                    finish();
+
+                }
+                else if(back.equals("DTH")){
                     startActivity(new Intent(FailureActivity.this,PaymentCartActivity.class));
                     finish();
                 }

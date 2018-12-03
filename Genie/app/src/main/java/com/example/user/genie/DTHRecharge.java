@@ -39,7 +39,8 @@ public class DTHRecharge extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+               startActivity(new Intent(DTHRecharge.this,MainActivity.class));
+               finish();
             }
         });
         dth_operator_name = findViewById(R.id.dth_operator_name);

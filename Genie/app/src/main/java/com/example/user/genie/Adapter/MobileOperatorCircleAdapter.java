@@ -59,7 +59,7 @@ public class MobileOperatorCircleAdapter extends RecyclerView.Adapter<MobileOper
                 RegPrefManager.getInstance(context).setMobileCircle(listItem.getOperator_circle_name(),listItem.getOperator_circle_code());
 
                 context.startActivity(new Intent(context,MobileRecharge.class));
-                ((Activity)context).finish();
+                //((Activity)context).finish();
             }
         });
 

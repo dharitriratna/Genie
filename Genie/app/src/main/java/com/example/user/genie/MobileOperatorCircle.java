@@ -54,7 +54,9 @@ public class MobileOperatorCircle extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+               // onBackPressed();
+                startActivity(new Intent(MobileOperatorCircle.this,MobileRecharge.class));
+                finish();
             }
         });
         searchEd = findViewById(R.id.searchEd);
