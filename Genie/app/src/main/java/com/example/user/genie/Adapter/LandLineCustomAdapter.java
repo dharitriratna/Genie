@@ -1,7 +1,9 @@
 package com.example.user.genie.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,13 +51,14 @@ public class LandLineCustomAdapter extends RecyclerView.Adapter<LandLineCustomAd
         holder.operator_name.setText(data.getOperator_name());
         holder.service_type.setText(data.getService_type());
 
-        holder.operator_name.setOnClickListener(new View.OnClickListener() {
+        holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 RegPrefManager.getInstance(context).setLandlineOperator(data.getOperator_name(),data.getOperator_code());
 
                 context.startActivity(new Intent(context,LandLine.class));
+                ((Activity)context).finish();
             }
         });
     }
@@ -71,12 +74,14 @@ public class LandLineCustomAdapter extends RecyclerView.Adapter<LandLineCustomAd
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView operator_name,service_type;
+        CardView card_view;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             operator_name = (TextView) itemView.findViewById(R.id.operator_name);
             service_type=(TextView)itemView.findViewById(R.id.service_type);
+            card_view=(CardView)itemView.findViewById(R.id.card_view);
         }
     }
 

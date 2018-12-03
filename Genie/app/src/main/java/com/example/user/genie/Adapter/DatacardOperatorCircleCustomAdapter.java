@@ -1,5 +1,6 @@
 package com.example.user.genie.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -53,11 +54,13 @@ public class DatacardOperatorCircleCustomAdapter extends RecyclerView.Adapter<Da
                     RegPrefManager.getInstance(context).setLandlineCircle(data.getCircle_name(), data.getCircle_code());
 
                     context.startActivity(new Intent(context, LandLine.class));
+                    ((Activity)context).finish();
                 }
                 else {
                     RegPrefManager.getInstance(context).setDataCardCircle(data.getCircle_name(), data.getCircle_code());
 
                     context.startActivity(new Intent(context, DataCardActivity.class));
+                    ((Activity)context).finish();
                 }
             }
         });
