@@ -37,7 +37,10 @@ public class FailureActivity extends AppCompatActivity {
         successTv=findViewById(R.id.successTv);
 
         transactionTV=findViewById(R.id.transactionTV);
+        transactionTV.setText("Transation id is: "+RegPrefManager.getInstance(FailureActivity.this).getSuccessID());
         //continue_shopping=findViewById(R.id.continue_shopping);
-        successTv.setText(RegPrefManager.getInstance(FailureActivity.this).getInsuranceMessage());
+       // successTv.setText(RegPrefManager.getInstance(FailureActivity.this).getInsuranceMessage());
+
+
     }
 }

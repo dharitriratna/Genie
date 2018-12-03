@@ -52,7 +52,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:hint="Operator Name"
-            android:textColorHint="@color/colorPrimaryDark"
+
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
             android:inputType="number"
@@ -86,7 +86,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:hint="Customer Id"
-            android:textColorHint="@color/colorPrimaryDark"
+
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
             android:inputType="number"
@@ -121,7 +121,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:hint="Amount"
-            android:textColorHint="@color/colorPrimaryDark"
+
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
             android:inputType="number"
