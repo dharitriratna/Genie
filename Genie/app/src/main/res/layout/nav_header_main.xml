@@ -50,7 +50,7 @@
                 android:singleLine="true"
                 android:lines="1"
                 android:ellipsize="end"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
 
                 android:textColor="@color/colorPrimary"
                 android:visibility="visible" />
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:text="phone"
                 android:textSize="16sp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
 
                 android:singleLine="true"
                 android:lines="1"
@@ -76,7 +76,6 @@
             android:background="@color/colorPrimaryDark"
             />
     </LinearLayout>
-
 
 
 </LinearLayout>

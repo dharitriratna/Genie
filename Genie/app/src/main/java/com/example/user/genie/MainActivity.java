@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     Button button1, button2, button3, button4, button5;
 
-    TextView tagline_text,keyname,keyphone;
+    TextView tagline_text,keyname,keyphone,keymail;
     ImageView account_wallet,imageHeader;
 
     RecyclerView service_recyclerview;
@@ -183,6 +183,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         prepaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setMobileOperator("","");
+                RegPrefManager.getInstance(MainActivity.this).setMobileCircle("","");
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,MobileRecharge.class));
             }
         });
@@ -190,6 +193,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         events.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,EventManagement.class));
             }
         });
@@ -197,6 +201,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         electricity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
+                RegPrefManager.getInstance(MainActivity.this).setElectricityOperator("","");
                 startActivity(new Intent(MainActivity.this,PayForElectricity.class));
             }
         });
@@ -204,12 +210,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         train_booking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,BookTrain.class));
             }
         });
         home_delivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this, HomeDeliveryGrocery.class));
             }
         });
@@ -217,6 +225,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         broadband.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this, LandLine.class));
             }
         });
@@ -224,48 +233,56 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         landline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this, LandLine.class));
             }
         });
         water.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this, WaterBill.class));
             }
         });
         dth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this, DTHRecharge.class));
             }
         });
         moviesLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,MovieActivity.class));
             }
         });
         flightLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,FlightActivity.class));
             }
         });
         linearBus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,BusBookingActivity.class));
             }
         });
         cabBookingLin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,CabBookingActivity.class));
             }
         });
         rentLin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,RentActivity.class));
             }
         });
@@ -273,6 +290,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         birthday_planners.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,GiftsList.class));
             }
         });
@@ -280,6 +298,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         joblin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,JobActivity.class));
             }
         });
@@ -309,6 +328,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         insuranceLn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,AllInsuranseActivity.class));
             }
         });
@@ -317,6 +337,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         rawMeat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,ComingSoonActivity.class));
             }
         });
@@ -324,6 +345,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         gasLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,GasBillActivity.class));
             }
         });
@@ -331,12 +353,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         hotelLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,HotelActivity.class));
             }
         });
         bikeLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,ComingSoonActivity.class));
 
             }
@@ -344,6 +368,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         carLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,ComingSoonActivity.class));
             }
         });
@@ -425,6 +450,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         keyphone=(TextView) headerView.findViewById(R.id.keyphone);
         keyname=(TextView) headerView.findViewById(R.id.keyname);
+
 
         keyphone.setText(RegPrefManager.getInstance(this).getPhoneNo());
         keyname.setText(RegPrefManager.getInstance(this).getUserName());

@@ -18,6 +18,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,6 +72,7 @@ public class MobileOperators extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_operators);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -143,19 +145,20 @@ public class MobileOperators extends AppCompatActivity {
 
         getMobileOperators();
 
-        mob_operators_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, mob_operators_recyclerview, new RecyclerTouchListener.ClickListener() {
+      /*  mob_operators_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, mob_operators_recyclerview, new RecyclerTouchListener.ClickListener() {
             @Override
             public boolean onClick(View view, int position) {
-                MobileOperatorsModel list = operatorsModels.get(position);
-                String operator_name = list.getOperator_name();
-                String operator_code = list.getOperator_code();
+                for (int i=0;i<operatorsModels.size();i++) {
+                    MobileOperatorsModel list = operatorsModels.get(position);
+                    String operator_name = list.getOperator_name();
+                    String operator_code = list.getOperator_code();
 
-                Intent intent = new Intent(MobileOperators.this,MobileOperatorCircle.class);
-                intent.putExtra("OPERATOR_NAME",operator_name);
-                intent.putExtra("OPERATOR_CODE",operator_code);
-                startActivity(intent);
-                finish();
-
+                    Intent intent = new Intent(MobileOperators.this, MobileOperatorCircle.class);
+                    intent.putExtra("OPERATOR_NAME", operator_name);
+                    intent.putExtra("OPERATOR_CODE", operator_code);
+                    startActivity(intent);
+                    finish();
+                }
                 return true;
             }
 
@@ -163,7 +166,7 @@ public class MobileOperators extends AppCompatActivity {
             public void onLongClick(View view, int position) {
 
             }
-        }));
+        }));*/
     }
 
 
@@ -184,7 +187,6 @@ public class MobileOperators extends AppCompatActivity {
         });
         AlertDialog alert=alertDialog.create();
         alert.show();
-
     }
 
 

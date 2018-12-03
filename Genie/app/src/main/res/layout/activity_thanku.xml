@@ -58,6 +58,7 @@
 
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/transactionTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -144,15 +145,14 @@
     </LinearLayout>
 
 
-    <!--<Button
-        android:id="@+id/continue_shopping"
+    <Button
+        android:id="@+id/continuebtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Continue "
+        android:text="Continue"
         android:background="@color/colorPrimaryDark"
         android:textAllCaps="true"
         android:textSize="15sp"
-        android:textStyle="bold"
         android:layout_alignParentBottom="true"
-        android:textColor="@color/colorPrimary" />-->
+        android:textColor="@color/colorPrimary" />
 </RelativeLayout>

@@ -54,6 +54,9 @@ public class PayForElectricity extends AppCompatActivity {
     public static final String mypreference = "mypref";
     String login_user="";
 
+    String statename;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +66,8 @@ public class PayForElectricity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                finish();
             }
         });
 
@@ -85,6 +89,12 @@ public class PayForElectricity extends AppCompatActivity {
         consumer_number = findViewById(R.id.consumer_number);
         paidAmount = findViewById(R.id.paidAmount);
 
+        select_state.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ElectricityStateSelectActivity.class));
+            }
+        });
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
@@ -92,6 +102,15 @@ public class PayForElectricity extends AppCompatActivity {
         login_user = sharedpreferences.getString("FLAG", "");
         editor.commit(); // commit changes
 
+      /*  Intent intent1 = getIntent();
+        Bundle bundle1 = intent1.getExtras();
+
+        if(bundle1 != null) {
+
+            stateName = bundle1.getString("CIRCLE_NAME");
+
+            select_state.setText(stateName);
+        }*/
 
         electricity_boards.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,6 +221,10 @@ public class PayForElectricity extends AppCompatActivity {
         select_state.setText((CharSequence) location);
     }*/
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        select_state.setText(RegPrefManager.getInstance(PayForElectricity.this).getElectricityOperator());
+    }
 
 }

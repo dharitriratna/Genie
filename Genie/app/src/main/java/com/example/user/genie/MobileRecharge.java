@@ -76,8 +76,6 @@ public class MobileRecharge extends AppCompatActivity {
             }
         });
 
-
-
         radioGroup = findViewById(R.id.radioGroup);
         browseplansLayout = findViewById(R.id.browseplansLayout);
 
@@ -101,6 +99,31 @@ public class MobileRecharge extends AppCompatActivity {
         String number=pref.getString("PHONE_NUMBER", null);
         editor.commit();
       //  Toast.makeText(this, number, Toast.LENGTH_SHORT).show();
+
+        carrierName= RegPrefManager.getInstance(this).getMobileOperatorName();
+        operator.setText(carrierName);
+
+        operator_circle_name= RegPrefManager.getInstance(this).getMobileCircleName();
+        circle.setText(operator_circle_name);
+
+
+        /*Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if(bundle != null) {
+
+            operator_circle_name = bundle.getString("CIRCLE_NAME");
+            circle_code = bundle.getString("CIRCLE_CODE");
+            //   Log.d("CIRCLE_NAME", operator_circle_name);
+            carrierName = bundle.getString("OPERATOR_NAME");
+            operator_code = bundle.getString("OPERATOR_CODE");
+//            number = bundle.getString("NUMBER");
+            operator.setText(carrierName);
+            circle.setText(operator_circle_name);
+            //    contact_number.setText(number);
+
+        }*/
+
 
 
 
@@ -176,11 +199,12 @@ public class MobileRecharge extends AppCompatActivity {
                     Intent intent = new Intent(MobileRecharge.this,PaymentCartActivity.class);
                     intent.putExtra("PhoneNumber",phone_number);
                     intent.putExtra("CarrierName", carrierName);
+                    intent.putExtra("CarrierCode",operator_code);
                     intent.putExtra("CircleName", operator_circle_name);
+                    intent.putExtra("CircleCode",circle_code);
                     intent.putExtra("RechargeAmount", recharge_amount);
                     startActivity(intent);
                 }
-
             }
         });
 
@@ -206,6 +230,16 @@ public class MobileRecharge extends AppCompatActivity {
                     amount.setError("Enter Your Amount");
                 }
                 else {
+                    RegPrefManager.getInstance(MobileRecharge.this).setBackService("MobileRecharge");
+                    RegPrefManager.getInstance(MobileRecharge.this).setServiceName("MobileRecharge");
+                    Intent intent = new Intent(MobileRecharge.this,PaymentCartActivity.class);
+                    intent.putExtra("PhoneNumber",phone_number);
+                    intent.putExtra("CarrierName", carrierName);
+                    intent.putExtra("CarrierCode",operator_code);
+                    intent.putExtra("CircleName", operator_circle_name);
+                    intent.putExtra("CircleCode",circle_code);
+                    intent.putExtra("RechargeAmount", recharge_amount);
+                    startActivity(intent);
                   //  new AsynSignInDetails().execute();
                 }
 
@@ -262,22 +296,7 @@ public class MobileRecharge extends AppCompatActivity {
 
         Log.d("login_user", login_user);
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
 
-        if(bundle != null) {
-
-            operator_circle_name = bundle.getString("CIRCLE_NAME");
-            circle_code = bundle.getString("CIRCLE_CODE");
-         //   Log.d("CIRCLE_NAME", operator_circle_name);
-            carrierName = bundle.getString("OPERATOR_NAME");
-            operator_code = bundle.getString("OPERATOR_CODE");
-//            number = bundle.getString("NUMBER");
-            operator.setText(carrierName);
-            circle.setText(operator_circle_name);
-        //    contact_number.setText(number);
-
-        }
 
       /*  Intent intent1 = getIntent();
         Bundle bundle1 = intent1.getExtras();

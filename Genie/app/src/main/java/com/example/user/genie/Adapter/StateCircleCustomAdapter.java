@@ -9,9 +9,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.user.genie.DataCardActivity;
+import com.example.user.genie.ElectricityStateSelectActivity;
 import com.example.user.genie.LandLine;
-import com.example.user.genie.Model.DataOperatorListModel;
 import com.example.user.genie.ObjectNew.DataCardCircleResponse;
+import com.example.user.genie.PayForElectricity;
 import com.example.user.genie.R;
 import com.example.user.genie.helper.RegPrefManager;
 
@@ -21,11 +22,13 @@ import java.util.ArrayList;
  * Created by RatnaDev008 on 10/29/2018.
  */
 
-public class DatacardOperatorCircleCustomAdapter extends RecyclerView.Adapter<DatacardOperatorCircleCustomAdapter.ViewHolder> {
+public class StateCircleCustomAdapter extends RecyclerView.Adapter<StateCircleCustomAdapter.ViewHolder> {
     private Context context;
     private ArrayList<DataCardCircleResponse> operatorList;
 
-    public DatacardOperatorCircleCustomAdapter(Context context, ArrayList<DataCardCircleResponse> operatorList) {
+
+
+    public StateCircleCustomAdapter(Context context, ArrayList<DataCardCircleResponse> operatorList) {
         this.operatorList = operatorList;
         this.context=context;
 
@@ -48,17 +51,11 @@ public class DatacardOperatorCircleCustomAdapter extends RecyclerView.Adapter<Da
         holder.textViewName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String back= RegPrefManager.getInstance(context).getBack();
-                if(back.equals("Landline1")) {
-                    RegPrefManager.getInstance(context).setLandlineCircle(data.getCircle_name(), data.getCircle_code());
 
-                    context.startActivity(new Intent(context, LandLine.class));
-                }
-                else {
-                    RegPrefManager.getInstance(context).setDataCardCircle(data.getCircle_name(), data.getCircle_code());
+                    RegPrefManager.getInstance(context).setElectricityOperator(data.getCircle_name(), data.getCircle_code());
 
-                    context.startActivity(new Intent(context, DataCardActivity.class));
-                }
+                    context.startActivity(new Intent(context, PayForElectricity.class));
+
             }
         });
     }
@@ -67,6 +64,9 @@ public class DatacardOperatorCircleCustomAdapter extends RecyclerView.Adapter<Da
     public int getItemCount() {
         return operatorList.size();
     }
+
+
+
 
     class ViewHolder extends RecyclerView.ViewHolder {
 

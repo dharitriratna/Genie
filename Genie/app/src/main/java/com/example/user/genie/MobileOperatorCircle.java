@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class MobileOperatorCircle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_operator_circle);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -106,7 +108,7 @@ public class MobileOperatorCircle extends AppCompatActivity {
         }
 
 
-        mob_operators_circle_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, mob_operators_circle_recyclerview, new RecyclerTouchListener.ClickListener() {
+      /*  mob_operators_circle_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, mob_operators_circle_recyclerview, new RecyclerTouchListener.ClickListener() {
             @Override
             public boolean onClick(View view, int position) {
                 MobileOperatorCircleModel list = mobileOperatorCircleModels.get(position);
@@ -129,7 +131,7 @@ public class MobileOperatorCircle extends AppCompatActivity {
             public void onLongClick(View view, int position) {
 
             }
-        }));
+        }));*/
     }
 
     private void filter(String text) {

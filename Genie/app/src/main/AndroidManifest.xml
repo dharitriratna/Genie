@@ -273,7 +273,9 @@
         <activity
             android:name=".GasBillActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".GasproviderActivity" />
+        <activity
+            android:name=".GasproviderActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RemiterRegistrationActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -332,7 +334,10 @@
         <activity
             android:name=".FailureActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ComingSoonActivity"
+        <activity
+            android:name=".ComingSoonActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ElectricityStateSelectActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

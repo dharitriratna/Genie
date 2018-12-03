@@ -54,7 +54,9 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
 
     String PhoneNumber;
     String OperatorName;
+    String OperatorCode;
     String CircleName;
+    String CircleCode;
     String RechargeAmount;
 
     String operator;
@@ -74,8 +76,9 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
 
     //DTH
     String DTHoperatorName;
+    String DTHoperatorCode;
     String DTHcustomerId;
-    String DTHbillAmount;
+    String DTHbillAmount,Successid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,18 +97,22 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 if(back.equals("Insurance")){
-                    startActivity(new Intent(PaymentCartActivity.this,InsuranceDetailsActivity.class));
+                   // startActivity(new Intent(PaymentCartActivity.this,InsuranceDetailsActivity.class));
+                    onBackPressed();
                     finish();
                 }
                 else if(back.equals("Landline")){
-                    startActivity(new Intent(PaymentCartActivity.this,LandLine.class));
+                   // startActivity(new Intent(PaymentCartActivity.this,LandLine.class));
+                    onBackPressed();
                     finish();
                 }else if(back.equals("Tour")){
-                    startActivity(new Intent(PaymentCartActivity.this,CabBookingActivity.class));
+                   // startActivity(new Intent(PaymentCartActivity.this,CabBookingActivity.class));
+                    onBackPressed();
                     finish();
                 }
                 else if(back.equals("Datacard")){
-                    startActivity(new Intent(PaymentCartActivity.this,DataCardActivity.class));
+                   // startActivity(new Intent(PaymentCartActivity.this,DataCardActivity.class));
+                    onBackPressed();
                     finish();
                 }
                 else if(back.equals("MobileRecharge")){
@@ -123,8 +130,14 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     onBackPressed();
                     finish();
                 }
-                else if(back.equals("DTH Bill")){
+                else if (back.equals("Gas")){
                     onBackPressed();
+                    finish();
+                }
+
+                else if(back.equals("DTH")){
+                   startActivity(new Intent(PaymentCartActivity.this,DTHRecharge.class));
+
                     finish();
                 }
             }
@@ -169,7 +182,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
             mobileTv.setText(RegPrefManager.getInstance(this).getCABFORM()+" - "+RegPrefManager.getInstance(this).getCABTO());
 
-        }else   if(back.equals("Datacard")) {
+        }else if(back.equals("Datacard")) {
             servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
             mobileTv.setText(RegPrefManager.getInstance(this).getDatacardCus());
             amountpTv.setText(RegPrefManager.getInstance(this).getDatacardAmount());
@@ -184,7 +197,9 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
 
                 PhoneNumber = bundle.getString("PhoneNumber");
                 OperatorName = bundle.getString("CarrierName");
+                OperatorCode = bundle.getString("CarrierCode");
                 CircleName = bundle.getString("CircleName");
+                CircleCode = bundle.getString("CircleCode");
                 RechargeAmount = bundle.getString("RechargeAmount");
 
                 Log.d("url", RechargeAmount);
@@ -231,13 +246,33 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             amountpTv.setText(getResources().getString(R.string.rupee)+PayAmount);
         }
 
-        else if (back.equals("DTH Bill")){
+        else if (back.equals("Gas")){
+            Intent intent = getIntent();
+            Bundle bundle = intent.getExtras();
+
+            if(bundle != null) {
+
+                SelectStateName = bundle.getString("OperatorName");
+                ConsumerID = bundle.getString("ConsumerID");
+                BillAmount = bundle.getString("Amount");
+
+                Log.d("am", BillAmount);
+            }
+
+            servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
+            mobileTv.setText(SelectStateName);
+            amountpTv.setText(getResources().getString(R.string.rupee)+BillAmount);
+        }
+
+
+        else if (back.equals("DTH")){
             Intent intent = getIntent();
             Bundle bundle = intent.getExtras();
 
             if(bundle != null) {
 
                 DTHoperatorName = bundle.getString("OperatorName");
+                DTHoperatorCode = bundle.getString("OperatorCode");
                 DTHcustomerId = bundle.getString("CostumerID");
                 DTHbillAmount = bundle.getString("DTHAmount");
 
@@ -272,8 +307,44 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 if (back.equals("Tour")){
                     if (isNetworkAvailable()) {
                         networkCabService();
-
                     } else {
+                        noNetwrokErrorMessage();
+                    }
+                }
+                if (back.equals("MobileRecharge")){
+                    if (isNetworkAvailable()){
+                        new AsynSignInDetails().execute();
+                    }else {
+                        noNetwrokErrorMessage();
+                    }
+                }
+                if (back.equals("Electricity")){
+                    if (isNetworkAvailable()){
+                        new AsynBillSubmit().execute();
+                    }else{
+                        noNetwrokErrorMessage();
+                    }
+                }
+                if (back.equals("WaterBill")){
+                    if (isNetworkAvailable()){
+                        new AsynWaterBillSubmit().execute();
+                    }else {
+                        noNetwrokErrorMessage();
+                    }
+                }
+                if (back.equals("Gas")){
+                    if (isNetworkAvailable()){
+                        new AsynWaterBillSubmit().execute();
+                    }else {
+                        noNetwrokErrorMessage();
+                        new AsynBillSubmit().execute();
+                    }
+                }
+                if (back.equals("DTH")){
+                    if (isNetworkAvailable()){
+                        new AsynDTHpayment().execute();
+                    }
+                    else {
                         noNetwrokErrorMessage();
                     }
                 }
@@ -286,6 +357,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 }
                 break;
         }
+
     }
     private void InsurancePayment(){
         progressDialog.setMessage("Please wait...");
@@ -379,7 +451,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     finish();
                 }
              //  Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
-
             }
 
             @Override
@@ -390,7 +461,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 finish();
             }
         });
-
     }
 
     private void networkCabService(){
@@ -421,7 +491,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 arrivalEd.getText().clear();
                 timeEd.getText().clear();*/
                 //  Log.d("Tag","sta");
-
             }
 
             @Override
@@ -466,8 +535,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
                     finish();
                 }
-
-
             }
 
             @Override
@@ -493,10 +560,11 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
             //  cred.add(new BasicNameValuePair("user_id",login_user));//user_email
             cred.add(new BasicNameValuePair("customer_id",PhoneNumber ));
-            cred.add(new BasicNameValuePair("operator",OperatorName ));
-            cred.add(new BasicNameValuePair("circle",CircleName ));
+            cred.add(new BasicNameValuePair("operator",OperatorCode ));
+            cred.add(new BasicNameValuePair("circle",CircleCode ));
+            Log.d("cn", CircleName);
             cred.add(new BasicNameValuePair("amount",RechargeAmount ));
-            Log.v("RES","Sending data " + PhoneNumber+ OperatorName +CircleName+RechargeAmount);
+            Log.v("RES","Sending data " + PhoneNumber+ OperatorCode +CircleCode+RechargeAmount);
 
 
             String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_dth_datacard_recharge";
@@ -531,7 +599,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             if(status.equals("true"))
             {
                 Toast.makeText(getApplicationContext(),"Recharge Successful", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(PaymentCartActivity.this,ThankYouActivity.class));
+                startActivity(new Intent(PaymentCartActivity.this,ThankuActivity.class));
               /*  SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("AMOUNT", recharge_amount = amount.getText().toString());
@@ -540,14 +608,13 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
             }
             else{
-                Toast.makeText(getApplicationContext(),err_msg, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Recharge Failed! Try again", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.remove("PHONE_NUMBER");
                 editor.clear();
                 editor.commit();
-
             }
         }
 
@@ -616,7 +683,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             {
                 Toast.makeText(getApplicationContext(),"Bill Paid Successfully", Toast.LENGTH_LONG).show();
 
-                startActivity(new Intent(PaymentCartActivity.this,ThankYouActivity.class));finish();
+                startActivity(new Intent(PaymentCartActivity.this,ThankuActivity.class));finish();
             }
             else{
                 Toast.makeText(getApplicationContext(),data, Toast.LENGTH_LONG).show();
@@ -688,7 +755,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             {
                 Toast.makeText(getApplicationContext(),"Bill Paid Successfully", Toast.LENGTH_LONG).show();
 
-                startActivity(new Intent(PaymentCartActivity.this,ThankYouActivity.class));finish();
+                startActivity(new Intent(PaymentCartActivity.this,ThankuActivity.class));finish();
             }
             else{
                 Toast.makeText(getApplicationContext(),data, Toast.LENGTH_LONG).show();
@@ -718,7 +785,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             pDialog.show();
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
             //  cred.add(new BasicNameValuePair("user_id",login_user));//user_email
-            cred.add(new BasicNameValuePair("operator",DTHoperatorName ));
+            cred.add(new BasicNameValuePair("operator",DTHoperatorCode ));
             cred.add(new BasicNameValuePair("customer_id",DTHcustomerId ));
             cred.add(new BasicNameValuePair("amount",DTHbillAmount ));
             Log.v("RES","Sending data " + DTHoperatorName+ DTHcustomerId +DTHbillAmount);
@@ -736,12 +803,19 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 if(status.equals("Failure")) {
                     data = jsonObject.getString("ErrorMessage");
 
+                }else {
+                    JSONObject jsonObject1 = new JSONObject(data);
+                    status_response = jsonObject1.getString("Status");
+                    err_msg = jsonObject1.getString("ErrorMessage");
+                    Successid=jsonObject1.getString("ApiTransID");
+
+                    RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
                 }
-                String data=jsonObject.getString("Status");
+              /*  String data=jsonObject.getString("Status");
                 // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
                 JSONObject jsonObject1 = new JSONObject(data);
                 status_response = jsonObject1.getString("Status");
-                err_msg = jsonObject1.getString("ErrorMessage");
+                err_msg = jsonObject1.getString("ErrorMessage");*/
 
             } catch (Exception e)
 
@@ -756,7 +830,10 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             if(status.equals("true"))
             {
                 Toast.makeText(getApplicationContext(),"Recharge Successful", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(getApplicationContext(),ThankYouActivity.class));
+                RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
+
+                startActivity(new Intent(getApplicationContext(),ThankuActivity.class));
+
 
                /* SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
@@ -786,4 +863,5 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             pDialog.show();
         }
     }
+
 }

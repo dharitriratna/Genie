@@ -50,6 +50,7 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
     private TextView operatorTv,circleTv;
     private Button btn_prepaid,btn_postpaid;
     private static final int PICK_CONTACT = 1995;
+    private static final int REQUEST_CODE = 1995;
     Toolbar toolbar;
     private AlertDialog.Builder alertDialog;
     ApiInterface apiService;
@@ -169,9 +170,8 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
             case R.id.contact_list:
-               /* Intent intent= new Intent(Intent.ACTION_PICK,  ContactsContract.Contacts.CONTENT_URI);
-
-                startActivityForResult(intent, PICK_CONTACT);*/
+                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                startActivityForResult(intent, REQUEST_CODE);
                 break;
             case R.id.operatorTv:
                 RegPrefManager.getInstance(this).setDataCardNo(contact_number.getText().toString());
@@ -205,9 +205,8 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
-
         switch (reqCode) {
-            case (PICK_CONTACT) :
+            case (REQUEST_CODE):
                 if (resultCode == Activity.RESULT_OK) {
                     Uri contactData = data.getData();
                     Cursor c = getContentResolver().query(contactData, null, null, null, null);
@@ -216,12 +215,11 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
                         String hasNumber = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
                         String num = "";
                         if (Integer.valueOf(hasNumber) == 1) {
-                            Cursor numbers =getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
+                            Cursor numbers = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
                             while (numbers.moveToNext()) {
                                 num = numbers.getString(numbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                 //       Toast.makeText(MobileRecharge.this, "Number="+num, Toast.LENGTH_LONG).show();
                                 contact_number.setText(num);
-                                RegPrefManager.getInstance(this).setPhoneNo(num);
                             }
                         }
                     }

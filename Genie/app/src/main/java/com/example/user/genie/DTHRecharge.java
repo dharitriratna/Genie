@@ -56,6 +56,15 @@ public class DTHRecharge extends AppCompatActivity {
             }
         });
 
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if(bundle != null) {
+
+            operator_name = bundle.getString("OPERATOR_NAME");
+            operator_code = bundle.getString("DTH_OPERATOR_CODE");
+            dth_operator_name.setText(operator_name);
+        }
         btn_dth_recharge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,27 +82,22 @@ public class DTHRecharge extends AppCompatActivity {
                     dth_amount.setError("Enter Your Amount");
                 }
                 else {
-                    RegPrefManager.getInstance(DTHRecharge.this).setBackService("DTH Bill");
+                   // RegPrefManager.getInstance(DTHRecharge.this).setBackService("DTH Bill");
                     RegPrefManager.getInstance(DTHRecharge.this).setServiceName("DTH Bill");
+                    RegPrefManager.getInstance(DTHRecharge.this).setBackService("DTH");
                     Intent intent = new Intent(DTHRecharge.this,PaymentCartActivity.class);
                     intent.putExtra("OperatorName",operator_name);
+                    intent.putExtra("OperatorCode",operator_code);
                     intent.putExtra("CostumerID", cutomerId);
                     intent.putExtra("DTHAmount", dth_recharge_amount);
                     startActivity(intent);
+                    finish();
                   //  new AsynSignInDetails().execute();
                 }
             }
         });
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
 
-        if(bundle != null) {
-
-            operator_name = bundle.getString("OPERATOR_NAME");
-            operator_code = bundle.getString("DTH_OPERATOR_CODE");
-            dth_operator_name.setText(operator_name);
-        }
     }
 
 

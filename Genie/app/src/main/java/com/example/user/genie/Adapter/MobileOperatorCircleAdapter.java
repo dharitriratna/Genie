@@ -1,15 +1,19 @@
 package com.example.user.genie.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.user.genie.MobileRecharge;
 import com.example.user.genie.Model.MobileOperatorCircleModel;
 import com.example.user.genie.Model.MobileOperatorsModel;
 import com.example.user.genie.R;
+import com.example.user.genie.helper.RegPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +42,7 @@ public class MobileOperatorCircleAdapter extends RecyclerView.Adapter<MobileOper
     @Override
 
     public void onBindViewHolder(MobileOperatorCircleAdapter.ViewHolder holder, int position) {
-        MobileOperatorCircleModel listItem = operatorCircleModels.get(position);
+       final MobileOperatorCircleModel listItem = operatorCircleModels.get(position);
 
       /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
         Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
@@ -48,6 +52,18 @@ public class MobileOperatorCircleAdapter extends RecyclerView.Adapter<MobileOper
         holder.operator_circle_id.setText(listItem.getOperator_circle_id());
         holder.operator_circle_name.setText(listItem.getOperator_circle_name());
         holder.operator_circle_code.setText(listItem.getOperator_circle_code());
+
+        holder.operator_circle_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                RegPrefManager.getInstance(context).setMobileCircle(listItem.getOperator_circle_name(),listItem.getOperator_circle_code());
+
+                context.startActivity(new Intent(context,MobileRecharge.class));
+                ((Activity)context).finish();
+            }
+        });
+
 
        /* holder.mob_operator_id.setText(listItem.getOperator_id());
         holder.operator_name.setText(listItem.getOperator_name());

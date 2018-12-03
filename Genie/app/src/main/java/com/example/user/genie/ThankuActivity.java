@@ -13,8 +13,9 @@ import com.example.user.genie.helper.RegPrefManager;
 
 public class ThankuActivity extends AppCompatActivity {
     Toolbar toolbar;
-    String back;
+    String back,id;
     private TextView transactionTV,successTv;
+    Button continuebtn;
   //  private Button continue_shopping;
 
     @Override
@@ -24,6 +25,8 @@ public class ThankuActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         back=RegPrefManager.getInstance(this).getBackService();
+        id=RegPrefManager.getInstance(this).getSuccessID();
+        continuebtn = findViewById(R.id.continuebtn);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,12 +41,17 @@ public class ThankuActivity extends AppCompatActivity {
                 }else if(back.equals("Tour")){
                     startActivity(new Intent(ThankuActivity.this,CabBookingActivity.class));
                     finish();
+                }else if(back.equals("DTH")){
+                    startActivity(new Intent(ThankuActivity.this,DTHRecharge.class));
+                    finish();
                 }
-
-
-
-
-
+            }
+        });
+        continuebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                finish();
             }
         });
 
@@ -61,6 +69,14 @@ public class ThankuActivity extends AppCompatActivity {
         else if(back.equals("Tour")){
             successTv.setText("Success!!!");
         }
+        else if(back.equals("DTH")){
+
+            if(id!=null) {
+                transactionTV.setVisibility(View.VISIBLE);
+                transactionTV.setText(id);
+            }
+            successTv.setText("Success!!!");
+        }
      /*   continue_shopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,4 +85,6 @@ public class ThankuActivity extends AppCompatActivity {
             }
         });*/
     }
+
+
 }

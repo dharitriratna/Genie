@@ -167,6 +167,30 @@ public class RegPrefManager {
     public String gettDDataCardCircleCode(){
         return mSharedPreferences.getString("circlecode",null);
     }
+
+    public void setMobileOperator(String name,String code){
+        mSharedPreferences.edit().putString("mobileoperatorname",name).apply();
+        mSharedPreferences.edit().putString("mobileoperatorcode",code).apply();
+    }
+    public String getMobileOperatorName(){
+        return mSharedPreferences.getString("mobileoperatorname",null);
+    }
+    public String getMobileOperatorCode(){
+        return mSharedPreferences.getString("mobileoperatorcode",null);
+    }
+
+
+    public void setMobileCircle(String name,String code){
+        mSharedPreferences.edit().putString("circlename",name).apply();
+        mSharedPreferences.edit().putString("circlecode",code).apply();
+    }
+    public String getMobileCircleName(){
+        return mSharedPreferences.getString("circlename",null);
+    }
+    public String getMobileCircleCode(){
+        return mSharedPreferences.getString("circlecode",null);
+    }
+
     public void setLandlineOperator(String name,String code){
         mSharedPreferences.edit().putString("landlineoperatorname",name).apply();
         mSharedPreferences.edit().putString("landlineoperatorcode",code).apply();
@@ -431,6 +455,30 @@ public class RegPrefManager {
         return mSharedPreferences.getString("UpdateProfileImage",null);
     }
 
+    public void setElectricityOperator(String operator,String code){
+        mSharedPreferences.edit().putString("OperatorElectricity",operator).apply();
+        mSharedPreferences.edit().putString("OperatorcodeElectricity",code).apply();
+
+    }
+    public String getElectricityOperator(){
+
+        return mSharedPreferences.getString("OperatorElectricity",null);
+    }
+    public String getElectricityOperatorCode(){
+
+        return mSharedPreferences.getString("OperatorcodeElectricity",null);
+    }
+
+
+    public void setSuccessID(String id){
+        mSharedPreferences.edit().putString("SuccessID",id).apply();
+
+
+    }
+    public String getSuccessID(){
+
+        return mSharedPreferences.getString("SuccessID",null);
+    }
 
 }
 
