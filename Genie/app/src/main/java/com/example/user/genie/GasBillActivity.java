@@ -65,6 +65,9 @@ public class GasBillActivity extends AppCompatActivity {
         login_user=sharedpreferences.getString("FLAG", "");
         editor.commit(); //
 
+        operator_circle_name = RegPrefManager.getInstance(GasBillActivity.this).getGasBoardName();
+        operator_circle_code = RegPrefManager.getInstance(GasBillActivity.this).getGasBoardCode();
+        water_board.setText(operator_circle_name);
 
         water_board.setOnClickListener(new View.OnClickListener() {
             @Override

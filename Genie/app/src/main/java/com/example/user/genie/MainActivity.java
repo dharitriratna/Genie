@@ -202,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
+                RegPrefManager.getInstance(MainActivity.this).SetElectricityBoard("","");
                 RegPrefManager.getInstance(MainActivity.this).setElectricityOperator("","");
                 startActivity(new Intent(MainActivity.this,PayForElectricity.class));
             }
@@ -240,16 +241,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
 
                 RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-
                 RegPrefManager.getInstance(MainActivity.this).setLandlineOperator("","");
                 RegPrefManager.getInstance(MainActivity.this).setLandlineCircle("","");
-
                 startActivity(new Intent(MainActivity.this, LandLine.class));
             }
         });
         water.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setWaterBoard("","");
                 RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this, WaterBill.class));
             }
@@ -257,6 +257,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setDTHOperator("","");
                 RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this, DTHRecharge.class));
             }
@@ -355,6 +356,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         gasLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity.this).setGasBoard("","");
                 RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,GasBillActivity.class));
             }

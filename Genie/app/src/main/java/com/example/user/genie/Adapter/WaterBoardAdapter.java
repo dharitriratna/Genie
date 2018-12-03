@@ -1,16 +1,21 @@
 package com.example.user.genie.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.user.genie.MobileRecharge;
 import com.example.user.genie.Model.DTHOperatorsModel;
 import com.example.user.genie.Model.ElectricityBoardModel;
 import com.example.user.genie.Model.WaterBoardModel;
 import com.example.user.genie.R;
+import com.example.user.genie.WaterBill;
+import com.example.user.genie.helper.RegPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +44,7 @@ public class WaterBoardAdapter extends RecyclerView.Adapter<WaterBoardAdapter.Vi
     @Override
 
     public void onBindViewHolder(WaterBoardAdapter.ViewHolder holder, int position) {
-        WaterBoardModel listItem = waterBoardModels.get(position);
+       final WaterBoardModel listItem = waterBoardModels.get(position);
 
       /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
         Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
@@ -53,6 +58,16 @@ public class WaterBoardAdapter extends RecyclerView.Adapter<WaterBoardAdapter.Vi
         holder.service_type.setText(listItem.getWater_board_type());
 
 
+        holder.operator_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                RegPrefManager.getInstance(context).setWaterBoard(listItem.getWater_board_name(),listItem.getWater_board_code());
+
+                context.startActivity(new Intent(context,WaterBill.class));
+                 ((Activity)context).finish();
+            }
+        });
        /* holder.mob_operator_id.setText(listItem.getOperator_id());
         holder.operator_name.setText(listItem.getOperator_name());
         holder.service_type.setText(listItem.getService_type());

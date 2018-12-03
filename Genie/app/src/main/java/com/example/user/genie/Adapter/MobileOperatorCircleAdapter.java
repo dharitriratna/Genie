@@ -38,7 +38,6 @@ public class MobileOperatorCircleAdapter extends RecyclerView.Adapter<MobileOper
         return new MobileOperatorCircleAdapter.ViewHolder(v);
     }
 
-
     @Override
 
     public void onBindViewHolder(MobileOperatorCircleAdapter.ViewHolder holder, int position) {
@@ -87,7 +86,6 @@ public class MobileOperatorCircleAdapter extends RecyclerView.Adapter<MobileOper
             operator_circle_name = itemView.findViewById(R.id.operator_circle_name);
             operator_circle_code = itemView.findViewById(R.id.operator_circle_code);
         }
-
     }
 
     public void filterList(ArrayList<MobileOperatorCircleModel> filterdNames) {

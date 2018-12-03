@@ -44,6 +44,9 @@ public class ThankuActivity extends AppCompatActivity {
                 }else if(back.equals("DTH")){
                     startActivity(new Intent(ThankuActivity.this,DTHRecharge.class));
                     finish();
+                }else if (back.equals("MobileRecharge")){
+                    startActivity(new Intent(ThankuActivity.this,MobileRecharge.class));
+                    finish();
                 }
             }
         });
@@ -75,6 +78,9 @@ public class ThankuActivity extends AppCompatActivity {
                 transactionTV.setVisibility(View.VISIBLE);
                 transactionTV.setText(id);
             }
+            successTv.setText("Success!!!");
+        }
+        else if (back.equals("MobileRecharge")){
             successTv.setText("Success!!!");
         }
      /*   continue_shopping.setOnClickListener(new View.OnClickListener() {

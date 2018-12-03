@@ -1,16 +1,21 @@
 package com.example.user.genie.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.user.genie.DTHRecharge;
 import com.example.user.genie.Model.ElectricityBoardModel;
 import com.example.user.genie.Model.MobileOperatorsModel;
 import com.example.user.genie.Model.WaterBoardModel;
+import com.example.user.genie.PayForElectricity;
 import com.example.user.genie.R;
+import com.example.user.genie.helper.RegPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +44,7 @@ public class ElectricityBoardsAdapter extends RecyclerView.Adapter<ElectricityBo
     @Override
 
     public void onBindViewHolder(ElectricityBoardsAdapter.ViewHolder holder, int position) {
-        ElectricityBoardModel listItem = electricityBoardModels.get(position);
+       final ElectricityBoardModel listItem = electricityBoardModels.get(position);
 
       /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
         Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
@@ -51,6 +56,17 @@ public class ElectricityBoardsAdapter extends RecyclerView.Adapter<ElectricityBo
         holder.operator_name.setText(listItem.getElectricity_board_name());
         holder.operator_code.setText(listItem.getElectricity_board_code());
         holder.service_type.setText(listItem.getElectricity_board_type());
+
+        holder.operator_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                RegPrefManager.getInstance(context).SetElectricityBoard(listItem.getElectricity_board_name(),listItem.getElectricity_board_code());
+
+                context.startActivity(new Intent(context, PayForElectricity.class));
+               // ((Activity)context).finish();
+            }
+        });
 
 
        /* holder.mob_operator_id.setText(listItem.getOperator_id());

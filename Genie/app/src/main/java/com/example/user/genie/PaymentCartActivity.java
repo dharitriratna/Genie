@@ -788,7 +788,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             cred.add(new BasicNameValuePair("operator",DTHoperatorCode ));
             cred.add(new BasicNameValuePair("customer_id",DTHcustomerId ));
             cred.add(new BasicNameValuePair("amount",DTHbillAmount ));
-            Log.v("RES","Sending data " + DTHoperatorName+ DTHcustomerId +DTHbillAmount);
+            Log.v("RES","Sending data " + DTHoperatorCode+ DTHcustomerId +DTHbillAmount);
 
 
             String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_dth_datacard_recharge";

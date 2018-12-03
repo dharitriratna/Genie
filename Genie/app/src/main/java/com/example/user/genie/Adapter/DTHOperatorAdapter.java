@@ -1,15 +1,20 @@
 package com.example.user.genie.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.user.genie.DTHRecharge;
+import com.example.user.genie.MobileRecharge;
 import com.example.user.genie.Model.DTHOperatorsModel;
 import com.example.user.genie.Model.MobileOperatorsModel;
 import com.example.user.genie.R;
+import com.example.user.genie.helper.RegPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +43,7 @@ public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.
     @Override
 
     public void onBindViewHolder(DTHOperatorAdapter.ViewHolder holder, int position) {
-        DTHOperatorsModel listItem = dthOperatorsModels.get(position);
+       final DTHOperatorsModel listItem = dthOperatorsModels.get(position);
 
       /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
         Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
@@ -50,6 +55,17 @@ public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.
         holder.operator_name.setText(listItem.getDth_operator_name());
         holder.operator_code.setText(listItem.getDth_operator_code());
         holder.service_type.setText(listItem.getDth_service_type());
+
+        holder.operator_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                RegPrefManager.getInstance(context).setDTHOperator(listItem.getDth_operator_name(),listItem.getDth_operator_code());
+
+                context.startActivity(new Intent(context, DTHRecharge.class));
+              //  ((Activity)context).finish();
+            }
+        });
 
 
        /* holder.mob_operator_id.setText(listItem.getOperator_id());

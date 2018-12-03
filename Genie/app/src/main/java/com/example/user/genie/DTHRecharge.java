@@ -56,7 +56,11 @@ public class DTHRecharge extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
+        operator_name = RegPrefManager.getInstance(DTHRecharge.this).getDTHOperatorName();
+        operator_code = RegPrefManager.getInstance(DTHRecharge.this).getDTHOperatorCode();
+        dth_operator_name.setText(operator_name);
+
+       /* Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
         if(bundle != null) {
@@ -64,7 +68,7 @@ public class DTHRecharge extends AppCompatActivity {
             operator_name = bundle.getString("OPERATOR_NAME");
             operator_code = bundle.getString("DTH_OPERATOR_CODE");
             dth_operator_name.setText(operator_name);
-        }
+        }*/
         btn_dth_recharge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,17 +130,20 @@ public class DTHRecharge extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(success);
 
                 // user_email=jsonObject.getString("user_email");
-                status=jsonObject.getString("Status");
-                if(status.equals("Failure")) {
-                    data = jsonObject.getString("ErrorMessage");
+                data=jsonObject.getString("data");
+                Toast.makeText(DTHRecharge.this, data, Toast.LENGTH_SHORT).show();
+                if(status.equals("true")) {
+                    data = jsonObject.getString("data");
 
                 }
-                String data=jsonObject.getString("Status");
-                // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
-                JSONObject jsonObject1 = new JSONObject(data);
-                status_response = jsonObject1.getString("Status");
-                err_msg = jsonObject1.getString("ErrorMessage");
-
+                else  {
+                     Toast.makeText(DTHRecharge.this, data, Toast.LENGTH_SHORT).show();
+                    data = jsonObject.getString("data");
+                    JSONObject jsonObject1 = new JSONObject(data);
+                    status_response = jsonObject1.getString("Status");
+                    err_msg = jsonObject1.getString("ErrorMessage");
+                    String transactionId = jsonObject1.getString("TransactionDate");
+                }
             } catch (Exception e)
 
             {
@@ -147,9 +154,9 @@ public class DTHRecharge extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
 
-            if(status.equals("SUCCESS"))
+            if(status.equals("true"))
             {
-                Toast.makeText(getApplicationContext(),"Recharge Successful", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),status_response, Toast.LENGTH_LONG).show();
 
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
@@ -159,7 +166,7 @@ public class DTHRecharge extends AppCompatActivity {
                 // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
             }
             else{
-                Toast.makeText(getApplicationContext(),"Error Occured", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),err_msg, Toast.LENGTH_LONG).show();
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.remove("OPERATOR_NAME");

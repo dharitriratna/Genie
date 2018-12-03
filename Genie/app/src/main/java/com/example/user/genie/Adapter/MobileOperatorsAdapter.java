@@ -40,8 +40,6 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
     }
 
 
-
-
     @Override
     public MobileOperatorsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.row_mobile_operators,parent,false);

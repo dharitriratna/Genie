@@ -84,6 +84,7 @@ public class GasproviderActivity extends AppCompatActivity {
         gasProviderModels = new ArrayList<>();
         getGasBoards();
 
+/*
         gasProviderRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, gasProviderRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public boolean onClick(View view, int position) {
@@ -103,6 +104,7 @@ public class GasproviderActivity extends AppCompatActivity {
 
             }
         }));
+*/
     }
 
 

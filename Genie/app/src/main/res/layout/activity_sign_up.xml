@@ -63,7 +63,6 @@
                     android:background="@drawable/edittext_top_bg"
                     android:cursorVisible="true"
                     android:hint="Full Name"
-                    android:textColorHint="@color/colorPrimaryDark"
                     android:inputType="text"
                     android:gravity="start|center"
                     android:padding="10dp"
@@ -85,7 +84,6 @@
                     android:background="@drawable/edittext_top_bg"
                     android:cursorVisible="true"
                     android:hint="Email Id"
-                    android:textColorHint="@color/colorPrimaryDark"
                     android:inputType="textEmailAddress"
                     android:gravity="start|center"
                     android:padding="10dp"
@@ -107,7 +105,6 @@
                     android:background="@drawable/edittext_top_bg"
                     android:cursorVisible="true"
                     android:hint="Phone Number"
-                    android:textColorHint="@color/colorPrimaryDark"
                     android:inputType="number"
                     android:maxLength="10"
                     android:gravity="start|center"
@@ -143,7 +140,6 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
 
-
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
@@ -151,7 +147,6 @@
                     android:background="@drawable/edittext_top_bg"
                     android:cursorVisible="true"
                     android:hint="Password"
-                    android:textColorHint="@color/colorPrimaryDark"
                     android:inputType="textPassword"
                     android:gravity="start|center"
                     android:padding="10dp"

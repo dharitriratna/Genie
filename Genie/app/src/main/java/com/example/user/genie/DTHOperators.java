@@ -84,7 +84,7 @@ public class DTHOperators extends AppCompatActivity {
 
         dthOperatorsModels = new ArrayList<>();
         getMobileOperators();
-
+/*
         dth_operators_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, dth_operators_recyclerview, new RecyclerTouchListener.ClickListener() {
             @Override
             public boolean onClick(View view, int position) {
@@ -105,7 +105,7 @@ public class DTHOperators extends AppCompatActivity {
             public void onLongClick(View view, int position) {
 
             }
-        }));
+        }));*/
     }
 
     private void filter(String text) {

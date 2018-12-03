@@ -84,7 +84,7 @@ public class WaterBoards extends AppCompatActivity {
         waterBoardModels = new ArrayList<>();
         getWaterBoards();
 
-        water_board_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, water_board_recyclerview, new RecyclerTouchListener.ClickListener() {
+      /*  water_board_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, water_board_recyclerview, new RecyclerTouchListener.ClickListener() {
             @Override
             public boolean onClick(View view, int position) {
                 WaterBoardModel list = waterBoardModels.get(position);
@@ -102,7 +102,7 @@ public class WaterBoards extends AppCompatActivity {
             public void onLongClick(View view, int position) {
 
             }
-        }));
+        }));*/
 
     }
 

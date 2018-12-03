@@ -106,6 +106,8 @@ public class MobileRecharge extends AppCompatActivity {
         operator_circle_name= RegPrefManager.getInstance(this).getMobileCircleName();
         circle.setText(operator_circle_name);
 
+        phone_number = RegPrefManager.getInstance(MobileRecharge.this).getPhoneNo();
+        contact_number.setText(phone_number);
 
         /*Intent intent = getIntent();
         Bundle bundle = intent.getExtras();

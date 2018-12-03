@@ -83,7 +83,7 @@ public class ElectricityBoards extends AppCompatActivity {
         electricityBoardModels = new ArrayList<>();
         getElectricityBoards();
 
-        electricity_board_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, electricity_board_recyclerview, new RecyclerTouchListener.ClickListener() {
+        /*electricity_board_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, electricity_board_recyclerview, new RecyclerTouchListener.ClickListener() {
             @Override
             public boolean onClick(View view, int position) {
                 ElectricityBoardModel list = electricityBoardModels.get(position);
@@ -105,7 +105,7 @@ public class ElectricityBoards extends AppCompatActivity {
             public void onLongClick(View view, int position) {
 
             }
-        }));
+        }));*/
     }
 
 

@@ -70,7 +70,11 @@ public class WaterBill extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
+        operator_circle_name = RegPrefManager.getInstance(WaterBill.this).getWaterBoardName();
+        water_board.setText(operator_circle_name);
+        circle_code = RegPrefManager.getInstance(WaterBill.this).getWaterBoardCode();
+
+    /*    Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
         if(bundle != null) {
@@ -79,7 +83,7 @@ public class WaterBill extends AppCompatActivity {
             circle_code = bundle.getString("OPERATOR_CODE");
             water_board.setText(operator_circle_name);
         }
-
+*/
         btn_water_proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

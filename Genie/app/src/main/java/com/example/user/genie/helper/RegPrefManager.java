@@ -180,6 +180,29 @@ public class RegPrefManager {
     }
 
 
+    public void setWaterBoard(String name,String code){
+        mSharedPreferences.edit().putString("waterBoardname",name).apply();
+        mSharedPreferences.edit().putString("waterBoardcode",code).apply();
+    }
+    public String getWaterBoardName(){
+        return mSharedPreferences.getString("waterBoardname",null);
+    }
+    public String getWaterBoardCode(){
+        return mSharedPreferences.getString("waterBoardcode",null);
+    }
+
+
+    public void setGasBoard(String name,String code){
+        mSharedPreferences.edit().putString("gasBoardname",name).apply();
+        mSharedPreferences.edit().putString("gasBoardcode",code).apply();
+    }
+    public String getGasBoardName(){
+        return mSharedPreferences.getString("gasBoardname",null);
+    }
+    public String getGasBoardCode(){
+        return mSharedPreferences.getString("gasBoardcode",null);
+    }
+
     public void setMobileCircle(String name,String code){
         mSharedPreferences.edit().putString("circlename",name).apply();
         mSharedPreferences.edit().putString("circlecode",code).apply();
@@ -190,6 +213,20 @@ public class RegPrefManager {
     public String getMobileCircleCode(){
         return mSharedPreferences.getString("circlecode",null);
     }
+
+
+
+    public void setDTHOperator(String name,String code){
+        mSharedPreferences.edit().putString("dthoperatorname",name).apply();
+        mSharedPreferences.edit().putString("dthoperatorcode",code).apply();
+    }
+    public String getDTHOperatorName(){
+        return mSharedPreferences.getString("dthoperatorname",null);
+    }
+    public String getDTHOperatorCode(){
+        return mSharedPreferences.getString("dthoperatorcode",null);
+    }
+
 
     public void setLandlineOperator(String name,String code){
         mSharedPreferences.edit().putString("landlineoperatorname",name).apply();
@@ -467,6 +504,21 @@ public class RegPrefManager {
     public String getElectricityOperatorCode(){
 
         return mSharedPreferences.getString("OperatorcodeElectricity",null);
+    }
+
+
+    public void SetElectricityBoard(String operator,String code){
+        mSharedPreferences.edit().putString("electricityBoardName",operator).apply();
+        mSharedPreferences.edit().putString("electricityBoardCode",code).apply();
+
+    }
+    public String getElectricityBoardName(){
+
+        return mSharedPreferences.getString("electricityBoardName",null);
+    }
+    public String getElectricityBoardCode(){
+
+        return mSharedPreferences.getString("electricityBoardCode",null);
     }
 
 

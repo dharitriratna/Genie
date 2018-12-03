@@ -71,6 +71,8 @@ public class PayForElectricity extends AppCompatActivity {
             }
         });
 
+
+
         radioGroup = findViewById(R.id.radioGroup);
        /* radioGroup.clearCheck();
         int selectedId=radioGroup.getCheckedRadioButtonId();*/
@@ -88,6 +90,11 @@ public class PayForElectricity extends AppCompatActivity {
         select_city = findViewById(R.id.select_city);
         consumer_number = findViewById(R.id.consumer_number);
         paidAmount = findViewById(R.id.paidAmount);
+
+        boardName= RegPrefManager.getInstance(PayForElectricity.this).getElectricityBoardName();
+        select_board.setText(boardName);
+
+
 
         select_state.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +146,7 @@ public class PayForElectricity extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
+    /*    Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
         if (bundle != null) {
@@ -149,7 +156,7 @@ public class PayForElectricity extends AppCompatActivity {
         }
 
         select_board.setText(boardName);
-
+*/
         btnproceedToPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

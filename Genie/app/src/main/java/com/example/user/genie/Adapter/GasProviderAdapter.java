@@ -1,15 +1,20 @@
 package com.example.user.genie.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.user.genie.GasBillActivity;
+import com.example.user.genie.MobileRecharge;
 import com.example.user.genie.Model.GasProviderModel;
 import com.example.user.genie.Model.WaterBoardModel;
 import com.example.user.genie.R;
+import com.example.user.genie.helper.RegPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +43,7 @@ public class GasProviderAdapter extends RecyclerView.Adapter<GasProviderAdapter.
     @Override
 
     public void onBindViewHolder(GasProviderAdapter.ViewHolder holder, int position) {
-        GasProviderModel listItem = gasProviderModels.get(position);
+       final GasProviderModel listItem = gasProviderModels.get(position);
 
       /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
         Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
@@ -51,6 +56,16 @@ public class GasProviderAdapter extends RecyclerView.Adapter<GasProviderAdapter.
         holder.operator_code.setText(listItem.getGas_board_code());
         holder.service_type.setText(listItem.getGas_board_type());
 
+        holder.operator_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                RegPrefManager.getInstance(context).setGasBoard(listItem.getGas_board_name(),listItem.getGas_board_code());
+
+                context.startActivity(new Intent(context,GasBillActivity.class));
+                ((Activity)context).finish();
+            }
+        });
 
        /* holder.mob_operator_id.setText(listItem.getOperator_id());
         holder.operator_name.setText(listItem.getOperator_name());
