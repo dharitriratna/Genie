@@ -48,45 +48,21 @@ public class SearchBusResponse {
         public void setSearchouput(sSearchouput searchouput) {
             this.searchouput = searchouput;
         }
+
+        public String getUserTrackId() {
+            return UserTrackId;
+        }
+
+        public void setUserTrackId(String userTrackId) {
+            UserTrackId = userTrackId;
+        }
+
+        @SerializedName("UserTrackId")
+        private String UserTrackId;
     }
 
+
     public class sSearchouput{
-        @SerializedName("AvailableBuses")
-        private ArrayList<aVailableBuses> aVailableBusesArrayList;
-
-        public ArrayList<fares> getFares() {
-            return Fares;
-        }
-
-        public void setFares(ArrayList<fares> fares) {
-            Fares = fares;
-        }
-
-        @SerializedName("Fares")
-        private ArrayList<fares> Fares;
-
-        @SerializedName("BoardingPoints")
-        private ArrayList<boardingPoints> BoardingPoints;
-
-        @SerializedName("DroppingPoints")
-        private ArrayList<droppingPoints>DroppingPoints;
-
-        public ArrayList<droppingPoints> getDroppingPoints() {
-            return DroppingPoints;
-        }
-
-        public void setDroppingPoints(ArrayList<droppingPoints> droppingPoints) {
-            DroppingPoints = droppingPoints;
-        }
-
-        public ArrayList<boardingPoints> getBoardingPoints() {
-            return BoardingPoints;
-        }
-
-        public void setBoardingPoints(ArrayList<boardingPoints> boardingPoints) {
-            BoardingPoints = boardingPoints;
-        }
-
         public ArrayList<aVailableBuses> getaVailableBusesArrayList() {
             return aVailableBusesArrayList;
         }
@@ -94,5 +70,10 @@ public class SearchBusResponse {
         public void setaVailableBusesArrayList(ArrayList<aVailableBuses> aVailableBusesArrayList) {
             this.aVailableBusesArrayList = aVailableBusesArrayList;
         }
+
+        @SerializedName("AvailableBuses")
+        private ArrayList<aVailableBuses> aVailableBusesArrayList;
+
     }
+
 }

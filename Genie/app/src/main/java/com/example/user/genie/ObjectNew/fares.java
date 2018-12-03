@@ -7,51 +7,6 @@ public class fares {
     @SerializedName("SeatTypeId")
     private int SeatTypeId;
 
-    @SerializedName("SeatType")
-    private String SeatType;
-
-    @SerializedName("Fare")
-    private String Fare;
-
-    @SerializedName("ServiceTax")
-    private String ServiceTax;
-
-    @SerializedName("ConvenienceFee")
-    private String ConvenienceFee;
-
-    @SerializedName("DepartureTime")
-    private String DepartureTime;
-
-    @SerializedName("ArrivalTime")
-    private String ArrivalTime;
-
-    @SerializedName("AvailableSeatCount")
-    private String AvailableSeatCount;
-
-    public String getDepartureTime() {
-        return DepartureTime;
-    }
-
-    public void setDepartureTime(String departureTime) {
-        DepartureTime = departureTime;
-    }
-
-    public String getArrivalTime() {
-        return ArrivalTime;
-    }
-
-    public void setArrivalTime(String arrivalTime) {
-        ArrivalTime = arrivalTime;
-    }
-
-    public String getAvailableSeatCount() {
-        return AvailableSeatCount;
-    }
-
-    public void setAvailableSeatCount(String availableSeatCount) {
-        AvailableSeatCount = availableSeatCount;
-    }
-
     public int getSeatTypeId() {
         return SeatTypeId;
     }
@@ -91,4 +46,21 @@ public class fares {
     public void setConvenienceFee(String convenienceFee) {
         ConvenienceFee = convenienceFee;
     }
+
+    @SerializedName("SeatType")
+    private String SeatType;
+
+    @SerializedName("Fare")
+    private String Fare;
+
+    @SerializedName("ServiceTax")
+    private String ServiceTax;
+
+    @SerializedName("ConvenienceFee")
+    private String ConvenienceFee;
+
+
+
+
+
 }
