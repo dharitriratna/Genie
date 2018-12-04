@@ -1,5 +1,6 @@
 package com.example.user.genie;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -7,6 +8,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,11 +24,19 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.user.genie.Adapter.BrowsePlansAdapter;
 import com.example.user.genie.Adapter.RemiterDetailsCustomAdapter;
+import com.example.user.genie.Adapter.ViewPagerAdapter;
+import com.example.user.genie.Fragments.BrowsePlanDetailsFragment;
+import com.example.user.genie.Fragments.BusSeatCumSleeperFragment;
+import com.example.user.genie.Fragments.BusSeatFragment;
+import com.example.user.genie.Fragments.BusSleeperFragment;
+import com.example.user.genie.Fragments.FragmentMain;
 import com.example.user.genie.Model.BeneficiaryDetailsResponse;
 import com.example.user.genie.ObjectNew.BrowsePlansResponse;
 import com.example.user.genie.ObjectNew.RemiterDetailsResponse;
@@ -31,6 +47,7 @@ import com.example.user.genie.helper.RegPrefManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,8 +59,6 @@ public class BrowsePlansActivity extends AppCompatActivity {
     ApiInterface apiService;
     private AlertDialog.Builder alertDialog;
     ProgressDialog progressDialog;
-    EditText searchEd;
-    private RecyclerView browsing_plans;;
     private BrowsePlansAdapter browsePlansAdapter;
     private ArrayList<planDescription> operatorList;
     SharedPreferences sharedpreferences;
@@ -53,7 +68,12 @@ public class BrowsePlansActivity extends AppCompatActivity {
     String operatorName;
     String circleName;
 
+    private TextView txtSeatSelected;
+    private TabLayout htab_tabs;
+    private ViewPager viewPager;
 
+
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,142 +88,103 @@ public class BrowsePlansActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        browsing_plans = findViewById(R.id.browsing_plans);
         progressDialog = new ProgressDialog(this);
-        searchEd = findViewById(R.id.searchEd);
 
-        operatorList=new ArrayList<>();
 
-        if (isNetworkAvailable()) {
-            networkBrowsePlans();
-        } else {
-            noNetwrokErrorMessage();
+
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        setupViewPager(viewPager);
+
+        htab_tabs = (TabLayout) findViewById(R.id.htab_tabs);
+        htab_tabs.setupWithViewPager(viewPager);
+        setupTabIcons();
+    }
+
+    @SuppressLint("NewApi")
+    private void setupTabIcons() {
+
+        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabOne.setText("Full Talktime");
+        tabOne.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        htab_tabs.getTabAt(0).setCustomView(tabOne);
+
+        TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabTwo.setText("Top");
+        tabTwo.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        htab_tabs.getTabAt(1).setCustomView(tabTwo);
+
+        TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabThree.setText("2G");
+        tabThree.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        htab_tabs.getTabAt(2).setCustomView(tabThree);
+
+        TextView tabFour = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabFour.setText("3G");
+        tabFour.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        htab_tabs.getTabAt(3).setCustomView(tabFour);
+
+        TextView tabFive = (TextView)LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabFive.setText("4G");
+        tabFive.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        htab_tabs.getTabAt(4).setCustomView(tabFive);
+
+        TextView tabSix = (TextView)LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabSix.setText("Roaming");
+        tabSix.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        htab_tabs.getTabAt(5).setCustomView(tabSix);
+
+        TextView tabSeven = (TextView)LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabSeven.setText("Validity");
+        tabSeven.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        htab_tabs.getTabAt(6).setCustomView(tabSeven);
+
+        TextView tabEight = (TextView)LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabEight.setText("Special");
+        tabEight.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        htab_tabs.getTabAt(7).setCustomView(tabEight);
+
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new BrowsePlanDetailsFragment(), "ONE");
+        adapter.addFrag(new BrowsePlanDetailsFragment(), "TWO");
+        adapter.addFrag(new BrowsePlanDetailsFragment(), "THREE");
+        adapter.addFrag(new BrowsePlanDetailsFragment(), "FOUR");
+        adapter.addFrag(new BrowsePlanDetailsFragment(), "FIVE");
+        adapter.addFrag(new BrowsePlanDetailsFragment(), "SIX");
+        adapter.addFrag(new BrowsePlanDetailsFragment(), "SEVEN");
+        adapter.addFrag(new BrowsePlanDetailsFragment(), "EIGHT");
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
         }
 
-        searchEd.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                filter(editable.toString());
-            }
-        });
-
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-
-        if(bundle != null){
-
-            phoneNumber = bundle.getString("PhoneNumber");
-            operatorName=bundle.getString("OperatorName");
-            circleName = bundle.getString("CircleName");
-
-            //    deiverydate=bundle.getString("DELIVERYDATE");
-
-            //    Log.d("deiverydate",deiverydate);
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
         }
 
-        sharedpreferences = getSharedPreferences(mypreference,
-                Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        login_user=sharedpreferences.getString("FLAG", "");
-        editor.commit(); // commit changes
-
-
-        Log.d("login_user", login_user);
-    }
-
-    private void filter(String text) {
-        //new array list that will hold the filtered data
-        ArrayList<planDescription> filterdNames = new ArrayList<>();
-
-        for(int i=0;i<operatorList.size();i++) {
-            //looping through existing elements
-            /*for (String s : placeList) {
-                //if the existing elements contains the search input
-                if (s.toLowerCase().contains(text.toLowerCase())) {
-                    //adding the element to filtered list
-                    filterdNames.add(s);
-                }
-            }*/
-            planDescription model=operatorList.get(i);
-            if(model.getRecharge_type().toLowerCase().contains(text.toLowerCase())){
-                filterdNames.add(model);
-            }
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
         }
 
-        //calling a method of the adapter class and passing the filtered list
-        browsePlansAdapter.filterList(filterdNames);
+        public void addFrag(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
-
-    public boolean isNetworkAvailable(){
-        ConnectivityManager connectivityManager= (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-    public void noNetwrokErrorMessage(){
-        alertDialog.setTitle("Error!");
-        alertDialog.setMessage("No internet connection. Please check your internet setting.");
-        alertDialog.setCancelable(true);
-        alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alert=alertDialog.create();
-        alert.show();
-    }
-
-    private void networkBrowsePlans(){
-        progressDialog.setMessage("Please wait...");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        Call<BrowsePlansResponse> call=apiService.postPlan_Fetch(login_user,phoneNumber,operatorName,circleName);
-        call.enqueue(new Callback<BrowsePlansResponse>() {
-            @Override
-            public void onResponse(Call<BrowsePlansResponse> call, Response<BrowsePlansResponse> response) {
-                progressDialog.dismiss();
-                boolean status=response.body().isStatus();
-                if(status==true) {
-
-                    operatorList = response.body().getData().getPlanDescription();
-                    if (operatorList.size() > 0) {
-                        //  noMesgTv.setVisibility(View.GONE);
-                        browsing_plans.setVisibility(View.VISIBLE);
-                        browsing_plans.setHasFixedSize(true);
-                        browsing_plans.setLayoutManager(new LinearLayoutManager(BrowsePlansActivity.this));
-                        //placeRecyclerview.setItemAnimator(new DefaultItemAnimator());
-                        browsePlansAdapter = new BrowsePlansAdapter(BrowsePlansActivity.this, operatorList);
-                        browsing_plans.setAdapter(browsePlansAdapter);
-                    } else {
-                        //  noMesgTv.setVisibility(View.VISIBLE);
-                        browsing_plans.setVisibility(View.GONE);
-                    }
-                }
-                else {
-                    browsing_plans.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BrowsePlansResponse> call, Throwable t) {
-                progressDialog.dismiss();
-               // noMesgTv.setVisibility(View.VISIBLE);
-                browsing_plans.setVisibility(View.GONE);
-
-            }
-        });
-    }
-
 
 }

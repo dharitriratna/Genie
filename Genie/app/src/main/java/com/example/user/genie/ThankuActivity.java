@@ -76,7 +76,9 @@ public class ThankuActivity extends AppCompatActivity {
 
             if(id!=null) {
                 transactionTV.setVisibility(View.VISIBLE);
-                transactionTV.setText(id);
+               // transactionTV.setText(id);
+                transactionTV.setText("Transation id is: "+RegPrefManager.getInstance(ThankuActivity.this).getSuccessID());
+
             }
             successTv.setText("Success!!!");
         }

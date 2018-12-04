@@ -1,5 +1,6 @@
 package com.example.user.genie;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -44,7 +45,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
     Toolbar toolbar;
     private AlertDialog.Builder alertDialog;
     ApiInterface apiService;
-    TextView servicenameTv,mobileTv,amountpTv,walletpTv,amountTv;
+    TextView numberTv,servicenameTv,mobileTv,amountpTv,walletpTv,amountTv;
     CheckBox checkBox1;
     String back;
     Button btn_order;
@@ -118,6 +119,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 }
                 else if(back.equals("MobileRecharge")){
                       startActivity(new Intent(PaymentCartActivity.this,MobileRecharge.class));
+
                     //onBackPressed();
                     finish();
                 }
@@ -158,6 +160,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         intialize();
     }
     private void intialize(){
+        numberTv=findViewById(R.id.numberTv);
         servicenameTv=findViewById(R.id.servicenameTv);
         mobileTv=findViewById(R.id.mobileTv);
         amountpTv=findViewById(R.id.amountpTv);
@@ -195,7 +198,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         }
 
         else if(back.equals("MobileRecharge")){
-
+            numberTv.setText(RegPrefManager.getInstance(this).getPhoneNo());
             Intent intent = getIntent();
             Bundle bundle = intent.getExtras();
 
@@ -564,7 +567,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         String success = null,data="",status="";
         String status_response;
         String err_msg;
-         String value=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileOperatorCode();
+        String value=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileOperatorCode();
         String cirle_code=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileCircleCode();
         @Override
         protected Void doInBackground(Void... params) {
@@ -609,7 +612,9 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             if(status_response.contains("S"))
             {
                 Toast.makeText(getApplicationContext(),"Recharge Successful", Toast.LENGTH_LONG).show();
+                RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
                 startActivity(new Intent(PaymentCartActivity.this,ThankuActivity.class));
+
               /*  SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("AMOUNT", recharge_amount = amount.getText().toString());

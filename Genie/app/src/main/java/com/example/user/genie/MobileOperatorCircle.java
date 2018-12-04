@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.user.genie.Adapter.MobileOperatorCircleAdapter;
 import com.example.user.genie.Model.MobileOperatorCircleModel;
 import com.example.user.genie.Model.MobileOperatorsModel;
+import com.example.user.genie.helper.RegPrefManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -188,6 +189,7 @@ public class MobileOperatorCircle extends AppCompatActivity {
                                         operator_circle_name = o.getString("circle_name");
 
                                         operator_circle_code = o.getString("circle_code");
+                                        RegPrefManager.getInstance(MobileOperatorCircle.this).setMobReCircleId(operator_circle_code);
 
                                         MobileOperatorCircleModel item = new MobileOperatorCircleModel(
                                                 operator_circle_id,operator_circle_name, operator_circle_code);

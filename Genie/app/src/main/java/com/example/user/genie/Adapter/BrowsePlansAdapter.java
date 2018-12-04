@@ -23,13 +23,14 @@ import java.util.ArrayList;
  */
 
 public class BrowsePlansAdapter extends RecyclerView.Adapter<BrowsePlansAdapter.ViewHolder> {
+
+    private ArrayList<planDescription> plansList;
     private Context context;
-    private ArrayList<planDescription> operatorList;
 
 
 
-    public BrowsePlansAdapter(Context context, ArrayList<planDescription> operatorList) {
-        this.operatorList = operatorList;
+    public BrowsePlansAdapter(ArrayList<planDescription> plansList, Context context) {
+        this.plansList = plansList;
         this.context=context;
 
     }
@@ -44,38 +45,39 @@ public class BrowsePlansAdapter extends RecyclerView.Adapter<BrowsePlansAdapter.
     @Override
     public void onBindViewHolder(final ViewHolder holder,final int position) {
 
-        final planDescription data=operatorList.get(position);
+        final planDescription data=plansList.get(position);
 
         holder.recharge_amount.setText("Amount"+" "+context.getResources().getString(R.string.rupee)+data.getRecharge_amount());
         holder.shortDesc.setText(data.getRecharge_short_desc());
         holder.talktime.setText(data.getRecharge_talktime());
         holder.validity.setText("validity: "+data.getRecharge_validity());
+        holder.validity.setText(data.getRecharge_type());
         holder.descLong.setText(data.getRecharge_long_desc());
 
 
-        holder.card_view.setOnClickListener(new View.OnClickListener() {
+        /*holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-           /* RegPrefManager.getInstance(context).setRemiterDetails(data.getId(),data.getRecharge_amount(),
-                    data.getRecharge_short_desc(),data.getRecharge_talktime(),data.getRecharge_validity(),data.getRecharge_long_desc());*/
+           *//* RegPrefManager.getInstance(context).setRemiterDetails(data.getId(),data.getRecharge_amount(),
+                    data.getRecharge_short_desc(),data.getRecharge_talktime(),data.getRecharge_validity(),data.getRecharge_long_desc());*//*
 
              context.startActivity(new Intent(context, BeneficiaryDeleteActivity.class));
 
             }
-        });
+        });*/
     }
 
     @Override
     public int getItemCount() {
-        return operatorList.size();
+        return plansList.size();
     }
 
 
 
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView recharge_amount,shortDesc,talktime,validity,descLong;
+        TextView recharge_amount,shortDesc,talktime,validity,recharge_type,descLong;
         ImageView sendImg,deleteImg;
         CardView card_view;
 
@@ -86,6 +88,7 @@ public class BrowsePlansAdapter extends RecyclerView.Adapter<BrowsePlansAdapter.
             shortDesc= (TextView) itemView.findViewById(R.id.shortDesc);
             talktime= (TextView) itemView.findViewById(R.id.talktime);
             validity= (TextView) itemView.findViewById(R.id.validity);
+            recharge_type= (TextView) itemView.findViewById(R.id.recharge_type);
             descLong= (TextView) itemView.findViewById(R.id.descLong);
 
             sendImg=(ImageView)itemView.findViewById(R.id.sendImg);
@@ -97,11 +100,11 @@ public class BrowsePlansAdapter extends RecyclerView.Adapter<BrowsePlansAdapter.
     //This method will filter the list
     //here we are passing the filtered data
     //and assigning it to the list with notifydatasetchanged method
-    public void filterList(ArrayList<planDescription > filterdNames) {
+   /* public void filterList(ArrayList<planDescription > filterdNames) {
         this.operatorList = filterdNames;
         notifyDataSetChanged();
     }
-
+*/
 
 
 

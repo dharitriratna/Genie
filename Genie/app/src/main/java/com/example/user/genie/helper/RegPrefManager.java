@@ -128,6 +128,15 @@ public class RegPrefManager {
     public String getTripRadio(){
         return mSharedPreferences.getString("trip",null);
     }
+
+
+    public void setLoggedInPhoneNo(String phone){
+        mSharedPreferences.edit().putString("Logphoneno",phone).apply();
+    }
+    public String getLoggedInPhoneNo(){
+        return mSharedPreferences.getString("Logphoneno",null);
+    }
+
     public void setPhoneNo(String phone){
         mSharedPreferences.edit().putString("phoneno",phone).apply();
     }
@@ -530,6 +539,27 @@ public class RegPrefManager {
     public String getSuccessID(){
 
         return mSharedPreferences.getString("SuccessID",null);
+    }
+
+
+    public void setOperatorId(String Opid){
+        mSharedPreferences.edit().putString("OperatorID",Opid).apply();
+
+
+    }
+    public String getOperatorId(){
+
+        return mSharedPreferences.getString("OperatorID",null);
+    }
+
+    public void setMobReCircleId(String Ciid){
+        mSharedPreferences.edit().putString("CircleId",Ciid).apply();
+
+
+    }
+    public String getMobReCircleId(){
+
+        return mSharedPreferences.getString("CircleId",null);
     }
 
 }

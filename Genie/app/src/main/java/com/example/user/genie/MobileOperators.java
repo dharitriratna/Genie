@@ -39,6 +39,7 @@ import com.example.user.genie.ObjectNew.MobileOperatorData;
 import com.example.user.genie.ObjectNew.MobileOperatorResponse;
 import com.example.user.genie.client.ApiClientGenie;
 import com.example.user.genie.client.ApiInterface;
+import com.example.user.genie.helper.RegPrefManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -285,6 +286,11 @@ public class MobileOperators extends AppCompatActivity {
                                         operator_name = o.getString("operator_name");
 
                                         operator_code = o.getString("operator_code");
+                                        /*SharedPreferences sharedPreferences = getSharedPreferences(mypreference,
+                                                Context.MODE_MULTI_PROCESS);
+                                        SharedPreferences.Editor editor = sharedpreferences.edit();  //deb done code for one time login
+                                        editor.putString("Op_Code", operator_code);
+                                        editor.commit();*/
                                         service_type = o.getString("service_type");
 
                                         MobileOperatorsModel item = new MobileOperatorsModel(
@@ -292,6 +298,7 @@ public class MobileOperators extends AppCompatActivity {
 
 
                                         Log.d("operator_name",operator_name);
+                                        Log.d("op_code",operator_code);
                                         operatorsModels.add(item);
 
                                     }

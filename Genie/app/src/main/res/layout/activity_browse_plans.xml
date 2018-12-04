@@ -29,7 +29,10 @@
             android:textColor="@color/colorPrimary" />
     </android.support.v7.widget.Toolbar>
 
+
+
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/searchED"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,12 +52,42 @@
             android:background="@null"/>
     </RelativeLayout>
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/browsing_plans"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@color/colorPrimary"
+        android:foreground="@drawable/abc_btn_selector"
         android:orientation="vertical"
-        android:layout_margin="5dp"></android.support.v7.widget.RecyclerView>
+        android:weightSum="1">
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/htab_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:elevation="1dp"
+            android:singleLine="true"
+
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="3.5dp"
+            app:tabIndicatorColor="@android:color/black"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@android:color/black"
+            app:tabTextColor="@color/colorPrimary"
+            />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </LinearLayout>
+
+
+
+
 
 </LinearLayout>

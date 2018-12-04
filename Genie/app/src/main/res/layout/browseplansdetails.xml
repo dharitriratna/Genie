@@ -99,13 +99,27 @@
                 android:textColor="@color/colorPrimaryDark"/>
 
             <TextView
-                android:id="@+id/descLong"
+                android:id="@+id/recharge_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/trainNameTv"
                 android:layout_alignParentLeft="true"
+                android:text="Recharge Type"
+                android:layout_marginTop="1dp"
+                android:textSize="13sp"
+                android:layout_marginBottom="5dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/colorPrimaryDark"/>
+
+
+            <TextView
+                android:id="@+id/descLong"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@+id/trainNameTv"
+                android:layout_alignParentLeft="true"
                 android:text="Description"
-                android:singleLine="true"
+                android:singleLine="false"
                 android:layout_marginTop="1dp"
                 android:textSize="13sp"
                 android:layout_marginBottom="5dp"

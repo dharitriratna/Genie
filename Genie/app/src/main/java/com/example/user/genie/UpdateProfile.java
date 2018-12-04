@@ -496,10 +496,6 @@ public class UpdateProfile extends Activity {
 */
     }
 
-
-
-
-
     private void updateImage() {
 
 

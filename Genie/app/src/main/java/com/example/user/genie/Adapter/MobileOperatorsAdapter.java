@@ -62,6 +62,7 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
         holder.mob_operator_id.setText(listItem.getOperator_id());
         holder.operator_name.setText(listItem.getOperator_name());
         holder.operator_code.setText(listItem.getOperator_code());
+
         holder.service_type.setText(listItem.getService_type());
 
         holder.card_view.setOnClickListener(new View.OnClickListener() {

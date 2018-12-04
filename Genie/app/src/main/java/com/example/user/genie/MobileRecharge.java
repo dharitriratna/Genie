@@ -103,13 +103,15 @@ public class MobileRecharge extends AppCompatActivity {
       //  Toast.makeText(this, number, Toast.LENGTH_SHORT).show();
 
         carrierName= RegPrefManager.getInstance(this).getMobileOperatorName();
+        String carrierCode = RegPrefManager.getInstance(this).getMobileOperatorCode();
         operator.setText(carrierName);
 
         operator_circle_name= RegPrefManager.getInstance(this).getMobileCircleName();
+        String circleCode = RegPrefManager.getInstance(this).getMobileCircleCode();
         circle.setText(operator_circle_name);
 
-        phone_number = RegPrefManager.getInstance(MobileRecharge.this).getPhoneNo();
-        contact_number.setText(phone_number);
+       /* phone_number = RegPrefManager.getInstance(MobileRecharge.this).getPhoneNo();
+        contact_number.setText(phone_number);*/
 
         /*Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -268,7 +270,7 @@ public class MobileRecharge extends AppCompatActivity {
                 }
                 else {
                     Intent intent = new Intent(MobileRecharge.this,BrowsePlansActivity.class);
-                    intent.putExtra("PhoneNumber",phone_number );
+                    RegPrefManager.getInstance(MobileRecharge.this).setPhoneNo(phone_number);
                     intent.putExtra("OperatorName",carrierName );
                     intent.putExtra("CircleName",operator_circle_name);
                     startActivity(intent);
@@ -281,7 +283,7 @@ public class MobileRecharge extends AppCompatActivity {
             public void onClick(View v) {
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putString("PHONE_NUMBER", phone_number = contact_number.getText().toString());
+                editor.putString("PHONE_NUMBER", phone_number=contact_number.getText().toString());
                 editor.commit();
                 startActivity(new Intent(MobileRecharge.this,MobileOperators.class));
               //  Toast.makeText(MobileRecharge.this, phone_number, Toast.LENGTH_SHORT).show();

@@ -576,12 +576,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
 
+
+
+
         new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
                 doubleBackToExitPressedOnce = false;
-
+                RegPrefManager.getInstance(MainActivity.this).setBackService("");
+                finish();
             }
 
         }, 2000);

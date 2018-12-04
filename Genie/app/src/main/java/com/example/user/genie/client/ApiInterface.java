@@ -170,10 +170,11 @@ public interface ApiInterface {
 
     @POST("api/service/plan_fetch")
     @FormUrlEncoded
-    Call<BrowsePlansResponse> postPlan_Fetch(@Field("user_id") String customerId,
-                                             @Field("phone") String  phoneNumber,
-                                             @Field("operator")String operatorCode,
-                                             @Field("circle") String circleCode);
+    Call<BrowsePlansResponse> postPlan_Fetch(@Field("user_id") String user_id,
+                                             @Field("phone") String  phone,
+                                             @Field("operator")String operator,
+                                             @Field("circle") String circle,
+                                             @Field("rctype") String rctype);
 
 
 
