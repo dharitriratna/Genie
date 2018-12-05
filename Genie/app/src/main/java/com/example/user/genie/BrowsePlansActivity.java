@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.user.genie.Adapter.BrowsePlansAdapter;
+import com.example.user.genie.Adapter.CustomViewPagerAdapter;
 import com.example.user.genie.Adapter.RemiterDetailsCustomAdapter;
 import com.example.user.genie.Adapter.ViewPagerAdapter;
 import com.example.user.genie.Fragments.BrowsePlanDetailsFragment;
@@ -90,17 +91,16 @@ public class BrowsePlansActivity extends AppCompatActivity {
         });
         progressDialog = new ProgressDialog(this);
 
-
-
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        setupViewPager(viewPager);
+        CustomViewPagerAdapter adapter = new CustomViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
 
         htab_tabs = (TabLayout) findViewById(R.id.htab_tabs);
         htab_tabs.setupWithViewPager(viewPager);
-        setupTabIcons();
+      //  setupTabIcons();
     }
 
-    @SuppressLint("NewApi")
+   /* @SuppressLint("NewApi")
     private void setupTabIcons() {
 
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
@@ -186,5 +186,5 @@ public class BrowsePlansActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-
+*/
 }

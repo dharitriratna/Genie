@@ -5,11 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class BrowsePlansResponse {
-    @SerializedName("status")
-    private boolean status;
-    @SerializedName("data")
-    private Data data;
-
     public boolean isStatus() {
         return status;
     }
@@ -26,21 +21,23 @@ public class BrowsePlansResponse {
         this.data = data;
     }
 
+    @SerializedName("status")
+    private boolean status;
+    @SerializedName("data")
+    private Data data;
+
+
+
     public class Data{
-        public int getResponseStatus() {
-            return ResponseStatus;
+
+
+        public String getStatus() {
+            return Status;
         }
 
-        public void setResponseStatus(int responseStatus) {
-            ResponseStatus = responseStatus;
+        public void setResponseStatus(String responseStatus) {
+            Status = responseStatus;
         }
-
-        @SerializedName("Status")
-        private int ResponseStatus;
-        @SerializedName("PlanDescription")
-        private ArrayList<planDescription> PlanDescription;
-        @SerializedName("input")
-        private InputPlans input;
 
         public ArrayList<planDescription> getPlanDescription() {
             return PlanDescription;
@@ -49,9 +46,31 @@ public class BrowsePlansResponse {
         public void setPlanDescription(ArrayList<planDescription> planDescription) {
             PlanDescription = planDescription;
         }
+
+        public InputPlans getInput() {
+            return input;
+        }
+
+        public void setInput(InputPlans input) {
+            this.input = input;
+        }
+
+        @SerializedName("Status")
+        private String Status;
+        @SerializedName("PlanDescription")
+        private ArrayList<planDescription> PlanDescription;
+        @SerializedName("input")
+        private InputPlans input;
+
+
     }
 
     public class InputPlans{
+
+
+        @SerializedName("memberid")
+        private String memberid;
+
         public String getMemberid() {
             return memberid;
         }
@@ -100,11 +119,11 @@ public class BrowsePlansResponse {
             this.rctype = rctype;
         }
 
-        public String getPageid() {
+        public int getPageid() {
             return pageid;
         }
 
-        public void setPageid(String pageid) {
+        public void setPageid(int pageid) {
             this.pageid = pageid;
         }
 
@@ -116,8 +135,6 @@ public class BrowsePlansResponse {
             this.user_id = user_id;
         }
 
-        @SerializedName("memberid")
-        private String memberid;
         @SerializedName("pin")
         private String pin;
         @SerializedName("phone")
@@ -129,7 +146,7 @@ public class BrowsePlansResponse {
         @SerializedName("rctype")
         private String rctype;
         @SerializedName("pageid")
-        private String pageid;
+        private int pageid;
         @SerializedName("user_id")
         private String user_id;
     }

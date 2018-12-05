@@ -7,10 +7,22 @@
     android:background="@color/colorPrimary">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/browsing_plans"
+        android:id="@+id/browsingPlansRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="5dp"></android.support.v7.widget.RecyclerView>
+        android:visibility="visible"
+        android:layout_margin="5dp">
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textSize="40sp"
+        android:textStyle="bold"/>
 
 </LinearLayout>

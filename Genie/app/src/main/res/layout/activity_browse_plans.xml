@@ -75,7 +75,7 @@
             app:tabIndicatorColor="@android:color/black"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@android:color/black"
-            app:tabTextColor="@color/colorPrimary"
+            app:tabTextColor="#000"
             />
 
         <android.support.v4.view.ViewPager

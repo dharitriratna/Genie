@@ -1,10 +1,10 @@
 package com.example.user.genie.Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -16,22 +16,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.genie.Adapter.BrowsePlansAdapter;
-import com.example.user.genie.Adapter.BusToCitiesAdapter;
 import com.example.user.genie.ObjectNew.BrowsePlansResponse;
-import com.example.user.genie.ObjectNew.BusToCitiesResponse;
-import com.example.user.genie.ObjectNew.destinationCities;
 import com.example.user.genie.ObjectNew.planDescription;
 import com.example.user.genie.R;
 import com.example.user.genie.client.ApiClientGenie;
 import com.example.user.genie.client.ApiInterface;
 import com.example.user.genie.helper.RegPrefManager;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -41,7 +35,7 @@ import retrofit2.Response;
 
 
 public class BrowsePlanDetailsFragment extends Fragment {
-    private RecyclerView browsing_plans;
+    private RecyclerView browsingPlansRecyclerView;
     ProgressDialog progressDialog;
     int i=0;
     private BrowsePlansAdapter plansAdapter;
@@ -53,12 +47,18 @@ public class BrowsePlanDetailsFragment extends Fragment {
     public static final String mypreference = "mypref";
     String login_user="";
 
+    int position;
+    TextView textView;
 
-    public static BrowsePlanDetailsFragment newInstance() {
 
-        return new BrowsePlanDetailsFragment();
+
+    public static Fragment getInstance(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("pos", position);
+        BrowsePlanDetailsFragment fragment = new BrowsePlanDetailsFragment();
+        fragment.setArguments(bundle);
+        return fragment;
     }
-
 
     @Nullable
     @Override
@@ -66,8 +66,12 @@ public class BrowsePlanDetailsFragment extends Fragment {
         View v= inflater.inflate(R.layout.browseplansfragment, container, false);
         apiService =
                 ApiClientGenie.getClient().create(ApiInterface.class);
-        browsing_plans = v.findViewById(R.id.browsing_plans);
+        browsingPlansRecyclerView = v.findViewById(R.id.browsingPlansRecyclerView);
         progressDialog = new ProgressDialog(getActivity());
+
+        textView = (TextView) v.findViewById(R.id.textView);
+
+       // textView.setText("Fragment " + (position + 1));
 
 
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
@@ -116,12 +120,13 @@ public class BrowsePlanDetailsFragment extends Fragment {
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        String rctype = "";
+        String rctype = "top";
         String phone= RegPrefManager.getInstance(getActivity()).getPhoneNo();
         String opId = RegPrefManager.getInstance(getActivity()).getMobileOperatorCode();
         String ciId = RegPrefManager.getInstance(getActivity()).getMobileCircleCode();
         Call<BrowsePlansResponse> call = apiService.postPlan_Fetch(login_user,phone,opId,ciId,rctype);
         call.enqueue(new Callback<BrowsePlansResponse>() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onResponse(Call<BrowsePlansResponse> call, Response<BrowsePlansResponse> response) {
                 progressDialog.dismiss();
@@ -130,12 +135,17 @@ public class BrowsePlanDetailsFragment extends Fragment {
                     plansList=response.body().getData().getPlanDescription();
                     if(plansList.size()>0){
                         plansAdapter = new BrowsePlansAdapter(plansList, getActivity());
-                        browsing_plans.setAdapter(plansAdapter);
-
-                    } else {
+                        browsingPlansRecyclerView.setVisibility(View.VISIBLE);
+                       // browsing_plans.setBackgroundColor(R.color.colorPrimaryDark);
+                        browsingPlansRecyclerView.setAdapter(plansAdapter);
+                    }
+                    /*else if (plansAdapter.equals("")){
+                        Toast.makeText(getActivity(), "No Data", Toast.LENGTH_SHORT).show();
+                    }*/
+                        else {
                         Toast.makeText(getActivity(), "No Data Found",
                                 Toast.LENGTH_LONG).show();
-                        browsing_plans.setVisibility(View.GONE);
+                        browsingPlansRecyclerView.setVisibility(View.GONE);
                         // no_orders_text.setVisibility(View.VISIBLE);
                     }
                 }else {
@@ -147,7 +157,7 @@ public class BrowsePlanDetailsFragment extends Fragment {
             public void onFailure(Call<BrowsePlansResponse> call, Throwable t) {
 
                 progressDialog.dismiss();
-                Toast.makeText(getActivity(),"Try again. After some times",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Try again!",Toast.LENGTH_LONG).show();
             }
         });
       /*  String request=new Gson().toJson(toCitesRequest);

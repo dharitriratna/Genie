@@ -25,13 +25,26 @@
                 android:layout_height="wrap_content"
                 android:weightSum="2"
                 android:orientation="horizontal">
-            <TextView
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/planId"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Recharge Amount"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="17sp"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    />
+
+                <TextView
                 android:id="@+id/recharge_amount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Recharge Amount"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:layout_weight="1"
                 android:padding="5dp"
                 />
@@ -41,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:text="Short Description"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:layout_weight="1"
                     android:padding="5dp"
                     />

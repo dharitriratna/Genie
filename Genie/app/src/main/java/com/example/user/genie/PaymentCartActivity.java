@@ -624,7 +624,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             }
             else if(status_response.contains("P")){
                 Toast.makeText(getApplicationContext(),"Pending", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(PaymentCartActivity.this,ThankuActivity.class));
+                startActivity(new Intent(PaymentCartActivity.this,PendingActivity.class));
             }
 
             else{

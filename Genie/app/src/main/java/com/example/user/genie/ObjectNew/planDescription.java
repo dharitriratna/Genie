@@ -3,6 +3,11 @@ package com.example.user.genie.ObjectNew;
 import com.google.gson.annotations.SerializedName;
 
 public class planDescription {
+
+
+    @SerializedName("id")
+    private String id;
+
     public String getId() {
         return id;
     }
@@ -67,14 +72,6 @@ public class planDescription {
         this.recharge_long_desc = recharge_long_desc;
     }
 
-    public String getHsn_sac() {
-        return hsn_sac;
-    }
-
-    public void setHsn_sac(String hsn_sac) {
-        this.hsn_sac = hsn_sac;
-    }
-
     public String getRecharge_type() {
         return recharge_type;
     }
@@ -83,8 +80,7 @@ public class planDescription {
         this.recharge_type = recharge_type;
     }
 
-    @SerializedName("id")
-    private String id;
+
     @SerializedName("operator_id")
     private String operator_id;
     @SerializedName("circle_id")
@@ -99,9 +95,8 @@ public class planDescription {
     private String recharge_short_desc;
     @SerializedName("recharge_long_desc")
     private String recharge_long_desc;
-    @SerializedName("hsn_sac")
-    private String hsn_sac;
     @SerializedName("recharge_type")
     private String recharge_type;
 
 }
+

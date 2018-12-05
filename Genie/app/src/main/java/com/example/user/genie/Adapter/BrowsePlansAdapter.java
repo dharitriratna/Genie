@@ -47,11 +47,12 @@ public class BrowsePlansAdapter extends RecyclerView.Adapter<BrowsePlansAdapter.
 
         final planDescription data=plansList.get(position);
 
-        holder.recharge_amount.setText("Amount"+" "+context.getResources().getString(R.string.rupee)+data.getRecharge_amount());
+        holder.planId.setText(data.getId());
+        holder.recharge_amount.setText(context.getResources().getString(R.string.rupee)+data.getRecharge_amount());
         holder.shortDesc.setText(data.getRecharge_short_desc());
         holder.talktime.setText(data.getRecharge_talktime());
         holder.validity.setText("validity: "+data.getRecharge_validity());
-        holder.validity.setText(data.getRecharge_type());
+        holder.recharge_type.setText(data.getRecharge_type());
         holder.descLong.setText(data.getRecharge_long_desc());
 
 
@@ -77,13 +78,13 @@ public class BrowsePlansAdapter extends RecyclerView.Adapter<BrowsePlansAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView recharge_amount,shortDesc,talktime,validity,recharge_type,descLong;
-        ImageView sendImg,deleteImg;
+        TextView planId,recharge_amount,shortDesc,talktime,validity,recharge_type,descLong;
         CardView card_view;
 
         ViewHolder(View itemView) {
             super(itemView);
 
+            planId = (TextView) itemView.findViewById(R.id.planId);
             recharge_amount = (TextView) itemView.findViewById(R.id.recharge_amount);
             shortDesc= (TextView) itemView.findViewById(R.id.shortDesc);
             talktime= (TextView) itemView.findViewById(R.id.talktime);
@@ -91,8 +92,7 @@ public class BrowsePlansAdapter extends RecyclerView.Adapter<BrowsePlansAdapter.
             recharge_type= (TextView) itemView.findViewById(R.id.recharge_type);
             descLong= (TextView) itemView.findViewById(R.id.descLong);
 
-            sendImg=(ImageView)itemView.findViewById(R.id.sendImg);
-            deleteImg=(ImageView)itemView.findViewById(R.id.deleteImg);
+
             card_view=(CardView)itemView.findViewById(R.id.card_view);
         }
     }
