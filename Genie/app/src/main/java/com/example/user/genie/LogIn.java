@@ -197,11 +197,13 @@ public class LogIn extends AppCompatActivity {
                         String user_email = response.body().getData().getUser_email();
                         String user_name = response.body().getData().getUser_name();
                         String user_phone = response.body().getData().getUser_phone();
+                        String user_groups = response.body().getData().getUser_groups();
+                        RegPrefManager.getInstance(LogIn.this).setUserGroup(user_groups);
                         RegPrefManager.getInstance(LogIn.this).setPhoneNo(user_phone);
                         RegPrefManager.getInstance(LogIn.this).setUserName(user_name);
                         RegPrefManager.getInstance(LogIn.this).setUserEmail(user_email);
 
-                        SharedPreferences.Editor editor1 = sharedpreferences.edit();  //deb done code for one time login
+                        SharedPreferences.Editor editor1 = sharedpreferences.edit();
                         editor1.putString("LOGGED_IN_AS", "1");
                         editor1.commit();
                         startActivity(new Intent(LogIn.this, MainActivity.class));

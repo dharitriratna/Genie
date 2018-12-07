@@ -15,6 +15,13 @@ pregnancy. How it affects the whole family, especially two grown up sons, forms 
  forms the crux of the story, forms the crux of the story"</string>
 
 
+    <string-array name="user_type">
+        <item>User Type</item>
+        <item>Customer</item>
+        <item>Retailer</item>
+        <item>Distributor</item>
+    </string-array>
+
     <string-array name="pincodes">
         <item>751016</item>
         <item>751024</item>

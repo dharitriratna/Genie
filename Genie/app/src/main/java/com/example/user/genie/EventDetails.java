@@ -239,8 +239,6 @@ public class EventDetails extends AppCompatActivity {
     }
 
 
-
-
     private class AsynEventSubmit extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
         String success = null,data="",status="true";

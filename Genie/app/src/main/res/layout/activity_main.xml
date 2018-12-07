@@ -93,7 +93,7 @@
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:background="@color/colorPrimary"
-                android:layout_height="160dp">
+                android:layout_height="150dp">
 
 
                 <android.support.v7.widget.RecyclerView
@@ -102,7 +102,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_margin="2.5dp">
+                    android:layout_marginLeft="2.5dp"
+                    android:layout_marginRight="2.5dp"
+                    android:layout_marginBottom="1dp">
 
                 </android.support.v7.widget.RecyclerView>
 

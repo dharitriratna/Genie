@@ -35,7 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class BrowsePlanDetailsFragment extends Fragment {
+public class BrowsePlanDetailsFragmentFt extends Fragment {
     private RecyclerView browsingPlansRecyclerView;
     ProgressDialog progressDialog;
     int i=0;
@@ -51,11 +51,10 @@ public class BrowsePlanDetailsFragment extends Fragment {
     int position;
     TextView textView;
 
-
     public static Fragment getInstance(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt("pos", position);
-        BrowsePlanDetailsFragment fragment = new BrowsePlanDetailsFragment();
+        BrowsePlanDetailsFragmentFt fragment = new BrowsePlanDetailsFragmentFt();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -90,9 +89,6 @@ public class BrowsePlanDetailsFragment extends Fragment {
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
         browsingPlansRecyclerView.setLayoutManager(manager);
 
-
-
-
         if (isNetworkAvailable()) {
             networkCircleService();
 
@@ -126,7 +122,7 @@ public class BrowsePlanDetailsFragment extends Fragment {
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        String rctype="top";
+        String rctype= "full talktime";
         String phone= RegPrefManager.getInstance(getActivity()).getPhoneNo();
         String opId = RegPrefManager.getInstance(getActivity()).getMobileOperatorCode();
         String ciId = RegPrefManager.getInstance(getActivity()).getMobileCircleCode();
@@ -145,7 +141,7 @@ public class BrowsePlanDetailsFragment extends Fragment {
                        // browsing_plans.setBackgroundColor(R.color.colorPrimaryDark);
                         browsingPlansRecyclerView.setAdapter(plansAdapter);
                     }
-                   /* else if (response.body().getData().equals("")){
+                    /*else if (response.body().getData().equals("")){
                         Toast.makeText(getActivity(), "No Data", Toast.LENGTH_SHORT).show();
                     }*/
                         else {

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
-    tools:context=".MobileBrowsePlansActivity">
+    tools:context=".DTHBrowsePlansActivity">
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -85,7 +86,6 @@
             android:background="@color/colorPrimary"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </LinearLayout>
-
 
 
 

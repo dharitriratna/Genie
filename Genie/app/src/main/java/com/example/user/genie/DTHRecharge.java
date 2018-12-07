@@ -25,10 +25,10 @@ import java.util.ArrayList;
 
 public class DTHRecharge extends AppCompatActivity {
     Toolbar toolbar;
-    TextView dth_operator_name;
+    TextView dth_operator_name, circle;
     EditText customer_id, dth_amount;
     LinearLayout browse_dth_plans;
-    String operator_name,operator_code,cutomerId,dth_recharge_amount;
+    String operator_name,operator_code,CircleName, CircleId, cutomerId,dth_recharge_amount;
     Button btn_dth_recharge;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +48,34 @@ public class DTHRecharge extends AppCompatActivity {
         dth_amount = findViewById(R.id.dth_amount);
         browse_dth_plans = findViewById(R.id.browse_dth_plans);
         btn_dth_recharge = findViewById(R.id.btn_dth_recharge);
+        circle = findViewById(R.id.circle);
 
-        dth_operator_name.setOnClickListener(new View.OnClickListener() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        // commit changes
+        String number=pref.getString("CUS_ID", null);
+        editor.commit();
+
+        customer_id.setText(number);
+
+
+        operator_name= RegPrefManager.getInstance(this).getMobileOperatorName();
+        operator_code = RegPrefManager.getInstance(this).getMobileOperatorCode();
+        dth_operator_name.setText(operator_name);
+
+        CircleName= RegPrefManager.getInstance(this).getMobileCircleName();
+        CircleId = RegPrefManager.getInstance(this).getMobileCircleCode();
+        circle.setText(CircleName);
+
+        dth_recharge_amount= RegPrefManager.getInstance(this).getMobileRechargeAmount();
+        dth_amount.setText(dth_recharge_amount);
+
+
+
+        circle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),DTHOperators.class));
+                startActivity(new Intent(getApplicationContext(),DTHOperatorCircle.class));
                 finish();
             }
         });
@@ -60,6 +83,31 @@ public class DTHRecharge extends AppCompatActivity {
         operator_name = RegPrefManager.getInstance(DTHRecharge.this).getDTHOperatorName();
         operator_code = RegPrefManager.getInstance(DTHRecharge.this).getDTHOperatorCode();
         dth_operator_name.setText(operator_name);
+
+
+        browse_dth_plans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cutomerId = customer_id.getText().toString();
+                operator_name = dth_operator_name.getText().toString();
+                CircleName = circle.getText().toString();
+
+
+                if (cutomerId.length() < 1){
+                    customer_id.setError("Enter Customer Id");
+                }
+                else if (operator_name.length() < 1){
+                    dth_operator_name.setError("Enter Operator Name");
+                }
+                else if (CircleName.length() < 1){
+                    circle.setError("Enter Circle Name");
+                }
+                else {
+                    startActivity(new Intent(getApplicationContext(), DTHBrowsePlansActivity.class));
+                    RegPrefManager.getInstance(DTHRecharge.this).setCustomerId(cutomerId);
+                }
+            }
+        });
 
        /* Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -70,6 +118,21 @@ public class DTHRecharge extends AppCompatActivity {
             operator_code = bundle.getString("DTH_OPERATOR_CODE");
             dth_operator_name.setText(operator_name);
         }*/
+
+        dth_operator_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("CUS_ID", cutomerId=customer_id.getText().toString());
+                editor.commit();
+                startActivity(new Intent(DTHRecharge.this,DTHOperators.class));
+                //  Toast.makeText(MobileRecharge.this, phone_number, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
+
         btn_dth_recharge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,10 +164,7 @@ public class DTHRecharge extends AppCompatActivity {
                 }
             }
         });
-
-
     }
-
 
     private class AsynSignInDetails extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;

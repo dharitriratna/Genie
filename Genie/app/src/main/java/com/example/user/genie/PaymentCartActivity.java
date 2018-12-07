@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -79,6 +80,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
     //DTH
     String DTHoperatorName;
     String DTHoperatorCode;
+    String DTHcircleCode;
     String DTHcustomerId;
     String DTHbillAmount,Successid;
 
@@ -143,8 +145,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
 
                 else if(back.equals("DTH")){
                    startActivity(new Intent(PaymentCartActivity.this,DTHRecharge.class));
-
-                    finish();
+                   finish();
                 }
             }
         });
@@ -156,6 +157,8 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
 
 
         Log.d("login_user", login_user);
+
+        DTHcircleCode=RegPrefManager.getInstance(this).getMobileCircleCode();
 
         intialize();
     }
@@ -544,7 +547,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
                     finish();
                 }else {
-
                     Toast.makeText(getApplicationContext(), status, Toast.LENGTH_LONG).show();
                     startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
                     finish();
@@ -573,7 +575,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         protected Void doInBackground(Void... params) {
             pDialog.show();
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
-            //  cred.add(new BasicNameValuePair("user_id",login_user));//user_email
+            cred.add(new BasicNameValuePair("user_id",login_user));//user_email
             cred.add(new BasicNameValuePair("customer_id",PhoneNumber ));
             cred.add(new BasicNameValuePair("operator",value ));
             cred.add(new BasicNameValuePair("circle",cirle_code ));
@@ -581,16 +583,12 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             cred.add(new BasicNameValuePair("amount",RechargeAmount ));
             Log.v("RES","Sending data " + PhoneNumber+ OperatorCode +CircleCode+RechargeAmount);
 
-
             String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_dth_datacard_recharge";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 
                 success = route_response;
                 JSONObject jsonObject = new JSONObject(success);
-
-
-
 
                 JSONObject jsonObject1=jsonObject.getJSONObject("data");
                 status_response = jsonObject1.getString("Status");
@@ -761,7 +759,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                /*  String user_id=jsonObject1.getString("user_id");
                 String user_email=jsonObject1.getString("user_email");*/
 
-
             } catch (Exception e)
 
             {
@@ -801,15 +798,17 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         String status_response;
         String err_msg;
 
+
         @Override
         protected Void doInBackground(Void... params) {
             pDialog.show();
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
-            //  cred.add(new BasicNameValuePair("user_id",login_user));//user_email
+            cred.add(new BasicNameValuePair("user_id",login_user));//user_email
             cred.add(new BasicNameValuePair("operator",DTHoperatorCode ));
+            cred.add(new BasicNameValuePair("circle",DTHcircleCode ));
             cred.add(new BasicNameValuePair("customer_id",DTHcustomerId ));
             cred.add(new BasicNameValuePair("amount",DTHbillAmount ));
-            Log.v("RES","Sending data " + DTHoperatorCode+ DTHcustomerId +DTHbillAmount);
+            Log.v("RES","Sending data " + DTHoperatorCode+DTHcircleCode+ DTHcustomerId +DTHbillAmount);
 
 
             String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_dth_datacard_recharge";
@@ -858,9 +857,13 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
                 // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
             }
+            else if(status_response.contains("F")){
+                Toast.makeText(getApplicationContext(),"Failure", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
+            }
 
             else{
-                Toast.makeText(getApplicationContext(),"Error Occured", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Unsuccessful", Toast.LENGTH_LONG).show();
                 RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
                 RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("DTH");
                 startActivity(new Intent(getApplicationContext(),FailureActivity.class));
@@ -882,5 +885,18 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             pDialog.show();
         }
     }
+
+   /* public void sendSMS(String phoneNo, String msg) {
+        try {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNo, null, msg, null, null);
+            Toast.makeText(getApplicationContext(), "Message Sent",
+                    Toast.LENGTH_LONG).show();
+        } catch (Exception ex) {
+            Toast.makeText(getApplicationContext(),ex.getMessage().toString(),
+                    Toast.LENGTH_LONG).show();
+            ex.printStackTrace();
+        }
+    }*/
 
 }

@@ -1,5 +1,6 @@
 package com.example.user.genie;
 
+import android.app.Application;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -83,6 +84,12 @@ public class ThankuActivity extends AppCompatActivity {
             successTv.setText("Success!!!");
         }
         else if (back.equals("MobileRecharge")){
+            if(id!=null) {
+                transactionTV.setVisibility(View.VISIBLE);
+                // transactionTV.setText(id);
+                transactionTV.setText("Transation id is: "+RegPrefManager.getInstance(ThankuActivity.this).getSuccessID());
+
+            }
             successTv.setText("Success!!!");
         }
      /*   continue_shopping.setOnClickListener(new View.OnClickListener() {

@@ -7,12 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.user.genie.BeneficiaryDeleteActivity;
+import com.example.user.genie.DTHRecharge;
 import com.example.user.genie.MobileRecharge;
-import com.example.user.genie.Model.BeneficiaryDetailsResponse;
 import com.example.user.genie.ObjectNew.planDescription;
 import com.example.user.genie.R;
 import com.example.user.genie.helper.RegPrefManager;
@@ -23,14 +21,14 @@ import java.util.ArrayList;
  * Created by RatnaDev008 on 10/29/2018.
  */
 
-public class BrowsePlansAdapter extends RecyclerView.Adapter<BrowsePlansAdapter.ViewHolder> {
+public class DTHBrowsePlansAdapter extends RecyclerView.Adapter<DTHBrowsePlansAdapter.ViewHolder> {
 
     private ArrayList<planDescription> plansList;
     private Context context;
 
 
 
-    public BrowsePlansAdapter(ArrayList<planDescription> plansList, Context context) {
+    public DTHBrowsePlansAdapter(ArrayList<planDescription> plansList, Context context) {
         this.plansList = plansList;
         this.context=context;
 
@@ -62,7 +60,7 @@ public class BrowsePlansAdapter extends RecyclerView.Adapter<BrowsePlansAdapter.
 
                 RegPrefManager.getInstance(context).setMobileRechargeAmount(data.getRecharge_amount());
 
-                context.startActivity(new Intent(context,MobileRecharge.class));
+                context.startActivity(new Intent(context,DTHRecharge.class));
                 //  ((Activity)context).finish();
             }
         });

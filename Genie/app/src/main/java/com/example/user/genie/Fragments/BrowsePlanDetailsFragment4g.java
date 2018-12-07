@@ -35,7 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class BrowsePlanDetailsFragment extends Fragment {
+public class BrowsePlanDetailsFragment4g extends Fragment {
     private RecyclerView browsingPlansRecyclerView;
     ProgressDialog progressDialog;
     int i=0;
@@ -52,10 +52,12 @@ public class BrowsePlanDetailsFragment extends Fragment {
     TextView textView;
 
 
+
+
     public static Fragment getInstance(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt("pos", position);
-        BrowsePlanDetailsFragment fragment = new BrowsePlanDetailsFragment();
+        BrowsePlanDetailsFragment4g fragment = new BrowsePlanDetailsFragment4g();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -126,7 +128,7 @@ public class BrowsePlanDetailsFragment extends Fragment {
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        String rctype="top";
+        String rctype="4G";
         String phone= RegPrefManager.getInstance(getActivity()).getPhoneNo();
         String opId = RegPrefManager.getInstance(getActivity()).getMobileOperatorCode();
         String ciId = RegPrefManager.getInstance(getActivity()).getMobileCircleCode();
@@ -145,7 +147,7 @@ public class BrowsePlanDetailsFragment extends Fragment {
                        // browsing_plans.setBackgroundColor(R.color.colorPrimaryDark);
                         browsingPlansRecyclerView.setAdapter(plansAdapter);
                     }
-                   /* else if (response.body().getData().equals("")){
+                    /*else if (response.body().getData().equals("")){
                         Toast.makeText(getActivity(), "No Data", Toast.LENGTH_SHORT).show();
                     }*/
                         else {
@@ -163,7 +165,7 @@ public class BrowsePlanDetailsFragment extends Fragment {
             public void onFailure(Call<BrowsePlansResponse> call, Throwable t) {
 
                 progressDialog.dismiss();
-              //  Toast.makeText(getActivity(),"Try again!",Toast.LENGTH_LONG).show();
+               // Toast.makeText(getActivity(),"Try again!",Toast.LENGTH_LONG).show();
             }
         });
       /*  String request=new Gson().toJson(toCitesRequest);

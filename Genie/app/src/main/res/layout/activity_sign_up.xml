@@ -47,12 +47,29 @@
                 android:layout_gravity="center"/>
 
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:padding="10dp"
+                android:background="@drawable/edittext_top_bg">
+                <Spinner
+                    android:id="@+id/userTypespinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog">
+                </Spinner>
+            </RelativeLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="5dp">
 
 
 
@@ -74,7 +91,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp">
 
 
                 <EditText
@@ -95,7 +113,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp">
 
 
                 <EditText
@@ -112,12 +131,15 @@
                     android:textColor="#000" />
 
             </LinearLayout>
+
+
             <LinearLayout
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp">
 
 
                 <EditText
@@ -138,7 +160,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp">
 
                 <EditText
                     android:id="@+id/password"

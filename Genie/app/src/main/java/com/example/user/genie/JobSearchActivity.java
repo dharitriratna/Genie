@@ -64,7 +64,7 @@ public class JobSearchActivity extends AppCompatActivity implements View.OnClick
         for (int i=0;i<10;i++) {
             JobSearchModel jobSearchModel = new JobSearchModel();
             jobSearchModel.setJobtitle("Android Development");
-            jobSearchModel.setCompanyname("Rantna Technology");
+            jobSearchModel.setCompanyname("Ratna Technology");
             jobSearchModel.setLocation("Bhubaneswar,Odisha");
             jobSearchModel.setDetails("Android");
 

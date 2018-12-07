@@ -186,6 +186,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 RegPrefManager.getInstance(MainActivity.this).setMobileOperator("","");
                 RegPrefManager.getInstance(MainActivity.this).setMobileCircle("","");
+                RegPrefManager.getInstance(MainActivity.this).setMobileRechargeAmount("");
+                RegPrefManager.getInstance(MainActivity.this).setPhoneNo("");
                 RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this,MobileRecharge.class));
             }
@@ -259,6 +261,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 RegPrefManager.getInstance(MainActivity.this).setDTHOperator("","");
+                RegPrefManager.getInstance(MainActivity.this).setMobileCircle("","");
+                RegPrefManager.getInstance(MainActivity.this).setMobileRechargeAmount("");
+                RegPrefManager.getInstance(MainActivity.this).setCustomerId("");
                 RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 startActivity(new Intent(MainActivity.this, DTHRecharge.class));
             }

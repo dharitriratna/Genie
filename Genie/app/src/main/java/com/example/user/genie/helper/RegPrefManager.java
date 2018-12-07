@@ -143,6 +143,16 @@ public class RegPrefManager {
     public String getPhoneNo(){
         return mSharedPreferences.getString("phoneno",null);
     }
+
+
+    public void setCustomerId(String customerId){
+        mSharedPreferences.edit().putString("customerId",customerId).apply();
+    }
+    public String getCustomerId(){
+        return mSharedPreferences.getString("customerId",null);
+    }
+
+
     public void setDataCardNo(String phone){
         mSharedPreferences.edit().putString("datacardno",phone).apply();
     }
@@ -188,6 +198,12 @@ public class RegPrefManager {
         return mSharedPreferences.getString("mobileoperatorcode",null);
     }
 
+    public void setMobileRechargeAmount (String amount) {
+        mSharedPreferences.edit().putString("rechargeAmount", amount).apply();
+    }
+     public String getMobileRechargeAmount(){
+        return mSharedPreferences.getString("rechargeAmount",null);
+    }
 
     public void setWaterBoard(String name,String code){
         mSharedPreferences.edit().putString("waterBoardname",name).apply();
@@ -484,6 +500,14 @@ public class RegPrefManager {
     }
     public String getUserName(){
         return mSharedPreferences.getString("Username",null);
+    }
+
+    public void setUserGroup(String userGroup){
+        mSharedPreferences.edit().putString("UserGroup",userGroup).apply();
+
+    }
+    public String getUserGroup(){
+        return mSharedPreferences.getString("UserGroup",null);
     }
 
     public void setUserEmail(String name){

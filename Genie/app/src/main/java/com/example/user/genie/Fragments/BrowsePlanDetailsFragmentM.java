@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.genie.Adapter.BrowsePlansAdapter;
+import com.example.user.genie.Adapter.DTHBrowsePlansAdapter;
 import com.example.user.genie.ObjectNew.BrowsePlansResponse;
 import com.example.user.genie.ObjectNew.planDescription;
 import com.example.user.genie.R;
@@ -35,11 +36,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class BrowsePlanDetailsFragment extends Fragment {
+public class BrowsePlanDetailsFragmentM extends Fragment {
     private RecyclerView browsingPlansRecyclerView;
     ProgressDialog progressDialog;
     int i=0;
-    private BrowsePlansAdapter plansAdapter;
+    private DTHBrowsePlansAdapter plansAdapter;
     private ArrayList<planDescription> plansList;
     private AlertDialog.Builder alertDialog;
     ApiInterface apiService;
@@ -55,7 +56,7 @@ public class BrowsePlanDetailsFragment extends Fragment {
     public static Fragment getInstance(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt("pos", position);
-        BrowsePlanDetailsFragment fragment = new BrowsePlanDetailsFragment();
+        BrowsePlanDetailsFragmentM fragment = new BrowsePlanDetailsFragmentM();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -126,11 +127,11 @@ public class BrowsePlanDetailsFragment extends Fragment {
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        String rctype="top";
-        String phone= RegPrefManager.getInstance(getActivity()).getPhoneNo();
-        String opId = RegPrefManager.getInstance(getActivity()).getMobileOperatorCode();
+        String rctype="Monthly Pack";
+        String cusId= RegPrefManager.getInstance(getActivity()).getCustomerId();
+        String opId = RegPrefManager.getInstance(getActivity()).getDTHOperatorCode();
         String ciId = RegPrefManager.getInstance(getActivity()).getMobileCircleCode();
-        Call<BrowsePlansResponse> call = apiService.postPlan_Fetch(login_user,phone,opId,ciId,rctype);
+        Call<BrowsePlansResponse> call = apiService.postPlan_Fetch(login_user,cusId,opId,ciId,rctype);
         call.enqueue(new Callback<BrowsePlansResponse>() {
             @SuppressLint("ResourceAsColor")
             @Override
@@ -140,7 +141,7 @@ public class BrowsePlanDetailsFragment extends Fragment {
                 if(status==true){
                     plansList=response.body().getData().getPlanDescription();
                     if(plansList.size()>0){
-                        plansAdapter = new BrowsePlansAdapter(plansList, getActivity());
+                        plansAdapter = new DTHBrowsePlansAdapter(plansList, getActivity());
                         browsingPlansRecyclerView.setVisibility(View.VISIBLE);
                        // browsing_plans.setBackgroundColor(R.color.colorPrimaryDark);
                         browsingPlansRecyclerView.setAdapter(plansAdapter);

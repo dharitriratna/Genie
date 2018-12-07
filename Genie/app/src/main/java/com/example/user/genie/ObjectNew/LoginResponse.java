@@ -71,6 +71,14 @@ public class LoginResponse {
             this.user_phone = user_phone;
         }
 
+        public String getUser_groups() {
+            return user_groups;
+        }
+
+        public void setUser_groups(String user_groups) {
+            this.user_groups = user_groups;
+        }
+
         @SerializedName("user_id")
         private String user_id;
         @SerializedName("user_email")
@@ -79,5 +87,7 @@ public class LoginResponse {
         private String user_name;
         @SerializedName("user_phone")
         private String user_phone;
+        @SerializedName("user_groups")
+        private String user_groups;
     }
 }

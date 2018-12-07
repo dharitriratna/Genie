@@ -94,7 +94,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="3dp"
                     android:layout_marginBottom="3dp"
-                    android:hint="Orrisa"
+                    android:hint="Select State"
                     android:textSize="16sp"
                     android:inputType="text"
                     android:focusable="false"

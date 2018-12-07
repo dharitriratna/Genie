@@ -2,14 +2,12 @@ package com.example.user.genie;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -25,15 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.user.genie.helper.RegPrefManager;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class MobileRecharge extends AppCompatActivity {
     Toolbar toolbar;
@@ -109,6 +100,9 @@ public class MobileRecharge extends AppCompatActivity {
         operator_circle_name= RegPrefManager.getInstance(this).getMobileCircleName();
         String circleCode = RegPrefManager.getInstance(this).getMobileCircleCode();
         circle.setText(operator_circle_name);
+
+        recharge_amount= RegPrefManager.getInstance(this).getMobileRechargeAmount();
+        amount.setText(recharge_amount);
 
        /* phone_number = RegPrefManager.getInstance(MobileRecharge.this).getPhoneNo();
         contact_number.setText(phone_number);*/
@@ -269,7 +263,7 @@ public class MobileRecharge extends AppCompatActivity {
                     circle.setError("Enter Your Circle");
                 }
                 else {
-                    Intent intent = new Intent(MobileRecharge.this,BrowsePlansActivity.class);
+                    Intent intent = new Intent(MobileRecharge.this,MobileBrowsePlansActivity.class);
                     RegPrefManager.getInstance(MobileRecharge.this).setPhoneNo(phone_number);
                     intent.putExtra("OperatorName",carrierName );
                     intent.putExtra("CircleName",operator_circle_name);

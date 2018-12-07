@@ -6,9 +6,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.user.genie.Fragments.BrowsePlanDetailsFragment;
 
-public class CustomViewPagerAdapter extends FragmentPagerAdapter {
+/*public class CustomViewPagerAdapter extends FragmentPagerAdapter {
 
-    private String title[] = {"Top"};
+    private String title[] = {"Top", "Full Talktime"};
 
     public CustomViewPagerAdapter(FragmentManager manager) {
         super(manager);
@@ -28,4 +28,4 @@ public class CustomViewPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return title[position];
     }
-}
+}*/

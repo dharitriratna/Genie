@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name=" android.permission. READ_CONTACTS " />
     <uses-permission android:name=" android.permission. WRITE_CONTACTS " />
 
@@ -262,7 +263,7 @@
             android:name=".RawMeatActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".BrowsePlansActivity"
+            android:name=".MobileBrowsePlansActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HotelActivity"
@@ -316,11 +317,10 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <!--
-            <activity android:name=".BrowsePlansActivity"
+            <activity android:name=".MobileBrowsePlansActivity"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="DuplicateActivity" />
         -->
-
 
         <activity
             android:name=".ThankuActivity"
@@ -332,12 +332,26 @@
             android:name=".FailureActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".PendingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".ComingSoonActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ElectricityStateSelectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LoanPaymentActivity"
+        <activity
+            android:name=".LoanPaymentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".DTHBrowsePlansActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".OTPActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".DTHOperatorCircle"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

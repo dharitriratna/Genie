@@ -11,13 +11,27 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.user.genie.helper.RegPrefManager;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +43,14 @@ public class SignUp extends AppCompatActivity {
     String fullName, email, mobile_no, userAddress, userPassword;
     Button btn_signup;
     String message = "";
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
+    String login_user="";
+    Spinner userTypespinner;
+    String URL="http://demo.ratnatechnology.co.in/genie/api/user/getgroups";
+    ArrayList<String> UserTypeName;
+    String userSpinner;
+    String userTypeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +65,28 @@ public class SignUp extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
+        UserTypeName=new ArrayList<>();
+        userTypespinner = findViewById(R.id.userTypespinner);
         full_name = findViewById(R.id.full_name);
         email_id = findViewById(R.id.email_id);
         phone_no = findViewById(R.id.phone_no);
         address = findViewById(R.id.address);
         password = findViewById(R.id.password);
         btn_signup = findViewById(R.id.btn_signup);
+
+        loadSpinnerData(URL);
+        userTypespinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String userType=   userTypespinner.getItemAtPosition(userTypespinner.getSelectedItemPosition()).toString();
+             //   Toast.makeText(getApplicationContext(),userType,Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // DO Nothing here
+            }
+        });
+
 
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +97,10 @@ public class SignUp extends AppCompatActivity {
                 userAddress = address.getText().toString().trim();
                 userPassword = password.getText().toString().trim();
 
-                if (fullName.length()<1){
+                if (userTypespinner.getSelectedItem().toString().equals("User Type")){
+                    Toast.makeText(SignUp.this, "Please select User type", Toast.LENGTH_SHORT).show();
+                }
+                else if (fullName.length()<1){
                     full_name.setError("Enter Your Name");
                 }
                 else if (email.length()<1){
@@ -82,6 +122,40 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
+    private void loadSpinnerData(String url) {
+        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    JSONObject jsonObject=new JSONObject(response);
+                    if(jsonObject.getBoolean("status")==true){
+                        JSONArray jsonArray=jsonObject.getJSONArray("data");
+                        for(int i=0;i<jsonArray.length();i++){
+                            JSONObject jsonObject1=jsonArray.getJSONObject(i);
+                            userTypeId =jsonObject1.getString("id");
+                            String userType=jsonObject1.getString("name");
+                            String userDesc=jsonObject1.getString("description");
+                            UserTypeName.add(userType);
+                        }
+                    }
+                    userTypespinner.setAdapter(new ArrayAdapter<String>(SignUp.this, android.R.layout.simple_spinner_dropdown_item, UserTypeName));
+                }catch (JSONException e){e.printStackTrace();}
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        int socketTimeout = 30000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
+        requestQueue.add(stringRequest);
+    }
+
+
+
     private class AsynSignInDetails extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
         String success = null,message="",status="true";
@@ -90,6 +164,7 @@ public class SignUp extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             pDialog.show();
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
+            cred.add(new BasicNameValuePair("groups",userTypeId));
             cred.add(new BasicNameValuePair("first_name",fullName));//user_email
             cred.add(new BasicNameValuePair("email",email ));
             cred.add(new BasicNameValuePair("phone",mobile_no ));
@@ -112,7 +187,13 @@ public class SignUp extends AppCompatActivity {
                 // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
                 JSONObject jsonObject1 = new JSONObject(data);
                 String user_id=jsonObject1.getString("user_id");
-                String user_email=jsonObject1.getString("user_email");
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("FLAG", user_id);
+                Log.d("user_id", user_id);
+                editor.commit();
+                String user_phone = jsonObject1.getString("phone");
+                RegPrefManager.getInstance(SignUp.this).setPhoneNo(user_phone);
+             //   String user_email=jsonObject1.getString("user_email");
 
             } catch (Exception e)
 
@@ -128,7 +209,7 @@ public class SignUp extends AppCompatActivity {
             {
                 Toast.makeText(getApplicationContext(),"Registration Successful", Toast.LENGTH_LONG).show();
 
-                startActivity(new Intent(SignUp.this,LogIn.class));finish();
+                startActivity(new Intent(SignUp.this,OTPActivity.class));finish();
             }
             else{
                 Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
@@ -144,7 +225,4 @@ public class SignUp extends AppCompatActivity {
             pDialog.show();
         }
     }
-
-
-
 }

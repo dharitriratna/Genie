@@ -35,7 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class BrowsePlanDetailsFragment extends Fragment {
+public class BrowsePlanDetailsFragment3g extends Fragment {
     private RecyclerView browsingPlansRecyclerView;
     ProgressDialog progressDialog;
     int i=0;
@@ -52,10 +52,12 @@ public class BrowsePlanDetailsFragment extends Fragment {
     TextView textView;
 
 
+
+
     public static Fragment getInstance(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt("pos", position);
-        BrowsePlanDetailsFragment fragment = new BrowsePlanDetailsFragment();
+        BrowsePlanDetailsFragment3g fragment = new BrowsePlanDetailsFragment3g();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -126,7 +128,7 @@ public class BrowsePlanDetailsFragment extends Fragment {
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        String rctype="top";
+        String rctype="3G";
         String phone= RegPrefManager.getInstance(getActivity()).getPhoneNo();
         String opId = RegPrefManager.getInstance(getActivity()).getMobileOperatorCode();
         String ciId = RegPrefManager.getInstance(getActivity()).getMobileCircleCode();

@@ -47,24 +47,23 @@ public class BrowsePlansResponse {
             PlanDescription = planDescription;
         }
 
-        public InputPlans getInput() {
+      /*  public InputPlans getInput() {
             return input;
         }
 
         public void setInput(InputPlans input) {
             this.input = input;
-        }
+        }*/
 
         @SerializedName("Status")
         private String Status;
         @SerializedName("PlanDescription")
         private ArrayList<planDescription> PlanDescription;
-        @SerializedName("input")
-        private InputPlans input;
-
-
+      /*  @SerializedName("input")
+        private InputPlans input;*/
     }
 
+/*
     public class InputPlans{
 
 
@@ -150,4 +149,5 @@ public class BrowsePlansResponse {
         @SerializedName("user_id")
         private String user_id;
     }
+*/
 }

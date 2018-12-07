@@ -82,6 +82,12 @@ public class PendingActivity extends AppCompatActivity {
             successTv.setText("Success!!!");
         }
         else if (back.equals("MobileRecharge")){
+            if(id!=null) {
+                transactionTV.setVisibility(View.VISIBLE);
+                // transactionTV.setText(id);
+                transactionTV.setText("Transation id is: "+RegPrefManager.getInstance(PendingActivity.this).getSuccessID());
+
+            }
             successTv.setText("Success!!!");
         }
      /*   continue_shopping.setOnClickListener(new View.OnClickListener() {

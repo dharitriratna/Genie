@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.user.genie.helper.RegPrefManager;
@@ -13,6 +14,7 @@ public class FailureActivity extends AppCompatActivity {
     Toolbar toolbar;
     private TextView transactionTV,successTv;
     String back;
+    Button continuebtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,15 @@ public class FailureActivity extends AppCompatActivity {
                     startActivity(new Intent(FailureActivity.this,PaymentCartActivity.class));
                     finish();
                 }
+            }
+        });
+
+        continuebtn = findViewById(R.id.continuebtn);
+        continuebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                finish();
             }
         });
 
