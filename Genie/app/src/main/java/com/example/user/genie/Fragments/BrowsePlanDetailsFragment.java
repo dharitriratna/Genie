@@ -125,7 +125,7 @@ public class BrowsePlanDetailsFragment extends Fragment {
     private void networkCircleService(){
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
+      //  progressDialog.show();
         String rctype="top";
         String phone= RegPrefManager.getInstance(getActivity()).getPhoneNo();
         String opId = RegPrefManager.getInstance(getActivity()).getMobileOperatorCode();

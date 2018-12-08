@@ -50,6 +50,7 @@ public class DTHBrowsePlansAdapter extends RecyclerView.Adapter<DTHBrowsePlansAd
         holder.recharge_amount.setText("Amount-"+" "+context.getResources().getString(R.string.rupee)+data.getRecharge_amount());
         holder.shortDesc.setText(data.getRecharge_short_desc());
         holder.talktime.setText("Talktime-"+" "+data.getRecharge_talktime());
+        holder.talktime.setVisibility(View.GONE);
         holder.validity.setText("Validity-"+data.getRecharge_validity());
         holder.recharge_type.setText("RC Type-"+data.getRecharge_type());
         holder.descLong.setText(data.getRecharge_long_desc());

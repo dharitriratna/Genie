@@ -124,7 +124,7 @@ public class BrowsePlanDetailsFragment2g extends Fragment {
     private void networkCircleService(){
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
+     //   progressDialog.show();
         String rctype="2G";
         String phone= RegPrefManager.getInstance(getActivity()).getPhoneNo();
         String opId = RegPrefManager.getInstance(getActivity()).getMobileOperatorCode();

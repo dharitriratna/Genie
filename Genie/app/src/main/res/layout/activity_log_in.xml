@@ -76,24 +76,34 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
                 android:background="@drawable/edittext_top_bg"
-                android:orientation="horizontal">
-
+                android:layout_marginTop="5dp">
 
                 <EditText
                     android:layout_weight="1"
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:background="@drawable/edittext_inside_yellow"
                     android:cursorVisible="true"
                     android:hint="Password"
-                    android:background="@drawable/edittext_top_bg"
-                    android:paddingBottom="5dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="1dp"
                     android:inputType="textPassword"
                     android:gravity="start|center"
                     android:padding="10dp"
-                    android:textColor="#000" />
+                    android:textColor="#000"/>
+
+
+                <ImageView
+                    android:id="@+id/eye"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/eye"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="20dp"/>
 
 
             </LinearLayout>

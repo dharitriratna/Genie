@@ -120,24 +120,23 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     finish();
                 }
                 else if(back.equals("MobileRecharge")){
-                      startActivity(new Intent(PaymentCartActivity.this,MobileRecharge.class));
-
-                    //onBackPressed();
+                    startActivity(new Intent(PaymentCartActivity.this,MobileRecharge.class));
+                   // onBackPressed();
                     finish();
                 }
                 else if(back.equals("Electricity")){
-                      startActivity(new Intent(PaymentCartActivity.this,PayForElectricity.class));
+                    startActivity(new Intent(PaymentCartActivity.this,PayForElectricity.class));
                     //onBackPressed();
                     finish();
                 }
                 else if(back.equals("WaterBill")){
-                     startActivity(new Intent(PaymentCartActivity.this,WaterBill.class));
-                    //onBackPressed();
+                    startActivity(new Intent(PaymentCartActivity.this,WaterBill.class));
+                 //   onBackPressed();
                     finish();
                 }
                 else if (back.equals("Gas")){
-                   // onBackPressed();
-                    startActivity(new Intent(PaymentCartActivity.this,GasBillActivity.class));
+                    onBackPressed();
+                   // startActivity(new Intent(PaymentCartActivity.this,GasBillActivity.class));
 
                     finish();
 

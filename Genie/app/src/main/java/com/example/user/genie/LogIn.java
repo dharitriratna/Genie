@@ -13,7 +13,9 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -52,6 +54,7 @@ public class LogIn extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     String login_user="";
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,26 @@ public class LogIn extends AppCompatActivity {
         terms = findViewById(R.id.terms);
         password = findViewById(R.id.password);
         btn_login = findViewById(R.id.btn_login);
+        eye = findViewById(R.id.eye);
+
+        eye.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch ( event.getAction() ) {
+
+                    case MotionEvent.ACTION_UP:
+                        password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        break;
+
+                    case MotionEvent.ACTION_DOWN:
+                        password.setInputType(InputType.TYPE_CLASS_TEXT);
+                        break;
+                }
+                return true;
+            }
+        });
+
+
         signup_word.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -72,7 +72,7 @@ public class DTHBrowsePlansActivity extends AppCompatActivity {
         htab_tabs = (TabLayout) findViewById(R.id.htab_tabs);
         htab_tabs.setupWithViewPager(viewPager);
         setupTabIcons();
-    }
+     }
 
 
     @SuppressLint("NewApi")
@@ -97,9 +97,7 @@ public class DTHBrowsePlansActivity extends AppCompatActivity {
         tabFour.setText("Annual Packs");
         tabFour.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         htab_tabs.getTabAt(3).setCustomView(tabFour);
-
-
-    }
+     }
 
     private void setupViewPager(ViewPager viewPager) {
         DTHBrowsePlansActivity.ViewPagerAdapter adapter = new DTHBrowsePlansActivity.ViewPagerAdapter(getSupportFragmentManager());
@@ -109,7 +107,7 @@ public class DTHBrowsePlansActivity extends AppCompatActivity {
         adapter.addFrag(new BrowsePlanDetailsFragmentAP(), "Annual Packs");
 
         viewPager.setAdapter(adapter);
-    }
+     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

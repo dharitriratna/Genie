@@ -1,10 +1,17 @@
 package com.example.user.genie;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +29,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.user.genie.BeneficiaryDeleteActivity.REQUEST_ID_MULTIPLE_PERMISSIONS;
 
 public class OTPActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -34,6 +44,7 @@ public class OTPActivity extends AppCompatActivity {
     public static final String mypreference = "mypref";
     String login_user="";
     String phoneNo;
+
 
 
     @Override
@@ -49,7 +60,10 @@ public class OTPActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+      /*  if (checkAndRequestPermissions()) {
+            // carry on the normal flow, as the case of  permissions  granted.
+        }
+*/
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
@@ -79,6 +93,54 @@ public class OTPActivity extends AppCompatActivity {
         });
     }
 
+  /*  private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equalsIgnoreCase("otp")) {
+                final String message = intent.getStringExtra("OTP");
+
+
+                otpEd.setText(message);
+            }
+        }
+    };*/
+
+   /* private  boolean checkAndRequestPermissions() {
+        int permissionSendMessage = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.SEND_SMS);
+        int receiveSMS = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
+        int readSMS = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (receiveSMS != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.RECEIVE_MMS);
+        }
+        if (readSMS != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_SMS);
+        }
+        if (permissionSendMessage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.SEND_SMS);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this,
+                    listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }*/
+
+
+  /*  @Override
+    public void onResume() {
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("otp"));
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+    }*/
     private class AsynVerifyOtp extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
         String success = null;

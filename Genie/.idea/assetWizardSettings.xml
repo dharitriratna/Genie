@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Users/user/Documents/EGDownloads/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_announcement_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Users/user/Documents/EGDownloads/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_remove_red_eye_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,11 +28,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="height" value="100" />
-                            <entry key="outputName" value="ic_announcement_black" />
+                            <entry key="outputName" value="eye" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\user\Documents\birthday_cake.svg" />
-                            <entry key="width" value="100" />
                           </map>
                         </option>
                       </PersistentState>

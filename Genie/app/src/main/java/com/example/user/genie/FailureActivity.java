@@ -21,7 +21,7 @@ public class FailureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_failure);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
-         back=  RegPrefManager.getInstance(this).getBackService();
+        back=  RegPrefManager.getInstance(this).getBackService();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

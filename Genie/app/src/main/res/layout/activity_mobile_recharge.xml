@@ -92,6 +92,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp"
                     android:maxLength="15"
+
                     android:inputType="number"
                     android:singleLine="true"
                     android:background="@drawable/edittext_top_bg"

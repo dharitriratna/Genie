@@ -86,6 +86,27 @@ public class MobileRecharge extends AppCompatActivity {
         phone_number = contact_number.getText().toString().trim();
         carrierName = operator.getText().toString().trim();
 
+
+/*
+        contact_number.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            public void onDestroyActionMode(ActionMode mode) {
+            }
+
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return false;
+            }
+        });
+*/
+
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         // commit changes
@@ -123,8 +144,6 @@ public class MobileRecharge extends AppCompatActivity {
             //    contact_number.setText(number);
 
         }*/
-
-
 
 
         circle.setOnClickListener(new View.OnClickListener() {
@@ -242,7 +261,6 @@ public class MobileRecharge extends AppCompatActivity {
                     startActivity(intent);
                   //  new AsynSignInDetails().execute();
                 }
-
             }
         });
 

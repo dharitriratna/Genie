@@ -1,5 +1,6 @@
 package com.example.user.genie;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -8,13 +9,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -51,7 +55,9 @@ public class SignUp extends AppCompatActivity {
     ArrayList<String> UserTypeName;
     String userSpinner;
     String userTypeId;
+    ImageView eye;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +79,27 @@ public class SignUp extends AppCompatActivity {
         address = findViewById(R.id.address);
         password = findViewById(R.id.password);
         btn_signup = findViewById(R.id.btn_signup);
+
+        eye = findViewById(R.id.eye);
+
+        eye.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch ( event.getAction() ) {
+
+                    case MotionEvent.ACTION_UP:
+                        password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        break;
+
+                    case MotionEvent.ACTION_DOWN:
+                        password.setInputType(InputType.TYPE_CLASS_TEXT);
+                        break;
+                }
+                return true;
+            }
+        });
+
+
 
         loadSpinnerData(URL);
         userTypespinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -156,6 +183,7 @@ public class SignUp extends AppCompatActivity {
 
 
 
+    @SuppressLint("StaticFieldLeak")
     private class AsynSignInDetails extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
         String success = null,message="",status="true";

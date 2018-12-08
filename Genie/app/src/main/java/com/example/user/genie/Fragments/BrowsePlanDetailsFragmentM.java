@@ -126,7 +126,7 @@ public class BrowsePlanDetailsFragmentM extends Fragment {
     private void networkCircleService(){
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
+     //   progressDialog.show();
         String rctype="Monthly Pack";
         String cusId= RegPrefManager.getInstance(getActivity()).getCustomerId();
         String opId = RegPrefManager.getInstance(getActivity()).getDTHOperatorCode();

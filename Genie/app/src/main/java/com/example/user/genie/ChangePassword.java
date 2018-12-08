@@ -6,11 +6,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -25,6 +28,7 @@ public class ChangePassword extends AppCompatActivity {
     String user_email, new_password;
     Button btn_change;
     String message = "";
+    ImageView eye;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,25 @@ public class ChangePassword extends AppCompatActivity {
         user_mail = findViewById(R.id.user_mail);
         password = findViewById(R.id.new_password);
         btn_change = findViewById(R.id.btn_change);
+
+        eye = findViewById(R.id.eye);
+
+        eye.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch ( event.getAction() ) {
+
+                    case MotionEvent.ACTION_UP:
+                        password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        break;
+
+                    case MotionEvent.ACTION_DOWN:
+                        password.setInputType(InputType.TYPE_CLASS_TEXT);
+                        break;
+                }
+                return true;
+            }
+        });
 
         btn_change.setOnClickListener(new View.OnClickListener() {
             @Override

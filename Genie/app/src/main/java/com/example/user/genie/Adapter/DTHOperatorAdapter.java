@@ -49,9 +49,8 @@ public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.
       /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
         Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
         Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
+        //   \
 
-
-        //   holder.samagri_amt.setTypeface(tf3);
         holder.mob_operator_id.setText(listItem.getDth_operator_id());
         holder.operator_name.setText(listItem.getDth_operator_name());
         holder.operator_code.setText(listItem.getDth_operator_code());
@@ -64,7 +63,7 @@ public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.
                 RegPrefManager.getInstance(context).setDTHOperator(listItem.getDth_operator_name(),listItem.getDth_operator_code());
 
                 context.startActivity(new Intent(context, DTHRecharge.class));
-              //  ((Activity)context).finish();
+             //   ((DTHRecharge)context).finish();
             }
         });
 
