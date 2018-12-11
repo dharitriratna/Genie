@@ -65,7 +65,7 @@ public class WaterBoardAdapter extends RecyclerView.Adapter<WaterBoardAdapter.Vi
                 RegPrefManager.getInstance(context).setWaterBoard(listItem.getWater_board_name(),listItem.getWater_board_code());
 
                 context.startActivity(new Intent(context,WaterBill.class));
-                 ((Activity)context).finish();
+                // ((Activity)context).finish();
             }
         });
        /* holder.mob_operator_id.setText(listItem.getOperator_id());

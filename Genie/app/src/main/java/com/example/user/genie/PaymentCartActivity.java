@@ -82,7 +82,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
     String DTHoperatorCode;
     String DTHcircleCode;
     String DTHcustomerId;
-    String DTHbillAmount,Successid;
+    String DTHbillAmount,Successid,DateAndTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,6 +216,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 Log.d("url", RechargeAmount);
 
             }
+            numberTv.setText(PhoneNumber);
             servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
             mobileTv.setText(OperatorName);
             amountpTv.setText(getResources().getString(R.string.rupee)+RechargeAmount);
@@ -290,6 +291,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 Log.d("dtham", DTHbillAmount);
             }
 
+            numberTv.setText(DTHcustomerId);
             servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
             mobileTv.setText(DTHoperatorName);
             amountpTv.setText(getResources().getString(R.string.rupee)+DTHbillAmount);
@@ -569,6 +571,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         String status_response;
         String err_msg;
         String value=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileOperatorCode();
+        String opName =RegPrefManager.getInstance(PaymentCartActivity.this).getMobileOperatorName();
         String cirle_code=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileCircleCode();
         @Override
         protected Void doInBackground(Void... params) {
@@ -577,6 +580,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             cred.add(new BasicNameValuePair("user_id",login_user));//user_email
             cred.add(new BasicNameValuePair("customer_id",PhoneNumber ));
             cred.add(new BasicNameValuePair("operator",value ));
+            cred.add(new BasicNameValuePair("operator_name",opName ));
             cred.add(new BasicNameValuePair("circle",cirle_code ));
             Log.d("cn", CircleName);
             cred.add(new BasicNameValuePair("amount",RechargeAmount ));
@@ -593,8 +597,10 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 status_response = jsonObject1.getString("Status");
                 err_msg = jsonObject1.getString("ErrorMessage");
                 Successid=jsonObject1.getString("ApiTransID");
+                DateAndTime=jsonObject1.getString("TransactionDate");
 
                 RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
+                RegPrefManager.getInstance(PaymentCartActivity.this).setDateAndTime(DateAndTime);
 
             } catch (Exception e)
 
@@ -797,12 +803,14 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         String status_response;
         String err_msg;
 
+        String dthOpName=RegPrefManager.getInstance(PaymentCartActivity.this).getDTHOperatorName();
 
         @Override
         protected Void doInBackground(Void... params) {
             pDialog.show();
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
             cred.add(new BasicNameValuePair("user_id",login_user));//user_email
+            cred.add(new BasicNameValuePair("operator_name",dthOpName ));
             cred.add(new BasicNameValuePair("operator",DTHoperatorCode ));
             cred.add(new BasicNameValuePair("circle",DTHcircleCode ));
             cred.add(new BasicNameValuePair("customer_id",DTHcustomerId ));
@@ -822,8 +830,10 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     status_response = jsonObject1.getString("Status");
                     err_msg = jsonObject1.getString("ErrorMessage");
                     Successid=jsonObject1.getString("ApiTransID");
+                    DateAndTime=jsonObject1.getString("TransactionDate");
 
                     RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
+                    RegPrefManager.getInstance(PaymentCartActivity.this).setDateAndTime(DateAndTime);
 
               /*  String data=jsonObject.getString("Status");
                 // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();

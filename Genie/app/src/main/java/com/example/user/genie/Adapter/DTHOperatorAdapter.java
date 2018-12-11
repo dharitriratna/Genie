@@ -40,13 +40,12 @@ public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.
         return new DTHOperatorAdapter.ViewHolder(v);
     }
 
-
     @Override
 
     public void onBindViewHolder(DTHOperatorAdapter.ViewHolder holder, int position) {
        final DTHOperatorsModel listItem = dthOperatorsModels.get(position);
 
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
+      /* Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
         Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
         Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
         //   \
@@ -85,7 +84,6 @@ public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.
 
         private TextView mob_operator_id,operator_name,service_type,operator_code;
         private CardView card_view;
-
 
         public ViewHolder(View itemView) {
             super(itemView);

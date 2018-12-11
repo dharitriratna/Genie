@@ -1,17 +1,26 @@
 package com.example.user.genie;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -23,8 +32,23 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.user.genie.Adapter.BrowsePlansAdapter;
+import com.example.user.genie.ObjectNew.BrowsePlansResponse;
+import com.example.user.genie.ObjectNew.OperatorFinderResponse;
+import com.example.user.genie.client.ApiInterface;
 import com.example.user.genie.helper.RegPrefManager;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MobileRecharge extends AppCompatActivity {
     Toolbar toolbar;
@@ -35,6 +59,10 @@ public class MobileRecharge extends AppCompatActivity {
     RadioButton prepaid, postpaid;
     Button btn_prepaid,btn_postpaid;
     LinearLayout browseplansLayout;
+    ProgressDialog progressDialog;
+    int i=0;
+    private AlertDialog.Builder alertDialog;
+    ApiInterface apiService;
 
     private static final int REQUEST_CODE = 1995;
 
@@ -83,8 +111,30 @@ public class MobileRecharge extends AppCompatActivity {
         amount = findViewById(R.id.amount);
         operator = findViewById(R.id.operator);
         circle = findViewById(R.id.circle);
+        progressDialog = new ProgressDialog(this);
         phone_number = contact_number.getText().toString().trim();
         carrierName = operator.getText().toString().trim();
+
+
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> time duration
+       /* if (isNetworkAvailable()) {
+            networkCircleService();
+
+        } else {
+            noNetwrokErrorMessage();
+        }*/
+
+/*        Runnable progressRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                progressDialog.cancel();
+            }
+        };
+
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progressRunnable, 3000);*/
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
 /*
@@ -190,7 +240,7 @@ public class MobileRecharge extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
-*/
+    */
 
         btn_prepaid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,7 +365,6 @@ public class MobileRecharge extends AppCompatActivity {
         Log.d("login_user", login_user);
 
 
-
       /*  Intent intent1 = getIntent();
         Bundle bundle1 = intent1.getExtras();
 
@@ -337,8 +386,6 @@ public class MobileRecharge extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, Permissions, Permission_All);
         }
     }
-
-
 
 
     public static boolean hasPermissions(Context context, String... permissions){
@@ -365,6 +412,25 @@ public class MobileRecharge extends AppCompatActivity {
         }
     }*/
 
+
+    public boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager= (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    public void noNetwrokErrorMessage(){
+        alertDialog.setTitle("Error!");
+        alertDialog.setMessage("No internet connection. Please check your internet setting.");
+        alertDialog.setCancelable(true);
+        alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert=alertDialog.create();
+        alert.show();
+    }
 
     @Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
@@ -393,90 +459,6 @@ public class MobileRecharge extends AppCompatActivity {
     }
 
 
-
-
-/*
-    private class AsynSignInDetails extends AsyncTask<Void, Void, Void> {
-        ProgressDialog pDialog;
-        String success = null,data="",status="true";
-        String status_response;
-        String err_msg;
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            pDialog.show();
-            ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
-            //  cred.add(new BasicNameValuePair("user_id",login_user));//user_email
-            cred.add(new BasicNameValuePair("customer_id",phone_number ));
-            cred.add(new BasicNameValuePair("operator",operator_code ));
-            cred.add(new BasicNameValuePair("circle",circle_code ));
-            cred.add(new BasicNameValuePair("amount",recharge_amount ));
-            Log.v("RES","Sending data " + phone_number+ operator_code +circle_code+recharge_amount);
-
-
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_dth_datacard_recharge";
-            try {
-                String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
-
-                success = route_response;
-                JSONObject jsonObject = new JSONObject(success);
-
-                // user_email=jsonObject.getString("user_email");
-                status=jsonObject.getString("Status");
-                if(status.equals("Failure")) {
-                    data = jsonObject.getString("ErrorMessage");
-
-                }
-                String data=jsonObject.getString("Status");
-                // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
-                JSONObject jsonObject1 = new JSONObject(data);
-                status_response = jsonObject1.getString("Status");
-                err_msg = jsonObject1.getString("ErrorMessage");
-
-            } catch (Exception e)
-
-            {
-                Log.v("Connection error", e.toString());
-
-            }return null;
-        }
-        protected void onPostExecute(Void result) {
-            pDialog.dismiss();
-
-            if(status.equals("SUCCESS"))
-            {
-                Toast.makeText(getApplicationContext(),"pending", Toast.LENGTH_LONG).show();
-
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("AMOUNT", recharge_amount = amount.getText().toString());
-                editor.commit();
-               // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
-               // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
-            }
-            else{
-                Toast.makeText(getApplicationContext(),err_msg, Toast.LENGTH_LONG).show();
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.remove("PHONE_NUMBER");
-                editor.clear();
-                editor.commit();
-
-            }
-        }
-
-        @Override
-        protected void onPreExecute() {
-            pDialog = new ProgressDialog(MobileRecharge.this);
-            pDialog.setMessage("Loading In...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-    }
-*/
-
-/*
     private class AsyngetOperator extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
         String success = null,data="",status="true";
@@ -558,70 +540,6 @@ public class MobileRecharge extends AppCompatActivity {
             pDialog.show();
         }
     }
-*/
 
 
-
-/*
-   private class normalizePhoneNumberTask extends AsyncTask<String, Void, String> {
-
-        //input your app key and secret from the Sinch dashboard
-        private String appKey = "your_app_key";
-        private String appSecret = "your_app_secret";
-
-        //takes phone number string as an argument
-        @Override
-        protected String doInBackground(String... params) {
-
-            String normalizedPhoneNumber = "";
-
-            try {
-                //get ready to make a get request to normalize the phone number
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet("https://callingapi.sinch.com/v1/calling/query/number/" + params[0].replaceAll("\\s+",""));
-
-                //sinch uses basic authentication
-                String usernamePassword = "application:" + appKey + ":" + appSecret;
-                String encoded = Base64.encodeToString(usernamePassword.getBytes(), Base64.NO_WRAP);
-                httpGet.addHeader("Authorization", "Basic " + encoded);
-
-                //handle the response
-                HttpResponse response = httpclient.execute(httpGet);
-                ResponseHandler<String> handler = new BasicResponseHandler();
-
-                //parse JSON response from Sinch to get phone number
-                normalizedPhoneNumber = parseJSONResponse(handler.handleResponse(response));
-            } catch (ClientProtocolException e) {
-                Log.d("ClientProtocolException", e.getMessage());
-            } catch (IOException e) {
-                Log.d("IOException", e.getMessage());
-            }
-
-            return normalizedPhoneNumber;
-        }
-
-        //once the asynctask is complete, display a toast message with the normalized phone number
-        @Override
-        protected void onPostExecute(String normalizedPhoneNumber) {
-            //if you want to make a call with sinch, this is the place to do it!
-            Toast.makeText(getApplicationContext(), normalizedPhoneNumber, Toast.LENGTH_LONG).show();
-        }
-
-        //the sinch api returns a json like {"number":{"restricted":false,"countryId":"US","numberType":"Mobile","normalizedNumber":"+16507141052"}}
-        //this method will return a string of just the phone number, +16507141052
-        private String parseJSONResponse(String jsonString) {
-
-            String returnString = "";
-
-            try {
-                JSONObject jsonObject = new JSONObject(jsonString);
-                returnString = jsonObject.getJSONObject("number").getString("normalizedNumber");
-            } catch (JSONException e) {
-                Log.d("JSONException", e.getMessage());
-            }
-
-            return returnString;
-        }
-    }
-*/
 }

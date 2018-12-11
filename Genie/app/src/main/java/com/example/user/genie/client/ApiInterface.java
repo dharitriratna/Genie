@@ -26,6 +26,7 @@ import com.example.user.genie.ObjectNew.LoginResponse;
 import com.example.user.genie.ObjectNew.MovieCityResponse;
 import com.example.user.genie.ObjectNew.MovieListResponse;
 import com.example.user.genie.ObjectNew.MyWalletResponse;
+import com.example.user.genie.ObjectNew.OperatorFinderResponse;
 import com.example.user.genie.ObjectNew.PlaceCabResponse;
 import com.example.user.genie.ObjectNew.RemiterDetailsResponse;
 import com.example.user.genie.ObjectNew.RemiterRegisterResponse;
@@ -113,6 +114,8 @@ public interface ApiInterface {
     Call<LandlineResponseModel> get_mobileoperator();
 
 
+
+
    // @POST("api/service/Postpaidmobile_Landline_Broadband")
     @POST("api/service/Postpaidmobile_Landline_Broadband_recharge")
 
@@ -122,7 +125,8 @@ public interface ApiInterface {
                                                 @Field("circle") int circle, @Field("amount") int amount,
                                                 @Field("account_number") String account_number,@Field("std_code") String std_code);
 
-
+    @POST("api/service/operatorFinder")
+    Call<OperatorFinderResponse>postOperatorFinder(@Field("phone") String phone);
 
 
     @GET("api/service/getallinsurnce")

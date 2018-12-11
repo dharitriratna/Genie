@@ -14,9 +14,10 @@ import com.example.user.genie.helper.RegPrefManager;
 
 public class ThankuActivity extends AppCompatActivity {
     Toolbar toolbar;
-    String back,id;
+    String back,id,dt;
     private TextView transactionTV,successTv;
     Button continuebtn;
+    TextView dateAndtime;
   //  private Button continue_shopping;
 
     @Override
@@ -27,7 +28,9 @@ public class ThankuActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         back=RegPrefManager.getInstance(this).getBackService();
         id=RegPrefManager.getInstance(this).getSuccessID();
+        dt=RegPrefManager.getInstance(this).getDateAndTime();
         continuebtn = findViewById(R.id.continuebtn);
+        dateAndtime = findViewById(R.id.date_time);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +62,8 @@ public class ThankuActivity extends AppCompatActivity {
             }
         });
 
+        dateAndtime.setText("");
+
         successTv=findViewById(R.id.successTv);
 
         transactionTV=findViewById(R.id.transactionTV);
@@ -79,6 +84,7 @@ public class ThankuActivity extends AppCompatActivity {
                 transactionTV.setVisibility(View.VISIBLE);
                // transactionTV.setText(id);
                 transactionTV.setText("Transation id is: "+RegPrefManager.getInstance(ThankuActivity.this).getSuccessID());
+                dateAndtime.setText("Date and Time is: "+RegPrefManager.getInstance(ThankuActivity.this).getDateAndTime());
 
             }
             successTv.setText("Success!!!");
@@ -88,6 +94,8 @@ public class ThankuActivity extends AppCompatActivity {
                 transactionTV.setVisibility(View.VISIBLE);
                 // transactionTV.setText(id);
                 transactionTV.setText("Transation id is: "+RegPrefManager.getInstance(ThankuActivity.this).getSuccessID());
+                dateAndtime.setText("Date and Time is: "+RegPrefManager.getInstance(ThankuActivity.this).getDateAndTime());
+
 
             }
             successTv.setText("Success!!!");

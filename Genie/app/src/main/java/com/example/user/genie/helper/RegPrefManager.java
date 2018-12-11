@@ -565,6 +565,16 @@ public class RegPrefManager {
         return mSharedPreferences.getString("SuccessID",null);
     }
 
+    public void setDateAndTime(String dt){
+        mSharedPreferences.edit().putString("DateAndTime",dt).apply();
+
+
+    }
+    public String getDateAndTime(){
+
+        return mSharedPreferences.getString("DateAndTime",null);
+    }
+
 
     public void setOperatorId(String Opid){
         mSharedPreferences.edit().putString("OperatorID",Opid).apply();

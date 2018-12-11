@@ -15,6 +15,7 @@ public class FailureActivity extends AppCompatActivity {
     private TextView transactionTV,successTv;
     String back;
     Button continuebtn;
+    TextView dateAndtime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,8 @@ public class FailureActivity extends AppCompatActivity {
                 }
             }
         });
+        String dt=RegPrefManager.getInstance(this).getDateAndTime();
+        dateAndtime = findViewById(R.id.date_time);
 
         continuebtn = findViewById(R.id.continuebtn);
         continuebtn.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +61,7 @@ public class FailureActivity extends AppCompatActivity {
 
         transactionTV=findViewById(R.id.transactionTV);
         transactionTV.setText("Transation id is: "+RegPrefManager.getInstance(FailureActivity.this).getSuccessID());
+        dateAndtime.setText("Date and Time is: "+RegPrefManager.getInstance(FailureActivity.this).getDateAndTime());
         //continue_shopping=findViewById(R.id.continue_shopping);
        // successTv.setText(RegPrefManager.getInstance(FailureActivity.this).getInsuranceMessage());
 
