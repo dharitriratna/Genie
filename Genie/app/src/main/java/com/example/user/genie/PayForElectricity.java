@@ -49,6 +49,9 @@ public class PayForElectricity extends AppCompatActivity {
     String amount;
     String landline_ca_number;
     String other_values;
+    String service_id;
+    TextView serviceId;
+
 
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";

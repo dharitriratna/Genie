@@ -1,5 +1,6 @@
 package com.example.user.genie;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String acmech;
     ApiInterface apiService;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,15 +183,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         joblin=findViewById(R.id.joblin);
 
-        prepaid.setOnClickListener(new View.OnClickListener() {
+        prepaid.setId(13);
+        dth.setId(14);
+        electricity.setId(15);
+        cabBookingLin.setId(37);
+        rentLin.setId(38);
+        birthday_planners.setId(39);
+
+           final ArrayList<String> al = new ArrayList<String>();
+            al.add("13");
+            al.add("14");
+            al.add("15");
+            al.add("37");
+            al.add("38");
+            al.add("39");
+            al.add("MN");
+
+
+            prepaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+           //     RegPrefManager.getInstance(MainActivity.this).setMobileCircle();
                 RegPrefManager.getInstance(MainActivity.this).setMobileOperator("","");
                 RegPrefManager.getInstance(MainActivity.this).setMobileCircle("","");
                 RegPrefManager.getInstance(MainActivity.this).setMobileRechargeAmount("");
                 RegPrefManager.getInstance(MainActivity.this).setPhoneNo("");
                 RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,MobileRecharge.class));
+                Intent intent=(new Intent(MainActivity.this,MobileRecharge.class));
+               // intent.putExtra("MobileId",al.indexOf("13"));
+                startActivity(intent);
             }
         });
 
@@ -207,7 +229,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
                 RegPrefManager.getInstance(MainActivity.this).SetElectricityBoard("","");
                 RegPrefManager.getInstance(MainActivity.this).setElectricityOperator("","");
-                startActivity(new Intent(MainActivity.this,PayForElectricity.class));
+                Intent intent=(new Intent(MainActivity.this,PayForElectricity.class));
+                intent.putExtra("ElectricityId",al.indexOf("15"));
+                startActivity(intent);
             }
         });
 
@@ -265,7 +289,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 RegPrefManager.getInstance(MainActivity.this).setMobileRechargeAmount("");
                 RegPrefManager.getInstance(MainActivity.this).setCustomerId("");
                 RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this, DTHRecharge.class));
+                Intent intent=(new Intent(MainActivity.this,DTHRecharge.class));
+                intent.putExtra("DTHId",al.indexOf("14"));
+                startActivity(intent);
             }
         });
         moviesLinear.setOnClickListener(new View.OnClickListener() {
@@ -798,6 +824,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.refund:
                 Intent refund = new Intent(MainActivity.this, RefundPolicy.class);
                 startActivity(refund);
+                break;
+
+            case R.id.fse_list:
+                Intent fse_list = new Intent(MainActivity.this,FSEListActivty.class);
+                startActivity(fse_list);
+                break;
+
+            case R.id.retailer_list:
+                Intent retailer_list = new Intent(MainActivity.this,RetailersListActivity.class);
+                startActivity(retailer_list);
                 break;
 
             case R.id.logout:

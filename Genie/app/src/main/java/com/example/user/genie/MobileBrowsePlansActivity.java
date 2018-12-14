@@ -48,7 +48,7 @@ public class MobileBrowsePlansActivity extends AppCompatActivity {
     String operatorName;
     String circleName;
     private TextView planlistTv;
-    private String plans;
+    private String plans,planCircle;
 
     private TextView txtSeatSelected;
     private TabLayout htab_tabs;
@@ -73,7 +73,8 @@ public class MobileBrowsePlansActivity extends AppCompatActivity {
         });
         planlistTv = findViewById(R.id.planlistTv);
         plans= RegPrefManager.getInstance(getApplicationContext()).getMobileOperatorName();
-        planlistTv.setText(plans);
+        planCircle= RegPrefManager.getInstance(getApplicationContext()).getMobileCircleName();
+        planlistTv.setText(plans+" "+planCircle+" "+"plans");
 
 
         progressDialog = new ProgressDialog(this);

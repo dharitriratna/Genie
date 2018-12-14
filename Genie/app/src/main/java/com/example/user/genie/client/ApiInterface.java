@@ -1,6 +1,7 @@
 package com.example.user.genie.client;
 
 import com.example.user.genie.Model.BeneficiaryDetailsResponse;
+import com.example.user.genie.ObjectNew.AllOrdersResponse;
 import com.example.user.genie.ObjectNew.BeneficiaryDeleteResponse;
 import com.example.user.genie.ObjectNew.BeneficiaryDeleteValidateResponse;
 import com.example.user.genie.ObjectNew.BeneficiaryRegisterResponse;
@@ -74,6 +75,11 @@ public interface ApiInterface {
     @GET("api/service/getRent")
     @Headers("Content-Type: application/json")
     Call<RentResponse> getRentResponse(@Query("user_id") int userid);
+
+    @GET("api/service/getOrderDetailsById")
+    @Headers("Content-Type: application/json")
+    Call<AllOrdersResponse> getAllOrderResponse(@Query("user_id") int userid,
+                                                @Query("service_id") String service_id);
 
     @Multipart
     @POST("api/service/sell")
@@ -179,6 +185,7 @@ public interface ApiInterface {
                                              @Field("operator")String operator,
                                              @Field("circle") String circle,
                                              @Field("rctype") String rctype);
+
 
 
 

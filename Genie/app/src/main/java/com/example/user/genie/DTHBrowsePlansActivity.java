@@ -78,30 +78,30 @@ public class DTHBrowsePlansActivity extends AppCompatActivity {
     @SuppressLint("NewApi")
     private void setupTabIcons() {
 
-        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+       /* TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
         tabOne.setText("Monthly Packs");
         tabOne.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        htab_tabs.getTabAt(0).setCustomView(tabOne);
+        htab_tabs.getTabAt(0).setCustomView(tabOne);*/
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
         tabTwo.setText("3 Month Packs");
         tabTwo.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        htab_tabs.getTabAt(1).setCustomView(tabTwo);
+        htab_tabs.getTabAt(0).setCustomView(tabTwo);
 
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
         tabThree.setText("6 Month Packs");
         tabThree.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        htab_tabs.getTabAt(2).setCustomView(tabThree);
+        htab_tabs.getTabAt(1).setCustomView(tabThree);
 
         TextView tabFour = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
         tabFour.setText("Annual Packs");
         tabFour.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        htab_tabs.getTabAt(3).setCustomView(tabFour);
+        htab_tabs.getTabAt(2).setCustomView(tabFour);
      }
 
     private void setupViewPager(ViewPager viewPager) {
         DTHBrowsePlansActivity.ViewPagerAdapter adapter = new DTHBrowsePlansActivity.ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new BrowsePlanDetailsFragmentM(), "Monthly Packs");
+       // adapter.addFrag(new BrowsePlanDetailsFragmentM(), "Monthly Packs");
         adapter.addFrag(new BrowsePlanDetailsFragment3M(), "3 Month Packs");
         adapter.addFrag(new BrowsePlanDetailsFragment6M(), "6 Month Packs");
         adapter.addFrag(new BrowsePlanDetailsFragmentAP(), "Annual Packs");

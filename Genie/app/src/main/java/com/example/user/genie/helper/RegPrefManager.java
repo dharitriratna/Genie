@@ -145,6 +145,14 @@ public class RegPrefManager {
     }
 
 
+    public void setServiceId(String serviceId){
+        mSharedPreferences.edit().putString("serviceId",serviceId).apply();
+    }
+    public String getServiceId(){
+        return mSharedPreferences.getString("serviceId",null);
+    }
+
+
     public void setCustomerId(String customerId){
         mSharedPreferences.edit().putString("customerId",customerId).apply();
     }

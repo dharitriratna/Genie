@@ -1,6 +1,7 @@
 package com.example.user.genie.Adapter;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,24 +10,22 @@ import android.widget.TextView;
 
 import com.example.user.genie.Model.AllAddressModel;
 import com.example.user.genie.Model.OrderModel;
+import com.example.user.genie.ObjectNew.AllOrdersResponse;
+import com.example.user.genie.ObjectNew.RentResponse;
 import com.example.user.genie.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
-    private List<OrderModel> orderModels;
     private Context context;
+    private ArrayList<AllOrdersResponse.allOrdersArrayListResponse> ordersArrayListResponses;
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
-
-    public OrderAdapter(List<OrderModel> orderModels, Context context) {
-        this.orderModels = orderModels;
-        this.context = context;
+    public OrderAdapter(Context context, ArrayList<AllOrdersResponse.allOrdersArrayListResponse> ordersArrayListResponses) {
+        this.ordersArrayListResponses = ordersArrayListResponses;
+        this.context=context;
     }
-
     @Override
     public OrderAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.row_orders,parent,false);
@@ -36,7 +35,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     @Override
 
     public void onBindViewHolder(OrderAdapter.ViewHolder holder, int position) {
-        OrderModel listItem = orderModels.get(position);
+        AllOrdersResponse.allOrdersArrayListResponse listItem = ordersArrayListResponses.get(position);
 
       /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
         Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
@@ -44,42 +43,54 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
 
         //   holder.samagri_amt.setTypeface(tf3);
+        holder.name.setText(listItem.getFirst_name());
+        holder.service_name.setText(listItem.getServiceName());
+        holder.transactiondate.setText(listItem.getTransactionDate());
+        holder.orderstatus.setText(listItem.getStatus());
+        holder.amount.setText(context.getResources().getString(R.string.rupee)+listItem.getAmount());
+        holder.errorMessage.setText(listItem.getErrorMessage());
+        holder.operatorRef.setText(listItem.getOperatorRef());
+        holder.rechargeno.setText(listItem.getRecharge_no());
+        holder.itemname.setText(listItem.getItem_name());
+        holder.quantity.setText(listItem.getQuantity());
+        holder.unit.setText(listItem.getUnit());
+        holder.price.setText(listItem.getPrice());
+        holder.subtotal.setText(listItem.getSubtotal());
+        holder.taxamount.setText(listItem.getTax_amount());
+        holder.serviceorderid.setText(listItem.getService_order_id());
 
-        holder.id.setText(listItem.getOrder_id());
-        holder.name.setText(listItem.getName());
-        //   holder.pro_name.setTypeface(tf3);
-        holder.lane.setText(listItem.getOrder_line());
-        holder.landmark.setText(listItem.getOrder_landmark());
-        holder.city.setText("City : "+listItem.getOrder_city());
-        holder.state.setText("State : "+listItem.getOrder_state());
-        holder.country.setText("Country : "+listItem.getOrder_country());
-        holder.pin.setText("Pin : "+listItem.getOrder_pin());
-        holder.amount.setText("Amount : "+listItem.getOrder_amount());
-        holder.subtotal.setText("Subtotal : "+listItem.getOrder_subtotal());
 
     }
 
     @Override
     public int getItemCount() {
-        return orderModels.size();
+        return ordersArrayListResponses.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView id,name,lane,landmark,city,state,country,pin,amount,subtotal;
+        private TextView id,name,service_name,transactiondate,orderstatus,amount,errorMessage,
+                operatorRef,rechargeno,itemname,quantity,unit,price,subtotal,taxamount,serviceorderid;
 
         public ViewHolder(View itemView) {
             super(itemView);
             id = itemView.findViewById(R.id.id);
             name = itemView.findViewById(R.id.name);
-            lane = itemView.findViewById(R.id.lane);
-            landmark = itemView.findViewById(R.id.landmark);
-            city = itemView.findViewById(R.id.city);
-            state = itemView.findViewById(R.id.state);
-            country = itemView.findViewById(R.id.country);
-            pin = itemView.findViewById(R.id.pin);
+            service_name = itemView.findViewById(R.id.service_name);
+            transactiondate = itemView.findViewById(R.id.transactiondate);
+            orderstatus = itemView.findViewById(R.id.orderstatus);
             amount = itemView.findViewById(R.id.amount);
+            errorMessage = itemView.findViewById(R.id.errorMessage);
+            operatorRef = itemView.findViewById(R.id.operatorRef);
+            rechargeno = itemView.findViewById(R.id.rechargeno);
+            itemname = itemView.findViewById(R.id.itemname);
+            quantity = itemView.findViewById(R.id.quantity);
+            unit = itemView.findViewById(R.id.unit);
+            price = itemView.findViewById(R.id.price);
             subtotal = itemView.findViewById(R.id.subtotal);
+            taxamount = itemView.findViewById(R.id.taxamount);
+            serviceorderid = itemView.findViewById(R.id.serviceorderid);
+
         }
     }
 }

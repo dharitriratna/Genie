@@ -45,6 +45,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -79,6 +81,8 @@ public class MobileRecharge extends AppCompatActivity {
     int selectedId = 1;
     String number;
     String check;
+    String service_id;
+    TextView serviceId;
 
 
 
@@ -99,6 +103,11 @@ public class MobileRecharge extends AppCompatActivity {
 
         radioGroup = findViewById(R.id.radioGroup);
         browseplansLayout = findViewById(R.id.browseplansLayout);
+        serviceId=findViewById(R.id.serviceId);
+        service_id = serviceId.getText().toString().trim();
+        Log.d("tag", service_id);
+        RegPrefManager.getInstance(MobileRecharge.this).setServiceId(service_id);
+
 
       //  int selectedId=radioGroup.getCheckedRadioButtonId();
         prepaid = findViewById(R.id.prepaid);
@@ -113,7 +122,35 @@ public class MobileRecharge extends AppCompatActivity {
         circle = findViewById(R.id.circle);
         progressDialog = new ProgressDialog(this);
         phone_number = contact_number.getText().toString().trim();
+
+     /*   if (phone_number.equals(contact_number.getText().toString())){
+
+            final long period = 1000;
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                  //  new AsyngetOperator().execute();
+                }
+            }, 1000, period);
+        }
+        else {
+
+        }*/
+
+     /*   Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if(bundle != null) {
+
+            service_id = bundle.getString("MobileId");
+
+        }
+
+        Toast.makeText(getApplicationContext(), service_id, Toast.LENGTH_SHORT).show();
+*/
+
         carrierName = operator.getText().toString().trim();
+
 
 
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> time duration
@@ -124,16 +161,7 @@ public class MobileRecharge extends AppCompatActivity {
             noNetwrokErrorMessage();
         }*/
 
-/*        Runnable progressRunnable = new Runnable() {
-
-            @Override
-            public void run() {
-                progressDialog.cancel();
-            }
-        };
-
-        Handler pdCanceller = new Handler();
-        pdCanceller.postDelayed(progressRunnable, 3000);*/
+/*       */
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
@@ -399,6 +427,8 @@ public class MobileRecharge extends AppCompatActivity {
         }
         return true;
     }
+
+
     /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICK_CONTACT && resultCode == RESULT_OK) {
@@ -461,7 +491,7 @@ public class MobileRecharge extends AppCompatActivity {
 
     private class AsyngetOperator extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
-        String success = null,data="",status="true";
+        String success = null,data="",status="";
         String error;
         String message;
 
@@ -469,13 +499,13 @@ public class MobileRecharge extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             pDialog.show();
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
-            cred.add(new BasicNameValuePair("user_id",login_user));//user_email
+          //  cred.add(new BasicNameValuePair("user_id",login_user));//user_email
             cred.add(new BasicNameValuePair("phone",phone_number=contact_number.getText().toString()));
 
 
             Log.v("RES","Sending data " +login_user+ phone_number);
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/operator";
+            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/operatorFinder";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 
@@ -485,21 +515,21 @@ public class MobileRecharge extends AppCompatActivity {
                 // user_email=jsonObject.getString("user_email");
                 status=jsonObject.getString("status");
                 if(status.equals("false")) {
-                    data = jsonObject.getString("ErrorMessage");
+                    message = jsonObject.getString("Status");
 
                 }
                 String data=jsonObject.getString("data");
                 // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
                 JSONObject jsonObject1 = new JSONObject(data);
-                String operator_name=jsonObject1.getString("Operator");
-                String circle_name=jsonObject1.getString("Circle");
-                message = jsonObject1.getString("Message");
+                operator_code=jsonObject1.getString("OperatorCode");
+                circle_code=jsonObject1.getString("CircleCode");
+              /*  message = jsonObject1.getString("Message");
                 error = jsonObject1.getString("Errorcode");
+*/
 
-
-                operator.setText(operator_name);
+             /*   operator.setText(operator_name);
                 circle.setText(circle_name);
-
+*/
 
             } catch (Exception e)
 
@@ -511,23 +541,24 @@ public class MobileRecharge extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
 
-            if(status.equals("SUCCESS"))
+            if(status.equals("true"))
             {
-                Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),operator_code, Toast.LENGTH_LONG).show();
+                new AsynPostOperator().execute();
 
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+               /* SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("AMOUNT", recharge_amount = amount.getText().toString());
                 editor.commit();
                 Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
+                startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();*/
             }
             else{
-                Toast.makeText(getApplicationContext(),error, Toast.LENGTH_LONG).show();
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                Toast.makeText(getApplicationContext(),"No data found", Toast.LENGTH_LONG).show();
+               /* SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.remove("PHONE_NUMBER");
-                editor.commit();
+                editor.commit();*/
             }
         }
 
@@ -541,5 +572,16 @@ public class MobileRecharge extends AppCompatActivity {
         }
     }
 
+    private class AsynPostOperator extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pDialog;
+        String success = null,data="",status="";
+        String error;
+        String message;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+    }
 
 }

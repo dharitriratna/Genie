@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/profile"
-        android:icon="@drawable/my_order"
+        android:icon="@drawable/ic_user_black"
         android:iconTint="@color/colorPrimaryDark"
         android:title="My Profile"/>
 
@@ -65,6 +65,19 @@
         android:icon="@drawable/ic_refund"
         android:iconTint="@color/colorPrimaryDark"
         android:title="Refund Policy" />
+
+    <item
+        android:id="@+id/fse_list"
+        android:icon="@drawable/ic_user_black"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title="FSE List"/>
+
+    <item
+        android:id="@+id/retailer_list"
+        android:icon="@drawable/ic_user_black"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title="Retailer List"/>
+
 
     <item
         android:id="@+id/logout"

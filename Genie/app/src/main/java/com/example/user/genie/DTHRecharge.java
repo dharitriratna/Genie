@@ -30,6 +30,9 @@ public class DTHRecharge extends AppCompatActivity {
     LinearLayout browse_dth_plans;
     String operator_name,operator_code,CircleName, CircleId, cutomerId,dth_recharge_amount;
     Button btn_dth_recharge;
+    String service_id;
+    TextView serviceId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +46,19 @@ public class DTHRecharge extends AppCompatActivity {
                finish();
             }
         });
+
+
         dth_operator_name = findViewById(R.id.dth_operator_name);
         customer_id = findViewById(R.id.customer_id);
         dth_amount = findViewById(R.id.dth_amount);
         browse_dth_plans = findViewById(R.id.browse_dth_plans);
         btn_dth_recharge = findViewById(R.id.btn_dth_recharge);
         circle = findViewById(R.id.circle);
+        serviceId=findViewById(R.id.serviceId);
+        service_id = serviceId.getText().toString().trim();
+        Log.d("tag", service_id);
+        RegPrefManager.getInstance(DTHRecharge.this).setServiceId(service_id);
+
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();

@@ -334,7 +334,6 @@
         <activity
             android:name=".PendingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".ComingSoonActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -344,15 +343,27 @@
         <activity
             android:name=".LoanPaymentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DTHBrowsePlansActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".OTPActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DTHOperatorCircle"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FSESignupActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FSEListActivty"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".DTHBrowsePlansActivity"
+        <activity android:name=".RetailersListActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".RetailerSignupActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".OTPActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity android:name=".DTHOperatorCircle"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

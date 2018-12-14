@@ -61,7 +61,7 @@ public class FailureActivity extends AppCompatActivity {
 
         transactionTV=findViewById(R.id.transactionTV);
         transactionTV.setText("Transation id is: "+RegPrefManager.getInstance(FailureActivity.this).getSuccessID());
-        dateAndtime.setText("Date and Time is: "+RegPrefManager.getInstance(FailureActivity.this).getDateAndTime());
+        dateAndtime.setText("Date and Time : "+RegPrefManager.getInstance(FailureActivity.this).getDateAndTime());
         //continue_shopping=findViewById(R.id.continue_shopping);
        // successTv.setText(RegPrefManager.getInstance(FailureActivity.this).getInsuranceMessage());
 

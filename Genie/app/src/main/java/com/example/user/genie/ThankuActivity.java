@@ -94,7 +94,7 @@ public class ThankuActivity extends AppCompatActivity {
                 transactionTV.setVisibility(View.VISIBLE);
                 // transactionTV.setText(id);
                 transactionTV.setText("Transation id is: "+RegPrefManager.getInstance(ThankuActivity.this).getSuccessID());
-                dateAndtime.setText("Date and Time is: "+RegPrefManager.getInstance(ThankuActivity.this).getDateAndTime());
+                dateAndtime.setText("Date and Time : "+RegPrefManager.getInstance(ThankuActivity.this).getDateAndTime());
 
 
             }

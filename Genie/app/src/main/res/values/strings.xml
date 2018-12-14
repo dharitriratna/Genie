@@ -22,6 +22,13 @@ pregnancy. How it affects the whole family, especially two grown up sons, forms 
         <item>Distributor</item>
     </string-array>
 
+    <string-array name="addressproof">
+        <item>Aadhar</item>
+        <item>DL</item>
+        <item>Voter ID</item>
+        <item>Passport</item>
+    </string-array>
+
     <string-array name="pincodes">
         <item>751016</item>
         <item>751024</item>

@@ -573,6 +573,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         String value=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileOperatorCode();
         String opName =RegPrefManager.getInstance(PaymentCartActivity.this).getMobileOperatorName();
         String cirle_code=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileCircleCode();
+        String service_id=RegPrefManager.getInstance(PaymentCartActivity.this).getServiceId();
         @Override
         protected Void doInBackground(Void... params) {
             pDialog.show();
@@ -584,7 +585,8 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             cred.add(new BasicNameValuePair("circle",cirle_code ));
             Log.d("cn", CircleName);
             cred.add(new BasicNameValuePair("amount",RechargeAmount ));
-            Log.v("RES","Sending data " + PhoneNumber+ OperatorCode +CircleCode+RechargeAmount);
+            cred.add(new BasicNameValuePair("service_id",service_id ));
+            Log.v("RES","Sending data " + PhoneNumber+ value +opName+cirle_code+RechargeAmount+service_id);
 
             String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_dth_datacard_recharge";
             try {
@@ -656,6 +658,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
     private class AsynBillSubmit extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
         String success = null,data="",status="true";
+        String service_id=RegPrefManager.getInstance(PaymentCartActivity.this).getServiceId();
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -668,8 +671,9 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             cred.add(new BasicNameValuePair("amount",BillAmount ));
             cred.add(new BasicNameValuePair("landline_ca_number",landline_ca_number ));
             cred.add(new BasicNameValuePair("other_values",other_values ));
+            cred.add(new BasicNameValuePair("service_id",service_id ));
             Log.v("RES","Sending data" +login_user+ SelectStateName+ operator +circle+BillAmount
-                    +landline_ca_number+other_values);
+                    +landline_ca_number+other_values+service_id);
 
 
             String urlRouteList="http://demo.ratnatechnology.co.in/genie/index.php/api/service/electricity_insurance_gas_water";
@@ -804,7 +808,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         String err_msg;
 
         String dthOpName=RegPrefManager.getInstance(PaymentCartActivity.this).getDTHOperatorName();
-
+        String service_id=RegPrefManager.getInstance(PaymentCartActivity.this).getServiceId();
         @Override
         protected Void doInBackground(Void... params) {
             pDialog.show();
@@ -815,7 +819,8 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             cred.add(new BasicNameValuePair("circle",DTHcircleCode ));
             cred.add(new BasicNameValuePair("customer_id",DTHcustomerId ));
             cred.add(new BasicNameValuePair("amount",DTHbillAmount ));
-            Log.v("RES","Sending data " + DTHoperatorCode+DTHcircleCode+ DTHcustomerId +DTHbillAmount);
+            cred.add(new BasicNameValuePair("service_id",service_id ));
+            Log.v("RES","Sending data " +login_user+dthOpName+ DTHoperatorCode+DTHcircleCode+ DTHcustomerId +DTHbillAmount+service_id);
 
 
             String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_dth_datacard_recharge";

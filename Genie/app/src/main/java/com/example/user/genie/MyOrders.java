@@ -1,15 +1,23 @@
 package com.example.user.genie;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -20,6 +28,18 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.user.genie.Adapter.AllAddressAdapter;
 import com.example.user.genie.Adapter.OrderAdapter;
+import com.example.user.genie.Fragments.AllOrdersFragment;
+import com.example.user.genie.Fragments.BrowsePlanDetailsFragment;
+import com.example.user.genie.Fragments.BrowsePlanDetailsFragment2g;
+import com.example.user.genie.Fragments.BrowsePlanDetailsFragment3g;
+import com.example.user.genie.Fragments.BrowsePlanDetailsFragment4g;
+import com.example.user.genie.Fragments.BrowsePlanDetailsFragmentFt;
+import com.example.user.genie.Fragments.BrowsePlanDetailsFragmentSpecial;
+import com.example.user.genie.Fragments.GiftcardOrdersFragment;
+import com.example.user.genie.Fragments.RechargeandBillOrdersFragment;
+import com.example.user.genie.Fragments.ShoppingOrdersFragment;
+import com.example.user.genie.Fragments.TicketOrdersFragment;
+import com.example.user.genie.Fragments.TravelOrdersFragment;
 import com.example.user.genie.Model.AllAddressModel;
 import com.example.user.genie.Model.OrderModel;
 
@@ -40,6 +60,9 @@ public class MyOrders extends AppCompatActivity {
     int i=0;
     private OrderAdapter orderAdapter;
     private List<OrderModel> orderModels;
+    private TabLayout orders_tabs;
+    private ViewPager viewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +76,14 @@ public class MyOrders extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        orders_tabs = findViewById(R.id.orders_tabs);
 
-        progressDialog = new ProgressDialog(this);
+      /*  progressDialog = new ProgressDialog(this);
         orders_recyclerview = findViewById(R.id.orders_recyclerview);
         GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
         orders_recyclerview.setLayoutManager(manager);
 
-        orderModels = new ArrayList<>();
+        orderModels = new ArrayList<>();*/
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
@@ -69,97 +93,107 @@ public class MyOrders extends AppCompatActivity {
         editor.commit(); // commit changes
 
         Log.d("login_user", login_user);
-        getOrders();
+
+
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        /*ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);*/
+        setupViewPager(viewPager);
+
+        orders_tabs = (TabLayout) findViewById(R.id.orders_tabs);
+        orders_tabs.setupWithViewPager(viewPager);
+        setupTabIcons();
     }
 
-    private void getOrders() {
-        progressDialog.setMessage("Loading");
-        progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "http://demo.ratnatechnology.co.in/genie/index.php/api/service/getorder_service?user_id="+login_user,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        progressDialog.dismiss();
-                        try {
-                            Log.d("onResponse:", s);
-                            JSONObject jsonObject = new JSONObject(s);
-                            JSONObject object=null;
-                            String message="";
+    @SuppressLint("NewApi")
+    private void setupTabIcons() {
 
-                            if (jsonObject!=null){
-                                JSONArray array = jsonObject.getJSONArray("data");
-                                if (array.length()>0) {
+        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabOne.setText("All");
+        tabOne.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        orders_tabs.getTabAt(0).setCustomView(tabOne);
 
-                                    for (int i = 0; i < array.length(); i++) {
-                                        String id = "", name = "", lane = "", landmark = "", city = "", state = "", country = "", pin = "", amount="", subtotal="";
-                                        JSONObject o = array.getJSONObject(i);
-                                        id = o.getString("id");
-                                        name = o.getString("billing_name");
-                                        lane = o.getString("billing_line1");
-                                        landmark = o.getString("service_name");
-                                        city = o.getString("billing_city");
-                                        state = o.getString("billing_state");
-                                        country = o.getString("billing_country");
-                                        pin = o.getString("pin");
-                                        amount = o.getString("price");
-                                        subtotal = o.getString("service_sub_total");
+        TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabTwo.setText("Recharge & Bills");
+        tabTwo.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        orders_tabs.getTabAt(1).setCustomView(tabTwo);
 
-                                        Log.d("lane", lane);
-                                        OrderModel item = new OrderModel(
-                                                id,name, lane, landmark, city, state, country, pin,amount,subtotal);
+        TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabThree.setText("Shopping");
+        tabThree.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        orders_tabs.getTabAt(2).setCustomView(tabThree);
 
+        TextView tabFour = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabFour.setText("Travel");
+        tabFour.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        orders_tabs.getTabAt(3).setCustomView(tabFour);
 
-                                        orderModels.add(item);
+        TextView tabFive = (TextView)LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabFive.setText("Tickets");
+        tabFive.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        orders_tabs.getTabAt(4).setCustomView(tabFive);
 
-                                    /*String strCurrentDate = order_date;
-                                    SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss Z");
-                                    Date newDate = format.parse(strCurrentDate);
+        TextView tabSix = (TextView)LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabSix.setText("Gift Cards");
+        tabSix.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        orders_tabs.getTabAt(5).setCustomView(tabSix);
 
-                                    format = new SimpleDateFormat("MMM dd,yyyy hh:mm a");
-                                    String date = format.format(newDate);*/
-                                    }
-                                }
-                                else {
-                                /*Toast.makeText(getApplicationContext(), "No Data Found",
-                                        Toast.LENGTH_LONG).show();*/
-                                    orders_recyclerview.setVisibility(View.GONE);
-                                    // no_orders_text.setVisibility(View.VISIBLE);
-                                }
-                            }
+      /*  TextView tabSeven = (TextView)LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabSeven.setText("Validity");
+        tabSeven.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        htab_tabs.getTabAt(6).setCustomView(tabSeven);
 
+        TextView tabEight = (TextView)LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
+        tabEight.setText("Special");
+        tabEight.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        htab_tabs.getTabAt(7).setCustomView(tabEight);*/
 
-
-                            orderAdapter = new OrderAdapter(orderModels, getApplicationContext());
-                            orders_recyclerview.setAdapter(orderAdapter);
-
-
-                        } catch (JSONException e) {
-
-                            e.printStackTrace();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error.getMessage() == null) {
-                    if (i < 3) {
-                        Log.e("Retry due to error ", "for time : " + i);
-                        i++;
-                    } else {
-                        progressDialog.dismiss();
-                        Toast.makeText(MyOrders.this, "Check your network connection.",
-                                Toast.LENGTH_LONG).show();
-                    }
-                } else
-                    Toast.makeText(MyOrders.this, error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-        RequestQueue requestQueue = Volley.newRequestQueue(MyOrders.this);
-        requestQueue.add(stringRequest);
     }
+
+    private void setupViewPager(ViewPager viewPager) {
+        MyOrders.ViewPagerAdapter adapter = new MyOrders.ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new AllOrdersFragment(), "All");
+        adapter.addFrag(new RechargeandBillOrdersFragment(), "Recharge & Bills");
+        adapter.addFrag(new ShoppingOrdersFragment(), "Shopping");
+        adapter.addFrag(new TravelOrdersFragment(), "Travel");
+        adapter.addFrag(new TicketOrdersFragment(), "Tickets");
+        adapter.addFrag(new GiftcardOrdersFragment(), "Gift Cards");
+      /*  adapter.addFrag(new BrowsePlanDetailsFragment(), "SEVEN");
+        adapter.addFrag(new BrowsePlanDetailsFragment(), "EIGHT");*/
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFrag(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
+
+
 
 }
