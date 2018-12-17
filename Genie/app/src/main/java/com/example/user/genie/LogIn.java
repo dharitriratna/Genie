@@ -126,7 +126,10 @@ public class LogIn extends AppCompatActivity {
         login_user=sharedpreferences.getString("LOGGED_IN_AS", "");
         editor.commit(); // commit changes
 
-        if (login_user.equals("1")){startActivity(new Intent(this,MainActivity.class));finish();}
+        if (login_user.equals("1")){startActivity(new Intent(this,FSEListActivty.class));finish();}
+        if (login_user.equals("2")){startActivity(new Intent(this,RetailersListActivity.class));finish();}
+        if (login_user.equals("3")){startActivity(new Intent(this,MainActivity.class));finish();}
+        if (login_user.equals("4")){startActivity(new Intent(this,MainActivity.class));finish();}
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,6 +196,7 @@ public class LogIn extends AppCompatActivity {
 
     }
 
+/*
     private void networkRegister(){
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
@@ -239,8 +243,6 @@ public class LogIn extends AppCompatActivity {
                     }
                 }
 
-
-
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 progressDialog.dismiss();
@@ -248,12 +250,14 @@ public class LogIn extends AppCompatActivity {
 
             }
         });
-
-
     }
+*/
+
     private class AsynSignInDetails extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
-        String success = null,message="",status="true";
+        String success = null,message="";
+        boolean status=true;
+        String user_groups;
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -271,10 +275,9 @@ public class LogIn extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(success);
 
                 // user_email=jsonObject.getString("user_email");
-                status=jsonObject.getString("status");
-                if(status.equals("false")) {
-                    message = jsonObject.getString("message");
-                }
+            //    status=jsonObject.getString("status");
+                status =jsonObject.getBoolean("status");
+                message = jsonObject.getString("message");
 
                 String data=jsonObject.getString("data");
                 // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
@@ -285,6 +288,8 @@ public class LogIn extends AppCompatActivity {
 
                 String user_name = jsonObject1.getString("user_name");
                 String user_phone = jsonObject1.getString("user_phone");
+                user_groups = jsonObject1.getString("user_groups");
+                RegPrefManager.getInstance(LogIn.this).setUserGroup(user_groups);
                 RegPrefManager.getInstance(LogIn.this).setPhoneNo(user_phone);
                 RegPrefManager.getInstance(LogIn.this).setUserName(user_name);
                 RegPrefManager.getInstance(LogIn.this).setUserEmail(user_email);
@@ -307,21 +312,51 @@ public class LogIn extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
 
-            if(status.equals("true"))
+            if(status==true&&user_groups.equals("4"))
             {
-                Toast.makeText(getApplicationContext(),"Login Successful", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Login Successful As Distributor", Toast.LENGTH_LONG).show();
                 sharedpreferences = getSharedPreferences(mypreference,
                         Context.MODE_MULTI_PROCESS);
                 SharedPreferences.Editor editor = sharedpreferences.edit();  //deb done code for one time login
                 editor.putString("LOGGED_IN_AS", "1");
                 editor.commit();
+                startActivity(new Intent(LogIn.this,FSEListActivty.class));finish();
+            }
+            else if (status==true&&user_groups.equals("5")){
+
+                Toast.makeText(getApplicationContext(),"Login Successful As FSE", Toast.LENGTH_LONG).show();
+                sharedpreferences = getSharedPreferences(mypreference,
+                        Context.MODE_MULTI_PROCESS);
+                SharedPreferences.Editor editor = sharedpreferences.edit();  //deb done code for one time login
+                editor.putString("LOGGED_IN_AS", "2");
+                editor.commit();
+                startActivity(new Intent(LogIn.this,RetailersListActivity.class));finish();
+            }
+
+            else if (status==true&&user_groups.equals("3")){
+                Toast.makeText(LogIn.this, "Login Successful As Retailer", Toast.LENGTH_SHORT).show();
+
+                sharedpreferences = getSharedPreferences(mypreference,
+                        Context.MODE_MULTI_PROCESS);
+                SharedPreferences.Editor editor = sharedpreferences.edit();  //deb done code for one time login
+                editor.putString("LOGGED_IN_AS", "3");
+                editor.commit();
                 startActivity(new Intent(LogIn.this,MainActivity.class));finish();
-
-
             }
-            else{
-                Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
+            else if (status==true&&user_groups.equals("2")){
+                Toast.makeText(LogIn.this, "Login Successful As Customer", Toast.LENGTH_SHORT).show();
+
+                sharedpreferences = getSharedPreferences(mypreference,
+                        Context.MODE_MULTI_PROCESS);
+                SharedPreferences.Editor editor = sharedpreferences.edit();  //deb done code for one time login
+                editor.putString("LOGGED_IN_AS", "4");
+                editor.commit();
+                startActivity(new Intent(LogIn.this,MainActivity.class));finish();
             }
+            else {
+                Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();
+            }
+
         }
 
         @Override

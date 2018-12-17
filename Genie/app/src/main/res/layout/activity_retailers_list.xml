@@ -22,9 +22,14 @@
             app:popupTheme="@style/MyDarkToolbarStyle"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+            <ImageView
+                android:id="@+id/start_nav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu_black"/>
 
             <TextView
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="50dp"
                 android:id="@+id/order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,6 +60,13 @@
         android:layout_margin="5dp"
         android:id="@+id/retailerslistRecyclerView">
     </android.support.v7.widget.RecyclerView>
+
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/maincontainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
 
     <TextView
         android:visibility="gone"

@@ -75,7 +75,7 @@ public class AllOrdersFragment extends Fragment {
     public static Fragment getInstance(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt("pos", position);
-        BrowsePlanDetailsFragment fragment = new BrowsePlanDetailsFragment();
+        AllOrdersFragment fragment = new AllOrdersFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -186,8 +186,5 @@ public class AllOrdersFragment extends Fragment {
             }
         });
     }
-
-
-
 
 }

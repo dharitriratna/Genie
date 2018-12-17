@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+
+
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_user_black"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title="My Profile"/>
+
+        <item
+            android:id="@+id/privacy"
+            android:icon="@drawable/ic_privacy_24dp"
+            android:iconTint="@color/colorPrimaryDark"
+            android:title="Privacy Policy" />
+
+        <item
+            android:id="@+id/refund"
+            android:icon="@drawable/ic_refund"
+            android:iconTint="@color/colorPrimaryDark"
+            android:title="Refund Policy" />
+
+
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_logout"
+            android:iconTint="@color/colorPrimaryDark"
+            android:title="Log out" />
+
+
+    </group>
+
+</menu>

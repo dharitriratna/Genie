@@ -827,6 +827,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.fse_list:
+                String user_groups = RegPrefManager.getInstance(MainActivity.this).getUserGroup();
+                Log.d("Group", user_groups);
                 Intent fse_list = new Intent(MainActivity.this,FSEListActivty.class);
                 startActivity(fse_list);
                 break;
@@ -872,6 +874,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 alertDialog.show();
         }
 
+
         if (fragment != null) {
             FragmentTransaction fragmentTransaction = myFragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.maincontainer, fragment);
@@ -881,6 +884,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
+
+/*
+    public boolean onPrepareOptionsMenu(Menu menu){
+
+        MenuItem fseList=menu.findItem(R.id.fse_list);
+        MenuItem retailerList=menu.findItem(R.id.retailer_list);
+        String user_groups = RegPrefManager.getInstance(MainActivity.this).getUserGroup();
+        Log.d("Group", user_groups);
+        if (user_groups.equals("4")){
+            fseList.setVisible(true);
+            retailerList.setVisible(false);
+        }else if (user_groups.equals("5")){
+            fseList.setVisible(false);
+            retailerList.setVisible(true);
+        }else if (user_groups.equals("3")){
+            fseList.setVisible(false);
+            retailerList.setVisible(false);
+        }
+
+        return true;
+    }
+*/
 
     @Override
     public void onSliderClick(BaseSliderView slider) {

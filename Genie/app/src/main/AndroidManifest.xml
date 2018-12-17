@@ -364,6 +364,9 @@
 
         <activity android:name=".RetailerSignupActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".ViewProfileDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

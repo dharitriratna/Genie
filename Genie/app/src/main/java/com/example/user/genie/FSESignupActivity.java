@@ -644,7 +644,10 @@ public class FSESignupActivity extends AppCompatActivity {
                 finish();
             }
             else{
-                Toast.makeText(getApplicationContext(),"Validation fails! phone number and email should be unique", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Validation fails! phone number and email should be unique",
+                        Toast.LENGTH_LONG).show();
+                email.setError("Please enter a valid email");
+                phone_no.setError("Please enter a valid no.");
             }
         }
 

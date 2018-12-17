@@ -295,7 +295,6 @@ public class RetailerSignupActivity extends AppCompatActivity {
               public void onClick(View v) {
                   Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                   startActivityForResult(i, 1);
-
               }
           });
 
@@ -573,7 +572,10 @@ public class RetailerSignupActivity extends AppCompatActivity {
                 startActivity(new Intent(RetailerSignupActivity.this,RetailersListActivity.class));finish();
             }
             else{
-                Toast.makeText(getApplicationContext(),"Validation fails! phone number and email should be unique", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Validation fails! phone number and email should be unique",
+                        Toast.LENGTH_LONG).show();
+                emailId.setError("Please enter a valid email");
+                phone_no.setError("Please enter a valid no.");
             }
         }
 
