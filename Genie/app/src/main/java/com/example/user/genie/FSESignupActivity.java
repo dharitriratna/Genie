@@ -27,6 +27,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -80,6 +81,8 @@ public class FSESignupActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     String login_user="";
+    FrameLayout frontframe,backframe,userframe;
+
 
     @SuppressLint({"WrongViewCast", "ClickableViewAccessibility"})
     @Override
@@ -128,6 +131,10 @@ public class FSESignupActivity extends AppCompatActivity {
         front_photo=findViewById(R.id.front_photo);
         back_photo=findViewById(R.id.back_photo);
         candidate_photo= findViewById(R.id.candidate_photo);
+        frontframe=findViewById(R.id.frontframe);
+        backframe=findViewById(R.id.backframe);
+        userframe=findViewById(R.id.userframe);
+
 
         eye.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
@@ -305,7 +312,7 @@ public class FSESignupActivity extends AppCompatActivity {
         });
 */
 
-        addImg.setOnClickListener(new View.OnClickListener() {
+        userframe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
@@ -314,7 +321,7 @@ public class FSESignupActivity extends AppCompatActivity {
             }
         });
 
-        frontImg.setOnClickListener(new View.OnClickListener() {
+        frontframe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i1 = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
@@ -322,7 +329,7 @@ public class FSESignupActivity extends AppCompatActivity {
             }
         });
 
-        backImg.setOnClickListener(new View.OnClickListener() {
+        backframe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i2 = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);

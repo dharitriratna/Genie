@@ -103,11 +103,26 @@ public class FSEListActivty extends AppCompatActivity implements NavigationView.
 
         add_fse = findViewById(R.id.add_fse);
         add_fse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(FSEListActivty.this,FSESignupActivity.class));
-            }
-        });
+                                       @Override
+                                       public void onClick(View v) {
+
+                                           final CharSequence[] options_array = {"FSE", "Retailer"};
+
+                                           AlertDialog.Builder builder = new AlertDialog.Builder(FSEListActivty.this);
+                                           builder.setTitle("Add");
+                                           builder.setItems(options_array, new DialogInterface.OnClickListener() {
+                                               @Override
+                                               public void onClick(DialogInterface dialog, int item) {
+                                                   if (options_array[item].equals("FSE")) {
+                                                       startActivity(new Intent(FSEListActivty.this, FSESignupActivity.class));
+                                                   } else if (options_array[item].equals("Retailer")) {
+                                                       startActivity(new Intent(FSEListActivty.this,RetailerSignupActivity.class));
+                                                   }
+                                               }
+                                           });
+                                           builder.show();
+                                       }
+                                   });
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);

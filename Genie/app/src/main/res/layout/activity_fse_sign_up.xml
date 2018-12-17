@@ -290,6 +290,7 @@
 
 
                     <FrameLayout
+                        android:id="@+id/frontframe"
                         android:layout_weight="1"
                         android:layout_marginTop="2.5dp"
                         android:layout_marginBottom="2.5dp"
@@ -321,6 +322,7 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/backframe"
                         android:layout_weight="1"
                         android:layout_marginTop="2.5dp"
                         android:layout_marginBottom="2.5dp"
@@ -370,6 +372,7 @@
                 android:layout_height="150dp">
 
                 <FrameLayout
+                    android:id="@+id/userframe"
                     android:layout_marginTop="2.5dp"
                     android:layout_marginBottom="2.5dp"
                     android:layout_marginRight="2.5dp"

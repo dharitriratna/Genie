@@ -367,6 +367,8 @@
 
         <activity android:name=".ViewProfileDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+
     </application>
 
 </manifest>
