@@ -12,16 +12,13 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -43,7 +40,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
-public class RetailerSignupActivity extends AppCompatActivity {
+public class UpdateRetailerProfileActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView addImg,frontImg,backImg;
     ImageView shop_photo,front_photo,back_photo,eye;
@@ -60,7 +57,6 @@ public class RetailerSignupActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     String login_user="";
-    EditText password;
     EditText ownername;
     EditText phone_no;
     EditText emailId;
@@ -74,18 +70,17 @@ public class RetailerSignupActivity extends AppCompatActivity {
     TextView user_country;
     Spinner userAdproofpinner;
 
-    String ownerName,phoneNumber,EmailId,Password,userAddress,userLane,userCity,userPin,userState,userCountry;
+    String ownerName,phoneNumber,EmailId,userAddress,userLane,userCity,userPin,userState,userCountry;
     String retailerBusinessName,retailerSubType;
     String userAddressProof;
     Button btnSubmit;
     FrameLayout frontframe,backframe,userframe;
 
-
-    @SuppressLint("ClickableViewAccessibility")
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_retailer_sign_up);
+        setContentView(R.layout.activity_update_retailer_profile);
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
@@ -105,7 +100,6 @@ public class RetailerSignupActivity extends AppCompatActivity {
         Log.d("login_user", login_user);
         ownername=findViewById(R.id.ownername);
         phone_no=findViewById(R.id.phone_no);
-        password = findViewById(R.id.password);
         emailId=findViewById(R.id.emailId);
         user_address=findViewById(R.id.user_address);
         user_city=findViewById(R.id.user_city);
@@ -115,7 +109,6 @@ public class RetailerSignupActivity extends AppCompatActivity {
         businessname=findViewById(R.id.businessname);
         retailsubtype=findViewById(R.id.retailsubtype);
         btnSubmit=findViewById(R.id.btnSubmit);
-        eye=findViewById(R.id.eye);
         userAdproofpinner=findViewById(R.id.userAdproofpinner);
         addImg = findViewById(R.id.addImg);
         frontImg=findViewById(R.id.frontImg);
@@ -128,28 +121,11 @@ public class RetailerSignupActivity extends AppCompatActivity {
         userframe=findViewById(R.id.userframe);
 
 
-        eye.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-
-                switch ( event.getAction() ) {
-
-                    case MotionEvent.ACTION_UP:
-                        password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        break;
-
-                    case MotionEvent.ACTION_DOWN:
-                        password.setInputType(InputType.TYPE_CLASS_TEXT);
-                        break;
-                }
-                return true;
-            }
-        });
-
         userAdproofpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 userAddressProof= userAdproofpinner.getItemAtPosition(userAdproofpinner.getSelectedItemPosition()).toString();
-                 Toast.makeText(getApplicationContext(),"Add Images Below",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Add Images Below",Toast.LENGTH_LONG).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -157,40 +133,12 @@ public class RetailerSignupActivity extends AppCompatActivity {
             }
         });
 
-
-
-      /*  addImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final CharSequence[] options_array = {"Camera", "Gallery"};
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(RetailerSignupActivity.this);
-                builder.setTitle("Choose");
-                builder.setItems(options_array, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int item) {
-                        if (options_array[item].equals("Camera")) {
-                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, 0);
-                        } else if (options_array[item].equals("Gallery")) {
-                            Intent intent = new Intent(Intent.ACTION_PICK,
-                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            startActivityForResult(intent, PICK_PHOTO);
-                        }
-                    }
-                });
-                builder.show();
-            }
-        });
-*/
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ownerName = ownername.getText().toString().trim();
                 phoneNumber=phone_no.getText().toString().trim();
                 EmailId=emailId.getText().toString().trim();
-                Password=password.getText().toString().trim();
                 retailerBusinessName=businessname.getText().toString().trim();
                 retailerSubType=retailsubtype.getText().toString().trim();
                 userAddress=user_address.getText().toString().trim();
@@ -207,9 +155,6 @@ public class RetailerSignupActivity extends AppCompatActivity {
                 }
                 else if (EmailId.length() < 1){
                     emailId.setError("Please Enter Email");
-                }
-                else if (Password.length() < 1){
-                    password.setError("Please Enter Password");
                 }
                 else if (retailerBusinessName.length() < 1){
                     businessname.setError("Please Enter Business Name");
@@ -233,102 +178,51 @@ public class RetailerSignupActivity extends AppCompatActivity {
                     user_country.setError("Please Enter Your Country");
                 }
                 else {
-                    new AsyncRegister().execute();
+                    new AsyncUpdateRetailerProfile().execute();
                 }
             }
         });
 
-      /*  frontImg.setOnClickListener(new View.OnClickListener() {
+        userframe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final CharSequence[] options_array = {"Camera", "Gallery"};
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(RetailerSignupActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateRetailerProfileActivity.this);
                 builder.setTitle("Choose");
                 builder.setItems(options_array, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
                         if (options_array[item].equals("Camera")) {
-                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(i, 1);
+                        } else if (options_array[item].equals("Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK,
+                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(intent, 1);
-                        } else if (options_array[item].equals("Gallery")) {
-                            Intent intent = new Intent(Intent.ACTION_PICK,
-                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            startActivityForResult(intent, PICK_PHOTOfront);
                         }
                     }
                 });
                 builder.show();
-            }
-        });*/
-/*
 
-        backImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final CharSequence[] options_array = {"Camera", "Gallery"};
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(RetailerSignupActivity.this);
-                builder.setTitle("Choose");
-                builder.setItems(options_array, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int item) {
-                        if (options_array[item].equals("Camera")) {
-                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, 2);
-                        } else if (options_array[item].equals("Gallery")) {
-                            Intent intent = new Intent(Intent.ACTION_PICK,
-                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            startActivityForResult(intent, PICK_PHOTOback);
-                        }
-                    }
-                });
-                builder.show();
             }
         });
-*/
-          userframe.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                      final CharSequence[] options_array = {"Camera", "Gallery"};
 
-                      AlertDialog.Builder builder = new AlertDialog.Builder(RetailerSignupActivity.this);
-                      builder.setTitle("Choose");
-                      builder.setItems(options_array, new DialogInterface.OnClickListener() {
-                          @Override
-                          public void onClick(DialogInterface dialog, int item) {
-                              if (options_array[item].equals("Camera")) {
-                                  Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                                  startActivityForResult(i, 1);
-                              } else if (options_array[item].equals("Gallery")) {
-                                  Intent intent = new Intent(Intent.ACTION_PICK,
-                                          android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                  startActivityForResult(intent, 1);
-                              }
-                          }
-                      });
-                      builder.show();
+        frontframe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i1 = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(i1, 2);
+            }
+        });
 
-              }
-          });
-
-          frontframe.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  Intent i1 = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                  startActivityForResult(i1, 2);
-              }
-          });
-
-          backframe.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  Intent i2 = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                  startActivityForResult(i2,3);
-              }
-          });
+        backframe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i2 = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(i2,3);
+            }
+        });
 
 
         int Permission_All = 1;
@@ -343,7 +237,7 @@ public class RetailerSignupActivity extends AppCompatActivity {
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 android.Manifest.permission.CAMERA, };
         if(!hasPermissions(getApplicationContext(), Permissions)){
-            ActivityCompat.requestPermissions(RetailerSignupActivity.this, Permissions, Permission_All);
+            ActivityCompat.requestPermissions(UpdateRetailerProfileActivity.this, Permissions, Permission_All);
         }
     }
 
@@ -360,20 +254,6 @@ public class RetailerSignupActivity extends AppCompatActivity {
         return true;
     }
 
- /*   public void onClick(View v) { // TODO Auto-generated method stub
-
-        switch (v.getId()) {
-
-            case R.id.addImg:
-                Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(i, 1);
-
-                break;
-            case R.id.frontImg:
-                Intent i1 = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(i1, 2);
-        }
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -419,100 +299,6 @@ public class RetailerSignupActivity extends AppCompatActivity {
         }
     }
 
-/*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
-            case 0:
-                super.onActivityResult(requestCode, resultCode, data);
-                if (resultCode == RESULT_OK && requestCode == PICK_PHOTO) {
-
-                    Uri imageUri = data.getData();
-                    imagefilePath = getPath(imageUri);
-                    shop_photo.setImageURI(imageUri);
-                    addImg.setVisibility(View.GONE);
-                    //  btn_submit.setVisibility(View.VISIBLE);
-                    file=new File(imagefilePath);
-
-          */
-/*  SharedPreferences.Editor editor3 = sharedpreferences.edit();
-            editor3.putString("IMAGE", imagefilePath );
-            //   Log.d("user_id", user_id);
-            editor3.commit();*//*
-
-                    //getting image filepath
-                }
-                else if(this.requestCode == requestCode && resultCode == RESULT_OK)
-                {
-                    Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-                    shop_photo.setImageBitmap(bitmap);
-                    // btn_submit.setVisibility(View.VISIBLE);
-                    addImg.setVisibility(View.GONE);
-                    Uri cameraUri= getImageUri(getApplicationContext(),bitmap);
-                    imagefilePath = getPath(cameraUri);
-                    Log.d("imagefilePath",imagefilePath);
-                    file=new File(imagefilePath);  // getting image captured filepath  < ----------------------------------------
-                }
-                break;
-
-            case 1:
-                super.onActivityResult(requestCodefront, resultCode, data);
-                if (resultCode == RESULT_OK && requestCodefront == PICK_PHOTOfront) {
-
-                    Uri imageUri = data.getData();
-                    imagefilePathfront = getPath(imageUri);
-                    front_photo.setImageURI(imageUri);
-                    frontImg.setVisibility(View.GONE);
-                    //   btn_submit.setVisibility(View.VISIBLE);
-                    file1=new File(imagefilePathfront);
-
-
-                    //getting image filepath
-                }
-                else if(this.requestCodefront == requestCodefront && resultCode == RESULT_OK)
-                {
-                    Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-                    front_photo.setImageBitmap(bitmap);
-                    //  btn_submit.setVisibility(View.VISIBLE);
-                    frontImg.setVisibility(View.GONE);
-                    Uri cameraUri= getImageUri(this,bitmap);
-                    imagefilePathfront = getPath(cameraUri);
-                    Log.d("imagefilePath",imagefilePathfront);
-                    file1=new File(imagefilePathfront);  // getting image captured filepath  < ----------------------------------------
-                }
-                break;
-
-            case 3:
-
-                super.onActivityResult(requestCodeback, resultCode, data);
-                if (resultCode == RESULT_OK && requestCodeback == PICK_PHOTOback) {
-
-                    Uri imageUri = data.getData();
-                    imagefilePathback = getPath(imageUri);
-                    back_photo.setImageURI(imageUri);
-                    backImg.setVisibility(View.GONE);
-                    //   btn_submit.setVisibility(View.VISIBLE);
-                    file2=new File(imagefilePathback);
-
-
-                    //getting image filepath
-                }
-                else if(this.requestCodeback == requestCodeback && resultCode == RESULT_OK)
-                {
-                    Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-                    back_photo.setImageBitmap(bitmap);
-                    //  btn_submit.setVisibility(View.VISIBLE);
-                    backImg.setVisibility(View.GONE);
-                    Uri cameraUri= getImageUri(this,bitmap);
-                    imagefilePathback = getPath(cameraUri);
-                    Log.d("imagefilePath",imagefilePathback);
-                    file2=new File(imagefilePathback);  // getting image captured filepath  < ----------------------------------------
-                }
-                break;
-        }
-    }
-*/
-
     private String getPath(Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };//,Video,Audio
         Cursor cursor = managedQuery(uri, projection, null, null, null);
@@ -528,7 +314,7 @@ public class RetailerSignupActivity extends AppCompatActivity {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class AsyncRegister extends AsyncTask<Void, Void, Void> {
+    private class AsyncUpdateRetailerProfile extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
         String success = null,message="",status="true";
 
@@ -539,8 +325,7 @@ public class RetailerSignupActivity extends AppCompatActivity {
             cred.add(new BasicNameValuePair("first_name",ownerName));
             cred.add(new BasicNameValuePair("email",EmailId));//user_email
             cred.add(new BasicNameValuePair("phone",phoneNumber ));
-            cred.add(new BasicNameValuePair("password",Password ));
-            cred.add(new BasicNameValuePair("fse_user_id",login_user ));
+            cred.add(new BasicNameValuePair("user_id",login_user ));
             cred.add(new BasicNameValuePair("business_name",retailerBusinessName ));
             cred.add(new BasicNameValuePair("retail_sub_type",retailerSubType ));
             cred.add(new BasicNameValuePair("icon",imagefilePathfront ));
@@ -552,10 +337,10 @@ public class RetailerSignupActivity extends AppCompatActivity {
             cred.add(new BasicNameValuePair("pin",userPin ));
             cred.add(new BasicNameValuePair("state",userState ));
             cred.add(new BasicNameValuePair("country",userCountry ));
-            Log.v("RES","Sending data " +ownerName+ EmailId+ phoneNumber +Password+login_user+retailerBusinessName+retailerSubType
+            Log.v("RES","Sending data " +ownerName+ EmailId+ phoneNumber +login_user+retailerBusinessName+retailerSubType
                     +imagefilePathfront+imagefilePathback+imagefilePath+userAddressProof+userAddress+userCity+userPin+userState+userCountry);
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/user/registerRetailer";
+            String urlRouteList= "https://genieservice.in/api/user/updateRetailerProfile";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 
@@ -571,13 +356,13 @@ public class RetailerSignupActivity extends AppCompatActivity {
                 // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
                 JSONObject jsonObject1 = new JSONObject(data);*/
                 String user_id=jsonObject.getString("user_id");
-                Toast.makeText(RetailerSignupActivity.this, user_id, Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdateRetailerProfileActivity.this, user_id, Toast.LENGTH_SHORT).show();
               /*  SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("FLAG", user_id);
                 Log.d("user_id", user_id);
                 editor.commit();*/
                 String user_phone = jsonObject.getString("phone");
-                RegPrefManager.getInstance(RetailerSignupActivity.this).setPhoneNo(user_phone);
+                RegPrefManager.getInstance(UpdateRetailerProfileActivity.this).setPhoneNo(user_phone);
                 //   String user_email=jsonObject1.getString("user_email");
 
             } catch (Exception e)
@@ -592,20 +377,20 @@ public class RetailerSignupActivity extends AppCompatActivity {
 
             if(status.equals("true"))
             {
-                Toast.makeText(getApplicationContext(),"Registration Successful", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(RetailerSignupActivity.this,RetailersListActivity.class));finish();
+                Toast.makeText(getApplicationContext(),"Updated Successfully", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(UpdateRetailerProfileActivity.this,RetailersListActivity.class));finish();
             }
             else{
                 Toast.makeText(getApplicationContext(),"Validation fails! phone number and email should be unique",
                         Toast.LENGTH_LONG).show();
-                emailId.setError("Please enter a valid email");
-                phone_no.setError("Please enter a valid no.");
+                emailId.setError("Please enter an unique email");
+                phone_no.setError("Please enter an unique no.");
             }
         }
 
         @Override
         protected void onPreExecute() {
-            pDialog = new ProgressDialog(RetailerSignupActivity.this);
+            pDialog = new ProgressDialog(UpdateRetailerProfileActivity.this);
             pDialog.setMessage("Loading In...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -615,3 +400,4 @@ public class RetailerSignupActivity extends AppCompatActivity {
 
 
 }
+

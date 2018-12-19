@@ -53,7 +53,7 @@ import java.util.List;
 import static com.example.user.genie.Utils.Count.setCounting;
 
 
-public class RetailersListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class RetailersListActivity extends AppCompatActivity  {
     Toolbar toolbar;
     ImageView add_retailer;
     private RecyclerView retailerslistRecyclerView;
@@ -77,16 +77,22 @@ public class RetailersListActivity extends AppCompatActivity implements Navigati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.drawer_layout3);
+        setContentView(R.layout.activity_retailers_list);
         toolbar = findViewById(R.id.toolbar);
-        container = (FrameLayout) findViewById(R.id.maincontainer);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+      /*  container = (FrameLayout) findViewById(R.id.maincontainer);
         start_nav=findViewById(R.id.start_nav);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view3);
 
         View header = navigationView.getHeaderView(0);
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout3);
-
 
         start_nav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +105,7 @@ public class RetailersListActivity extends AppCompatActivity implements Navigati
 
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
         View headerView = navigationView.getHeaderView(0);
-
+*/
         add_retailer = findViewById(R.id.add_retailer);
         add_retailer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +133,7 @@ public class RetailersListActivity extends AppCompatActivity implements Navigati
         retailerListModels = new ArrayList<>();
         getRetailerLists();
 
-        keyphone=(TextView) headerView.findViewById(R.id.keyphone);
+      /*  keyphone=(TextView) headerView.findViewById(R.id.keyphone);
         keyname=(TextView) headerView.findViewById(R.id.keyname);
 
 
@@ -140,7 +146,7 @@ public class RetailersListActivity extends AppCompatActivity implements Navigati
             Uri image_uri = Uri.parse(image_value);
             imageHeader.setImageURI(image_uri);
         }
-
+*/
 
 
         retailerslistRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, retailerslistRecyclerView, new RecyclerTouchListener.ClickListener() {
@@ -174,7 +180,7 @@ public class RetailersListActivity extends AppCompatActivity implements Navigati
         }));
     }
 
-    boolean doubleBackToExitPressedOnce = false;
+  /*  boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onBackPressed() {
@@ -199,7 +205,7 @@ public class RetailersListActivity extends AppCompatActivity implements Navigati
 
         }, 2000);
     }
-
+*/
     private void getRetailerLists() {
         progressDialog.setMessage("Loading");
         progressDialog.show();
@@ -282,7 +288,7 @@ public class RetailersListActivity extends AppCompatActivity implements Navigati
         requestQueue.add(stringRequest);
     }
 
-    @Override
+   /* @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         item.setCheckable(true);
         displaySelectedScreen(item.getItemId());
@@ -330,9 +336,17 @@ public class RetailersListActivity extends AppCompatActivity implements Navigati
                 startActivity(refund);
                 break;
 
+            case R.id.add_retailer:
+                Intent addretailer = new Intent(RetailersListActivity.this,RetailerSignupActivity.class);
+                startActivity(addretailer);
+                break;
+
+            case R.id.retailer_list:
+                Intent retailerlists = new Intent(RetailersListActivity.this,RetailersListActivity.class);
+                startActivity(retailerlists);
+                break;
 
             case R.id.logout:
-
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RetailersListActivity.this);
                 alertDialogBuilder.setTitle("Log Out");
 
@@ -383,5 +397,5 @@ public class RetailersListActivity extends AppCompatActivity implements Navigati
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
-    }
+    }*/
 }

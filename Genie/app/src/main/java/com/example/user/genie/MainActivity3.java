@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -20,6 +19,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -48,9 +48,7 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.example.user.genie.Adapter.ServicesAdapter;
 import com.example.user.genie.Fragments.FragmentMain;
 import com.example.user.genie.Fragments.FragmentProfile;
-import com.example.user.genie.Model.CardModel;
 import com.example.user.genie.Model.ServicesModel;
-import com.example.user.genie.MoneyTransfer.MoneyTransferActivity;
 import com.example.user.genie.ObjectNew.ServiceImage;
 import com.example.user.genie.Utils.GlobalClass;
 import com.example.user.genie.client.ApiClientGenie;
@@ -67,11 +65,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-import static com.example.user.genie.LogIn.mypreference;
 import static com.example.user.genie.Utils.Count.setCounting;
 
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+public class MainActivity3 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         ViewPagerEx.OnPageChangeListener,BaseSliderView.OnSliderClickListener {
     Toolbar toolbar;
     FragmentManager myFragmentManager;
@@ -83,12 +79,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SliderLayout mDemoSlider;
     ImageView start_nav;
 
-  //  LinearLayout ac_mechanic, tv_mechanic, labour, driver, home_tutor;
+    //  LinearLayout ac_mechanic, tv_mechanic, labour, driver, home_tutor;
     LinearLayout home_delivery, events, prepaid, electricity,train_booking,
-          dth, broadband, landline, water,moviesLinear,flightLinear,linearBus,carLinear,bikeLinear,
+            dth, broadband, landline, water,moviesLinear,flightLinear,linearBus,carLinear,bikeLinear,
 
 
-          cabBookingLin,rentLin,birthday_planners, joblin,money_transfer,datacardLn, rawMeat, gasLayout, hotelLayout,insuranceLn;
+    cabBookingLin,rentLin,birthday_planners, joblin,money_transfer,datacardLn, rawMeat, gasLayout, hotelLayout,insuranceLn;
 
     Button button1, button2, button3, button4, button5;
 
@@ -124,10 +120,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.drawer_layout);
+        setContentView(R.layout.drawer_layout3);
         apiService =
                 ApiClientGenie.getClient().create(ApiInterface.class);
-    //    profile = findViewById(R.id.profile);
+        //    profile = findViewById(R.id.profile);
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
@@ -190,27 +186,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         rentLin.setId(38);
         birthday_planners.setId(39);
 
-           final ArrayList<String> al = new ArrayList<String>();
-            al.add("13");
-            al.add("14");
-            al.add("15");
-            al.add("37");
-            al.add("38");
-            al.add("39");
-            al.add("MN");
+        final ArrayList<String> al = new ArrayList<String>();
+        al.add("13");
+        al.add("14");
+        al.add("15");
+        al.add("37");
+        al.add("38");
+        al.add("39");
+        al.add("MN");
 
 
-            prepaid.setOnClickListener(new View.OnClickListener() {
+        prepaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-           //     RegPrefManager.getInstance(MainActivity.this).setMobileCircle();
-                RegPrefManager.getInstance(MainActivity.this).setMobileOperator("","");
-                RegPrefManager.getInstance(MainActivity.this).setMobileCircle("","");
-                RegPrefManager.getInstance(MainActivity.this).setMobileRechargeAmount("");
-                RegPrefManager.getInstance(MainActivity.this).setPhoneNo("");
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                Intent intent=(new Intent(MainActivity.this,MobileRecharge.class));
-               // intent.putExtra("MobileId",al.indexOf("13"));
+                //     RegPrefManager.getInstance(MainActivity2.this).setMobileCircle();
+                RegPrefManager.getInstance(MainActivity3.this).setMobileOperator("","");
+                RegPrefManager.getInstance(MainActivity3.this).setMobileCircle("","");
+                RegPrefManager.getInstance(MainActivity3.this).setMobileRechargeAmount("");
+                RegPrefManager.getInstance(MainActivity3.this).setPhoneNo("");
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                Intent intent=(new Intent(MainActivity3.this,MobileRecharge.class));
+                // intent.putExtra("MobileId",al.indexOf("13"));
                 startActivity(intent);
             }
         });
@@ -218,18 +214,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         events.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,EventManagement.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this,EventManagement.class));
             }
         });
 
         electricity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                RegPrefManager.getInstance(MainActivity.this).SetElectricityBoard("","");
-                RegPrefManager.getInstance(MainActivity.this).setElectricityOperator("","");
-                Intent intent=(new Intent(MainActivity.this,PayForElectricity.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                RegPrefManager.getInstance(MainActivity3.this).SetElectricityBoard("","");
+                RegPrefManager.getInstance(MainActivity3.this).setElectricityOperator("","");
+                Intent intent=(new Intent(MainActivity3.this,PayForElectricity.class));
                 intent.putExtra("ElectricityId",al.indexOf("15"));
                 startActivity(intent);
             }
@@ -238,15 +234,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         train_booking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,BookTrain.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this,BookTrain.class));
             }
         });
         home_delivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this, HomeDeliveryGrocery.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this, HomeDeliveryGrocery.class));
             }
         });
 
@@ -254,12 +250,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
 
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
 
-                RegPrefManager.getInstance(MainActivity.this).setLandlineOperator("","");
-                RegPrefManager.getInstance(MainActivity.this).setLandlineCircle("","");
+                RegPrefManager.getInstance(MainActivity3.this).setLandlineOperator("","");
+                RegPrefManager.getInstance(MainActivity3.this).setLandlineCircle("","");
 
-                startActivity(new Intent(MainActivity.this, LandLine.class));
+                startActivity(new Intent(MainActivity3.this, LandLine.class));
             }
         });
 
@@ -267,29 +263,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
 
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                RegPrefManager.getInstance(MainActivity.this).setLandlineOperator("","");
-                RegPrefManager.getInstance(MainActivity.this).setLandlineCircle("","");
-                startActivity(new Intent(MainActivity.this, LandLine.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                RegPrefManager.getInstance(MainActivity3.this).setLandlineOperator("","");
+                RegPrefManager.getInstance(MainActivity3.this).setLandlineCircle("","");
+                startActivity(new Intent(MainActivity3.this, LandLine.class));
             }
         });
         water.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegPrefManager.getInstance(MainActivity.this).setWaterBoard("","");
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this, WaterBill.class));
+                RegPrefManager.getInstance(MainActivity3.this).setWaterBoard("","");
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this, WaterBill.class));
             }
         });
         dth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegPrefManager.getInstance(MainActivity.this).setDTHOperator("","");
-                RegPrefManager.getInstance(MainActivity.this).setMobileCircle("","");
-                RegPrefManager.getInstance(MainActivity.this).setMobileRechargeAmount("");
-                RegPrefManager.getInstance(MainActivity.this).setCustomerId("");
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                Intent intent=(new Intent(MainActivity.this,DTHRecharge.class));
+                RegPrefManager.getInstance(MainActivity3.this).setDTHOperator("","");
+                RegPrefManager.getInstance(MainActivity3.this).setMobileCircle("","");
+                RegPrefManager.getInstance(MainActivity3.this).setMobileRechargeAmount("");
+                RegPrefManager.getInstance(MainActivity3.this).setCustomerId("");
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                Intent intent=(new Intent(MainActivity3.this,DTHRecharge.class));
                 intent.putExtra("DTHId",al.indexOf("14"));
                 startActivity(intent);
             }
@@ -297,63 +293,63 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         moviesLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,MovieActivity.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this,MovieActivity.class));
             }
         });
         flightLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,FlightActivity.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this,FlightActivity.class));
             }
         });
         linearBus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,BusBookingActivity.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this,BusBookingActivity.class));
             }
         });
         cabBookingLin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                RegPrefManager.getInstance(MainActivity.this).setCabFromPlace("");
-                startActivity(new Intent(MainActivity.this,CabBookingActivity.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                RegPrefManager.getInstance(MainActivity3.this).setCabFromPlace("");
+                startActivity(new Intent(MainActivity3.this,CabBookingActivity.class));
             }
         });
         rentLin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,RentActivity.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this,RentActivity.class));
             }
         });
 
         birthday_planners.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,GiftsList.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this,GiftsList.class));
             }
         });
 
         joblin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,JobActivity.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this,JobActivity.class));
             }
         });
         money_transfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id= RegPrefManager.getInstance(MainActivity.this).getRemitterId();
+                String id= RegPrefManager.getInstance(MainActivity3.this).getRemitterId();
                 if(id!=null) {
-                    startActivity(new Intent(MainActivity.this, RemiterDetailsActivity.class));
+                    startActivity(new Intent(MainActivity3.this, RemiterDetailsActivity.class));
                 }else {
-                    startActivity(new Intent(MainActivity.this, RemiterRegistrationActivity.class));
+                    startActivity(new Intent(MainActivity3.this, RemiterRegistrationActivity.class));
                 }
 
             }
@@ -361,19 +357,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         datacardLn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegPrefManager.getInstance(MainActivity.this).setDataCardNo("");
-                RegPrefManager.getInstance(MainActivity.this).setDataCardOperator("","");
-                RegPrefManager.getInstance(MainActivity.this).setDataCardCircle("","");
+                RegPrefManager.getInstance(MainActivity3.this).setDataCardNo("");
+                RegPrefManager.getInstance(MainActivity3.this).setDataCardOperator("","");
+                RegPrefManager.getInstance(MainActivity3.this).setDataCardCircle("","");
 
-                startActivity(new Intent(MainActivity.this,DataCardActivity.class));
+                startActivity(new Intent(MainActivity3.this,DataCardActivity.class));
             }
         });
 
         insuranceLn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,AllInsuranseActivity.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this,AllInsuranseActivity.class));
             }
         });
 
@@ -381,40 +377,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         rawMeat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,LoanPaymentActivity.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this,LoanPaymentActivity.class));
             }
         });
 
         gasLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegPrefManager.getInstance(MainActivity.this).setGasBoard("","");
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,GasBillActivity.class));
+                RegPrefManager.getInstance(MainActivity3.this).setGasBoard("","");
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this,GasBillActivity.class));
             }
         });
 
         hotelLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,HotelActivity.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this,HotelActivity.class));
             }
         });
         bikeLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,ComingSoonActivity.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this,ComingSoonActivity.class));
 
             }
         });
         carLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,ComingSoonActivity.class));
+                RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
+                startActivity(new Intent(MainActivity3.this,ComingSoonActivity.class));
             }
         });
 
@@ -442,7 +438,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 String service_img = list.getService_img();
 
 
-                Intent i = new Intent(MainActivity.this, OrderGenerate.class);
+                Intent i = new Intent(MainActivity3.this, OrderGenerate.class);
                 i.putExtra("SERVICE_ID", service_id);
                 i.putExtra("SERVICE_NAME", service_name);
                 i.putExtra("SERVICE_FEES", service_fee);
@@ -471,15 +467,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         sharedpreferences = getSharedPreferences(mypreference, MODE_PRIVATE);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-     //   toolbar.setNavigationIcon(R.drawable.ic_clear_all);
+        //   toolbar.setNavigationIcon(R.drawable.ic_clear_all);
 
 
         container = (FrameLayout) findViewById(R.id.maincontainer);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view3);
 
         View header = navigationView.getHeaderView(0);
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout3);
 
         start_nav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -501,7 +497,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         keyname.setText(RegPrefManager.getInstance(this).getUserName());
 
         imageHeader=(ImageView)headerView.findViewById(R.id.imageHeader);
-        String image_value=RegPrefManager.getInstance(MainActivity.this).getUpdateProfileImage();
+        String image_value=RegPrefManager.getInstance(MainActivity3.this).getUpdateProfileImage();
         if(image_value!=null) {
             Uri image_uri = Uri.parse(image_value);
             imageHeader.setImageURI(image_uri);
@@ -524,11 +520,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View arg0) {
 
-                    button1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                    button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                    button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                    button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                    button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
             }
         });
 
@@ -538,11 +534,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View arg0) {
 
-                    button2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                    button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                    button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                    button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                    button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
             }
         });
 
@@ -582,7 +578,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "App is not available in playstore yet");//share_cont + "\n" + "https://play.google.com/store/apps/details?id=com.nursevibe.vibe.nurse");
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent,"share via:"));
-              //
+                //
                 //  startActivity(sendIntent);
                 button5.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -615,7 +611,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void run() {
                 doubleBackToExitPressedOnce = false;
-                RegPrefManager.getInstance(MainActivity.this).setBackService("");
+                RegPrefManager.getInstance(MainActivity3.this).setBackService("");
                 finish();
             }
 
@@ -625,7 +621,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setImagePager() {
         for(int i=0;i<image.length;i++){
-            TextSliderView textSliderView = new TextSliderView(MainActivity.this);
+            TextSliderView textSliderView = new TextSliderView(MainActivity3.this);
             // initialize a SliderLayout
             textSliderView.image(image[i])
                     .description("Genie")
@@ -760,15 +756,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         i++;
                     } else {
                         progressDialog.dismiss();
-                        Toast.makeText(MainActivity.this, "Check your network connection.",
+                        Toast.makeText(MainActivity3.this, "Check your network connection.",
                                 Toast.LENGTH_LONG).show();
                     }
                 } else
-                    Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity3.this, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity3.this);
         requestQueue.add(stringRequest);
     }
 
@@ -805,42 +801,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //initializing the fragment object which is selected
         switch (itemId) {
 
-            case R.id.my_order:
-                Intent intent_ordr = new Intent(MainActivity.this,MyOrders.class);
-                startActivity(intent_ordr);
+            case R.id.order:
+                setTitleColor(R.color.colorPrimaryDark);
+                Intent order = new Intent(MainActivity3.this, MyOrders.class);
+                startActivity(order);
                 break;
 
             case R.id.profile:
                 setTitleColor(R.color.colorPrimaryDark);
-                Intent intent = new Intent(MainActivity.this, ViewRetailerProfileActivity.class);
+                Intent intent = new Intent(MainActivity3.this, ViewRetailerProfileActivity.class);
                 startActivity(intent);
                 break;
 
             case R.id.privacy:
-                Intent privacy = new Intent(MainActivity.this, PrivacyPolicy.class);
+                Intent privacy = new Intent(MainActivity3.this, PrivacyPolicy.class);
                 startActivity(privacy);
                 break;
 
             case R.id.refund:
-                Intent refund = new Intent(MainActivity.this, RefundPolicy.class);
+                Intent refund = new Intent(MainActivity3.this, RefundPolicy.class);
                 startActivity(refund);
                 break;
 
-            case R.id.fse_list:
-                String user_groups = RegPrefManager.getInstance(MainActivity.this).getUserGroup();
-                Log.d("Group", user_groups);
-                Intent fse_list = new Intent(MainActivity.this,FSEListActivty.class);
-                startActivity(fse_list);
+            case R.id.add_retailer:
+                Intent addretailer = new Intent(MainActivity3.this,RetailerSignupActivity.class);
+                startActivity(addretailer);
                 break;
 
             case R.id.retailer_list:
-                Intent retailer_list = new Intent(MainActivity.this,RetailersListActivity.class);
-                startActivity(retailer_list);
+                Intent retailerlists = new Intent(MainActivity3.this,RetailersListActivity.class);
+                startActivity(retailerlists);
                 break;
 
             case R.id.logout:
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity3.this);
                 alertDialogBuilder.setTitle("Log Out");
 
                 alertDialogBuilder
@@ -852,7 +846,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 // current activity
                                 sharedpreferences = getSharedPreferences(mypreference,
                                         Context.MODE_PRIVATE);
-                                Intent i = new Intent(MainActivity.this, LogIn.class);
+                                Intent i = new Intent(MainActivity3.this, LogIn.class);
                                 SharedPreferences.Editor editor = sharedpreferences.edit();
                                 editor.remove("LOGGED_IN_AS"); // will delete key email
                                 editor.commit(); // commit changes
@@ -881,7 +875,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.commit();
 
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout3);
         drawer.closeDrawer(GravityCompat.START);
     }
 
@@ -890,7 +884,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         MenuItem fseList=menu.findItem(R.id.fse_list);
         MenuItem retailerList=menu.findItem(R.id.retailer_list);
-        String user_groups = RegPrefManager.getInstance(MainActivity.this).getUserGroup();
+        String user_groups = RegPrefManager.getInstance(MainActivity3.this).getUserGroup();
         Log.d("Group", user_groups);
         if (user_groups.equals("4")){
             fseList.setVisible(true);

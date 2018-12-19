@@ -193,7 +193,7 @@ public class DTHRecharge extends AppCompatActivity {
             Log.v("RES","Sending data " + operator_code+ operator_code +dth_recharge_amount);
 
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_dth_datacard_recharge";
+            String urlRouteList="https://genieservice.in/api/service/mobile_dth_datacard_recharge";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 

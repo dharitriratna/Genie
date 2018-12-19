@@ -136,7 +136,7 @@ public class GasproviderActivity extends AppCompatActivity {
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "http://demo.ratnatechnology.co.in/genie/api/service/getGas",
+                "https://genieservice.in/api/service/getGas",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {

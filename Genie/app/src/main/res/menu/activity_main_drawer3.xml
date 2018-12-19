@@ -3,7 +3,6 @@
 
     <group android:checkableBehavior="single">
 
-
         <item
             android:id="@+id/my_order"
             android:icon="@drawable/my_order"
@@ -17,21 +16,11 @@
         android:iconTint="@color/colorPrimaryDark"
         android:title="My Profile"/>
 
-
-
         <item
-            android:id="@+id/add_fse"
-            android:visible="true"
-            android:icon="@drawable/ic_person_add_black"
+            android:id="@+id/privacy"
+            android:icon="@drawable/ic_privacy_24dp"
             android:iconTint="@color/colorPrimaryDark"
-            android:title="Add FSE"/>
-
-        <item
-            android:id="@+id/fse_list"
-            android:visible="true"
-            android:icon="@drawable/ic_people_black_24dp"
-            android:iconTint="@color/colorPrimaryDark"
-            android:title="FSE List"/>
+            android:title="Privacy Policy" />
 
         <item
             android:id="@+id/add_retailer"
@@ -49,12 +38,6 @@
 
 
         <item
-            android:id="@+id/privacy"
-            android:icon="@drawable/ic_privacy_24dp"
-            android:iconTint="@color/colorPrimaryDark"
-            android:title="Privacy Policy" />
-
-        <item
             android:id="@+id/refund"
             android:icon="@drawable/ic_refund"
             android:iconTint="@color/colorPrimaryDark"
@@ -66,6 +49,7 @@
             android:icon="@drawable/ic_logout"
             android:iconTint="@color/colorPrimaryDark"
             android:title="Log out" />
+
 
     </group>
 

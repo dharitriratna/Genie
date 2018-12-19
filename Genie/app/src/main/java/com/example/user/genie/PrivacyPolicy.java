@@ -43,14 +43,12 @@ public class PrivacyPolicy extends AppCompatActivity {
             webview.setVisibility(View.GONE);
             view.loadUrl(url);
             return true;
-
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
             // TODO Auto-generated method stub
             super.onPageFinished(view, url);
-
             progressBar.setVisibility(View.GONE);
             textView.setVisibility(View.GONE);
             webview.setVisibility(View.VISIBLE);

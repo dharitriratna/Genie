@@ -66,7 +66,7 @@ public class ForgotPassword extends AppCompatActivity {
             cred.add(new BasicNameValuePair("user_email",user_email));//user_email
             Log.v("RES","Sending data" + user_email  );
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/index.php/api/user/forgot_password";
+            String urlRouteList="https://genieservice.in/api/user/forgot_password";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 

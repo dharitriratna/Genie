@@ -95,8 +95,7 @@ public class FSESignupActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(FSESignupActivity.this,FSEListActivty.class));
-                finish();
+              onBackPressed();
             }
         });
 
@@ -609,7 +608,7 @@ public class FSESignupActivity extends AppCompatActivity {
             Log.v("RES","Sending data " +userName+ EmailId+ phoneNumber +Password+login_user+experience_rb+workculture_rb
                                  +userAddressProof+imagefilePathfront+imagefilePathback+imagefilePath+userAddress+userCity+userPin+userState+userCountry);
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/user/registerFse";
+            String urlRouteList="https://genieservice.in/api/user/registerFse";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 

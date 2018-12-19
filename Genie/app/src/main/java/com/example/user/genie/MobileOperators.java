@@ -263,7 +263,7 @@ public class MobileOperators extends AppCompatActivity {
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "http://demo.ratnatechnology.co.in/genie/api/service/get_mobileoperator",
+                "https://genieservice.in/api/service/get_mobileoperator",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {

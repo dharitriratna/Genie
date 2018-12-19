@@ -136,7 +136,7 @@ public class DTHOperators extends AppCompatActivity {
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "http://demo.ratnatechnology.co.in/genie/api/service/getdth",
+                "https://genieservice.in/api/service/getdth",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {

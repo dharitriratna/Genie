@@ -126,8 +126,8 @@ public class LogIn extends AppCompatActivity {
         login_user=sharedpreferences.getString("LOGGED_IN_AS", "");
         editor.commit(); // commit changes
 
-        if (login_user.equals("1")){startActivity(new Intent(this,FSEListActivty.class));finish();}
-        if (login_user.equals("2")){startActivity(new Intent(this,RetailersListActivity.class));finish();}
+        if (login_user.equals("1")){startActivity(new Intent(this,MainActivity2.class));finish();}
+        if (login_user.equals("2")){startActivity(new Intent(this,MainActivity3.class));finish();}
         if (login_user.equals("3")){startActivity(new Intent(this,MainActivity.class));finish();}
         if (login_user.equals("4")){startActivity(new Intent(this,MainActivity.class));finish();}
 
@@ -320,7 +320,7 @@ public class LogIn extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedpreferences.edit();  //deb done code for one time login
                 editor.putString("LOGGED_IN_AS", "1");
                 editor.commit();
-                startActivity(new Intent(LogIn.this,FSEListActivty.class));finish();
+                startActivity(new Intent(LogIn.this,MainActivity2.class));finish();
             }
             else if (status==true&&user_groups.equals("5")){
 
@@ -330,7 +330,7 @@ public class LogIn extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedpreferences.edit();  //deb done code for one time login
                 editor.putString("LOGGED_IN_AS", "2");
                 editor.commit();
-                startActivity(new Intent(LogIn.this,RetailersListActivity.class));finish();
+                startActivity(new Intent(LogIn.this,MainActivity3.class));finish();
             }
 
             else if (status==true&&user_groups.equals("3")){

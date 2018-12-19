@@ -136,7 +136,7 @@ public class GasBillActivity extends AppCompatActivity {
                     +landline_ca_number+other_values);
 
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/index.php/api/service/electricity_insurance_gas_water";
+            String urlRouteList="https://genieservice.in/api/service/electricity_insurance_gas_water";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 

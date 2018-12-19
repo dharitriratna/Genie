@@ -160,7 +160,7 @@ public class Adress extends AppCompatActivity {
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "http://demo.ratnatechnology.co.in/genie/index.php/api/service/getaddress?user_id="+login_user,
+                "https://genieservice.in/api/service/getaddress?user_id="+login_user,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {

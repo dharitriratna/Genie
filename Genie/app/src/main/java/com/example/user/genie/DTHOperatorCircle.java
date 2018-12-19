@@ -165,7 +165,7 @@ public class DTHOperatorCircle extends AppCompatActivity {
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "http://demo.ratnatechnology.co.in/genie/api/service/getcircle",
+                "https://genieservice.in/api/service/getcircle",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {

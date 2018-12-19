@@ -181,7 +181,7 @@ public class PaymentActivity extends AppCompatActivity {
                     +toAddress+fromAddress);
 
 
-            String urlRouteList = "http://demo.ratnatechnology.co.in/genie/index.php/api/service/addgift";
+            String urlRouteList = "https://genieservice.in/api/service/addgift";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 

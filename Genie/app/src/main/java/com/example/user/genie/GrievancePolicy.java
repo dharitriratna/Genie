@@ -25,7 +25,7 @@ public class GrievancePolicy extends AppCompatActivity {
 
         webview.setWebViewClient(new myWebClient());
         webview.getSettings().setJavaScriptEnabled(true);
-        webview.loadUrl("http://demo.ratnatechnology.co.in/genie/main/grievance_policy");
+        webview.loadUrl("https://genieservice.in/main/grievance_policy");
     }
 
     public class myWebClient extends WebViewClient

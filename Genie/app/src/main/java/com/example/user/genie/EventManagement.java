@@ -151,7 +151,7 @@ public class EventManagement extends AppCompatActivity implements ViewPagerEx.On
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "http://demo.ratnatechnology.co.in/genie/api/service/getallevent",
+                "https://genieservice.in/api/service/getallevent",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {

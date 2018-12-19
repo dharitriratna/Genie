@@ -54,7 +54,7 @@ import java.util.List;
 
 import static com.example.user.genie.Utils.Count.setCounting;
 
-public class FSEListActivty extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class FSEListActivty extends AppCompatActivity {
     Toolbar toolbar;
     ImageView add_fse;
     RecyclerView fselistRecyclerview;
@@ -73,56 +73,41 @@ public class FSEListActivty extends AppCompatActivity implements NavigationView.
     ImageView account_wallet,imageHeader;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.drawer_layout2);
+        setContentView(R.layout.activity_fselist_activty);
         toolbar = findViewById(R.id.toolbar);
-        container = (FrameLayout) findViewById(R.id.maincontainer);
-        start_nav=findViewById(R.id.start_nav);
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view2);
-
-        View header = navigationView.getHeaderView(0);
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
-
-
-        start_nav.setOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!(drawer.isDrawerOpen(GravityCompat.START))) {
-                    drawer.openDrawer(GravityCompat.START);
-                }
+                onBackPressed();
             }
         });
-
-        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
-        View headerView = navigationView.getHeaderView(0);
 
         add_fse = findViewById(R.id.add_fse);
         add_fse.setOnClickListener(new View.OnClickListener() {
                                        @Override
                                        public void onClick(View v) {
 
-                                           final CharSequence[] options_array = {"FSE", "Retailer"};
+           final CharSequence[] options_array = {"FSE", "Retailer"};
 
-                                           AlertDialog.Builder builder = new AlertDialog.Builder(FSEListActivty.this);
-                                           builder.setTitle("Add");
-                                           builder.setItems(options_array, new DialogInterface.OnClickListener() {
-                                               @Override
-                                               public void onClick(DialogInterface dialog, int item) {
-                                                   if (options_array[item].equals("FSE")) {
-                                                       startActivity(new Intent(FSEListActivty.this, FSESignupActivity.class));
-                                                   } else if (options_array[item].equals("Retailer")) {
-                                                       startActivity(new Intent(FSEListActivty.this,RetailerSignupActivity.class));
-                                                   }
-                                               }
-                                           });
-                                           builder.show();
-                                       }
-                                   });
+           AlertDialog.Builder builder = new AlertDialog.Builder(FSEListActivty.this);
+           builder.setTitle("Add");
+           builder.setItems(options_array, new DialogInterface.OnClickListener() {
+               @Override
+               public void onClick(DialogInterface dialog, int item) {
+                   if (options_array[item].equals("FSE")) {
+                       startActivity(new Intent(FSEListActivty.this, FSESignupActivity.class));
+                   } else if (options_array[item].equals("Retailer")) {
+                       startActivity(new Intent(FSEListActivty.this,RetailerSignupActivity.class));
+                   }
+               }
+           });
+           builder.show();
+       }
+    });
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
@@ -140,7 +125,7 @@ public class FSEListActivty extends AppCompatActivity implements NavigationView.
         fseListModels = new ArrayList<>();
         getFseLists();
 
-        keyphone=(TextView) headerView.findViewById(R.id.keyphone);
+      /*  keyphone=(TextView) headerView.findViewById(R.id.keyphone);
         keyname=(TextView) headerView.findViewById(R.id.keyname);
 
 
@@ -154,7 +139,7 @@ public class FSEListActivty extends AppCompatActivity implements NavigationView.
             Uri image_uri = Uri.parse(image_value);
             imageHeader.setImageURI(image_uri);
         }
-
+*/
 
         fselistRecyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, fselistRecyclerview, new RecyclerTouchListener.ClickListener() {
             @Override
@@ -187,7 +172,7 @@ public class FSEListActivty extends AppCompatActivity implements NavigationView.
 
     }
 
-    boolean doubleBackToExitPressedOnce = false;
+   /* boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onBackPressed() {
@@ -200,9 +185,6 @@ public class FSEListActivty extends AppCompatActivity implements NavigationView.
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
 
-
-
-
         new Handler().postDelayed(new Runnable() {
 
             @Override
@@ -213,14 +195,14 @@ public class FSEListActivty extends AppCompatActivity implements NavigationView.
             }
 
         }, 2000);
-    }
+    }*/
 
     private void getFseLists() {
         progressDialog.setMessage("Loading");
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "http://demo.ratnatechnology.co.in/genie/index.php/api/user/getListFse?user_id="+login_user,
+                "https://genieservice.in/api/user/getListFse?user_id="+login_user,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -296,7 +278,7 @@ public class FSEListActivty extends AppCompatActivity implements NavigationView.
         requestQueue.add(stringRequest);
     }
 
-    @Override
+  /*  @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         item.setCheckable(true);
         displaySelectedScreen(item.getItemId());
@@ -397,5 +379,5 @@ public class FSEListActivty extends AppCompatActivity implements NavigationView.
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
-    }
+    }*/
 }

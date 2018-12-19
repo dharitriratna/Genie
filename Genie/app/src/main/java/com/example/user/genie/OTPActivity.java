@@ -154,7 +154,7 @@ public class OTPActivity extends AppCompatActivity {
 
             Log.v("RES","Sending data " +otp+login_user+phoneNo);
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/user/verify_otp";
+            String urlRouteList="https://genieservice.in/api/user/verify_otp";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
                 Log.v(" ", "Response is " + route_response);

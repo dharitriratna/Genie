@@ -144,6 +144,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:text="Create a new account"
+                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp" />
 
@@ -156,9 +157,9 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:text="Terms And Conditions!"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 

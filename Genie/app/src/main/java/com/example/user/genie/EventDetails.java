@@ -258,7 +258,7 @@ public class EventDetails extends AppCompatActivity {
                     +entry_time+organizerAddress);
 
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/event";
+            String urlRouteList="https://genieservice.in/api/service/event";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 

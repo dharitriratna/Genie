@@ -358,17 +358,27 @@
         <activity
             android:name=".FSEListActivty"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RetailersListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RetailerSignupActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewProfileDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewRetailerProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity3"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".RetailersListActivity"
+        <activity android:name=".UpdateRetailerProfileActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity android:name=".RetailerSignupActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".ViewProfileDetailsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-
     </application>
 
 </manifest>

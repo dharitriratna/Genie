@@ -97,7 +97,7 @@ public class ChangePassword extends AppCompatActivity {
             cred.add(new BasicNameValuePair("new_password",new_password));//user_email
             Log.v("RES","Sending data "+user_email+ new_password);
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/index.php/api/user/forgot_password_reset";
+            String urlRouteList="https://genieservice.in/api/user/forgot_password_reset";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 

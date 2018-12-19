@@ -21,7 +21,7 @@
             android:id="@+id/about_us"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" FSE Sign Up"
+            android:text="Update Retailer"
             android:textSize="18sp"
             android:textAllCaps="false"
             android:layout_gravity="center"
@@ -40,11 +40,31 @@
             android:orientation="vertical">
 
             <ImageView
+
                 android:layout_width="200dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/logo_final_design"
                 android:layout_gravity="center"/>
+
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:padding="10dp"
+                android:background="@drawable/edittext_top_bg">
+                <Spinner
+                    android:id="@+id/userTypespinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog">
+                </Spinner>
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,17 +74,19 @@
                 android:layout_marginTop="5dp">
 
 
+
                 <EditText
-                    android:id="@+id/candidatefsename"
+                    android:id="@+id/ownername"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/edittext_top_bg"
                     android:cursorVisible="true"
-                    android:hint="Name of Candidate"
-                    android:inputType="textEmailAddress"
+                    android:hint="Name Of Owner"
+                    android:inputType="text"
                     android:gravity="start|center"
                     android:padding="10dp"
                     android:textColor="#000" />
+
 
             </LinearLayout>
 
@@ -73,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="10dp">
 
 
                 <EditText
@@ -96,16 +118,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="10dp">
 
 
                 <EditText
-                    android:id="@+id/email"
+                    android:id="@+id/emailId"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/edittext_top_bg"
                     android:cursorVisible="true"
-                    android:hint="Email ID"
+                    android:hint="Email Id"
                     android:inputType="textEmailAddress"
                     android:gravity="start|center"
                     android:padding="10dp"
@@ -113,7 +135,9 @@
 
             </LinearLayout>
 
+
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -150,87 +174,57 @@
 
             </LinearLayout>
 
-
-
-            <TextView
-                android:layout_marginTop="5dp"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Previous Sales Experience"
-                android:textSize="18sp"
                 android:layout_marginLeft="20dp"
-                android:textColor="@color/colorPrimaryDark"/>
-            <RadioGroup
-                android:weightSum="2"
-                android:layout_margin="@dimen/activity_horizontal_margin"
-                android:id="@+id/experienceRB"
-                android:layout_marginLeft="10dp"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp">
 
-                <RadioButton
-                    android:checked="false"
-                    android:layout_weight="1"
-                    android:id="@+id/yesAns"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Yes"
-                    android:enabled="true"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="15sp"/>
 
-                <RadioButton
-                    android:layout_weight="1"
-                    android:id="@+id/noAns"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="No"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="15sp"/>
 
-            </RadioGroup>
+                <EditText
+                    android:id="@+id/businessname"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edittext_top_bg"
+                    android:cursorVisible="true"
+                    android:hint="Name Of Business"
+                    android:inputType="text"
+                    android:gravity="start|center"
+                    android:padding="10dp"
+                    android:textColor="#000" />
 
-            <TextView
-                android:layout_marginTop="5dp"
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Job Type"
-                android:textSize="18sp"
                 android:layout_marginLeft="20dp"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp">
 
 
-            <RadioGroup
-                android:weightSum="2"
-                android:layout_margin="@dimen/activity_horizontal_margin"
-                android:id="@+id/workcultureRB"
-                android:layout_marginLeft="10dp"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <RadioButton
-                    android:checked="false"
-                    android:layout_weight="1"
-                    android:id="@+id/parttime"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Part Time"
-                    android:enabled="true"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="15sp"/>
+                <EditText
+                    android:id="@+id/retailsubtype"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edittext_top_bg"
+                    android:cursorVisible="true"
+                    android:hint="Retail Sub Type"
+                    android:inputType="text"
+                    android:gravity="start|center"
+                    android:padding="10dp"
+                    android:textColor="#000" />
 
-                <RadioButton
-                    android:layout_weight="1"
-                    android:id="@+id/fulltime"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Full Time"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="15sp"/>
 
-            </RadioGroup>
+            </LinearLayout>
+
+
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -289,69 +283,69 @@
                 android:layout_height="150dp">
 
 
-                    <FrameLayout
-                        android:id="@+id/frontframe"
-                        android:layout_weight="1"
-                        android:layout_marginTop="2.5dp"
-                        android:layout_marginBottom="2.5dp"
-                        android:layout_marginRight="2.5dp"
-                        android:layout_marginLeft="2.5dp"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:id="@+id/front_photo"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
-                            android:scaleType="centerCrop"
-                            android:layout_gravity="center"
-                            />
+                <FrameLayout
+                    android:id="@+id/frontframe"
+                    android:layout_weight="1"
+                    android:layout_marginTop="2.5dp"
+                    android:layout_marginBottom="2.5dp"
+                    android:layout_marginRight="2.5dp"
+                    android:layout_marginLeft="2.5dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/front_photo"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center"
+                        />
 
-                        <TextView
-                            android:id="@+id/frontImg"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:text="Front Image"
-                            android:layout_gravity="bottom|center"
-                            android:textColor="#000"
-                            android:textSize="10sp"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:layout_margin="20dp" />
+                    <TextView
+                        android:id="@+id/frontImg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="Front Image"
+                        android:layout_gravity="bottom|center"
+                        android:textColor="#000"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:layout_margin="20dp" />
 
-                    </FrameLayout>
+                </FrameLayout>
 
-                    <FrameLayout
-                        android:id="@+id/backframe"
-                        android:layout_weight="1"
-                        android:layout_marginTop="2.5dp"
-                        android:layout_marginBottom="2.5dp"
-                        android:layout_marginRight="2.5dp"
-                        android:layout_marginLeft="2.5dp"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:id="@+id/back_photo"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
-                            android:scaleType="centerCrop"
-                            android:layout_gravity="center"
-                            />
+                <FrameLayout
+                    android:id="@+id/backframe"
+                    android:layout_weight="1"
+                    android:layout_marginTop="2.5dp"
+                    android:layout_marginBottom="2.5dp"
+                    android:layout_marginRight="2.5dp"
+                    android:layout_marginLeft="2.5dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/back_photo"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center"
+                        />
 
-                        <TextView
-                            android:id="@+id/backImg"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:text="Back Image"
-                            android:layout_gravity="bottom|center"
-                            android:textColor="#000"
-                            android:textSize="10sp"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:layout_margin="20dp" />
+                    <TextView
+                        android:id="@+id/backImg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="Back Image"
+                        android:layout_gravity="bottom|center"
+                        android:textColor="#000"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:layout_margin="20dp" />
 
-                    </FrameLayout>
+                </FrameLayout>
 
             </LinearLayout>
 
@@ -359,7 +353,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Upload Your Photo"
+                android:text="Upload Shop Photo"
                 android:textSize="18sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_marginLeft="20dp"
@@ -404,14 +398,6 @@
 
             </LinearLayout>
 
-            <CheckBox
-                android:visibility="gone"
-                android:id="@+id/checkBox1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Approval Need from Admin/ Dist  to all rights"
-                android:layout_above="@+id/button"
-                android:layout_centerHorizontal="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -421,7 +407,27 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"/>
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
 
+                <EditText
+                    android:id="@+id/user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edittext_top_bg"
+                    android:cursorVisible="true"
+                    android:hint="Name"
+                    android:inputType="text"
+                    android:gravity="start|center"
+                    android:padding="10dp"
+                    android:textColor="#000" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -451,9 +457,8 @@
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="5dp">
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
 
 
                 <EditText
@@ -561,6 +566,7 @@
                     android:textColor="#000" />
 
             </LinearLayout>
+
 
 
             <Button

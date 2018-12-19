@@ -74,7 +74,7 @@ public class PasscodeVerification extends AppCompatActivity {
             cred.add(new BasicNameValuePair("passcode",passcode));//user_email
             Log.v("RES","Sending data "+user_email+ passcode);
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/index.php/api/user/forgot_password_verify_code";
+            String urlRouteList="https://genieservice.in/api/user/forgot_password_verify_code";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 

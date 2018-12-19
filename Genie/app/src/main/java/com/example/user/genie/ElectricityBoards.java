@@ -138,7 +138,7 @@ public class ElectricityBoards extends AppCompatActivity {
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "http://demo.ratnatechnology.co.in/genie/api/service/getElectricity",
+                "https://genieservice.in/api/service/getElectricity",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
