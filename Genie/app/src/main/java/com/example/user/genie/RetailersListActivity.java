@@ -211,7 +211,7 @@ public class RetailersListActivity extends AppCompatActivity  {
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "http://demo.ratnatechnology.co.in/genie/index.php/api/user/getListRetailer?user_id="+login_user,
+                "https://genieservice.in/api/user/getListRetailer?user_id="+login_user,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {

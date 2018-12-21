@@ -15,17 +15,19 @@ public class PendingActivity extends AppCompatActivity {
     String back,id;
     private TextView transactionTV,successTv;
     Button continuebtn;
+    TextView dateAndtime;
     //  private Button continue_shopping;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_thanku);
+        setContentView(R.layout.activity_pending);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         back= RegPrefManager.getInstance(this).getBackService();
         id=RegPrefManager.getInstance(this).getSuccessID();
         continuebtn = findViewById(R.id.continuebtn);
+        dateAndtime = findViewById(R.id.date_time);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +59,8 @@ public class PendingActivity extends AppCompatActivity {
             }
         });
 
+        dateAndtime.setText("");
+
         successTv=findViewById(R.id.successTv);
 
         transactionTV=findViewById(R.id.transactionTV);
@@ -65,11 +69,11 @@ public class PendingActivity extends AppCompatActivity {
             successTv.setText(RegPrefManager.getInstance(PendingActivity.this).getInsuranceMessage());
         }
         else if(back.equals("Landline")){
-            successTv.setText("Success!!!");
+            successTv.setText("Pending!!!");
 
         }
         else if(back.equals("Tour")){
-            successTv.setText("Success!!!");
+            successTv.setText("Pending!!!");
         }
         else if(back.equals("DTH")){
 
@@ -77,18 +81,20 @@ public class PendingActivity extends AppCompatActivity {
                 transactionTV.setVisibility(View.VISIBLE);
                 // transactionTV.setText(id);
                 transactionTV.setText("Transation id is: "+RegPrefManager.getInstance(PendingActivity.this).getSuccessID());
+                dateAndtime.setText("Date and Time is: "+RegPrefManager.getInstance(PendingActivity.this).getDateAndTime());
 
             }
-            successTv.setText("Success!!!");
+            successTv.setText("Pending!!!");
         }
         else if (back.equals("MobileRecharge")){
             if(id!=null) {
                 transactionTV.setVisibility(View.VISIBLE);
                 // transactionTV.setText(id);
                 transactionTV.setText("Transation id is: "+RegPrefManager.getInstance(PendingActivity.this).getSuccessID());
+                dateAndtime.setText("Date and Time is: "+RegPrefManager.getInstance(PendingActivity.this).getDateAndTime());
 
             }
-            successTv.setText("Success!!!");
+            successTv.setText("Pending!!!");
         }
      /*   continue_shopping.setOnClickListener(new View.OnClickListener() {
             @Override

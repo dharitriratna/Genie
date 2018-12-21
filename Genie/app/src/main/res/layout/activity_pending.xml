@@ -78,6 +78,19 @@
                 android:src="@drawable/ic_announcement_black"
                 android:visibility="visible" />
 
+            <TextView
+                android:visibility="visible"
+                android:id="@+id/date_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
 
             <TextView
                 android:layout_width="match_parent"

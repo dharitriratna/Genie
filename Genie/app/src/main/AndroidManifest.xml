@@ -30,8 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashScreen"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".SplashGifScreen"
+            android:theme="@style/AppFullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -376,9 +376,23 @@
         <activity
             android:name=".MainActivity3"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".UpdateRetailerProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".UpdateRetailerProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewFSEProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewDistributorProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UpdateFSEProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UpdateDitributorProfile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--         <activity android:name=".SplashGifScreen"></activity> -->
+        <activity android:name=".MainActivity4"></activity>
     </application>
 
 </manifest>

@@ -808,7 +808,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
 
             case R.id.profile:
                 setTitleColor(R.color.colorPrimaryDark);
-                Intent intent = new Intent(MainActivity2.this, UpdateProfile.class);
+                Intent intent = new Intent(MainActivity2.this, ViewDistributorProfileActivity.class);
                 startActivity(intent);
                 break;
 

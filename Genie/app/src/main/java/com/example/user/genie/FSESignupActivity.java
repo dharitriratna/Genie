@@ -1,5 +1,6 @@
 package com.example.user.genie;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,8 +15,10 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -74,7 +77,7 @@ public class FSESignupActivity extends AppCompatActivity {
     TextView user_country;
     Spinner userAdproofpinner;
 
-    String userName,phoneNumber,EmailId,Password,userAddress,userLane,userCity,userPin,userState,userCountry;
+    String userName,phoneNumber,EmailId,Password,userAddress,userLane,userCity,userPin,userState,userCountry,UserFilePath,FrontFilePath,BackFilePath;
     String userAddressProof;
     Button btnSubmit;
 
@@ -82,14 +85,16 @@ public class FSESignupActivity extends AppCompatActivity {
     public static final String mypreference = "mypref";
     String login_user="";
     FrameLayout frontframe,backframe,userframe;
-
-
+    private static final int STORAGE_PERMISSION_CODE = 123;
+    Uri imageUri;
+    Boolean userImage,frontImage,backImage;
     @SuppressLint({"WrongViewCast", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fse_sign_up);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        requestStoragePermission();
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -259,7 +264,6 @@ public class FSESignupActivity extends AppCompatActivity {
                  }
              }
          });
-
        /* frontImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -314,8 +318,29 @@ public class FSESignupActivity extends AppCompatActivity {
         userframe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(i, 1);
+               /* Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(i, 1);*/
+               userImage=true;
+               frontImage=false;
+               backImage=false;
+                final CharSequence[] options_array = {"Camera", "Gallery"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(FSESignupActivity.this);
+                builder.setTitle("Choose");
+                builder.setItems(options_array, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options_array[item].equals("Camera")) {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(intent, requestCode);
+                        } else if (options_array[item].equals("Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK,
+                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, PICK_PHOTO);
+                        }
+                    }
+                });
+                builder.show();
 
             }
         });
@@ -323,83 +348,128 @@ public class FSESignupActivity extends AppCompatActivity {
         frontframe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i1 = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(i1, 2);
+                userImage=false;
+                frontImage=true;
+                backImage=false;
+                final CharSequence[] options_array = {"Camera", "Gallery"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(FSESignupActivity.this);
+                builder.setTitle("Choose");
+                builder.setItems(options_array, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options_array[item].equals("Camera")) {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(intent, requestCode);
+                        } else if (options_array[item].equals("Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK,
+                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, PICK_PHOTO);
+                        }
+                    }
+                });
+                builder.show();
+
             }
         });
 
         backframe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i2 = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(i2,3);
+                userImage=false;
+                frontImage=false;
+                backImage=true;
+                final CharSequence[] options_array = {"Camera", "Gallery"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(FSESignupActivity.this);
+                builder.setTitle("Choose");
+                builder.setItems(options_array, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options_array[item].equals("Camera")) {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(intent, requestCode);
+                        } else if (options_array[item].equals("Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK,
+                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, PICK_PHOTO);
+                        }
+                    }
+                });
+                builder.show();
+
             }
         });
-
-        int Permission_All = 1;
-
-        String[] Permissions = {
-//                android.Manifest.permission.ACCESS_COARSE_LOCATION,
-//                android.Manifest.permission.ACCESS_FINE_LOCATION,
-//                Manifest.permission.CALL_PHONE,
-                android.Manifest.permission.INTERNET,
-                android.Manifest.permission.ACCESS_WIFI_STATE,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.CAMERA, };
-        if(!hasPermissions(getApplicationContext(), Permissions)){
-            ActivityCompat.requestPermissions(FSESignupActivity.this, Permissions, Permission_All);
-        }
     }
 
 
-    public boolean hasPermissions(Context context, String... permissions){
-
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N && context!=null && permissions!=null){
-            for(String permission: permissions){
-                if(ActivityCompat.checkSelfPermission(context, permission)!= PackageManager.PERMISSION_GRANTED){
-                    return  false;
-                }
-            }
-        }
-        return true;
-    }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode){
-            case 1:
-                if(resultCode == RESULT_OK){
-                    Bundle extras = data.getExtras();
-                    Bitmap bmp = (Bitmap) extras.get("data");
-                    candidate_photo.setImageBitmap(bmp);
-                    addImg.setVisibility(View.GONE);
-                    imagefilePath=String.valueOf(getImageUri(this,bmp));
-                }
-                break;
-            case 2:
-                if(resultCode == RESULT_OK) {
-                    Bundle extras = data.getExtras();
-                    Bitmap bmp1 = (Bitmap) extras.get("data");
-                    front_photo.setImageBitmap(bmp1);
-                    frontImg.setVisibility(View.GONE);
-                    imagefilePathfront=String.valueOf(getImageUri(this,bmp1));
-                    Log.d("image", imagefilePathfront);
-                }
-                break;
-            case 3:
-                if (resultCode ==RESULT_OK){
-                    Bundle extras = data.getExtras();
-                    Bitmap bmp2 = (Bitmap)extras.get("data");
-                    back_photo.setImageBitmap(bmp2);
-                    backImg.setVisibility(View.GONE);
-                    imagefilePathback= String.valueOf(getImageUri(this,bmp2));
-                    Log.d("backimage", imagefilePathback);
-                }
+
+        if (resultCode == RESULT_OK && requestCode == PICK_PHOTO) {
+
+            imageUri = data.getData();
+            imagefilePath = getPath(imageUri);
+
+
+            //set_image.setImageURI(imageUri);
+            // String imageProfile=imageUri.toString();
+            //  RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
+
+            file=new File(imagefilePath);
+            if(userImage==true){
+                UserFilePath=imagefilePath;
+                candidate_photo.setImageURI(imageUri);
+                addImg.setVisibility(View.GONE);
+            }
+            else if(frontImage==true){
+                FrontFilePath=imagefilePath;
+                front_photo.setImageURI(imageUri);
+                frontImg.setVisibility(View.GONE);
+            }
+            else if (backImage==true){
+                BackFilePath=imagefilePath;
+                back_photo.setImageURI(imageUri);
+                backImg.setVisibility(View.GONE);
+            }
+            Log.d("imagefilePath",imagefilePath);
+
         }
+        else if(this.requestCode == requestCode && resultCode == RESULT_OK)
+        {
+            Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+            //set_image.setImageBitmap(bitmap);
+
+            imageUri= getImageUri(this,bitmap);
+            imagefilePath = getPath(imageUri);
+
+            //String imageProfile=imageUri.toString();
+            //RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
+
+            Log.d("imagefilePath",imagefilePath);
+            file=new File(imagefilePath);  // getting image captured filepath  < ----------------------------------------
+
+            if(userImage==true){
+                UserFilePath=imagefilePath;
+                candidate_photo.setImageURI(imageUri);
+                addImg.setVisibility(View.GONE);
+            }
+            else if(frontImage==true){
+                FrontFilePath=imagefilePath;
+                front_photo.setImageURI(imageUri);
+                frontImg.setVisibility(View.GONE);
+            }
+            else if (backImage==true){
+                BackFilePath=imagefilePath;
+                back_photo.setImageURI(imageUri);
+                backImg.setVisibility(View.GONE);
+            }
+        }
+
     }
 
 /*
@@ -597,16 +667,16 @@ public class FSESignupActivity extends AppCompatActivity {
             cred.add(new BasicNameValuePair("sales_experience",experience_rb ));
             cred.add(new BasicNameValuePair("job_type",workculture_rb ));
             cred.add(new BasicNameValuePair("address_proof",userAddressProof ));
-            cred.add(new BasicNameValuePair("icon",imagefilePathfront ));
-            cred.add(new BasicNameValuePair("icon1",imagefilePathback ));
-            cred.add(new BasicNameValuePair("icon2",imagefilePath ));
+            cred.add(new BasicNameValuePair("icon",FrontFilePath ));
+            cred.add(new BasicNameValuePair("icon1",BackFilePath ));
+            cred.add(new BasicNameValuePair("icon2",UserFilePath ));
             cred.add(new BasicNameValuePair("line1",userAddress ));
             cred.add(new BasicNameValuePair("city",userCity ));
             cred.add(new BasicNameValuePair("pin",userPin ));
             cred.add(new BasicNameValuePair("state",userState ));
             cred.add(new BasicNameValuePair("country",userCountry ));
             Log.v("RES","Sending data " +userName+ EmailId+ phoneNumber +Password+login_user+experience_rb+workculture_rb
-                                 +userAddressProof+imagefilePathfront+imagefilePathback+imagefilePath+userAddress+userCity+userPin+userState+userCountry);
+                                 +userAddressProof+FrontFilePath+BackFilePath+UserFilePath+userAddress+userCity+userPin+userState+userCountry);
 
             String urlRouteList="https://genieservice.in/api/user/registerFse";
             try {
@@ -666,4 +736,78 @@ public class FSESignupActivity extends AppCompatActivity {
             pDialog.show();
         }
     }
+
+
+    //Requesting permission
+    private void requestStoragePermission() {
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+                ||(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                ||(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED))
+            return;
+
+        if ((ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) ||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION))||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION))) {
+            //If the user has denied the permission previously your code will come to this block
+            //Here you can explain why you need this permission
+            //Explain here why you need this permission
+        }
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, STORAGE_PERMISSION_CODE);
+    }
+
+
+    //This method will be called when the user will tap on allow or deny
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        //Checking the request code of our request
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+
+            //If permission is granted
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //Displaying a toast
+                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
+            } else {
+                //Displaying another toast if permission is not granted
+                Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
 }
+
+
+
+/* switch(requestCode){
+            case 1:
+                if(resultCode == RESULT_OK){
+                    Bundle extras = data.getExtras();
+                    Bitmap bmp = (Bitmap) extras.get("data");
+                    candidate_photo.setImageBitmap(bmp);
+                    addImg.setVisibility(View.GONE);
+                    imagefilePath=String.valueOf(getImageUri(this,bmp));
+                }
+                break;
+            case 2:
+                if(resultCode == RESULT_OK) {
+                    Bundle extras = data.getExtras();
+                    Bitmap bmp1 = (Bitmap) extras.get("data");
+                    front_photo.setImageBitmap(bmp1);
+                    frontImg.setVisibility(View.GONE);
+                    imagefilePathfront=String.valueOf(getImageUri(this,bmp1));
+                    Log.d("image", imagefilePathfront);
+                }
+                break;
+            case 3:
+                if (resultCode ==RESULT_OK){
+                    Bundle extras = data.getExtras();
+                    Bitmap bmp2 = (Bitmap)extras.get("data");
+                    back_photo.setImageBitmap(bmp2);
+                    backImg.setVisibility(View.GONE);
+                    imagefilePathback= String.valueOf(getImageUri(this,bmp2));
+                    Log.d("backimage", imagefilePathback);
+                }
+        }*/

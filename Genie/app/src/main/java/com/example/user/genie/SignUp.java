@@ -199,7 +199,7 @@ public class SignUp extends AppCompatActivity {
             cred.add(new BasicNameValuePair("password",userPassword ));
             Log.v("RES","Sending data " +fullName+ email+ mobile_no +userPassword );
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/index.php/api/user/register";
+            String urlRouteList="https://genieservice.in/api/user/register";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 

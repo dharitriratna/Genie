@@ -19,30 +19,28 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.user.genie.Utils.Count;
 import com.example.user.genie.helper.RegPrefManager;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ViewRetailerProfileActivity extends AppCompatActivity {
+public class ViewFSEProfileActivity extends AppCompatActivity {
     Toolbar toolbar;
     ImageView edit, fseuserimage;
     TextView ownername, owneremail, ownernumber, add_proof, shopaddress, city, pincode, state, country;
     ProgressDialog progressDialog;
     int i = 0;
-
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     String login_user="";
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_fseprofile);
+        setContentView(R.layout.activity_view_fseprofile2);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +50,7 @@ public class ViewRetailerProfileActivity extends AppCompatActivity {
             }
         });
         progressDialog = new ProgressDialog(this);
+
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
@@ -77,8 +76,8 @@ public class ViewRetailerProfileActivity extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ViewRetailerProfileActivity.this,UpdateRetailerProfileActivity.class));
-                finish();
+                startActivity(new Intent(ViewFSEProfileActivity.this,UpdateFSEProfileActivity.class));
+             //   finish();
             }
         });
 
@@ -100,7 +99,6 @@ public class ViewRetailerProfileActivity extends AppCompatActivity {
                             Log.d("onResponse:", response);
                             JSONObject jsonObject = new JSONObject(response);
                             JSONArray array = jsonObject.getJSONArray("data");
-
 
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject object = array.getJSONObject(i);
@@ -127,7 +125,6 @@ public class ViewRetailerProfileActivity extends AppCompatActivity {
 
 
 
-
                                 /*Picasso.with(getApplicationContext())
                                         .load(profile_image)
                                         .placeholder(R.drawable.round_background)   // optional
@@ -146,9 +143,9 @@ public class ViewRetailerProfileActivity extends AppCompatActivity {
                                 phone_no.setText(mobile);
                                 email_id.setText(email_address);*/
 
-                                RegPrefManager.getInstance(ViewRetailerProfileActivity.this).setPhoneNo(mobile);
-                                RegPrefManager.getInstance(ViewRetailerProfileActivity.this).setUserName(name);
-                                RegPrefManager.getInstance(ViewRetailerProfileActivity.this).setUserEmail(email_address);
+                                RegPrefManager.getInstance(ViewFSEProfileActivity.this).setPhoneNo(mobile);
+                                RegPrefManager.getInstance(ViewFSEProfileActivity.this).setUserName(name);
+                                RegPrefManager.getInstance(ViewFSEProfileActivity.this).setUserEmail(email_address);
 
 
 
@@ -160,29 +157,30 @@ public class ViewRetailerProfileActivity extends AppCompatActivity {
                             if (spin_country.equals(country)){
                                 spin_country.getSelectedItem();
                             }*/
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-                }
-    },new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            if (error.getMessage() == null) {
-                if (i < 3) {
-                    Log.e("Retry due to error ", "for time : " + i);
-                    i++;
-                } else {
-                    progressDialog.dismiss();
-                    Toast.makeText(ViewRetailerProfileActivity.this, "Check your network connection.",
-                            Toast.LENGTH_LONG).show();
-                }
-            } else
-                Toast.makeText(ViewRetailerProfileActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    });
+                },new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.getMessage() == null) {
+                    if (i < 3) {
+                        Log.e("Retry due to error ", "for time : " + i);
+                        i++;
+                    } else {
+                        progressDialog.dismiss();
+                        Toast.makeText(ViewFSEProfileActivity.this, "Check your network connection.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                } else
+                    Toast.makeText(ViewFSEProfileActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
 
-    RequestQueue requestQueue= Volley.newRequestQueue(ViewRetailerProfileActivity.this);
+        RequestQueue requestQueue= Volley.newRequestQueue(ViewFSEProfileActivity.this);
         requestQueue.add(stringRequest);
-}
+    }
+
 }

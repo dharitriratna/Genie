@@ -1,5 +1,6 @@
 package com.example.user.genie;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,8 +15,11 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -74,11 +78,15 @@ public class RetailerSignupActivity extends AppCompatActivity {
     TextView user_country;
     Spinner userAdproofpinner;
 
-    String ownerName,phoneNumber,EmailId,Password,userAddress,userLane,userCity,userPin,userState,userCountry;
+    String ownerName,phoneNumber,EmailId,Password,userAddress,userLane,userCity,userPin,userState,userCountry,UserFilePath,FrontFilePath,BackFilePath;
     String retailerBusinessName,retailerSubType;
     String userAddressProof;
     Button btnSubmit;
     FrameLayout frontframe,backframe,userframe;
+    private static final int STORAGE_PERMISSION_CODE = 123;
+    Uri imageUri;
+    Boolean userImage,frontImage,backImage;
+    File userFile, frontFile, backFile;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -95,6 +103,7 @@ public class RetailerSignupActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        requestStoragePermission();
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
@@ -289,46 +298,92 @@ public class RetailerSignupActivity extends AppCompatActivity {
             }
         });
 */
-          userframe.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                      final CharSequence[] options_array = {"Camera", "Gallery"};
+        userframe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               /* Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(i, 1);*/
+                userImage=true;
+                frontImage=false;
+                backImage=false;
+                final CharSequence[] options_array = {"Camera", "Gallery"};
 
-                      AlertDialog.Builder builder = new AlertDialog.Builder(RetailerSignupActivity.this);
-                      builder.setTitle("Choose");
-                      builder.setItems(options_array, new DialogInterface.OnClickListener() {
-                          @Override
-                          public void onClick(DialogInterface dialog, int item) {
-                              if (options_array[item].equals("Camera")) {
-                                  Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                                  startActivityForResult(i, 1);
-                              } else if (options_array[item].equals("Gallery")) {
-                                  Intent intent = new Intent(Intent.ACTION_PICK,
-                                          android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                  startActivityForResult(intent, 1);
-                              }
-                          }
-                      });
-                      builder.show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(RetailerSignupActivity.this);
+                builder.setTitle("Choose");
+                builder.setItems(options_array, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options_array[item].equals("Camera")) {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(intent, requestCode);
+                        } else if (options_array[item].equals("Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK,
+                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, PICK_PHOTO);
+                        }
+                    }
+                });
+                builder.show();
 
-              }
-          });
+            }
+        });
 
-          frontframe.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  Intent i1 = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                  startActivityForResult(i1, 2);
-              }
-          });
+        frontframe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userImage=false;
+                frontImage=true;
+                backImage=false;
+                final CharSequence[] options_array = {"Camera", "Gallery"};
 
-          backframe.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  Intent i2 = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                  startActivityForResult(i2,3);
-              }
-          });
+                AlertDialog.Builder builder = new AlertDialog.Builder(RetailerSignupActivity.this);
+                builder.setTitle("Choose");
+                builder.setItems(options_array, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options_array[item].equals("Camera")) {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(intent, requestCode);
+                        } else if (options_array[item].equals("Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK,
+                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, PICK_PHOTO);
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+        backframe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userImage=false;
+                frontImage=false;
+                backImage=true;
+                final CharSequence[] options_array = {"Camera", "Gallery"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(RetailerSignupActivity.this);
+                builder.setTitle("Choose");
+                builder.setItems(options_array, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options_array[item].equals("Camera")) {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(intent, requestCode);
+                        } else if (options_array[item].equals("Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK,
+                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, PICK_PHOTO);
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
 
 
         int Permission_All = 1;
@@ -360,6 +415,94 @@ public class RetailerSignupActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == PICK_PHOTO) {
+
+            imageUri = data.getData();
+            imagefilePath = getPath(imageUri);
+
+
+            //set_image.setImageURI(imageUri);
+            // String imageProfile=imageUri.toString();
+            //  RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
+
+            file=new File(imagefilePath);
+
+            if(userImage==true){
+                UserFilePath=imagefilePath;
+                shop_photo.setImageURI(imageUri);
+                userFile = new File(UserFilePath);
+                addImg.setVisibility(View.GONE);
+            }
+            else if(frontImage==true){
+                FrontFilePath=imagefilePath;
+                front_photo.setImageURI(imageUri);
+                frontFile = new File(FrontFilePath);
+                frontImg.setVisibility(View.GONE);
+            }
+            else if (backImage==true){
+                BackFilePath=imagefilePath;
+                back_photo.setImageURI(imageUri);
+                backFile = new File(BackFilePath);
+                backImg.setVisibility(View.GONE);
+            }
+            Log.d("imagefilePath",imagefilePath);
+
+        }
+        else if(this.requestCode == requestCode && resultCode == RESULT_OK)
+        {
+            Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+            //set_image.setImageBitmap(bitmap);
+
+            imageUri= getImageUri(this,bitmap);
+            imagefilePath = getPath(imageUri);
+
+            //String imageProfile=imageUri.toString();
+            //RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
+
+            Log.d("imagefilePath",imagefilePath);
+            file=new File(imagefilePath);  // getting image captured filepath  < ----------------------------------------
+
+            if(userImage==true){
+                UserFilePath=imagefilePath;
+                shop_photo.setImageURI(imageUri);
+                userFile = new File(UserFilePath);
+                addImg.setVisibility(View.GONE);
+
+            }
+            else if(frontImage==true){
+                FrontFilePath=imagefilePath;
+                front_photo.setImageURI(imageUri);
+                frontFile = new File(FrontFilePath);
+                frontImg.setVisibility(View.GONE);
+            }
+            else if (backImage==true){
+                BackFilePath=imagefilePath;
+                back_photo.setImageURI(imageUri);
+                backFile = new File(BackFilePath);
+                backImg.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
+
+    private String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader loader = new CursorLoader(this, contentUri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String result = cursor.getString(column_index);
+        cursor.close();
+        return result;
+    }
+
+
  /*   public void onClick(View v) { // TODO Auto-generated method stub
 
         switch (v.getId()) {
@@ -375,49 +518,7 @@ public class RetailerSignupActivity extends AppCompatActivity {
         }
     }*/
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode){
-            case 1:
-                if(resultCode == RESULT_OK){
-                    Bundle extras = data.getExtras();
-                    Bitmap bmp = (Bitmap) extras.get("data");
-                    shop_photo.setImageBitmap(bmp);
-                    addImg.setVisibility(View.GONE);
-                    imagefilePath=String.valueOf(getImageUri(this,bmp));
-                }
-             /*   else if (resultCode == RESULT_OK&& requestCode==PICK_PHOTO){
-                    Uri imageUri = data.getData();
-                    imagefilePath = getPath(imageUri);
-                    shop_photo.setImageURI(imageUri);
-                    addImg.setVisibility(View.GONE);
-                    //  btn_submit.setVisibility(View.VISIBLE);
-                    file=new File(imagefilePath);
-                }*/
-                break;
-            case 2:
-                if(resultCode == RESULT_OK) {
-                    Bundle extras = data.getExtras();
-                    Bitmap bmp1 = (Bitmap) extras.get("data");
-                    front_photo.setImageBitmap(bmp1);
-                    frontImg.setVisibility(View.GONE);
-                    imagefilePathfront=String.valueOf(getImageUri(this,bmp1));
-                    Log.d("image", imagefilePathfront);
-                }
-                break;
-            case 3:
-                if (resultCode ==RESULT_OK){
-                    Bundle extras = data.getExtras();
-                    Bitmap bmp2 = (Bitmap)extras.get("data");
-                    back_photo.setImageBitmap(bmp2);
-                    backImg.setVisibility(View.GONE);
-                    imagefilePathback= String.valueOf(getImageUri(this,bmp2));
-                    Log.d("backimage", imagefilePathback);
-                }
-        }
-    }
+
 
 /*
     @Override
@@ -527,6 +628,45 @@ public class RetailerSignupActivity extends AppCompatActivity {
         return Uri.parse(path);
     }
 
+
+    private void requestStoragePermission() {
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+                ||(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                ||(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED))
+            return;
+
+        if ((ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) ||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION))||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION))) {
+            //If the user has denied the permission previously your code will come to this block
+            //Here you can explain why you need this permission
+            //Explain here why you need this permission
+        }
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, STORAGE_PERMISSION_CODE);
+    }
+
+
+    //This method will be called when the user will tap on allow or deny
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        //Checking the request code of our request
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+
+            //If permission is granted
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //Displaying a toast
+                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
+            } else {
+                //Displaying another toast if permission is not granted
+                Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
     @SuppressLint("StaticFieldLeak")
     private class AsyncRegister extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
@@ -543,9 +683,10 @@ public class RetailerSignupActivity extends AppCompatActivity {
             cred.add(new BasicNameValuePair("fse_user_id",login_user ));
             cred.add(new BasicNameValuePair("business_name",retailerBusinessName ));
             cred.add(new BasicNameValuePair("retail_sub_type",retailerSubType ));
-            cred.add(new BasicNameValuePair("icon",imagefilePathfront ));
-            cred.add(new BasicNameValuePair("icon1",imagefilePathback ));
-            cred.add(new BasicNameValuePair("icon2",imagefilePath ));
+            cred.add(new BasicNameValuePair("icon",FrontFilePath ));
+            Log.d("img", FrontFilePath);
+            cred.add(new BasicNameValuePair("icon1",BackFilePath ));
+            cred.add(new BasicNameValuePair("icon2",UserFilePath ));
             cred.add(new BasicNameValuePair("address_proof",userAddressProof ));
             cred.add(new BasicNameValuePair("line1",userAddress ));
             cred.add(new BasicNameValuePair("city",userCity ));
@@ -553,9 +694,9 @@ public class RetailerSignupActivity extends AppCompatActivity {
             cred.add(new BasicNameValuePair("state",userState ));
             cred.add(new BasicNameValuePair("country",userCountry ));
             Log.v("RES","Sending data " +ownerName+ EmailId+ phoneNumber +Password+login_user+retailerBusinessName+retailerSubType
-                    +imagefilePathfront+imagefilePathback+imagefilePath+userAddressProof+userAddress+userCity+userPin+userState+userCountry);
+                    +FrontFilePath+BackFilePath+UserFilePath+userAddressProof+userAddress+userCity+userPin+userState+userCountry);
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/user/registerRetailer";
+            String urlRouteList="https://genieservice.in/api/user/registerRetailer";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 

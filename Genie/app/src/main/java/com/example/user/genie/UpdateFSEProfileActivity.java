@@ -20,38 +20,31 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.user.genie.helper.RegPrefManager;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
-public class UpdateRetailerProfileActivity extends AppCompatActivity {
+public class UpdateFSEProfileActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView addImg,frontImg,backImg;
-    ImageView shop_photo,front_photo,back_photo,eye;
+    ImageView candidate_photo,front_photo,back_photo,eye;
     private static final int PICK_PHOTO = 1958;
     private static final int PICK_PHOTOfront = 1958;
     private static final int PICK_PHOTOback = 1958;
@@ -62,39 +55,39 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
     private String imagefilePathfront="";
     private String imagefilePathback="";
     private File file,file1,file2;
-    SharedPreferences sharedpreferences;
-    public static final String mypreference = "mypref";
-    String login_user="";
-    EditText ownername;
+    private RadioGroup experienceRB,workcultureRB;
+    String experience_rb;
+    String workculture_rb;
+
     EditText phone_no;
-    EditText emailId;
-    EditText businessname;
-    EditText retailsubtype;
-    EditText panid;
+    EditText candidatefsename;
+    EditText email;
     EditText user_address;
+    EditText user_landmark;
     EditText user_city;
     EditText user_pin;
     EditText user_state;
     TextView user_country;
     Spinner userAdproofpinner;
-    int i= 0;
 
-    String ownerName,phoneNumber,EmailId,userAddress,userLane,userCity,userPin,userState,userCountry,UserFilePath,FrontFilePath,BackFilePath;
-    String retailerBusinessName,retailerSubType;
+    String userName,phoneNumber,EmailId,userAddress,userLane,userCity,userPin,userState,userCountry,UserFilePath,FrontFilePath,BackFilePath;
     String userAddressProof;
     Button btnSubmit;
+
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
+    String login_user="";
     FrameLayout frontframe,backframe,userframe;
     private static final int STORAGE_PERMISSION_CODE = 123;
     Uri imageUri;
     Boolean userImage,frontImage,backImage;
-    ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_retailer_profile);
+        setContentView(R.layout.activity_update_fseprofile);
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -103,6 +96,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
@@ -110,38 +104,36 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
         login_user=sharedpreferences.getString("FLAG", "");
         editor.commit(); // commit changes
 
-        progressDialog = new ProgressDialog(this);
         Log.d("login_user", login_user);
-        ownername=findViewById(R.id.ownername);
+
+        experienceRB = findViewById(R.id.experienceRB);
+        workcultureRB = findViewById(R.id.workcultureRB);
         phone_no=findViewById(R.id.phone_no);
-        emailId=findViewById(R.id.emailId);
+        candidatefsename=findViewById(R.id.candidatefsename);
+        email=findViewById(R.id.email);
         user_address=findViewById(R.id.user_address);
+        user_landmark=findViewById(R.id.user_landmark);
         user_city=findViewById(R.id.user_city);
         user_pin=findViewById(R.id.user_pin);
         user_state=findViewById(R.id.user_state);
         user_country=findViewById(R.id.user_country);
-        businessname=findViewById(R.id.businessname);
-        retailsubtype=findViewById(R.id.retailsubtype);
-        btnSubmit=findViewById(R.id.btnSubmit);
         userAdproofpinner=findViewById(R.id.userAdproofpinner);
+        btnSubmit=findViewById(R.id.btnSubmit);
         addImg = findViewById(R.id.addImg);
         frontImg=findViewById(R.id.frontImg);
         backImg=findViewById(R.id.backImg);
         front_photo=findViewById(R.id.front_photo);
         back_photo=findViewById(R.id.back_photo);
-        shop_photo = findViewById(R.id.candidate_photo);
+        candidate_photo= findViewById(R.id.candidate_photo);
         frontframe=findViewById(R.id.frontframe);
         backframe=findViewById(R.id.backframe);
         userframe=findViewById(R.id.userframe);
-
-        getProfileDetails();
-
 
         userAdproofpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 userAddressProof= userAdproofpinner.getItemAtPosition(userAdproofpinner.getSelectedItemPosition()).toString();
-                Toast.makeText(getApplicationContext(),"Add Images Below",Toast.LENGTH_LONG).show();
+                //  Toast.makeText(getApplicationContext(),"Add Images",Toast.LENGTH_LONG).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -149,34 +141,52 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
             }
         });
 
+        experienceRB.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @SuppressLint("ResourceType")
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = (RadioButton) group.findViewById(checkedId);
+                if (null != rb && checkedId > -1) {
+                    experience_rb=rb.getText().toString();
+                    Toast.makeText(UpdateFSEProfileActivity.this, experience_rb, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        workcultureRB.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @SuppressLint("ResourceType")
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = (RadioButton) group.findViewById(checkedId);
+                if (null != rb && checkedId > -1) {
+                    workculture_rb=rb.getText().toString();
+                    Toast.makeText(UpdateFSEProfileActivity.this, workculture_rb, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ownerName = ownername.getText().toString().trim();
                 phoneNumber=phone_no.getText().toString().trim();
-                EmailId=emailId.getText().toString().trim();
-                retailerBusinessName=businessname.getText().toString().trim();
-                retailerSubType=retailsubtype.getText().toString().trim();
+                userName=candidatefsename.getText().toString().trim();
+                EmailId=email.getText().toString().trim();
                 userAddress=user_address.getText().toString().trim();
+                //  userLane=user_landmark.getText().toString().trim();
                 userCity=user_city.getText().toString().trim();
                 userPin=user_pin.getText().toString().trim();
                 userState=user_state.getText().toString().trim();
                 userCountry=user_country.getText().toString().trim();
 
-                if (ownerName.length() < 1){
-                    ownername.setError("Please Enter Owner Name");
+                if (userName.length() < 1){
+                    candidatefsename.setError("Please Enter Your Name");
                 }
                 else if (phoneNumber.length() < 1){
-                    phone_no.setError("Please Enter Phone no");
+                    phone_no.setError("Please Enter Your Phone No.");
                 }
                 else if (EmailId.length() < 1){
-                    emailId.setError("Please Enter Email");
-                }
-                else if (retailerBusinessName.length() < 1){
-                    businessname.setError("Please Enter Business Name");
-                }
-                else if (retailerSubType.length() < 1){
-                    retailsubtype.setError("Please Enter Retail Subtype");
+                    email.setError("Please Enter Your Email");
                 }
                 else if (userAddress.length() < 1){
                     user_address.setError("Please Enter Your Address");
@@ -194,7 +204,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                     user_country.setError("Please Enter Your Country");
                 }
                 else {
-                    new AsyncUpdateRetailerProfile().execute();
+                    new AsyncUpdate().execute();
                 }
             }
         });
@@ -209,7 +219,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                 backImage=false;
                 final CharSequence[] options_array = {"Camera", "Gallery"};
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateRetailerProfileActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateFSEProfileActivity.this);
                 builder.setTitle("Choose");
                 builder.setItems(options_array, new DialogInterface.OnClickListener() {
                     @Override
@@ -237,7 +247,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                 backImage=false;
                 final CharSequence[] options_array = {"Camera", "Gallery"};
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateRetailerProfileActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateFSEProfileActivity.this);
                 builder.setTitle("Choose");
                 builder.setItems(options_array, new DialogInterface.OnClickListener() {
                     @Override
@@ -265,7 +275,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                 backImage=true;
                 final CharSequence[] options_array = {"Camera", "Gallery"};
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateRetailerProfileActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateFSEProfileActivity.this);
                 builder.setTitle("Choose");
                 builder.setItems(options_array, new DialogInterface.OnClickListener() {
                     @Override
@@ -284,7 +294,6 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
 
             }
         });
-
         int Permission_All = 1;
 
         String[] Permissions = {
@@ -297,10 +306,9 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 android.Manifest.permission.CAMERA, };
         if(!hasPermissions(getApplicationContext(), Permissions)){
-            ActivityCompat.requestPermissions(UpdateRetailerProfileActivity.this, Permissions, Permission_All);
+            ActivityCompat.requestPermissions(UpdateFSEProfileActivity.this, Permissions, Permission_All);
         }
     }
-
 
     public boolean hasPermissions(Context context, String... permissions){
 
@@ -321,8 +329,10 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == PICK_PHOTO) {
+
             imageUri = data.getData();
             imagefilePath = getPath(imageUri);
+
 
             //set_image.setImageURI(imageUri);
             // String imageProfile=imageUri.toString();
@@ -331,7 +341,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
             file=new File(imagefilePath);
             if(userImage==true){
                 UserFilePath=imagefilePath;
-                shop_photo.setImageURI(imageUri);
+                candidate_photo.setImageURI(imageUri);
                 addImg.setVisibility(View.GONE);
             }
             else if(frontImage==true){
@@ -363,7 +373,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
 
             if(userImage==true){
                 UserFilePath=imagefilePath;
-                shop_photo.setImageURI(imageUri);
+                candidate_photo.setImageURI(imageUri);
                 addImg.setVisibility(View.GONE);
             }
             else if(frontImage==true){
@@ -395,113 +405,8 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
     }
 
 
-
-    private void getProfileDetails() {
-        progressDialog.setMessage("loading...");
-        progressDialog.show();
-        StringRequest stringRequest=new
-                StringRequest(Request.Method.GET, "https://genieservice.in/api/user/getprofile?user_id="+login_user,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-                        //   Toast.makeText(UpdateProfile.this, response, Toast.LENGTH_SHORT).show();
-                        try {
-                            // Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
-                            Log.d("onResponse:", response);
-                            JSONObject jsonObject = new JSONObject(response);
-                            JSONArray array = jsonObject.getJSONArray("data");
-
-
-                            for (int i = 0; i < array.length(); i++) {
-                                JSONObject object = array.getJSONObject(i);
-                                String user_id=object.getString("id");
-                                String name = object.getString("first_name");
-                                String mobile=object.getString("phone");
-                                String email_address=object.getString("email");
-                                String adProof = object.getString("address_proof");
-                                String address = object.getString("line1");
-                                String City = object.getString("city");
-                                String Pin = object.getString("pin");
-                                String State = object.getString("state");
-                                String Country = object.getString("country");
-
-                                ownername.setText(name);
-                                emailId.setText(email_address);
-                                phone_no.setText(mobile);
-                               // .setText(adProof);
-                                user_address.setText(address);
-                                user_city.setText(City);
-                                user_pin.setText(Pin);
-                                user_state.setText(State);
-                                user_country.setText(Country);
-
-
-
-
-                                /*Picasso.with(getApplicationContext())
-                                        .load(profile_image)
-                                        .placeholder(R.drawable.round_background)   // optional
-                                        .error(R.mipmap.ic_launcher)
-                                        .into(imageView);
-
-
-                                Picasso.with(getApplicationContext())
-                                        .load("http://demo.ratnatechnology.co.in/dogai/uploads/IMG_20180612_150603.jpg")
-                                        .placeholder(R.drawable.round_background)   // optional
-                                        .error(R.mipmap.ic_launcher)
-                                        .into(view_img);*/
-
-
-                              /*  full_name.setText(name);
-                                phone_no.setText(mobile);
-                                email_id.setText(email_address);*/
-
-                                RegPrefManager.getInstance(UpdateRetailerProfileActivity.this).setPhoneNo(mobile);
-                                RegPrefManager.getInstance(UpdateRetailerProfileActivity.this).setUserName(name);
-                                RegPrefManager.getInstance(UpdateRetailerProfileActivity.this).setUserEmail(email_address);
-
-
-
-//                                userid.setText(user_id);
-
-                              /* if (spin_gender.equals(gender)){
-                                spin_gender.getSelectedItem();
-                            }
-                            if (spin_country.equals(country)){
-                                spin_country.getSelectedItem();
-                            }*/
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error.getMessage() == null) {
-                    if (i < 3) {
-                        Log.e("Retry due to error ", "for time : " + i);
-                        i++;
-                    } else {
-                        progressDialog.dismiss();
-                        Toast.makeText(UpdateRetailerProfileActivity.this, "Check your network connection.",
-                                Toast.LENGTH_LONG).show();
-                    }
-                } else
-                    Toast.makeText(UpdateRetailerProfileActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-        RequestQueue requestQueue= Volley.newRequestQueue(UpdateRetailerProfileActivity.this);
-        requestQueue.add(stringRequest);
-    }
-
-
-
-
     @SuppressLint("StaticFieldLeak")
-    private class AsyncUpdateRetailerProfile extends AsyncTask<Void, Void, Void> {
+    private class AsyncUpdate extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
         String success = null,message="",status="true";
 
@@ -509,25 +414,25 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             pDialog.show();
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
-            cred.add(new BasicNameValuePair("first_name",ownerName));
+            cred.add(new BasicNameValuePair("first_name",userName));
             cred.add(new BasicNameValuePair("email",EmailId));//user_email
             cred.add(new BasicNameValuePair("phone",phoneNumber ));
-            cred.add(new BasicNameValuePair("user_id",login_user ));
-            cred.add(new BasicNameValuePair("business_name",retailerBusinessName ));
-            cred.add(new BasicNameValuePair("retail_sub_type",retailerSubType ));
+            cred.add(new BasicNameValuePair("user_id ",login_user ));
+            cred.add(new BasicNameValuePair("sales_experience",experience_rb ));
+            cred.add(new BasicNameValuePair("job_type",workculture_rb ));
+            cred.add(new BasicNameValuePair("address_proof",userAddressProof ));
             cred.add(new BasicNameValuePair("icon",FrontFilePath ));
             cred.add(new BasicNameValuePair("icon1",BackFilePath ));
             cred.add(new BasicNameValuePair("icon2",UserFilePath ));
-            cred.add(new BasicNameValuePair("address_proof",userAddressProof ));
             cred.add(new BasicNameValuePair("line1",userAddress ));
             cred.add(new BasicNameValuePair("city",userCity ));
             cred.add(new BasicNameValuePair("pin",userPin ));
             cred.add(new BasicNameValuePair("state",userState ));
             cred.add(new BasicNameValuePair("country",userCountry ));
-            Log.v("RES","Sending data " +ownerName+ EmailId+ phoneNumber +login_user+retailerBusinessName+retailerSubType
-                    +FrontFilePath+BackFilePath+UserFilePath+userAddressProof+userAddress+userCity+userPin+userState+userCountry);
+            Log.v("RES","Sending data " +userName+ EmailId+ phoneNumber +login_user+experience_rb+workculture_rb
+                    +userAddressProof+imagefilePathfront+imagefilePathback+imagefilePath+userAddress+userCity+userPin+userState+userCountry);
 
-            String urlRouteList= "https://genieservice.in/api/user/updateRetailerProfile";
+            String urlRouteList="https://genieservice.in/api/user/updatefseProfile";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 
@@ -543,13 +448,13 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                 // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
                 JSONObject jsonObject1 = new JSONObject(data);*/
                 String user_id=jsonObject.getString("user_id");
-                Toast.makeText(UpdateRetailerProfileActivity.this, user_id, Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdateFSEProfileActivity.this, user_id, Toast.LENGTH_SHORT).show();
               /*  SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("FLAG", user_id);
                 Log.d("user_id", user_id);
                 editor.commit();*/
                 String user_phone = jsonObject.getString("phone");
-                RegPrefManager.getInstance(UpdateRetailerProfileActivity.this).setPhoneNo(user_phone);
+                RegPrefManager.getInstance(UpdateFSEProfileActivity.this).setPhoneNo(user_phone);
                 //   String user_email=jsonObject1.getString("user_email");
 
             } catch (Exception e)
@@ -565,18 +470,20 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
             if(status.equals("true"))
             {
                 Toast.makeText(getApplicationContext(),"Updated Successfully", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(UpdateFSEProfileActivity.this,FSEListActivty.class));
+                finish();
             }
             else{
                 Toast.makeText(getApplicationContext(),"Update Failed",
                         Toast.LENGTH_LONG).show();
-                emailId.setError("Please enter an unique email");
-                phone_no.setError("Please enter an unique no.");
+                email.setError("Please enter a valid email");
+                phone_no.setError("Please enter a valid no.");
             }
         }
 
         @Override
         protected void onPreExecute() {
-            pDialog = new ProgressDialog(UpdateRetailerProfileActivity.this);
+            pDialog = new ProgressDialog(UpdateFSEProfileActivity.this);
             pDialog.setMessage("Loading In...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -584,6 +491,4 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
         }
     }
 
-
 }
-

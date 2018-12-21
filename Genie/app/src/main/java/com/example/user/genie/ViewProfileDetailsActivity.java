@@ -13,6 +13,7 @@ public class ViewProfileDetailsActivity extends AppCompatActivity {
     TextView userId, userName, userEmail, userNumber, userAdProof, userAddress;
     String userIdStr, userNameStr, userEmailStr, userPhoneStr, userAdProofStr, userAddressStr;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -21,15 +21,15 @@ android {
         }
     }
 
- }
-    allprojects {
-        repositories {
+}
+allprojects {
+    repositories {
 
-            maven { url 'https://jitpack.io' }
-        }
+        maven { url 'https://jitpack.io' }
     }
+}
 
- dependencies {
+dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:27.1.1'

@@ -809,7 +809,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
 
             case R.id.profile:
                 setTitleColor(R.color.colorPrimaryDark);
-                Intent intent = new Intent(MainActivity3.this, ViewRetailerProfileActivity.class);
+                Intent intent = new Intent(MainActivity3.this, ViewFSEProfileActivity.class);
                 startActivity(intent);
                 break;
 

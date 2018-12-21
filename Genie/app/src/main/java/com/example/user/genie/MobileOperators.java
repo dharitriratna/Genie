@@ -311,7 +311,6 @@ public class MobileOperators extends AppCompatActivity {
                                 }
                             }
 
-
                             mobileOperatorsAdapter = new MobileOperatorsAdapter(operatorsModels, getApplicationContext());
                             mob_operators_recyclerview.setAdapter(mobileOperatorsAdapter);
 
