@@ -18,6 +18,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
@@ -246,6 +247,10 @@ public class MobileRecharge extends AppCompatActivity {
            public void onClick(View v) {
                btn_prepaid.setVisibility(View.VISIBLE);
                btn_postpaid.setVisibility(View.GONE);
+               SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+               SharedPreferences.Editor editor = sharedPreferences.edit();
+               editor.putBoolean("Prepaid", prepaid.isChecked());
+               editor.apply();
            }
        });
         postpaid.setOnClickListener(new View.OnClickListener() {
@@ -253,8 +258,14 @@ public class MobileRecharge extends AppCompatActivity {
             public void onClick(View v) {
                 btn_prepaid.setVisibility(View.GONE);
                 btn_postpaid.setVisibility(View.VISIBLE);
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("Postpaid", postpaid.isChecked());
+                editor.apply();
             }
         });
+
+        loadRadioButtons();
 
         contact_number.setText(number);
 
@@ -429,6 +440,16 @@ public class MobileRecharge extends AppCompatActivity {
     }
 
 
+    public void loadRadioButtons(){
+
+        if (postpaid.isSelected()){
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            prepaid.setChecked(sharedPreferences.getBoolean("Prepaid", false));
+            postpaid.setChecked(sharedPreferences.getBoolean("Postpaid", false));
+        }
+
+    }
+
     /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICK_CONTACT && resultCode == RESULT_OK) {
@@ -505,7 +526,7 @@ public class MobileRecharge extends AppCompatActivity {
 
             Log.v("RES","Sending data " +login_user+ phone_number);
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/operatorFinder";
+            String urlRouteList="https://genieservice.in/api/service/operatorFinder";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 

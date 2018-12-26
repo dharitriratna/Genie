@@ -28,9 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_edit_yellow" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_add_wallet" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\user\Documents\birthday_cake.svg" />
+                            <entry key="sourceFile" value="C:\Users\user\Desktop\add_wallet.svg" />
                           </map>
                         </option>
                       </PersistentState>

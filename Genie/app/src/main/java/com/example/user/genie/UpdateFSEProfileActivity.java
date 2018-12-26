@@ -470,7 +470,7 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
             if(status.equals("true"))
             {
                 Toast.makeText(getApplicationContext(),"Updated Successfully", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(UpdateFSEProfileActivity.this,FSEListActivty.class));
+               // startActivity(new Intent(UpdateFSEProfileActivity.this,FSEListActivty.class));
                 finish();
             }
             else{

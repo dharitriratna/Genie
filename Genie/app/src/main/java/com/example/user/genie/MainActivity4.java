@@ -108,484 +108,484 @@ public class MainActivity4 extends AppCompatActivity implements NavigationView.O
         final static String KEY_MSG_4 = "FRAGMENT4_MSG";
         final static String KEY_MSG_5 = "FRAGMENT5_MSG";
 
-                SharedPreferences sharedpreferences;
+        SharedPreferences sharedpreferences;
         public static final String mypreference = "mypref";
-                String login_user="";
+        String login_user="";
 
-                String acmech;
-                ApiInterface apiService;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.drawer_layout4);
-
-    apiService =
-            ApiClientGenie.getClient().create(ApiInterface.class);
-    //    profile = findViewById(R.id.profile);
-    button1 = findViewById(R.id.button1);
-    button2 = findViewById(R.id.button2);
-    button3 = findViewById(R.id.button3);
-    button4 = findViewById(R.id.button4);
-    button5 = findViewById(R.id.button5);
-    tagline_text = findViewById(R.id.tagline_text);
-    account_wallet = findViewById(R.id.account_wallet);
-    account_wallet.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            startActivity(new Intent(getApplicationContext(),WalletActivity.class));
-        }
-    });
-
-    String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";
-
-    Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
-    Typeface tf2 = Typeface.createFromAsset(getAssets(), fontPath2);
-    Typeface tf3 = Typeface.createFromAsset(getAssets(), fontPath3);
-
-    tagline_text.setTypeface(tf3);
-
-    start_nav = findViewById(R.id.start_nav);
-    mDemoSlider = findViewById(R.id.slider);
-    home_delivery = findViewById(R.id.home_delivery);
-    events = findViewById(R.id.events);
-    prepaid = findViewById(R.id.prepaid);
-    dth = findViewById(R.id.dth);
-    broadband = findViewById(R.id.broadband);
-    landline = findViewById(R.id.landline);
-    water = findViewById(R.id.water);
-    electricity = findViewById(R.id.electricity);
-    train_booking = findViewById(R.id.train_booking);
-    moviesLinear=findViewById(R.id.moviesLinear);
-    flightLinear=findViewById(R.id.flightLinear);
-    linearBus=findViewById(R.id.linearBus);
-    cabBookingLin=findViewById(R.id.cabBookingLin);
-    rentLin=findViewById(R.id.rentLin);
-    money_transfer=findViewById(R.id.money_transfer);
-    datacardLn=findViewById(R.id.datacardLn);
-    rawMeat = findViewById(R.id.raw_meat);
-    gasLayout = findViewById(R.id.gasLayout);
-    hotelLayout = findViewById(R.id.hotelLayout);
-    bikeLinear=findViewById(R.id.bikeLinear);
-    carLinear=findViewById(R.id.carLinear);
-
-    birthday_planners=findViewById(R.id.birthday_planners);
-
-    insuranceLn=findViewById(R.id.insuranceLn);
-
-    joblin=findViewById(R.id.joblin);
-
-  /*  prepaid.setId(13);
-    dth.setId(14);
-    electricity.setId(15);
-    cabBookingLin.setId(37);
-    rentLin.setId(38);
-    birthday_planners.setId(39);*/
-
-    final ArrayList<String> al = new ArrayList<String>();
-    al.add("13");
-    al.add("14");
-    al.add("15");
-    al.add("37");
-    al.add("38");
-    al.add("39");
-    al.add("MN");
-
-
-    prepaid.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //     RegPrefManager.getInstance(MainActivity2.this).setMobileCircle();
-            RegPrefManager.getInstance(MainActivity4.this).setMobileOperator("","");
-            RegPrefManager.getInstance(MainActivity4.this).setMobileCircle("","");
-            RegPrefManager.getInstance(MainActivity4.this).setMobileRechargeAmount("");
-            RegPrefManager.getInstance(MainActivity4.this).setPhoneNo("");
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            Intent intent=(new Intent(MainActivity4.this,MobileRecharge.class));
-            // intent.putExtra("MobileId",al.indexOf("13"));
-            startActivity(intent);
-        }
-    });
-
-    events.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this,EventManagement.class));
-        }
-    });
-
-    electricity.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            RegPrefManager.getInstance(MainActivity4.this).SetElectricityBoard("","");
-            RegPrefManager.getInstance(MainActivity4.this).setElectricityOperator("","");
-            Intent intent=(new Intent(MainActivity4.this,PayForElectricity.class));
-            intent.putExtra("ElectricityId",al.indexOf("15"));
-            startActivity(intent);
-        }
-    });
-
-    train_booking.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this,BookTrain.class));
-        }
-    });
-    home_delivery.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this, HomeDeliveryGrocery.class));
-        }
-    });
-
-    broadband.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-
-            RegPrefManager.getInstance(MainActivity4.this).setLandlineOperator("","");
-            RegPrefManager.getInstance(MainActivity4.this).setLandlineCircle("","");
-
-            startActivity(new Intent(MainActivity4.this, LandLine.class));
-        }
-    });
-
-    landline.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            RegPrefManager.getInstance(MainActivity4.this).setLandlineOperator("","");
-            RegPrefManager.getInstance(MainActivity4.this).setLandlineCircle("","");
-            startActivity(new Intent(MainActivity4.this, LandLine.class));
-        }
-    });
-    water.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            RegPrefManager.getInstance(MainActivity4.this).setWaterBoard("","");
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this, WaterBill.class));
-        }
-    });
-    dth.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            RegPrefManager.getInstance(MainActivity4.this).setDTHOperator("","");
-            RegPrefManager.getInstance(MainActivity4.this).setMobileCircle("","");
-            RegPrefManager.getInstance(MainActivity4.this).setMobileRechargeAmount("");
-            RegPrefManager.getInstance(MainActivity4.this).setCustomerId("");
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            Intent intent=(new Intent(MainActivity4.this,DTHRecharge.class));
-            intent.putExtra("DTHId",al.indexOf("14"));
-            startActivity(intent);
-        }
-    });
-    moviesLinear.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this,MovieActivity.class));
-        }
-    });
-    flightLinear.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this,FlightActivity.class));
-        }
-    });
-    linearBus.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this,BusBookingActivity.class));
-        }
-    });
-    cabBookingLin.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            RegPrefManager.getInstance(MainActivity4.this).setCabFromPlace("");
-            startActivity(new Intent(MainActivity4.this,CabBookingActivity.class));
-        }
-    });
-    rentLin.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this,RentActivity.class));
-        }
-    });
-
-    birthday_planners.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this,GiftsList.class));
-        }
-    });
-
-    joblin.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this,JobActivity.class));
-        }
-    });
-    money_transfer.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            String id= RegPrefManager.getInstance(MainActivity4.this).getRemitterId();
-            if(id!=null) {
-                startActivity(new Intent(MainActivity4.this, RemiterDetailsActivity.class));
-            }else {
-                startActivity(new Intent(MainActivity4.this, RemiterRegistrationActivity.class));
-            }
-
-        }
-    });
-    datacardLn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            RegPrefManager.getInstance(MainActivity4.this).setDataCardNo("");
-            RegPrefManager.getInstance(MainActivity4.this).setDataCardOperator("","");
-            RegPrefManager.getInstance(MainActivity4.this).setDataCardCircle("","");
-
-            startActivity(new Intent(MainActivity4.this,DataCardActivity.class));
-        }
-    });
-
-    insuranceLn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this,AllInsuranseActivity.class));
-        }
-    });
-
-
-    rawMeat.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this,LoanPaymentActivity.class));
-        }
-    });
-
-    gasLayout.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            RegPrefManager.getInstance(MainActivity4.this).setGasBoard("","");
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this,GasBillActivity.class));
-        }
-    });
-
-    hotelLayout.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this,HotelActivity.class));
-        }
-    });
-    bikeLinear.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this,ComingSoonActivity.class));
-
-        }
-    });
-    carLinear.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
-            startActivity(new Intent(MainActivity4.this,ComingSoonActivity.class));
-        }
-    });
-
-
-    service_recyclerview = findViewById(R.id.service_recyclerview);
-
-    GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
-    service_recyclerview.setLayoutManager(manager);
-    progressDialog =new ProgressDialog(this);
-
-    servicesModels = new ArrayList<>();
-    //getServices();
-
-    getNetwork();
-
-
-    setImagePager();
-    service_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, service_recyclerview, new RecyclerTouchListener.ClickListener() {
-        @Override
-        public boolean onClick(View view, int position) {
-            ServicesModel list = servicesModels.get(position);
-            String service_id = list.getService_id();
-            String service_name = list.getService_name();
-            String service_fee = list.getService_fee();
-            String service_img = list.getService_img();
-
-
-            Intent i = new Intent(MainActivity4.this, OrderGenerate.class);
-            i.putExtra("SERVICE_ID", service_id);
-            i.putExtra("SERVICE_NAME", service_name);
-            i.putExtra("SERVICE_FEES", service_fee);
-            i.putExtra("SERVICE_IMAGE", service_img);
-            startActivity(i);
-
-            return true;
-        }
+        String acmech;
+        ApiInterface apiService;
 
         @Override
-        public void onLongClick(View view, int position) {
-            // Toast.makeText(Samagri.this, "Long Press", Toast.LENGTH_SHORT).show();
-        }
-    }));
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.drawer_layout4);
 
-
-/*
-        profile.setOnClickListener(new View.OnClickListener() {
+        apiService =
+                ApiClientGenie.getClient().create(ApiInterface.class);
+        //    profile = findViewById(R.id.profile);
+        button1 = findViewById(R.id.button1);
+        button2 = findViewById(R.id.button2);
+        button3 = findViewById(R.id.button3);
+        button4 = findViewById(R.id.button4);
+        button5 = findViewById(R.id.button5);
+        tagline_text = findViewById(R.id.tagline_text);
+        account_wallet = findViewById(R.id.account_wallet);
+        account_wallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),UpdateProfile.class));
+                startActivity(new Intent(getApplicationContext(),WalletActivity.class));
             }
         });
-*/
 
-    sharedpreferences = getSharedPreferences(mypreference, MODE_PRIVATE);
+        String fontPath = "fonts/Raleway-Light.ttf";
+        String fontPath2 = "fonts/Raleway-Thin.ttf";
+        String fontPath3 = "fonts/Raleway_SemiBold.ttf";
 
-    Toolbar toolbar = findViewById(R.id.toolbar);
-    //   toolbar.setNavigationIcon(R.drawable.ic_clear_all);
+        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
+        Typeface tf2 = Typeface.createFromAsset(getAssets(), fontPath2);
+        Typeface tf3 = Typeface.createFromAsset(getAssets(), fontPath3);
+
+        tagline_text.setTypeface(tf3);
+
+        start_nav = findViewById(R.id.start_nav);
+        mDemoSlider = findViewById(R.id.slider);
+        home_delivery = findViewById(R.id.home_delivery);
+        events = findViewById(R.id.events);
+        prepaid = findViewById(R.id.prepaid);
+        dth = findViewById(R.id.dth);
+        broadband = findViewById(R.id.broadband);
+        landline = findViewById(R.id.landline);
+        water = findViewById(R.id.water);
+        electricity = findViewById(R.id.electricity);
+        train_booking = findViewById(R.id.train_booking);
+        moviesLinear=findViewById(R.id.moviesLinear);
+        flightLinear=findViewById(R.id.flightLinear);
+        linearBus=findViewById(R.id.linearBus);
+        cabBookingLin=findViewById(R.id.cabBookingLin);
+        rentLin=findViewById(R.id.rentLin);
+        money_transfer=findViewById(R.id.money_transfer);
+        datacardLn=findViewById(R.id.datacardLn);
+        rawMeat = findViewById(R.id.raw_meat);
+        gasLayout = findViewById(R.id.gasLayout);
+        hotelLayout = findViewById(R.id.hotelLayout);
+        bikeLinear=findViewById(R.id.bikeLinear);
+        carLinear=findViewById(R.id.carLinear);
+
+        birthday_planners=findViewById(R.id.birthday_planners);
+
+        insuranceLn=findViewById(R.id.insuranceLn);
+
+        joblin=findViewById(R.id.joblin);
+
+        /*  prepaid.setId(13);
+        dth.setId(14);
+        electricity.setId(15);
+        cabBookingLin.setId(37);
+        rentLin.setId(38);
+        birthday_planners.setId(39);*/
+
+        final ArrayList<String> al = new ArrayList<String>();
+        al.add("13");
+        al.add("14");
+        al.add("15");
+        al.add("37");
+        al.add("38");
+        al.add("39");
+        al.add("MN");
 
 
-    container = (FrameLayout) findViewById(R.id.maincontainer);
-
-    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view3);
-
-    View header = navigationView.getHeaderView(0);
-    final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout4);
-
-    start_nav.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (!(drawer.isDrawerOpen(GravityCompat.START))) {
-                drawer.openDrawer(GravityCompat.START);
+        prepaid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //     RegPrefManager.getInstance(MainActivity2.this).setMobileCircle();
+                RegPrefManager.getInstance(MainActivity4.this).setMobileOperator("","");
+                RegPrefManager.getInstance(MainActivity4.this).setMobileCircle("","");
+                RegPrefManager.getInstance(MainActivity4.this).setMobileRechargeAmount("");
+                RegPrefManager.getInstance(MainActivity4.this).setPhoneNo("");
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                Intent intent=(new Intent(MainActivity4.this,MobileRecharge.class));
+                // intent.putExtra("MobileId",al.indexOf("13"));
+                startActivity(intent);
             }
+        });
+
+        events.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this,EventManagement.class));
+            }
+        });
+
+        electricity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                RegPrefManager.getInstance(MainActivity4.this).SetElectricityBoard("","");
+                RegPrefManager.getInstance(MainActivity4.this).setElectricityOperator("","");
+                Intent intent=(new Intent(MainActivity4.this,PayForElectricity.class));
+                intent.putExtra("ElectricityId",al.indexOf("15"));
+                startActivity(intent);
+            }
+        });
+
+        train_booking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this,BookTrain.class));
+            }
+        });
+        home_delivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this, HomeDeliveryGrocery.class));
+            }
+        });
+
+        broadband.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+
+                RegPrefManager.getInstance(MainActivity4.this).setLandlineOperator("","");
+                RegPrefManager.getInstance(MainActivity4.this).setLandlineCircle("","");
+
+                startActivity(new Intent(MainActivity4.this, LandLine.class));
+            }
+        });
+
+        landline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                RegPrefManager.getInstance(MainActivity4.this).setLandlineOperator("","");
+                RegPrefManager.getInstance(MainActivity4.this).setLandlineCircle("","");
+                startActivity(new Intent(MainActivity4.this, LandLine.class));
+            }
+        });
+        water.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity4.this).setWaterBoard("","");
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this, WaterBill.class));
+            }
+        });
+        dth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity4.this).setDTHOperator("","");
+                RegPrefManager.getInstance(MainActivity4.this).setMobileCircle("","");
+                RegPrefManager.getInstance(MainActivity4.this).setMobileRechargeAmount("");
+                RegPrefManager.getInstance(MainActivity4.this).setCustomerId("");
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                Intent intent=(new Intent(MainActivity4.this,DTHRecharge.class));
+                intent.putExtra("DTHId",al.indexOf("14"));
+                startActivity(intent);
+            }
+        });
+        moviesLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this,MovieActivity.class));
+            }
+        });
+        flightLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this,FlightActivity.class));
+            }
+        });
+        linearBus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this,BusBookingActivity.class));
+            }
+        });
+        cabBookingLin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                RegPrefManager.getInstance(MainActivity4.this).setCabFromPlace("");
+                startActivity(new Intent(MainActivity4.this,CabBookingActivity.class));
+            }
+        });
+        rentLin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this,RentActivity.class));
+            }
+        });
+
+        birthday_planners.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this,GiftsList.class));
+            }
+        });
+
+        joblin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this,JobActivity.class));
+            }
+        });
+        money_transfer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String id= RegPrefManager.getInstance(MainActivity4.this).getRemitterId();
+                if(id!=null) {
+                    startActivity(new Intent(MainActivity4.this, RemiterDetailsActivity.class));
+                }else {
+                    startActivity(new Intent(MainActivity4.this, RemiterRegistrationActivity.class));
+                }
+
+            }
+        });
+        datacardLn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity4.this).setDataCardNo("");
+                RegPrefManager.getInstance(MainActivity4.this).setDataCardOperator("","");
+                RegPrefManager.getInstance(MainActivity4.this).setDataCardCircle("","");
+
+                startActivity(new Intent(MainActivity4.this,DataCardActivity.class));
+            }
+        });
+
+        insuranceLn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this,AllInsuranseActivity.class));
+            }
+        });
+
+
+        rawMeat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this,LoanPaymentActivity.class));
+            }
+        });
+
+        gasLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity4.this).setGasBoard("","");
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this,GasBillActivity.class));
+            }
+        });
+
+        hotelLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this,HotelActivity.class));
+            }
+        });
+        bikeLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this,ComingSoonActivity.class));
+
+            }
+        });
+        carLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegPrefManager.getInstance(MainActivity4.this).setSuccessID("");
+                startActivity(new Intent(MainActivity4.this,ComingSoonActivity.class));
+            }
+        });
+
+
+        service_recyclerview = findViewById(R.id.service_recyclerview);
+
+        GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+        service_recyclerview.setLayoutManager(manager);
+        progressDialog =new ProgressDialog(this);
+
+        servicesModels = new ArrayList<>();
+        //getServices();
+
+        getNetwork();
+
+
+        setImagePager();
+        service_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, service_recyclerview, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public boolean onClick(View view, int position) {
+                ServicesModel list = servicesModels.get(position);
+                String service_id = list.getService_id();
+                String service_name = list.getService_name();
+                String service_fee = list.getService_fee();
+                String service_img = list.getService_img();
+
+
+                Intent i = new Intent(MainActivity4.this, OrderGenerate.class);
+                i.putExtra("SERVICE_ID", service_id);
+                i.putExtra("SERVICE_NAME", service_name);
+                i.putExtra("SERVICE_FEES", service_fee);
+                i.putExtra("SERVICE_IMAGE", service_img);
+                startActivity(i);
+
+                return true;
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                // Toast.makeText(Samagri.this, "Long Press", Toast.LENGTH_SHORT).show();
+            }
+        }));
+
+
+        /*
+            profile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getApplicationContext(),UpdateProfile.class));
+                }
+            });
+        */
+
+        sharedpreferences = getSharedPreferences(mypreference, MODE_PRIVATE);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        //   toolbar.setNavigationIcon(R.drawable.ic_clear_all);
+
+
+        container = (FrameLayout) findViewById(R.id.maincontainer);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view4);
+
+        View header = navigationView.getHeaderView(0);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout4);
+
+        start_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!(drawer.isDrawerOpen(GravityCompat.START))) {
+                    drawer.openDrawer(GravityCompat.START);
+                }
+            }
+        });
+
+        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
+        View headerView = navigationView.getHeaderView(0);
+
+        keyphone=(TextView) headerView.findViewById(R.id.keyphone);
+        keyname=(TextView) headerView.findViewById(R.id.keyname);
+
+
+        keyphone.setText(RegPrefManager.getInstance(this).getPhoneNo());
+        keyname.setText(RegPrefManager.getInstance(this).getUserName());
+
+        imageHeader=(ImageView)headerView.findViewById(R.id.imageHeader);
+        String image_value=RegPrefManager.getInstance(MainActivity4.this).getUpdateProfileImage();
+        if(image_value!=null) {
+            Uri image_uri = Uri.parse(image_value);
+            imageHeader.setImageURI(image_uri);
         }
-    });
 
-    navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
-    View headerView = navigationView.getHeaderView(0);
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
 
-    keyphone=(TextView) headerView.findViewById(R.id.keyphone);
-    keyname=(TextView) headerView.findViewById(R.id.keyname);
-
-
-    keyphone.setText(RegPrefManager.getInstance(this).getPhoneNo());
-    keyname.setText(RegPrefManager.getInstance(this).getUserName());
-
-    imageHeader=(ImageView)headerView.findViewById(R.id.imageHeader);
-    String image_value=RegPrefManager.getInstance(MainActivity4.this).getUpdateProfileImage();
-    if(image_value!=null) {
-        Uri image_uri = Uri.parse(image_value);
-        imageHeader.setImageURI(image_uri);
-    }
-
-    sharedpreferences = getSharedPreferences(mypreference,
-            Context.MODE_PRIVATE);
-
-    SharedPreferences.Editor editor = sharedpreferences.edit();
-    login_user=sharedpreferences.getString("FLAG", "");
-    editor.commit(); // commit changes
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        login_user=sharedpreferences.getString("FLAG", "");
+        editor.commit(); // commit changes
 
 
-    Log.d("login_user", login_user);
+        Log.d("login_user", login_user);
 
-    button1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        button1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
-    button1.setOnClickListener(new View.OnClickListener() {
+        button1.setOnClickListener(new View.OnClickListener() {
 
-        @Override
-        public void onClick(View arg0) {
+            @Override
+            public void onClick(View arg0) {
 
-            button1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            }
+        });
+
+
+        button2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                button2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                button3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                button4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            }
+        });
+
+        button5.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "App is not available in playstore yet");//share_cont + "\n" + "https://play.google.com/store/apps/details?id=com.nursevibe.vibe.nurse");
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent,"share via:"));
+                //
+                //  startActivity(sendIntent);
+                button5.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            }
+        });
         }
-    });
-
-
-    button2.setOnClickListener(new View.OnClickListener() {
-
-        @Override
-        public void onClick(View arg0) {
-
-            button2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-        }
-    });
-
-    button3.setOnClickListener(new View.OnClickListener() {
-
-        @Override
-        public void onClick(View arg0) {
-
-            button3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-        }
-    });
-
-    button4.setOnClickListener(new View.OnClickListener() {
-
-        @Override
-        public void onClick(View arg0) {
-
-            button4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-        }
-    });
-
-    button5.setOnClickListener(new View.OnClickListener() {
-
-        @Override
-        public void onClick(View arg0) {
-
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "App is not available in playstore yet");//share_cont + "\n" + "https://play.google.com/store/apps/details?id=com.nursevibe.vibe.nurse");
-            sendIntent.setType("text/plain");
-            startActivity(Intent.createChooser(sendIntent,"share via:"));
-            //
-            //  startActivity(sendIntent);
-            button5.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-        }
-    });
-}
 
 
     boolean doubleBackToExitPressedOnce = false;
@@ -600,8 +600,6 @@ public class MainActivity4 extends AppCompatActivity implements NavigationView.O
 
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
-
-
 
 
         new Handler().postDelayed(new Runnable() {
@@ -689,7 +687,7 @@ public class MainActivity4 extends AppCompatActivity implements NavigationView.O
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "http://demo.ratnatechnology.co.in/genie/index.php/api/service/getservice",
+                "https://genieservice.in/api/service/getservice",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {

@@ -42,6 +42,7 @@ public class WalletActivity extends AppCompatActivity {
     private TextView balanceTv,noWalletTv;
     private ImageView walletImg;
     private ArrayList<MyWalletData> dataArrayList;
+    ImageView add_money;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +76,41 @@ public class WalletActivity extends AppCompatActivity {
         walletImg=findViewById(R.id.walletImg);
         balanceTv=findViewById(R.id.balanceTv);
         noWalletTv=findViewById(R.id.noWalletTv);
+        add_money = findViewById(R.id.add_money);
         dataArrayList=new ArrayList<>();
 
+        add_money.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WalletActivity.this);
+                alertDialogBuilder.setTitle("Add Money");
+
+                alertDialogBuilder
+                        .setMessage("Do you want to add money to wallet")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent i = new Intent(WalletActivity.this, AddMoneyActivity.class);
+                                startActivity(i);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
+            }
+        });
 
         if (isNetworkAvailable()) {
             networkDataCardRecharge();
@@ -123,7 +157,6 @@ public class WalletActivity extends AppCompatActivity {
                 balanceTv.setVisibility(View.GONE);
             }
         });
-
     }
 
     public boolean isNetworkAvailable(){

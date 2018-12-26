@@ -72,7 +72,7 @@ public class OrderGenerate extends AppCompatActivity {
     int i=0;
     EditText edit_pin;
     TextView order_date;
-    String URL="http://demo.ratnatechnology.co.in/genie/index.php/api/service/getpin";
+    String URL="https://genieservice.in/api/service/getpin";
     ProgressDialog progressDialog;
     ArrayList pinList;
 

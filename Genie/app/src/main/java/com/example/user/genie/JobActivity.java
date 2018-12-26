@@ -232,7 +232,7 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
             Log.d("Tag","fils");
         }
     }
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
     private void networkService() {
         String name = nameTv.getText().toString();
         String number = numberTv.getText().toString();
@@ -312,11 +312,11 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
      * @param uri The Uri to query.
      * @author paulburke
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
     public static String getPath(final Context context, final Uri uri) {
 
 
-        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
 
         // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {

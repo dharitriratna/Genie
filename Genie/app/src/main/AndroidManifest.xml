@@ -391,8 +391,19 @@
         <activity
             android:name=".UpdateDitributorProfile"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!--         <activity android:name=".SplashGifScreen"></activity> -->
-        <activity android:name=".MainActivity4"></activity>
+        <!-- <activity android:name=".SplashGifScreen"></activity> -->
+        <activity
+            android:name=".MainActivity4"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddMoneyActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".VerifyWalletOTPActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".RequestWalletActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

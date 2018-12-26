@@ -262,7 +262,7 @@ public class Adress extends AppCompatActivity {
             Log.v("RES","Sending data " +login_user+ name+ address +landmark+city+state+country+service_id
                     +service_fees+pin);
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/index.php/api/service/addService";
+            String urlRouteList="https://genieservice.in/api/service/addService";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 

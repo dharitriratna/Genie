@@ -691,7 +691,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "http://demo.ratnatechnology.co.in/genie/index.php/api/service/getservice",
+                "https://genieservice.in/api/service/getservice",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -843,6 +843,10 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 startActivity(retailerlists);
                 break;
 
+            case R.id.request_money:
+                Intent request_money = new Intent(MainActivity2.this, RequestWalletActivity.class);
+                startActivity(request_money);
+                break;
 
             case R.id.logout:
 

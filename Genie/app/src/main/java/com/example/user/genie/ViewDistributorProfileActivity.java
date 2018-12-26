@@ -67,7 +67,6 @@ public class ViewDistributorProfileActivity extends AppCompatActivity {
         login_user=sharedpreferences.getString("FLAG", "");
         editor.commit(); // commit changes
 
-
         Log.d("login_user", login_user);
 
         ownername = findViewById(R.id.ownername);
@@ -111,6 +110,16 @@ public class ViewDistributorProfileActivity extends AppCompatActivity {
                                 String Pin = object.getString("pin");
                                 String State = object.getString("state");
                                 String Country = object.getString("country");
+
+                                ownername.setText(name);
+                                owneremail.setText(email_address);
+                                ownernumber.setText(mobile);
+                                add_proof.setText(adProof);
+                                shopaddress.setText(address);
+                                city.setText(City);
+                                pincode.setText(Pin);
+                                state.setText(State);
+                                country.setText(Country);
 
 
                                 /*Picasso.with(getApplicationContext())

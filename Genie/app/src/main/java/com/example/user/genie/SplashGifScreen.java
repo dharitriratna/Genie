@@ -10,7 +10,7 @@ import android.os.Bundle;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class SplashGifScreen extends AppCompatActivity {
-    private final int SPLASH_DISPLAY_LENGTH = 3600; //splash screen will be shown for this time period
+    private final int SPLASH_DISPLAY_LENGTH = 3500; //splash screen will be shown for this time period
     SharedPreferences sharedpreferences;
     private static final String mypreference ="myPref";
     String flag;

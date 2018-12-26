@@ -173,7 +173,7 @@ public class VerticalFragment extends AppCompatActivity implements VerticalRecyc
         @Override
         protected String doInBackground(String... params) {
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://demo.ratnatechnology.co.in/genie/index.php/api/service/allproduct");
+            HttpPost httppost = new HttpPost("https://genieservice.in/api/service/allproduct");
 
             try {
                 // Add your data

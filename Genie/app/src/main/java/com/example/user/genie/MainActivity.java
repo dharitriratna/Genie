@@ -564,11 +564,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View arg0) {
 
+                FragmentMain fragment = (FragmentMain) myFragmentManager.findFragmentByTag(TAG_4);
+
+                if (fragment == null) {
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString(KEY_MSG_4, "Add Money");
+                    fragment.setArguments(bundle);
+
+                    FragmentTransaction fragmentTransaction = myFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.maincontainer, fragment, TAG_4);
+                    fragmentTransaction.commit();
+
                 button4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            }
+            else {
+                    button4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                }
             }
         });
 

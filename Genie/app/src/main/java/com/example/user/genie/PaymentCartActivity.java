@@ -588,7 +588,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             cred.add(new BasicNameValuePair("service_id",service_id ));
             Log.v("RES","Sending data " + PhoneNumber+ value +opName+cirle_code+RechargeAmount+service_id);
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_dth_datacard_recharge";
+            String urlRouteList="https://genieservice.in/api/service/mobile_dth_datacard_recharge";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 
@@ -676,7 +676,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     +landline_ca_number+other_values+service_id);
 
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/index.php/api/service/electricity_insurance_gas_water";
+            String urlRouteList="https://genieservice.in/api/service/electricity_insurance_gas_water";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 
@@ -749,7 +749,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     +landline_ca_number+other_values);
 
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/index.php/api/service/electricity_insurance_gas_water";
+            String urlRouteList="https://genieservice.in/api/service/electricity_insurance_gas_water";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 
@@ -823,7 +823,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             Log.v("RES","Sending data " +login_user+dthOpName+ DTHoperatorCode+DTHcircleCode+ DTHcustomerId +DTHbillAmount+service_id);
 
 
-            String urlRouteList="http://demo.ratnatechnology.co.in/genie/api/service/mobile_dth_datacard_recharge";
+            String urlRouteList="https://genieservice.in/api/service/mobile_dth_datacard_recharge";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 
@@ -871,6 +871,11 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
                 // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
             }
+            else if(status_response.contains("P")){
+                Toast.makeText(getApplicationContext(),"Pending", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(PaymentCartActivity.this,PendingActivity.class));
+            }
+
             else if(status_response.contains("F")){
                 Toast.makeText(getApplicationContext(),"Failure", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));

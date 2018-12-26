@@ -53,7 +53,7 @@ public class ServicesRecyclerView extends AppCompatActivity {
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "http://demo.ratnatechnology.co.in/genie/index.php/api/product/getservice",
+                "https://genieservice.in/api/product/getservice",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {

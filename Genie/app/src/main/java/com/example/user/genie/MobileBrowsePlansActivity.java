@@ -103,22 +103,22 @@ public class MobileBrowsePlansActivity extends AppCompatActivity {
         htab_tabs.getTabAt(1).setCustomView(tabTwo);
 
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
-        tabThree.setText("2G");
+        tabThree.setText("Special");
         tabThree.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         htab_tabs.getTabAt(2).setCustomView(tabThree);
 
         TextView tabFour = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
-        tabFour.setText("3G");
+        tabFour.setText("2G");
         tabFour.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         htab_tabs.getTabAt(3).setCustomView(tabFour);
 
         TextView tabFive = (TextView)LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
-        tabFive.setText("4G");
+        tabFive.setText("3G");
         tabFive.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         htab_tabs.getTabAt(4).setCustomView(tabFive);
 
         TextView tabSix = (TextView)LayoutInflater.from(this).inflate(R.layout.custom_tablayout, null);
-        tabSix.setText("Special");
+        tabSix.setText("4G");
         tabSix.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         htab_tabs.getTabAt(5).setCustomView(tabSix);
 
@@ -138,10 +138,11 @@ public class MobileBrowsePlansActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new BrowsePlanDetailsFragment(), "Top");
         adapter.addFrag(new BrowsePlanDetailsFragmentFt(), "Full Talktime");
+        adapter.addFrag(new BrowsePlanDetailsFragmentSpecial(), "Special");
         adapter.addFrag(new BrowsePlanDetailsFragment2g(), "2G");
         adapter.addFrag(new BrowsePlanDetailsFragment3g(), "3G");
         adapter.addFrag(new BrowsePlanDetailsFragment4g(), "4G");
-        adapter.addFrag(new BrowsePlanDetailsFragmentSpecial(), "Special");
+
       /*  adapter.addFrag(new BrowsePlanDetailsFragment(), "SEVEN");
         adapter.addFrag(new BrowsePlanDetailsFragment(), "EIGHT");*/
         viewPager.setAdapter(adapter);

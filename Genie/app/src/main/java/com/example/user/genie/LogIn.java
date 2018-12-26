@@ -128,8 +128,8 @@ public class LogIn extends AppCompatActivity {
 
         if (login_user.equals("1")){startActivity(new Intent(this,MainActivity2.class));finish();}
         if (login_user.equals("2")){startActivity(new Intent(this,MainActivity3.class));finish();}
-        if (login_user.equals("3")){startActivity(new Intent(this,MainActivity.class));finish();}
-        if (login_user.equals("4")){startActivity(new Intent(this,MainActivity4.class));finish();}
+        if (login_user.equals("3")){startActivity(new Intent(this,MainActivity4.class));finish();}
+        if (login_user.equals("4")){startActivity(new Intent(this,MainActivity.class));finish();}
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -341,7 +341,7 @@ public class LogIn extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedpreferences.edit();  //deb done code for one time login
                 editor.putString("LOGGED_IN_AS", "3");
                 editor.commit();
-                startActivity(new Intent(LogIn.this,MainActivity.class));finish();
+                startActivity(new Intent(LogIn.this,MainActivity4.class));finish();
             }
             else if (status==true&&user_groups.equals("2")){
                 Toast.makeText(LogIn.this, "Login Successful As Customer", Toast.LENGTH_SHORT).show();
@@ -351,7 +351,7 @@ public class LogIn extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedpreferences.edit();  //deb done code for one time login
                 editor.putString("LOGGED_IN_AS", "4");
                 editor.commit();
-                startActivity(new Intent(LogIn.this,MainActivity4.class));finish();
+                startActivity(new Intent(LogIn.this,MainActivity.class));finish();
             }
             else {
                 Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();

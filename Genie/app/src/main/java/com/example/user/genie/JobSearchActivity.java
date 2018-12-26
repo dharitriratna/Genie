@@ -69,7 +69,6 @@ public class JobSearchActivity extends AppCompatActivity implements View.OnClick
             jobSearchModel.setDetails("Android");
 
             jobSearchModelArrayList.add(jobSearchModel);
-
         }
 
 

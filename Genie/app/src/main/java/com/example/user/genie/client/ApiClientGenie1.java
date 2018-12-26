@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClientGenie1 {
-    public static final String BASE_URL = "http://demo.ratnatechnology.co.in/genie/";
+    public static final String BASE_URL = "https://genieservice.in/";
     private static Retrofit retrofit = null;
 
 
