@@ -24,7 +24,7 @@ public class RefundPolicy extends AppCompatActivity {
 
         webview.setWebViewClient(new myWebClient());
         webview.getSettings().setJavaScriptEnabled(true);
-        webview.loadUrl("http://demo.ratnatechnology.co.in/genie/main/refund_policy");
+        webview.loadUrl("https://genieservice.in/main/refund_policy");
     }
 
 

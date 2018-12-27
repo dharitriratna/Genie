@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/background"
     tools:context=".MainActivity">
 
     <android.support.v7.widget.Toolbar
@@ -92,13 +92,11 @@
             <LinearLayout
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
-                android:background="@color/colorPrimary"
                 android:layout_height="150dp">
 
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/service_recyclerview"
-                    android:background="@color/colorPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"

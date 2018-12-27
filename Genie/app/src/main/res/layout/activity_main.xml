@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/background"
     tools:context=".MainActivity">
 
     <android.support.v7.widget.Toolbar
@@ -39,6 +39,7 @@
                 android:src="@drawable/logo_final_design"/>
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tagline_text"
                 android:layout_weight="1"
                 android:layout_marginRight="20dp"
@@ -55,12 +56,20 @@
                 android:textStyle="bold"/>
 
             <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center_vertical"
+                android:src="@drawable/bring_the_store"/>
+
+            <ImageView
                 android:id="@+id/account_wallet"
                 android:layout_weight="1"
                 android:layout_marginTop="10dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_account_wallet"/>
+                android:src="@drawable/mony_icon"/>
         </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
@@ -92,13 +101,11 @@
             <LinearLayout
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
-                android:background="@color/colorPrimary"
                 android:layout_height="150dp">
 
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/service_recyclerview"
-                    android:background="@color/colorPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -155,9 +162,7 @@
                                     android:layout_width="40dp"
                                     android:layout_gravity="center"
                                     android:layout_height="40dp"
-                                    android:src="@drawable/ic_mob_prepaid"
-
-                                    />
+                                    android:src="@drawable/ic_mob_prepaid" />
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -603,9 +608,7 @@
                                     android:layout_width="40dp"
                                     android:layout_gravity="center"
                                     android:layout_height="40dp"
-                                    android:src="@drawable/ic_gas"
-
-                                    />
+                                    android:src="@drawable/ic_gas" />
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -767,10 +770,10 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
                                     android:layout_height="40dp"
-                                    android:src="@drawable/ic_quad_bike"
+                                    android:src="@drawable/bike_insurance"
 
                                     />
 

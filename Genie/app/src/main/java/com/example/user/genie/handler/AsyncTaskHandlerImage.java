@@ -57,6 +57,4 @@ public class AsyncTaskHandlerImage extends AsyncTask<String, String, String> {
            callback.onTaskCompleteImage(result);
         }
     }
-
-
     }

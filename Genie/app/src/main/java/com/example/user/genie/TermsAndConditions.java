@@ -24,7 +24,7 @@ public class TermsAndConditions extends AppCompatActivity {
 
         webview.setWebViewClient(new myWebClient());
         webview.getSettings().setJavaScriptEnabled(true);
-        webview.loadUrl("http://demo.ratnatechnology.co.in/genie/main/terms_condition");
+        webview.loadUrl("https://genieservice.in/main/terms_condition");
     }
     public class myWebClient extends WebViewClient
     {

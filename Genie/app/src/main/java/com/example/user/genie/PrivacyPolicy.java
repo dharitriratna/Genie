@@ -13,7 +13,7 @@ public class PrivacyPolicy extends AppCompatActivity {
     TextView textView;
     WebView webview;
     ProgressBar progressBar;
-    String url = "http://demo.ratnatechnology.co.in/genie/main/privacy_policy";
+    String url = "https://genieservice.in/main/privacy_policy";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
