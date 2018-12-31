@@ -18,62 +18,38 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <HorizontalScrollView
-                android:layout_weight="1"
+            <LinearLayout
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
-                android:background="@color/colorPrimary"
-                android:layout_height="wrap_content">
+                android:layout_height="150dp">
 
 
-
-                <LinearLayout
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/service_recyclerview"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="2.5dp"
+                    android:layout_marginRight="2.5dp"
+                    android:layout_marginBottom="1dp">
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/logo" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/logo" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/logo" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/logo" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/logo" />
-                </LinearLayout>
+                </android.support.v7.widget.RecyclerView>
 
 
-            </HorizontalScrollView>
+            </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark">
+
+            </View>
 
             <FrameLayout
                 android:layout_weight="1"
-                android:id="@+id/maincontainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
-
             </FrameLayout>
 
 
@@ -84,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="5dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -94,69 +70,101 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_margin="10dp">
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="5dp">
 
                             <LinearLayout
+                                android:id="@+id/prepaid"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:id="@+id/game"
-                                    android:layout_width="60dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="60dp"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/mobile"
+
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="text"
-                                    android:textSize="15sp"
+                                    android:text="Mobile Recharge"
+                                    android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
                                     android:textAlignment="center" />
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/money_transfer"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:id="@+id/international"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/money_transfer_new"
+
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="text"
-                                    android:textSize="16sp"
-                                    android:padding="5dp"
+                                    android:text="Money Transfer"
+                                    android:textSize="10sp"
                                     android:textColor="#000"
+                                    android:padding="5dp"
                                     android:textAlignment="center" />
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/dth"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:id="@+id/national"
-                                    android:layout_width="60dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="60dp"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/dth_recharge"
                                     />
+
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="test"
+                                    android:text="Dth Recharge"
+                                    android:textSize="10sp"
                                     android:textColor="#000"
-                                    android:textSize="15sp"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/datacardLn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/datacard_recharge"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Datacard Recharge"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
                                     android:padding="5dp"
                                     android:textAlignment="center" />
                             </LinearLayout>
@@ -171,75 +179,102 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_margin="10dp">
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="5dp">
 
                             <LinearLayout
+                                android:id="@+id/broadband"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:id="@+id/metro"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    />
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/broadband_bill" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="text"
-                                    android:textSize="15sp"
+                                    android:text="Broadband Bill"
+                                    android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
-                                    android:textAlignment="center"
-                                    />
+                                    android:textAlignment="center" />
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/landline"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:id="@+id/business"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/landline_bill"
+
                                     />
 
                                 <TextView
-                                    android:id="@+id/textView"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="test"
-                                    android:padding="5dp"
-                                    android:textAlignment="center"
+                                    android:text="Landline Bill"
+                                    android:textSize="10sp"
                                     android:textColor="#000"
-                                    android:textSize="15sp" />
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/electricity"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:id="@+id/state"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/electricity_bill"
+
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="test"
-                                    android:textSize="15sp"
-                                    android:padding="5dp"
+                                    android:text="Electricity Bill"
+                                    android:textSize="10sp"
                                     android:textColor="#000"
-                                    android:textAlignment="center"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/water"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/water_bill"
+
                                     />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Water Bill"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -254,81 +289,475 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_margin="10dp">
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="5dp">
 
                             <LinearLayout
+                                android:id="@+id/events"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:id="@+id/pen"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/event_management"
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="test"
-                                    android:textSize="15sp"
-                                    android:padding="5dp"
-                                    android:textColor="#000"
-                                    android:textAlignment="center"
-                                    />
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_weight="1">
-                                <ImageView
-                                    android:id="@+id/entertain"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
-                                    android:layout_gravity="center"
-                                    />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="text"
-                                    android:textSize="15sp"
+                                    android:text="Event Management"
+                                    android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
-                                    android:textAlignment="center"
-                                    />
+                                    android:textAlignment="center" />
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/insuranceLn"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:id="@+id/lifestyle"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/insurance_payment" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Insurance Payment"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/moviesLinear"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/movie"
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="text"
-                                    android:textSize="15sp"
+                                    android:text="Movies"
+                                    android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
-                                    android:textAlignment="center"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/train_booking"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/railway_ticket"
+
                                     />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Railway Ticket"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="5dp">
+                            <LinearLayout
+                                android:id="@+id/cabBookingLin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/location"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Tour and Travels"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/rentLin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/rent_guru"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Rent Guru"
+
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/birthday_planners"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/birthday_planners"
+                                    />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Birthday Planners"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/home_delivery"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/home_delvery"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Home Delivery"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="5dp">
+
+                            <LinearLayout
+                                android:id="@+id/gasLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/gas"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Gas"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:id="@+id/linearBus"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/bus"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Bus"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/hotelLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/hotel"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Hotel"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/flightLinear"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/flight"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Flight"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="5dp">
+
+                            <LinearLayout
+                                android:id="@+id/joblin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/job"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Job"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+
+                            <LinearLayout
+
+                                android:id="@+id/raw_meat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/lone_payment"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Loan Payment"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/bikeLinear"
+                                android:visibility="visible"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/bike_insurance"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Bike Insurance"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/carLinear"
+                                android:visibility="visible"
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_gravity="center"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/car_insurance"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Car Insurance"
+                                    android:textSize="10sp"
+                                    android:textColor="#000"
+                                    android:padding="5dp"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
                 </LinearLayout>
             </ScrollView>
 
 
+            <FrameLayout
+                android:id="@+id/frame_slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.daimajia.slider.library.SliderLayout
+                    android:id="@+id/slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginTop="10dp" />
+                <!--
+                         <TextView
+                             android:id="@+id/seasonal_offer"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="SEASONAL OFFERS\nPuja Services"
+                             android:textStyle="bold"
+                             android:textSize="18sp"
+                             android:textColor="#fff"
+                             android:background="#70000000"
+                             android:layout_gravity="right|center"
+                             android:padding="20dp"/>
+                -->
+
+            </FrameLayout>
 
         </LinearLayout>
 

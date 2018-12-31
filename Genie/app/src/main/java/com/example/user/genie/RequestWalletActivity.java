@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -29,6 +31,10 @@ public class RequestWalletActivity extends AppCompatActivity {
     String login_user="";
 
     String SendingAmount;
+    String ReferralCode;
+    Spinner paymentmethodspinner;
+    String paymentMethod;
+    EditText refCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +50,22 @@ public class RequestWalletActivity extends AppCompatActivity {
         });
 
         amountTv = findViewById(R.id.amountTv);
+        refCode = findViewById(R.id.refCode);
         btnProceed = findViewById(R.id.btnProceed);
+        paymentmethodspinner= findViewById(R.id.paymentmethodspinner);
+
+        paymentmethodspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                paymentMethod= paymentmethodspinner.getItemAtPosition(paymentmethodspinner.getSelectedItemPosition()).toString();
+               // Toast.makeText(getApplicationContext(),paymentMethod,Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // DO Nothing here
+            }
+        });
+
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
@@ -57,9 +78,13 @@ public class RequestWalletActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SendingAmount = amountTv.getText().toString().trim();
+                ReferralCode = refCode.getText().toString().trim();
 
                 if (SendingAmount.length() < 1){
                     amountTv.setText("Please Enter Amount");
+                }
+                else if (ReferralCode.length() < 1){
+                    refCode.setText("Please Enter Code");
                 }
                 else {
                     new Asynctask().execute();
@@ -78,7 +103,9 @@ public class RequestWalletActivity extends AppCompatActivity {
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
             cred.add(new BasicNameValuePair("user_id",login_user));
             cred.add(new BasicNameValuePair("amount",SendingAmount ));
-            Log.v("RES","Sending data " +login_user +SendingAmount );
+            cred.add(new BasicNameValuePair("ref_no",ReferralCode ));
+            cred.add(new BasicNameValuePair("payment_method",paymentMethod ));
+            Log.v("RES","Sending data " +login_user +SendingAmount+ReferralCode+paymentMethod );
 
             String urlRouteList=" https://genieservice.in/api/service/moneyTransferReq";
             try {

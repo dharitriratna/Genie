@@ -107,7 +107,7 @@ public interface ApiInterface {
     @GET("api/service/getcircle")
     Call<getDataCardCircle> getDataCardCircle();
 
-    @POST("api/service/mobile_dth_datacard_recharge")
+    @POST("https://genieservice.in/api/service/mobile_dth_datacard_recharge1")
     @FormUrlEncoded
     Call<DatacardResponse> postDatacardRecharge(@Field("user_id") int user_id, @Field("customer_id") String customer_id,
                                                 @Field("operator") String operator,

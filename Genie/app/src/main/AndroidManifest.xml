@@ -24,8 +24,11 @@
     <application
         android:name=".Utils.MyApplication"
         android:allowBackup="true"
+        android:enabled="true"
+        android:hardwareAccelerated="false"
         android:icon="@drawable/app_logo"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@drawable/app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -401,8 +404,14 @@
         <activity
             android:name=".VerifyWalletOTPActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RequestWalletActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ContestActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".RequestWalletActivity"
+        <activity android:name=".HelpAndSupportActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

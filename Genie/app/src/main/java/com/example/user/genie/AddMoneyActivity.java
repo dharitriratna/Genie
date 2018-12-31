@@ -148,8 +148,11 @@ public class AddMoneyActivity extends AppCompatActivity {
             if(status.equals("true"))
             {
                 Toast.makeText(getApplicationContext(),"Check OTP", Toast.LENGTH_LONG).show();
+                otpTv.setVisibility(View.VISIBLE);
+                btnSend.setVisibility(View.VISIBLE);
+                btnProceed.setVisibility(View.GONE);
              //   startActivity(new Intent(getApplicationContext(),VerifyWalletOTPActivity.class));
-                finish();
+               // finish();
 
             //    startActivity(new Intent(AddMoneyActivity.this,OTPActivity.class));finish();
             }

@@ -46,8 +46,9 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.example.user.genie.Adapter.ServicesAdapter;
+import com.example.user.genie.Fragments.FragmentAddMoney;
 import com.example.user.genie.Fragments.FragmentMain;
-import com.example.user.genie.Fragments.FragmentProfile;
+import com.example.user.genie.Fragments.FragmentSendMoney;
 import com.example.user.genie.Model.ServicesModel;
 import com.example.user.genie.ObjectNew.ServiceImage;
 import com.example.user.genie.Utils.GlobalClass;
@@ -71,8 +72,9 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
         ViewPagerEx.OnPageChangeListener,BaseSliderView.OnSliderClickListener {
     Toolbar toolbar;
     FragmentManager myFragmentManager;
-    FragmentMain fragmentmain;
-    FragmentProfile fragmentprofile;
+    FragmentMain fragmentMain;
+    FragmentSendMoney fragmentSendMoney;
+    FragmentAddMoney fragmentAddMoney;
     FrameLayout container;
     MenuItem menu_home;
     int[] image={ R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5, R.drawable.image_6, R.drawable.image_7, R.drawable.image_8};
@@ -80,11 +82,9 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
     ImageView start_nav;
 
     //  LinearLayout ac_mechanic, tv_mechanic, labour, driver, home_tutor;
-    LinearLayout home_delivery, events, prepaid, electricity,train_booking,
+       LinearLayout home_delivery, events, prepaid, electricity,train_booking,
             dth, broadband, landline, water,moviesLinear,flightLinear,linearBus,carLinear,bikeLinear,
-
-
-    cabBookingLin,rentLin,birthday_planners, joblin,money_transfer,datacardLn, rawMeat, gasLayout, hotelLayout,insuranceLn;
+            cabBookingLin,rentLin,birthday_planners, joblin,money_transfer,datacardLn, rawMeat, gasLayout, hotelLayout,insuranceLn;
 
     Button button1, button2, button3, button4, button5;
 
@@ -520,25 +520,67 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
             @Override
             public void onClick(View arg0) {
 
-                button1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                FragmentMain fragmentMain = (FragmentMain) myFragmentManager.findFragmentByTag(TAG_1);
+
+                if (fragmentMain == null) {
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString(KEY_MSG_1, "Home");
+                    fragmentMain.setArguments(bundle);
+
+                    FragmentTransaction fragmentTransaction = myFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.maincontainer, fragmentMain, TAG_1);
+                    fragmentTransaction.commit();
+
+                    button1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+
+                } else {
+
+                    // fragment.setMsg("Home");
+                    button1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                }
             }
         });
-
 
         button2.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
 
-                button2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                FragmentSendMoney fragmentSendMoney = (FragmentSendMoney) myFragmentManager.findFragmentByTag(TAG_2);
+
+                if (fragmentSendMoney == null) {
+
+                 /*   Bundle bundle = new Bundle();
+                    bundle.putString(KEY_MSG_2, "Send Money");
+                    fragmentSendMoney.setArguments(bundle);*/
+
+                    /*FragmentTransaction fragmentTransaction = myFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.maincontainer, fragmentSendMoney, TAG_2);
+                    fragmentTransaction.commit();*/
+                    button2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+
+                } /*else {
+                    // fragment.setMsg("Offer");
+                    button2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+
+                }*/
             }
         });
 
@@ -560,14 +602,35 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
             @Override
             public void onClick(View arg0) {
 
-                button4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                FragmentAddMoney fragmentAddMoney = (FragmentAddMoney) myFragmentManager.findFragmentByTag(TAG_4);
+
+                if (fragmentAddMoney == null) {
+
+                  /*  Bundle bundle = new Bundle();
+                    bundle.putString(KEY_MSG_4, "Add Money");
+                    fragmentAddMoney.setArguments(bundle);*/
+
+                   /* FragmentTransaction fragmentTransaction = myFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.maincontainer, fragmentAddMoney, TAG_1);
+                    fragmentTransaction.commit();*/
+
+                    button4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+
+                } /*else {
+
+                    // fragment.setMsg("Home");
+                    button4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                }*/
             }
         });
-
         button5.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -587,6 +650,39 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
             }
         });
+
+        myFragmentManager = getSupportFragmentManager();
+        fragmentMain = new FragmentMain();
+      //  fragmentSendMoney = new FragmentSendMoney();
+       // fragmentAddMoney = new FragmentAddMoney();
+        //  fragmentCart = new CartActivity();
+        //   fragmentSearch = new FragmentSearch();
+       // fragmentProfile = new FragmentSendMoney();
+
+        if (savedInstanceState == null) {
+            //if's the first time created
+
+            FragmentTransaction fragmentTransaction = myFragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.maincontainer, fragmentMain, TAG_1);
+            fragmentTransaction.commit();
+        }
+
+      /* else if (savedInstanceState == null) {
+            //if's the first time created
+
+            FragmentTransaction fragmentTransaction = myFragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.maincontainer, fragmentSendMoney, TAG_2);
+            fragmentTransaction.commit();
+        }
+
+       else if (savedInstanceState == null) {
+            //if's the first time created
+
+            FragmentTransaction fragmentTransaction = myFragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.maincontainer, fragmentAddMoney, TAG_4);
+            fragmentTransaction.commit();
+        }
+*/
     }
 
 
@@ -800,7 +896,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
         //initializing the fragment object which is selected
         switch (itemId) {
 
-            case R.id.order:
+            case R.id.my_order:
                 setTitleColor(R.color.colorPrimaryDark);
                 Intent order = new Intent(MainActivity2.this,MyOrders.class);
                 startActivity(order);
@@ -841,6 +937,16 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
             case R.id.retailer_list:
                 Intent retailerlists = new Intent(MainActivity2.this,RetailersListActivity.class);
                 startActivity(retailerlists);
+                break;
+
+            case R.id.contest:
+                Intent contest = new Intent(MainActivity2.this, ContestActivity.class);
+                startActivity(contest);
+                break;
+
+            case R.id.help_support:
+                Intent help_support = new Intent(MainActivity2.this, HelpAndSupportActivity.class);
+                startActivity(help_support);
                 break;
 
             case R.id.request_money:

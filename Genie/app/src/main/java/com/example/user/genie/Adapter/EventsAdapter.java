@@ -58,7 +58,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         holder.service_type.setText(listItem.getService_type());
         //   holder.pro_name.setTypeface(tf3);
         holder.operator_code.setText(listItem.getOperator_code());*/
-
     }
 
     @Override

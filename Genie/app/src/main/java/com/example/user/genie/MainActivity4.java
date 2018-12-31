@@ -46,7 +46,7 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.example.user.genie.Adapter.ServicesAdapter;
 import com.example.user.genie.Fragments.FragmentMain;
-import com.example.user.genie.Fragments.FragmentProfile;
+import com.example.user.genie.Fragments.FragmentSendMoney;
 import com.example.user.genie.Model.ServicesModel;
 import com.example.user.genie.ObjectNew.ServiceImage;
 import com.example.user.genie.Utils.GlobalClass;
@@ -71,7 +71,7 @@ public class MainActivity4 extends AppCompatActivity implements NavigationView.O
         Toolbar toolbar;
         FragmentManager myFragmentManager;
         FragmentMain fragmentmain;
-        FragmentProfile fragmentprofile;
+        FragmentSendMoney fragmentprofile;
         FrameLayout container;
         MenuItem menu_home;
         int[] image={ R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5, R.drawable.image_6, R.drawable.image_7, R.drawable.image_8};
@@ -797,7 +797,7 @@ public class MainActivity4 extends AppCompatActivity implements NavigationView.O
         //initializing the fragment object which is selected
         switch (itemId) {
 
-            case R.id.order:
+            case R.id.my_order:
                 setTitleColor(R.color.colorPrimaryDark);
                 Intent order = new Intent(MainActivity4.this, MyOrders.class);
                 startActivity(order);

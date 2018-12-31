@@ -21,10 +21,14 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +44,7 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.example.user.genie.Adapter.FSEListAdapter;
 import com.example.user.genie.Adapter.GiftsAdapter;
+import com.example.user.genie.Model.ElectricityBoardModel;
 import com.example.user.genie.Model.FSEListModel;
 import com.example.user.genie.Model.GiftsModel;
 import com.example.user.genie.Utils.GlobalClass;
@@ -71,12 +76,14 @@ public class FSEListActivty extends AppCompatActivity {
     ImageView start_nav;
     TextView tagline_text,keyname,keyphone,keymail;
     ImageView account_wallet,imageHeader;
+    EditText searchEd;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fselist_activty);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -108,6 +115,22 @@ public class FSEListActivty extends AppCompatActivity {
            builder.show();
        }
     });
+
+        searchEd = findViewById(R.id.searchEd);
+        searchEd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
@@ -171,6 +194,30 @@ public class FSEListActivty extends AppCompatActivity {
         }));
 
     }
+
+    private void filter(String text) {
+        //new array list that will hold the filtered data
+        ArrayList<FSEListModel> filterdNames = new ArrayList<>();
+
+        for(int i=0;i<fseListModels.size();i++) {
+            //looping through existing elements
+            /*for (String s : placeList) {
+                //if the existing elements contains the search input
+                if (s.toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdNames.add(s);
+                }
+            }*/
+            FSEListModel circleModel=fseListModels.get(i);
+            if(circleModel.getFirst_name().toUpperCase().contains(text.toUpperCase())){
+                filterdNames.add(circleModel);
+            }
+        }
+
+        //calling a method of the adapter class and passing the filtered list
+        fseListAdapter.filterList(filterdNames);
+    }
+
 
    /* boolean doubleBackToExitPressedOnce = false;
 

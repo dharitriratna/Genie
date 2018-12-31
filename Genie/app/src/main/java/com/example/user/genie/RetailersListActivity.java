@@ -21,10 +21,14 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -71,6 +75,8 @@ public class RetailersListActivity extends AppCompatActivity  {
     ImageView start_nav;
     TextView tagline_text,keyname,keyphone,keymail;
     ImageView account_wallet,imageHeader;
+    EditText searchEd;
+
 
 
 
@@ -80,6 +86,7 @@ public class RetailersListActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_retailers_list);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +122,22 @@ public class RetailersListActivity extends AppCompatActivity  {
         });
         no_orders_text=findViewById(R.id.no_orders_text);
 
+
+        searchEd = findViewById(R.id.searchEd);
+        searchEd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
@@ -180,7 +203,31 @@ public class RetailersListActivity extends AppCompatActivity  {
         }));
     }
 
-  /*  boolean doubleBackToExitPressedOnce = false;
+
+    private void filter(String text) {
+        //new array list that will hold the filtered data
+        ArrayList<RetailerListModel> filterdNames = new ArrayList<>();
+
+        for(int i=0;i<retailerListModels.size();i++) {
+            //looping through existing elements
+            /*for (String s : placeList) {
+                //if the existing elements contains the search input
+                if (s.toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdNames.add(s);
+                }
+            }*/
+            RetailerListModel circleModel=retailerListModels.get(i);
+            if(circleModel.getFirst_name().toUpperCase().contains(text.toUpperCase())){
+                filterdNames.add(circleModel);
+            }
+        }
+
+        //calling a method of the adapter class and passing the filtered list
+        retailerListAdapter.filterList(filterdNames);
+    }
+
+    /*  boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onBackPressed() {

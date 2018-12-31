@@ -9,6 +9,7 @@
     tools:context=".RequestWalletActivity">
 
     <LinearLayout
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -56,7 +57,7 @@
             android:layout_marginBottom="3dp"
             android:hint="Phone Number"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:inputType="number"
             android:singleLine="true"
             android:background="@drawable/edittext_top_bg"
@@ -66,7 +67,7 @@
         <EditText
             android:id="@+id/amountTv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:cursorVisible="true"
             android:textAlignment="viewStart"
             android:layout_marginLeft="10dp"
@@ -81,6 +82,49 @@
             android:padding="10dp"
             android:layout_marginRight="10dp"
             tools:ignore="RtlCompat" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp">
+
+
+            <EditText
+                android:id="@+id/refCode"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edittext_top_bg"
+                android:cursorVisible="true"
+                android:hint="Referral Code"
+                android:textSize="15sp"
+                android:inputType="text"
+                android:gravity="start|center"
+                android:padding="10dp"
+                android:textColor="#000" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:background="@drawable/edittext_top_bg">
+            <Spinner
+                android:id="@+id/paymentmethodspinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:spinnerMode="dialog"
+                android:entries="@array/paymentmethod">
+            </Spinner>
+        </RelativeLayout>
+
+
 
 
         <EditText

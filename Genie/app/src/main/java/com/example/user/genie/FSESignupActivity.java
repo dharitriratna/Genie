@@ -244,6 +244,15 @@ public class FSESignupActivity extends AppCompatActivity {
                  else if (Password.length() < 1){
                      password.setError("Please Enter Your Password");
                  }
+                 else if (front_photo.getDrawable() == null){
+                      Toast.makeText(FSESignupActivity.this, "Please upload front photo", Toast.LENGTH_SHORT).show();
+                 }
+                 else if(back_photo.getDrawable() == null){
+                      Toast.makeText(FSESignupActivity.this, "Please upload front photo", Toast.LENGTH_SHORT).show();
+                 }
+                 else if (candidate_photo.getDrawable() == null){
+                      Toast.makeText(FSESignupActivity.this, "Please upload candidate photo", Toast.LENGTH_SHORT).show();
+                  }
                  else if (userAddress.length() < 1){
                      user_address.setError("Please Enter Your Address");
                  }

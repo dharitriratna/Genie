@@ -47,10 +47,8 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.example.user.genie.Adapter.ServicesAdapter;
 import com.example.user.genie.Fragments.FragmentMain;
-import com.example.user.genie.Fragments.FragmentProfile;
-import com.example.user.genie.Model.CardModel;
+import com.example.user.genie.Fragments.FragmentSendMoney;
 import com.example.user.genie.Model.ServicesModel;
-import com.example.user.genie.MoneyTransfer.MoneyTransferActivity;
 import com.example.user.genie.ObjectNew.ServiceImage;
 import com.example.user.genie.Utils.GlobalClass;
 import com.example.user.genie.client.ApiClientGenie;
@@ -67,7 +65,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-import static com.example.user.genie.LogIn.mypreference;
 import static com.example.user.genie.Utils.Count.setCounting;
 
 
@@ -76,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     FragmentManager myFragmentManager;
     FragmentMain fragmentmain;
-    FragmentProfile fragmentprofile;
+    FragmentSendMoney fragmentprofile;
     FrameLayout container;
     MenuItem menu_home;
     int[] image={ R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5, R.drawable.image_6, R.drawable.image_7, R.drawable.image_8};

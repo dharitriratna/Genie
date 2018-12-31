@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -82,6 +83,30 @@ public class WalletActivity extends AppCompatActivity {
         add_money.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final CharSequence[] options_array = {"Add Money", "Send Money"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(WalletActivity.this);
+                builder.setTitle("Choose");
+                builder.setItems(options_array, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options_array[item].equals("Add Money")) {
+                            dialog();
+
+                        } else if (options_array[item].equals("Send Money")) {
+                            dailog();
+
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+      /*  add_money.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WalletActivity.this);
@@ -110,13 +135,71 @@ public class WalletActivity extends AppCompatActivity {
                 // show it
                 alertDialog.show();
             }
-        });
+        });*/
 
         if (isNetworkAvailable()) {
             networkDataCardRecharge();
         } else {
             noNetwrokErrorMessage();
         }
+    }
+
+    private void dailog() {
+
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WalletActivity.this);
+        alertDialogBuilder.setTitle("Send Money");
+
+        alertDialogBuilder
+                .setMessage("Do you want to send money")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent i = new Intent(WalletActivity.this, AddMoneyActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
+    private void dialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WalletActivity.this);
+        alertDialogBuilder.setTitle("Add Money");
+
+        alertDialogBuilder
+                .setMessage("Do you want to add money to wallet")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent i = new Intent(WalletActivity.this, RequestWalletActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
     }
 
 
@@ -141,7 +224,7 @@ public class WalletActivity extends AppCompatActivity {
                     for (int i=0;i<dataArrayList.size();i++){
                         balance=dataArrayList.get(i).getBalance();
                     }
-                    balanceTv.setText("Balance: "+ balance);
+                    balanceTv.setText("Balance: "+getResources().getString(R.string.rupee)+ balance);
                 }else {
                     noWalletTv.setVisibility(View.VISIBLE);
                     walletImg.setVisibility(View.GONE);

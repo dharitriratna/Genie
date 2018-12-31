@@ -34,11 +34,13 @@
 
             <ImageView
                 android:layout_weight="1"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
                 android:src="@drawable/logo_final_design"/>
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tagline_text"
                 android:layout_weight="1"
                 android:layout_marginRight="20dp"
@@ -55,20 +57,25 @@
                 android:textStyle="bold"/>
 
             <ImageView
+                android:layout_weight="1"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:src="@drawable/bring_the_store"/>
+
+            <ImageView
                 android:id="@+id/account_wallet"
                 android:layout_weight="1"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_account_wallet"/>
+                android:src="@drawable/mony_icon"/>
         </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorPrimaryDark"></View>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -150,18 +157,17 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_mob_prepaid"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/mobile"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Mobile recharge"
-                                    android:textAllCaps="true"
+                                    android:text="Mobile Recharge"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -175,18 +181,17 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_money_transfer"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/money_transfer_new"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="money transfer"
-                                    android:textAllCaps="true"
+                                    android:text="Money Transfer"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -200,18 +205,16 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_tv"
-
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/dth_recharge"
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="dth"
-                                    android:textAllCaps="true"
+                                    android:text="Dth Recharge"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -225,18 +228,17 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_usb"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/datacard_recharge"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="data card"
-                                    android:textAllCaps="true"
+                                    android:text="Datacard Recharge"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -262,16 +264,15 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_modem" />
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/broadband_bill" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="broadband"
-                                    android:textAllCaps="true"
+                                    android:text="Broadband Bill"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -285,18 +286,17 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_telephone_light"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/landline_bill"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="landline"
-                                    android:textAllCaps="true"
+                                    android:text="Landline Bill"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -310,18 +310,17 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_idea_dark"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/electricity_bill"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="electricity"
-                                    android:textAllCaps="true"
+                                    android:text="Electricity Bill"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -335,18 +334,17 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_opacity"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/water_bill"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="water bill"
-                                    android:textAllCaps="true"
+                                    android:text="Water Bill"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -374,17 +372,16 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_event_organizer"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/event_management"
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Event Management"
-                                    android:textAllCaps="true"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -398,16 +395,15 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_umbrella" />
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/insurance_payment" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="insurance payment"
-                                    android:textAllCaps="true"
+                                    android:text="Insurance Payment"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -421,17 +417,16 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_ondemand_video"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/movie"
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="movies"
-                                    android:textAllCaps="true"
+                                    android:text="Movies"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -445,18 +440,17 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_train"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/railway_ticket"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="railway tickets"
-                                    android:textAllCaps="true"
+                                    android:text="Railway Ticket"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -484,18 +478,17 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_bus"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/location"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="tour and travels"
-                                    android:textAllCaps="true"
+                                    android:text="Tour and Travels"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -509,18 +502,18 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_house_rent"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/rent_guru"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="rent guru"
-                                    android:textAllCaps="true"
+                                    android:text="Rent Guru"
+
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -534,17 +527,16 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_birthday_cake"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/birthday_planners"
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="birthday planners"
-                                    android:textAllCaps="true"
+                                    android:text="Birthday Planners"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -558,18 +550,17 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_home_delivery"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/home_delvery"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="home delivery"
-                                    android:textAllCaps="true"
+                                    android:text="Home Delivery"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -598,18 +589,17 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_gas"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/gas"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="gas"
-                                    android:textAllCaps="true"
+                                    android:text="Gas"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -624,18 +614,17 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_bus_ticket"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/bus"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Bus Ticket"
-                                    android:textAllCaps="true"
+                                    android:text="Bus"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -649,18 +638,17 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_hotel"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/hotel"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="hotel"
-                                    android:textAllCaps="true"
+                                    android:text="Hotel"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -674,18 +662,17 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_plane"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/flight"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="flight"
-                                    android:textAllCaps="true"
+                                    android:text="Flight"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -712,18 +699,17 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_portfolio"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/job"
 
                                     />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="JOB"
-                                    android:textAllCaps="true"
+                                    android:text="Job"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -739,10 +725,10 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_income"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/lone_payment"
 
                                     />
 
@@ -750,7 +736,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Loan Payment"
-                                    android:textAllCaps="true"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -765,10 +750,10 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_quad_bike"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/bike_insurance"
 
                                     />
 
@@ -776,7 +761,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Bike Insurance"
-                                    android:textAllCaps="true"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"
@@ -792,10 +776,10 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="40dp"
+                                    android:layout_width="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_car_insurance"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/car_insurance"
 
                                     />
 
@@ -803,7 +787,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Car Insurance"
-                                    android:textAllCaps="true"
                                     android:textSize="10sp"
                                     android:textColor="#000"
                                     android:padding="5dp"

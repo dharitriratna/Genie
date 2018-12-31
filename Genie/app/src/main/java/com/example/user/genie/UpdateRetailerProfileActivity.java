@@ -178,6 +178,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                 else if (retailerSubType.length() < 1){
                     retailsubtype.setError("Please Enter Retail Subtype");
                 }
+
                 else if (userAddress.length() < 1){
                     user_address.setError("Please Enter Your Address");
                 }

@@ -12,6 +12,7 @@ import com.example.user.genie.Model.FSEListModel;
 import com.example.user.genie.Model.RetailerListModel;
 import com.example.user.genie.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RetailerListAdapter extends RecyclerView.Adapter<RetailerListAdapter.ViewHolder> {
@@ -82,5 +83,10 @@ public class RetailerListAdapter extends RecyclerView.Adapter<RetailerListAdapte
             userImage = itemView.findViewById(R.id.userImage);
 
         }
+    }
+
+    public void filterList(ArrayList<RetailerListModel> filterdNames) {
+        this.retailerListModels = filterdNames;
+        notifyDataSetChanged();
     }
 }

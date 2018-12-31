@@ -49,7 +49,6 @@
                         android:background="#f7f6d6">
 
                         <ImageView
-                            android:src="@drawable/bus_banner"
                             android:id="@+id/bus_banner"
                             android:layout_width="match_parent"
                             android:layout_height="180dp"

@@ -226,6 +226,15 @@ public class RetailerSignupActivity extends AppCompatActivity {
                 else if (retailerSubType.length() < 1){
                     retailsubtype.setError("Please Enter Retail Subtype");
                 }
+                else if (front_photo.getDrawable() == null){
+                    Toast.makeText(RetailerSignupActivity.this, "Please upload front photo", Toast.LENGTH_SHORT).show();
+                }
+                else if(back_photo.getDrawable() == null){
+                    Toast.makeText(RetailerSignupActivity.this, "Please upload front photo", Toast.LENGTH_SHORT).show();
+                }
+                else if (shop_photo.getDrawable() == null){
+                    Toast.makeText(RetailerSignupActivity.this, "Please upload shop photo", Toast.LENGTH_SHORT).show();
+                }
                 else if (userAddress.length() < 1){
                     user_address.setError("Please Enter Your Address");
                 }

@@ -3,6 +3,16 @@
     <string name="text_tag">Bring The Store To Your Door</string>
     <string name="main_menu_vertical_list">Vertical list</string>
 
+
+    <string name="access_code">Access Code</string>
+    <string name="pay_button">Pay</string>
+    <string name="merchant_id">Merchant Id</string>
+    <string name="currency">Currency</string>
+    <string name="amount">Amount</string>
+    <string name="redirect_url">Redirect Url</string>
+    <string name="cancel_url">Cancel Url</string>
+    <string name="rsa_url">RSA Key Url</string>
+
     <string name="vertical_fragment_title_dialog_add">Add item</string>
     <string name="vertical_fragment_question_add">Are you sure you want to add new item?</string>
 
@@ -27,6 +37,12 @@ pregnancy. How it affects the whole family, especially two grown up sons, forms 
         <item>DL</item>
         <item>Voter ID</item>
         <item>Passport</item>
+    </string-array>
+
+    <string-array name="paymentmethod">
+        <item>Payment Method</item>
+        <item>Account Transfer</item>
+        <item>UPI</item>
     </string-array>
 
     <string-array name="pincodes">

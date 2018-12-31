@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.user.genie.Model.ElectricityBoardModel;
 import com.example.user.genie.Model.FSEListModel;
 import com.example.user.genie.Model.GiftsModel;
 import com.example.user.genie.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FSEListAdapter extends RecyclerView.Adapter<FSEListAdapter.ViewHolder> {
@@ -83,5 +85,9 @@ public class FSEListAdapter extends RecyclerView.Adapter<FSEListAdapter.ViewHold
             userImage = itemView.findViewById(R.id.userImage);
 
         }
+    }
+    public void filterList(ArrayList<FSEListModel> filterdNames) {
+        this.fseListModels = filterdNames;
+        notifyDataSetChanged();
     }
 }

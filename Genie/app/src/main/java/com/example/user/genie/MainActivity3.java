@@ -47,7 +47,7 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.example.user.genie.Adapter.ServicesAdapter;
 import com.example.user.genie.Fragments.FragmentMain;
-import com.example.user.genie.Fragments.FragmentProfile;
+import com.example.user.genie.Fragments.FragmentSendMoney;
 import com.example.user.genie.Model.ServicesModel;
 import com.example.user.genie.ObjectNew.ServiceImage;
 import com.example.user.genie.Utils.GlobalClass;
@@ -72,7 +72,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
     Toolbar toolbar;
     FragmentManager myFragmentManager;
     FragmentMain fragmentmain;
-    FragmentProfile fragmentprofile;
+    FragmentSendMoney fragmentprofile;
     FrameLayout container;
     MenuItem menu_home;
     int[] image={ R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5, R.drawable.image_6, R.drawable.image_7, R.drawable.image_8};
@@ -801,7 +801,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
         //initializing the fragment object which is selected
         switch (itemId) {
 
-            case R.id.order:
+            case R.id.my_order:
                 setTitleColor(R.color.colorPrimaryDark);
                 Intent order = new Intent(MainActivity3.this, MyOrders.class);
                 startActivity(order);
@@ -813,7 +813,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
                 startActivity(intent);
                 break;
 
-            case R.id.privacy:
+         /*   case R.id.privacy:
                 Intent privacy = new Intent(MainActivity3.this, PrivacyPolicy.class);
                 startActivity(privacy);
                 break;
@@ -822,7 +822,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
                 Intent refund = new Intent(MainActivity3.this, RefundPolicy.class);
                 startActivity(refund);
                 break;
-
+*/
             case R.id.add_retailer:
                 Intent addretailer = new Intent(MainActivity3.this,RetailerSignupActivity.class);
                 startActivity(addretailer);
@@ -831,6 +831,22 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
             case R.id.retailer_list:
                 Intent retailerlists = new Intent(MainActivity3.this,RetailersListActivity.class);
                 startActivity(retailerlists);
+                break;
+
+            case R.id.contest:
+                Intent contest = new Intent(MainActivity3.this, ContestActivity.class);
+                startActivity(contest);
+                break;
+
+
+            case R.id.privacy:
+                Intent privacy = new Intent(MainActivity3.this, PrivacyPolicy.class);
+                startActivity(privacy);
+                break;
+
+            case R.id.refund:
+                Intent refund = new Intent(MainActivity3.this, RefundPolicy.class);
+                startActivity(refund);
                 break;
 
             case R.id.logout:

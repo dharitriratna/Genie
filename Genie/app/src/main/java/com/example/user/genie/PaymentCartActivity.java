@@ -231,7 +231,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 SelectStateName = bundle.getString("StateName");
                 ConsumerID = bundle.getString("ConsumerID");
                 BillAmount = bundle.getString("Amount");
-
                 Log.d("am", BillAmount);
             }
 
@@ -249,7 +248,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 Boardname = bundle.getString("BoardName");
                 ConsumerId = bundle.getString("ConsumerID");
                 PayAmount = bundle.getString("Amount");
-
                 Log.d("wp", PayAmount);
             }
 
@@ -287,7 +285,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 DTHoperatorCode = bundle.getString("OperatorCode");
                 DTHcustomerId = bundle.getString("CostumerID");
                 DTHbillAmount = bundle.getString("DTHAmount");
-
                 Log.d("dtham", DTHbillAmount);
             }
 
@@ -574,6 +571,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         String opName =RegPrefManager.getInstance(PaymentCartActivity.this).getMobileOperatorName();
         String cirle_code=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileCircleCode();
         String service_id=RegPrefManager.getInstance(PaymentCartActivity.this).getServiceId();
+     //   String constant = RegPrefManager.getInstance()
         @Override
         protected Void doInBackground(Void... params) {
             pDialog.show();
@@ -588,7 +586,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             cred.add(new BasicNameValuePair("service_id",service_id ));
             Log.v("RES","Sending data " + PhoneNumber+ value +opName+cirle_code+RechargeAmount+service_id);
 
-            String urlRouteList="https://genieservice.in/api/service/mobile_dth_datacard_recharge";
+            String urlRouteList="https://genieservice.in/api/service/mobile_dth_datacard_recharge1";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 
@@ -620,10 +618,10 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
                 startActivity(new Intent(PaymentCartActivity.this,ThankuActivity.class));
 
-              /*  SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putString("AMOUNT", recharge_amount = amount.getText().toString());
-                editor.commit();*/
+                editor.putString("AMOUNT",RechargeAmount );
+                editor.commit();
                 // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
                 // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
             }
@@ -823,7 +821,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             Log.v("RES","Sending data " +login_user+dthOpName+ DTHoperatorCode+DTHcircleCode+ DTHcustomerId +DTHbillAmount+service_id);
 
 
-            String urlRouteList="https://genieservice.in/api/service/mobile_dth_datacard_recharge";
+            String urlRouteList="https://genieservice.in/api/service/mobile_dth_datacard_recharge1";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 

@@ -81,6 +81,7 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
     private static final int STORAGE_PERMISSION_CODE = 123;
     Uri imageUri;
     Boolean userImage,frontImage,backImage;
+    String groupId;
 
 
     @Override
@@ -105,6 +106,8 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
         editor.commit(); // commit changes
 
         Log.d("login_user", login_user);
+
+        groupId = RegPrefManager.getInstance(UpdateFSEProfileActivity.this).getUserGroup();
 
         experienceRB = findViewById(R.id.experienceRB);
         workcultureRB = findViewById(R.id.workcultureRB);
