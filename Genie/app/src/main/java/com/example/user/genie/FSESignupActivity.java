@@ -12,7 +12,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -119,6 +118,7 @@ public class FSESignupActivity extends AppCompatActivity {
         eye = findViewById(R.id.eye);
         phone_no=findViewById(R.id.phone_no);
         password = findViewById(R.id.password);
+        password.setVisibility(View.GONE);
         candidatefsename=findViewById(R.id.candidatefsename);
         email=findViewById(R.id.email);
         user_address=findViewById(R.id.user_address);
@@ -241,9 +241,9 @@ public class FSESignupActivity extends AppCompatActivity {
                  else if (EmailId.length() < 1){
                      email.setError("Please Enter Your Email");
                  }
-                 else if (Password.length() < 1){
+               /*  else if (Password.length() < 1){
                      password.setError("Please Enter Your Password");
-                 }
+                 }*/
                  else if (front_photo.getDrawable() == null){
                       Toast.makeText(FSESignupActivity.this, "Please upload front photo", Toast.LENGTH_SHORT).show();
                  }
@@ -671,7 +671,7 @@ public class FSESignupActivity extends AppCompatActivity {
             cred.add(new BasicNameValuePair("first_name",userName));
             cred.add(new BasicNameValuePair("email",EmailId));//user_email
             cred.add(new BasicNameValuePair("phone",phoneNumber ));
-            cred.add(new BasicNameValuePair("password",Password ));
+        //    cred.add(new BasicNameValuePair("password",Password ));
             cred.add(new BasicNameValuePair("distributor_user_id",login_user ));
             cred.add(new BasicNameValuePair("sales_experience",experience_rb ));
             cred.add(new BasicNameValuePair("job_type",workculture_rb ));
@@ -684,7 +684,7 @@ public class FSESignupActivity extends AppCompatActivity {
             cred.add(new BasicNameValuePair("pin",userPin ));
             cred.add(new BasicNameValuePair("state",userState ));
             cred.add(new BasicNameValuePair("country",userCountry ));
-            Log.v("RES","Sending data " +userName+ EmailId+ phoneNumber +Password+login_user+experience_rb+workculture_rb
+            Log.v("RES","Sending data " +userName+ EmailId+ phoneNumber +login_user+experience_rb+workculture_rb
                                  +userAddressProof+FrontFilePath+BackFilePath+UserFilePath+userAddress+userCity+userPin+userState+userCountry);
 
             String urlRouteList="https://genieservice.in/api/user/registerFse";
@@ -702,8 +702,10 @@ public class FSESignupActivity extends AppCompatActivity {
              /*   String data=jsonObject.getString("data");
                 // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
                 JSONObject jsonObject1 = new JSONObject(data);*/
-              String user_id=jsonObject.getString("user_id");
-              Toast.makeText(FSESignupActivity.this, user_id, Toast.LENGTH_SHORT).show();
+              String fse_user_id=jsonObject.getString("user_id");
+              RegPrefManager.getInstance(FSESignupActivity.this).setFseUserId(fse_user_id);
+
+                Toast.makeText(FSESignupActivity.this, fse_user_id, Toast.LENGTH_SHORT).show();
               /*  SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("FLAG", user_id);
                 Log.d("user_id", user_id);
@@ -725,7 +727,7 @@ public class FSESignupActivity extends AppCompatActivity {
             if(status.equals("true"))
             {
                 Toast.makeText(getApplicationContext(),"Registration Successful", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(FSESignupActivity.this,FSEListActivty.class));
+                startActivity(new Intent(FSESignupActivity.this,FSERegisterPaymentActivity.class));
                 finish();
             }
             else{

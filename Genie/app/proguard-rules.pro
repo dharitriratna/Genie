@@ -12,6 +12,9 @@
 #   public *;
 #}
 
+-dontwarn com.squareup.okhttp.**
+
+
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable

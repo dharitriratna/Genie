@@ -160,6 +160,20 @@ public class RegPrefManager {
         return mSharedPreferences.getString("customerId",null);
     }
 
+    public void setFseUserId(String fseUserId){
+        mSharedPreferences.edit().putString("fseUserId",fseUserId).apply();
+    }
+    public String getFseUserId(){
+        return mSharedPreferences.getString("fseUserId",null);
+    }
+
+
+    public void setRetailerUserId(String retailerUserId){
+        mSharedPreferences.edit().putString("retailerUserId",retailerUserId).apply();
+    }
+    public String getRetailerUserId(){ return mSharedPreferences.getString("retailerUserId",null);
+    }
+
 
     public void setDataCardNo(String phone){
         mSharedPreferences.edit().putString("datacardno",phone).apply();

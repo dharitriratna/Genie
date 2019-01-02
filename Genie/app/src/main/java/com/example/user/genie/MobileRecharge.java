@@ -84,6 +84,7 @@ public class MobileRecharge extends AppCompatActivity {
     String check;
     String service_id;
     TextView serviceId;
+    String groupId;
 
 
 
@@ -93,12 +94,27 @@ public class MobileRecharge extends AppCompatActivity {
         setContentView(R.layout.activity_mobile_recharge);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(MobileRecharge.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //onBackPressed();
-                startActivity(new Intent(MobileRecharge.this,MainActivity.class));
-                finish();
+               /* if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }*/
+               onBackPressed();
             }
         });
 

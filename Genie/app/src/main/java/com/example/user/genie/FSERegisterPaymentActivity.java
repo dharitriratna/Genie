@@ -22,6 +22,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.genie.helper.RegPrefManager;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class RequestWalletActivity extends AppCompatActivity {
+public class FSERegisterPaymentActivity extends AppCompatActivity {
     Toolbar toolbar;
     EditText amountTv;
     Button btnProceed;
@@ -54,12 +56,15 @@ public class RequestWalletActivity extends AppCompatActivity {
     String Date_;
     TextView dept_date;
     EditText payment_method;
+    String fseuserID;
+    String retaileruserID;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request_wallet);
+        setContentView(R.layout.activity_register_payment);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -71,6 +76,9 @@ public class RequestWalletActivity extends AppCompatActivity {
 
         mcurrenttime = Calendar.getInstance();
         dateFormatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+
+        fseuserID = RegPrefManager.getInstance(getApplicationContext()).getFseUserId();
+        retaileruserID = RegPrefManager.getInstance(getApplicationContext()).getRetailerUserId();
 
 
         amountTv = findViewById(R.id.amountTv);
@@ -86,19 +94,19 @@ public class RequestWalletActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 paymentMethod= paymentmethodspinner.getItemAtPosition(paymentmethodspinner.getSelectedItemPosition()).toString();
-               // Toast.makeText(getApplicationContext(),paymentMethod,Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(),paymentMethod,Toast.LENGTH_LONG).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 // DO Nothing here
             }
-        });
-*/
+        });*/
+
         dept_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-                fromDatePickerDialog = new DatePickerDialog(RequestWalletActivity.this, new DatePickerDialog.OnDateSetListener() {
+                fromDatePickerDialog = new DatePickerDialog(FSERegisterPaymentActivity.this, new DatePickerDialog.OnDateSetListener() {
 
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         Calendar newDate = Calendar.getInstance();
@@ -122,7 +130,7 @@ public class RequestWalletActivity extends AppCompatActivity {
                 final String IMPSMethod = "IMPS";
                 final String UPIMethod = "UPI";
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(RequestWalletActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(FSERegisterPaymentActivity.this);
                 builder.setTitle("Payment Method");
                 builder.setItems(options_array, new DialogInterface.OnClickListener() {
                     @Override
@@ -131,12 +139,14 @@ public class RequestWalletActivity extends AppCompatActivity {
                             payment_method.setText(IMPSMethod);
                             netBankingLayout.setVisibility(View.VISIBLE);
                             upiLayout.setVisibility(View.GONE);
+                            payment_method.setText(IMPSMethod);
 
                         } else if (options_array[item].equals("BHIM UPI")) {
                             payment_method.setText(UPIMethod);
                             upiLayout.setVisibility(View.VISIBLE);
                             netBankingLayout.setVisibility(View.GONE);
-                          //  dailog();
+
+                            //  dailog();
                         }
                     }
                 });
@@ -166,6 +176,7 @@ public class RequestWalletActivity extends AppCompatActivity {
                /* else if (ReferralCode.length() < 1){
                     refCode.setText("Please Enter Code");
                 }*/
+
                 else if (Date_.length() < 1){
                     dept_date.setError("Please Enter Date");
                 }
@@ -187,14 +198,14 @@ public class RequestWalletActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             pDialog.show();
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
-            cred.add(new BasicNameValuePair("user_id",login_user));
+            cred.add(new BasicNameValuePair("user_id",fseuserID));
             cred.add(new BasicNameValuePair("amount",SendingAmount ));
             cred.add(new BasicNameValuePair("ref_no",ReferralCode ));
             cred.add(new BasicNameValuePair("date_of_deposit",Date_ ));
             cred.add(new BasicNameValuePair("payment_method",paymentMethod ));
             Log.v("RES","Sending data " +login_user +SendingAmount+ReferralCode+Date_+paymentMethod );
 
-            String urlRouteList=" https://genieservice.in/api/service/moneyTransferReq";
+            String urlRouteList="https://genieservice.in/api/user/registerPaymentReq";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 
@@ -243,12 +254,12 @@ public class RequestWalletActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            pDialog = new ProgressDialog(RequestWalletActivity.this);
+            pDialog = new ProgressDialog(FSERegisterPaymentActivity.this);
             pDialog.setMessage("Loading In...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
         }
-      }
+    }
 
 }

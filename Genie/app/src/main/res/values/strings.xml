@@ -12,6 +12,7 @@
     <string name="redirect_url">Redirect Url</string>
     <string name="cancel_url">Cancel Url</string>
     <string name="rsa_url">RSA Key Url</string>
+    <string name="txtCredits">https://genieservice.in/uploads/Genie.png</string>
 
     <string name="vertical_fragment_title_dialog_add">Add item</string>
     <string name="vertical_fragment_question_add">Are you sure you want to add new item?</string>

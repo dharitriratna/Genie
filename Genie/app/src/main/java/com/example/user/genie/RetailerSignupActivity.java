@@ -115,6 +115,7 @@ public class RetailerSignupActivity extends AppCompatActivity {
         ownername=findViewById(R.id.ownername);
         phone_no=findViewById(R.id.phone_no);
         password = findViewById(R.id.password);
+        password.setVisibility(View.GONE);
         emailId=findViewById(R.id.emailId);
         user_address=findViewById(R.id.user_address);
         user_city=findViewById(R.id.user_city);
@@ -217,9 +218,9 @@ public class RetailerSignupActivity extends AppCompatActivity {
                 else if (EmailId.length() < 1){
                     emailId.setError("Please Enter Email");
                 }
-                else if (Password.length() < 1){
+               /* else if (Password.length() < 1){
                     password.setError("Please Enter Password");
-                }
+                }*/
                 else if (retailerBusinessName.length() < 1){
                     businessname.setError("Please Enter Business Name");
                 }
@@ -688,7 +689,7 @@ public class RetailerSignupActivity extends AppCompatActivity {
             cred.add(new BasicNameValuePair("first_name",ownerName));
             cred.add(new BasicNameValuePair("email",EmailId));//user_email
             cred.add(new BasicNameValuePair("phone",phoneNumber ));
-            cred.add(new BasicNameValuePair("password",Password ));
+         //   cred.add(new BasicNameValuePair("password",Password ));
             cred.add(new BasicNameValuePair("fse_user_id",login_user ));
             cred.add(new BasicNameValuePair("business_name",retailerBusinessName ));
             cred.add(new BasicNameValuePair("retail_sub_type",retailerSubType ));
@@ -702,7 +703,7 @@ public class RetailerSignupActivity extends AppCompatActivity {
             cred.add(new BasicNameValuePair("pin",userPin ));
             cred.add(new BasicNameValuePair("state",userState ));
             cred.add(new BasicNameValuePair("country",userCountry ));
-            Log.v("RES","Sending data " +ownerName+ EmailId+ phoneNumber +Password+login_user+retailerBusinessName+retailerSubType
+            Log.v("RES","Sending data " +ownerName+ EmailId+ phoneNumber +login_user+retailerBusinessName+retailerSubType
                     +FrontFilePath+BackFilePath+UserFilePath+userAddressProof+userAddress+userCity+userPin+userState+userCountry);
 
             String urlRouteList="https://genieservice.in/api/user/registerRetailer";
@@ -720,13 +721,15 @@ public class RetailerSignupActivity extends AppCompatActivity {
              /*   String data=jsonObject.getString("data");
                 // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
                 JSONObject jsonObject1 = new JSONObject(data);*/
-                String user_id=jsonObject.getString("user_id");
-                Toast.makeText(RetailerSignupActivity.this, user_id, Toast.LENGTH_SHORT).show();
+                String retailer_user_id=jsonObject.getString("user_id");
+                RegPrefManager.getInstance(RetailerSignupActivity.this).setRetailerUserId(retailer_user_id);
+                Toast.makeText(RetailerSignupActivity.this, retailer_user_id, Toast.LENGTH_SHORT).show();
               /*  SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("FLAG", user_id);
                 Log.d("user_id", user_id);
                 editor.commit();*/
                 String user_phone = jsonObject.getString("phone");
+
                 RegPrefManager.getInstance(RetailerSignupActivity.this).setPhoneNo(user_phone);
                 //   String user_email=jsonObject1.getString("user_email");
 
@@ -743,7 +746,7 @@ public class RetailerSignupActivity extends AppCompatActivity {
             if(status.equals("true"))
             {
                 Toast.makeText(getApplicationContext(),"Registration Successful", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(RetailerSignupActivity.this,RetailersListActivity.class));finish();
+                startActivity(new Intent(RetailerSignupActivity.this,FSERegisterPaymentActivity.class));finish();
             }
             else{
                 Toast.makeText(getApplicationContext(),"Validation fails! phone number and email should be unique",

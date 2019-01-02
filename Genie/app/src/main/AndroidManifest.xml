@@ -410,9 +410,16 @@
         <activity
             android:name=".ContestActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".HelpAndSupportActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".HelpAndSupportActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SetPasswordActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FSERegisterPaymentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".RetailerRegisterPaymentActivity"></activity>
     </application>
 
 </manifest>
