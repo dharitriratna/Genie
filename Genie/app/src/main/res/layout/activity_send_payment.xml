@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@drawable/background"
 
-    tools:context="com.example.user.genie.MoneyTransfer.SendPaymentActivity">
+    tools:context="com.genie1.user.genie.MoneyTransfer.SendPaymentActivity">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"

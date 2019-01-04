@@ -5,6 +5,8 @@
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
+-dontwarn com.squareup.picasso.**
+
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
@@ -12,8 +14,7 @@
 #   public *;
 #}
 
--dontwarn com.squareup.okhttp.**
-
+-dontwarn com.squareup.okhttp.internal.**
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
@@ -22,3 +23,10 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-dontwarn org.apache.commons.logging.**
+
+     -ignorewarnings
+-keep class * {
+public private protected *;
+}

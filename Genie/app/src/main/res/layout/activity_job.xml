@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.genie.JobActivity"
+    tools:context="com.genie1.user.genie.JobActivity"
     android:orientation="vertical"
     android:background="@drawable/background">
     <android.support.v7.widget.Toolbar

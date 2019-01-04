@@ -40,6 +40,14 @@
             android:iconTint="@color/colorPrimaryDark"
             android:title="Contest"/>
 
+        <item
+            android:id="@+id/help_support"
+            android:visible="true"
+            android:icon="@drawable/ic_telemarketer"
+            android:iconTint="@color/colorPrimaryDark"
+            android:title="Help and Support"/>
+
+
 
         <item
             android:id="@+id/privacy"

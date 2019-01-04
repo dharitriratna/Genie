@@ -24,37 +24,46 @@
         android:title="My Wallet"/>
 
 
-    <item
-        android:id="@+id/help_support"
-        android:iconTint="@color/colorPrimaryDark"
-        android:icon="@drawable/help_support"
-        android:title="Help And Support"/>
+        <item
+            android:id="@+id/contest"
+            android:visible="true"
+            android:icon="@drawable/ic_contest"
+            android:iconTint="@color/colorPrimaryDark"
+            android:title="Contest"/>
 
-  <!--  <item
-        android:id="@+id/security_setting"
-        android:icon="@drawable/setting"
-        android:iconTint="@color/colorPrimaryDark"
-        android:title="Security And Settings" />
-
-
-
-    <item
-        android:id="@+id/choose_language"
-        android:icon="@drawable/language"
-        android:iconTint="@color/colorPrimaryDark"
-        android:title="Choose Language"/>
+        <item
+            android:id="@+id/help_support"
+            android:visible="true"
+            android:icon="@drawable/ic_telemarketer"
+            android:iconTint="@color/colorPrimaryDark"
+            android:title="Help and Support"/>
 
 
-    <item
-        android:id="@+id/address"
-        android:icon="@drawable/delivery"
-        android:iconTint="@color/colorPrimaryDark"
-        android:title="Delivery Address" />
-    <item
-        android:id="@+id/notification"
-        android:icon="@drawable/notification"
-        android:iconTint="@color/colorPrimaryDark"
-        android:title="Notification" />-->
+        <!--  <item
+              android:id="@+id/security_setting"
+              android:icon="@drawable/setting"
+              android:iconTint="@color/colorPrimaryDark"
+              android:title="Security And Settings" />
+
+
+
+          <item
+              android:id="@+id/choose_language"
+              android:icon="@drawable/language"
+              android:iconTint="@color/colorPrimaryDark"
+              android:title="Choose Language"/>
+
+
+          <item
+              android:id="@+id/address"
+              android:icon="@drawable/delivery"
+              android:iconTint="@color/colorPrimaryDark"
+              android:title="Delivery Address" />
+          <item
+              android:id="@+id/notification"
+              android:icon="@drawable/notification"
+              android:iconTint="@color/colorPrimaryDark"
+              android:title="Notification" />-->
     <item
         android:id="@+id/privacy"
         android:icon="@drawable/ic_privacy_24dp"

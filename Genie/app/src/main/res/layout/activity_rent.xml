@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.example.user.genie.RentActivity">
+    tools:context="com.genie1.user.genie.RentActivity">
 
     <include layout="@layout/rentlistlayout" />
 

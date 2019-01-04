@@ -7,7 +7,7 @@ android {
         cruncherEnabled = false
     }
     defaultConfig {
-        applicationId "com.example.user.genie"
+        applicationId "ratna.genie1.user.genie"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
@@ -16,9 +16,10 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
         }
     }
 

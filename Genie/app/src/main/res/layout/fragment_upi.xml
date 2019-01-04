@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@drawable/background"
     android:layout_margin="10dp"
-    tools:context="com.example.user.genie.Fragments.UPIFragment">
+    tools:context="com.genie1.user.genie.Fragments.UPIFragment">
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
