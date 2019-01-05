@@ -7,6 +7,9 @@ android {
         cruncherEnabled = false
     }
     defaultConfig {
+        vectorDrawables {
+            useSupportLibrary = true
+        }
         applicationId "ratna.genie1.user.genie"
         minSdkVersion 16
         targetSdkVersion 27
@@ -22,7 +25,6 @@ android {
                     'proguard-rules.pro'
         }
     }
-
 }
 allprojects {
     repositories {
