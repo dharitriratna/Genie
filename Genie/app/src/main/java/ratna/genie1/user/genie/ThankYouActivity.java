@@ -17,6 +17,7 @@ public class ThankYouActivity extends AppCompatActivity implements View.OnClickL
     TextView myorder;
     Button continue_shopping;
     String back;
+    String groupId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +25,26 @@ public class ThankYouActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_thank_you);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(getApplicationContext()).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ThankYouActivity.this, MainActivity.class));
-                finish();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
         myorder = findViewById(R.id.myorder);

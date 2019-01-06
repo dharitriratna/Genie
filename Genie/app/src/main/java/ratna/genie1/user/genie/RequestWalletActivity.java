@@ -110,7 +110,7 @@ public class RequestWalletActivity extends AppCompatActivity {
 
                     }},
                         mcurrenttime.get(Calendar.YEAR), mcurrenttime.get(Calendar.MONTH), mcurrenttime.get(Calendar.DAY_OF_MONTH));
-                fromDatePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                fromDatePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
                 fromDatePickerDialog.show();
             }
         });
@@ -169,9 +169,9 @@ public class RequestWalletActivity extends AppCompatActivity {
                 else if (Date_.length() < 1){
                     dept_date.setError("Please Enter Date");
                 }
-                else if (paymentMethod.length() < 1){
+               /* else if (paymentMethod.length() < 1){
                     payment_method.setError("Please Set Payment Method");
-                }
+                }*/
                 else {
                     new Asynctask().execute();
                 }
@@ -194,7 +194,7 @@ public class RequestWalletActivity extends AppCompatActivity {
             cred.add(new BasicNameValuePair("payment_method",paymentMethod ));
             Log.v("RES","Sending data " +login_user +SendingAmount+ReferralCode+Date_+paymentMethod );
 
-            String urlRouteList=" https://genieservice.in/api/service/moneyTransferReq";
+            String urlRouteList="https://genieservice.in/api/user/moneyTransferReq";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 

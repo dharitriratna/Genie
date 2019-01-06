@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.genie1.user.genie.PaymentCartActivity"
     android:background="@drawable/background">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -149,7 +148,7 @@
                     android:textColor="@color/colorPrimaryDark"/>
             </LinearLayout>
             <CheckBox
-                android:id="@+id/checkBox1"
+                android:id="@+id/checkBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Use Wallet Balance"

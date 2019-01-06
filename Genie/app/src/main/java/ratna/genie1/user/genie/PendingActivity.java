@@ -18,6 +18,7 @@ public class PendingActivity extends AppCompatActivity {
     private TextView transactionTV,successTv;
     Button continuebtn;
     TextView dateAndtime;
+    String groupId;
     //  private Button continue_shopping;
 
     @Override
@@ -53,11 +54,26 @@ public class PendingActivity extends AppCompatActivity {
                 }
             }
         });
+        groupId = RegPrefManager.getInstance(getApplicationContext()).getUserGroup();
         continuebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                finish();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
 

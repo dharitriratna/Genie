@@ -86,6 +86,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
     String DTHcircleCode;
     String DTHcustomerId;
     String DTHbillAmount,Successid,DateAndTime;
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,8 +98,8 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         progressDialog =new ProgressDialog(this);
         alertDialog=new AlertDialog.Builder(this);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
-
-          back= RegPrefManager.getInstance(this).getBackService();
+        back= RegPrefManager.getInstance(this).getBackService();
+        checkBox = findViewById(R.id.checkBox);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -325,9 +326,13 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
                 if (back.equals("MobileRecharge")){
-                    if (isNetworkAvailable()){
+                    if (checkBox.isChecked()&& isNetworkAvailable()){
                         new AsynSignInDetails().execute();
-                    }else {
+                    }
+                    else if (!checkBox.isChecked()){
+                        Toast.makeText(this, "Pay From Wallet", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
                         noNetwrokErrorMessage();
                     }
                 }
@@ -354,8 +359,11 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
                 if (back.equals("DTH")){
-                    if (isNetworkAvailable()){
+                    if (checkBox.isChecked()&& isNetworkAvailable()){
                         new AsynDTHpayment().execute();
+                    }
+                    else if (!checkBox.isChecked()){
+                        Toast.makeText(this, "Pay From Wallet", Toast.LENGTH_SHORT).show();
                     }
                     else {
                         noNetwrokErrorMessage();

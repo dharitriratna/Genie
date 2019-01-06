@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,6 +38,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import ratna.genie1.user.genie.ObjectNew.FSESignupResponse;
+import ratna.genie1.user.genie.ObjectNew.FSEUpdateResponse;
+import ratna.genie1.user.genie.client.ApiClientGenie;
+import ratna.genie1.user.genie.client.ApiInterface;
 import ratna.genie1.user.genie.helper.RegPrefManager;
 import com.squareup.picasso.Picasso;
 
@@ -51,6 +60,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 import ratna.genie1.user.genie.helper.RegPrefManager;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class UpdateFSEProfileActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -92,15 +103,17 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
     String login_user="";
     FrameLayout frontframe,backframe,userframe;
     private static final int STORAGE_PERMISSION_CODE = 123;
-    Uri imageUri;
+    Uri imageUri, imageUri1, imageUri2, imageUri3;
     Boolean userImage,frontImage,backImage;
     String groupId;
-
+    ApiInterface apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_fseprofile);
+        apiService =
+                ApiClientGenie.getClient().create(ApiInterface.class);
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
@@ -223,7 +236,8 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
                     user_country.setError("Please Enter Your Country");
                 }
                 else {
-                    new AsyncUpdate().execute();
+                   // new AsyncUpdate().execute();
+                    getUpdateResponse();
                 }
             }
         });
@@ -341,6 +355,16 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
         return true;
     }
 
+    private String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader loader = new CursorLoader(this, contentUri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String result = cursor.getString(column_index);
+        cursor.close();
+        return result;
+    }
 
     private void getProfileDetails() {
         progressDialog.setMessage("loading...");
@@ -441,6 +465,82 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
     }
 
 
+    private void  getUpdateResponse(){
+
+        //creating a file
+        File file1 = new File(getRealPathFromURI(imageUri1));
+        File file2=new File(getRealPathFromURI(imageUri2));
+        File file3=new File (getRealPathFromURI(imageUri3));
+
+        //creating request body for file
+        RequestBody mFile1 = RequestBody.create(MediaType.parse("image/jpeg"), file1);
+        MultipartBody.Part fileToUpload1 = MultipartBody.Part.createFormData("icon", file1.getName(), mFile1);
+
+        RequestBody mFile2 = RequestBody.create(MediaType.parse("image/jpeg"), file2);
+        MultipartBody.Part fileToUpload2 = MultipartBody.Part.createFormData("icon1", file2.getName(), mFile2);
+
+        RequestBody mFile3 = RequestBody.create(MediaType.parse("image/jpeg"), file3);
+        MultipartBody.Part fileToUpload3 = MultipartBody.Part.createFormData("icon2", file3.getName(), mFile3);
+
+
+        // RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(selectedImage)), file);
+        RequestBody firstnameBody = RequestBody.create(MediaType.parse("text/plain"), userName);
+        //  RequestBody useridBody = RequestBody.create(MediaType.parse("text/plain"), EmailId);
+        RequestBody emailBody = RequestBody.create(MediaType.parse("text/plain"), EmailId);
+        RequestBody phoneNumberBody = RequestBody.create(MediaType.parse("text/plain"), phoneNumber);
+        RequestBody distributoruseridBody = RequestBody.create(MediaType.parse("text/plain"), login_user);
+        RequestBody saleexperienceBody = RequestBody.create(MediaType.parse("text/plain"), experience_rb);
+        RequestBody jobtypeBody = RequestBody.create(MediaType.parse("text/plain"), workculture_rb);
+        RequestBody addressproofBody = RequestBody.create(MediaType.parse("text/plain"), userAddressProof);
+        RequestBody line1Body = RequestBody.create(MediaType.parse("text/plain"), userAddress);
+        RequestBody cityBody = RequestBody.create(MediaType.parse("text/plain"), userCity);
+        RequestBody pinBody = RequestBody.create(MediaType.parse("text/plain"), userPin);
+        RequestBody stateBody = RequestBody.create(MediaType.parse("text/plain"), userState);
+        RequestBody countryBody = RequestBody.create(MediaType.parse("text/plain"), userCountry);
+
+
+        //   ProgressDialog pDialog;
+        // pDialog.show();
+        //creating a call and calling the upload image method
+        Call<FSEUpdateResponse> call = apiService.updateFSEResponse(fileToUpload1,fileToUpload2,fileToUpload3,
+                firstnameBody,emailBody,phoneNumberBody,distributoruseridBody,saleexperienceBody,jobtypeBody,addressproofBody,
+                line1Body,cityBody,pinBody,stateBody,countryBody);
+        call.enqueue(new Callback<FSEUpdateResponse>() {
+            @Override
+            public void onResponse(Call<FSEUpdateResponse> call, retrofit2.Response<FSEUpdateResponse> response) {
+                boolean status=response.body().isStatus();
+                if(status==true){
+                    String msg=response.body().getMessage();
+                    Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+
+                    int fse_user_id=response.body().getUser_id();
+
+                    RegPrefManager.getInstance(UpdateFSEProfileActivity.this).setFseUserId(String.valueOf(fse_user_id));
+                    //  Toast.makeText(getApplicationContext(),"Registration Successful", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(UpdateFSEProfileActivity.this,FSERegisterPaymentActivity.class));
+                    finish();
+
+                    //  Toast.makeText(FSESignupActivity.this, fse_user_id, Toast.LENGTH_SHORT).show();
+
+                    // String user_phone = response.body().getPhone();
+                    //RegPrefManager.getInstance(FSESignupActivity.this).setPhoneNo(user_phone);
+
+                }
+                else {
+                    // String msg=response.body().getMessage();
+                    Toast.makeText(UpdateFSEProfileActivity.this, "Registration Failed ! Try Again", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FSEUpdateResponse> call, Throwable t) {
+                Toast.makeText(UpdateFSEProfileActivity.this, "Registration Failed ! Try Again", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -459,16 +559,19 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
 
             file=new File(imagefilePath);
             if(userImage==true){
+                imageUri1=imageUri;
                 UserFilePath=imagefilePath;
                 candidate_photo.setImageURI(imageUri);
                 addImg.setVisibility(View.GONE);
             }
             else if(frontImage==true){
+                imageUri2=imageUri;
                 FrontFilePath=imagefilePath;
                 front_photo.setImageURI(imageUri);
                 frontImg.setVisibility(View.GONE);
             }
             else if (backImage==true){
+                imageUri3=imageUri;
                 BackFilePath=imagefilePath;
                 back_photo.setImageURI(imageUri);
                 backImg.setVisibility(View.GONE);

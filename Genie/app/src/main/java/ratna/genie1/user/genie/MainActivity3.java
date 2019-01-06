@@ -540,6 +540,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
 
             @Override
             public void onClick(View arg0) {
+                startActivity(new Intent(getApplicationContext(),AddMoneyActivity.class));
 
                 button2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -566,6 +567,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
 
             @Override
             public void onClick(View arg0) {
+                startActivity(new Intent(getApplicationContext(),RequestWalletActivity.class));
 
                 button4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));

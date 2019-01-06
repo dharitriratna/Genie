@@ -46,6 +46,7 @@ public class WalletActivity extends AppCompatActivity {
     private ImageView walletImg;
     private ArrayList<MyWalletData> dataArrayList;
     ImageView add_money;
+    String groupId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +54,26 @@ public class WalletActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wallet);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(getApplicationContext()).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                finish();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
         apiService =
@@ -80,6 +96,7 @@ public class WalletActivity extends AppCompatActivity {
         balanceTv=findViewById(R.id.balanceTv);
         noWalletTv=findViewById(R.id.noWalletTv);
         add_money = findViewById(R.id.add_money);
+        add_money.setVisibility(View.GONE);
         dataArrayList=new ArrayList<>();
 
         add_money.setOnClickListener(new View.OnClickListener() {

@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +37,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import ratna.genie1.user.genie.ObjectNew.RetailerSignupResponse;
+import ratna.genie1.user.genie.ObjectNew.RetailerUpdateResponse;
+import ratna.genie1.user.genie.client.ApiClientGenie;
+import ratna.genie1.user.genie.client.ApiInterface;
 import ratna.genie1.user.genie.helper.RegPrefManager;
 
 import org.apache.http.NameValuePair;
@@ -49,6 +58,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 import ratna.genie1.user.genie.helper.RegPrefManager;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class UpdateRetailerProfileActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -80,6 +91,8 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
     TextView user_country;
     Spinner userAdproofpinner;
     int i= 0;
+    ApiInterface apiService;
+
 
     String ownerName,phoneNumber,EmailId,userAddress,userLane,userCity,userPin,userState,userCountry,UserFilePath,FrontFilePath,BackFilePath;
     String retailerBusinessName,retailerSubType;
@@ -87,7 +100,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
     Button btnSubmit;
     FrameLayout frontframe,backframe,userframe;
     private static final int STORAGE_PERMISSION_CODE = 123;
-    Uri imageUri;
+    Uri imageUri, imageUri1, imageUri2, imageUri3;
     Boolean userImage,frontImage,backImage;
     ProgressDialog progressDialog;
 
@@ -105,6 +118,8 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        apiService =
+                ApiClientGenie.getClient().create(ApiInterface.class);
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
@@ -197,7 +212,8 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                     user_country.setError("Please Enter Your Country");
                 }
                 else {
-                    new AsyncUpdateRetailerProfile().execute();
+                  //  new AsyncUpdateRetailerProfile().execute();
+                    getUpdateResponse();
                 }
             }
         });
@@ -315,6 +331,93 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+
+
+    private void  getUpdateResponse(){
+
+        //creating a file
+        File file1 = new File(getRealPathFromURI(imageUri1));
+        File file2=new File(getRealPathFromURI(imageUri2));
+        File file3=new File (getRealPathFromURI(imageUri3));
+
+        //creating request body for file
+        RequestBody mFile1 = RequestBody.create(MediaType.parse("image/jpeg"), file1);
+        MultipartBody.Part fileToUpload1 = MultipartBody.Part.createFormData("icon", file1.getName(), mFile1);
+
+        RequestBody mFile2 = RequestBody.create(MediaType.parse("image/jpeg"), file2);
+        MultipartBody.Part fileToUpload2 = MultipartBody.Part.createFormData("icon1", file2.getName(), mFile2);
+
+        RequestBody mFile3 = RequestBody.create(MediaType.parse("image/jpeg"), file3);
+        MultipartBody.Part fileToUpload3 = MultipartBody.Part.createFormData("icon2", file3.getName(), mFile3);
+
+
+        // RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(selectedImage)), file);
+        RequestBody firstnameBody = RequestBody.create(MediaType.parse("text/plain"), ownerName);
+        //  RequestBody useridBody = RequestBody.create(MediaType.parse("text/plain"), EmailId);
+        RequestBody emailBody = RequestBody.create(MediaType.parse("text/plain"), EmailId);
+        RequestBody phoneNumberBody = RequestBody.create(MediaType.parse("text/plain"), phoneNumber);
+        RequestBody fseuseridBody = RequestBody.create(MediaType.parse("text/plain"), login_user);
+        RequestBody businessnameBody = RequestBody.create(MediaType.parse("text/plain"), retailerBusinessName);
+        RequestBody retailsubtypeBody = RequestBody.create(MediaType.parse("text/plain"), retailerSubType);
+        RequestBody addressproofBody = RequestBody.create(MediaType.parse("text/plain"), userAddressProof);
+        RequestBody line1Body = RequestBody.create(MediaType.parse("text/plain"), userAddress);
+        RequestBody cityBody = RequestBody.create(MediaType.parse("text/plain"), userCity);
+        RequestBody pinBody = RequestBody.create(MediaType.parse("text/plain"), userPin);
+        RequestBody stateBody = RequestBody.create(MediaType.parse("text/plain"), userState);
+        RequestBody countryBody = RequestBody.create(MediaType.parse("text/plain"), userCountry);
+
+
+        //   ProgressDialog pDialog;
+        // pDialog.show();
+        //creating a call and calling the upload image method
+        Call<RetailerUpdateResponse> call = apiService.updateRetailerResponse(fileToUpload1,fileToUpload2,fileToUpload3,
+                firstnameBody,emailBody,phoneNumberBody,fseuseridBody,businessnameBody,retailsubtypeBody,addressproofBody,
+                line1Body,cityBody,pinBody,stateBody,countryBody);
+        call.enqueue(new Callback<RetailerUpdateResponse>() {
+            @Override
+            public void onResponse(Call<RetailerUpdateResponse> call, retrofit2.Response<RetailerUpdateResponse> response) {
+                boolean status=response.body().isStatus();
+                if(status==true){
+                    String msg=response.body().getMessage();
+                    Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+
+                    int retailer_user_id=response.body().getUser_id();
+
+                    RegPrefManager.getInstance(UpdateRetailerProfileActivity.this).setRetailerUserId(String.valueOf(retailer_user_id));
+
+                    startActivity(new Intent(UpdateRetailerProfileActivity.this,RetailerRegisterPaymentActivity.class));
+                    finish();
+
+                    // String user_phone = response.body().getPhone();
+                    //RegPrefManager.getInstance(FSESignupActivity.this).setPhoneNo(user_phone);
+
+                }
+                else {
+                    String msg=response.body().getMessage();
+                    Toast.makeText(UpdateRetailerProfileActivity.this, "Registration Failed ! Try Again", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RetailerUpdateResponse> call, Throwable t) {
+                Toast.makeText(UpdateRetailerProfileActivity.this, "Registration Failed ! Try Again", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+
+    private String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader loader = new CursorLoader(this, contentUri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String result = cursor.getString(column_index);
+        cursor.close();
+        return result;
     }
 
 

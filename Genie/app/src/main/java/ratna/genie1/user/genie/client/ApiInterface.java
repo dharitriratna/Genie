@@ -1,6 +1,5 @@
 package ratna.genie1.user.genie.client;
 
-import ratna.genie1.user.genie.Model.BeneficiaryDetailsResponse;
 import ratna.genie1.user.genie.ObjectNew.AllOrdersResponse;
 import ratna.genie1.user.genie.ObjectNew.BeneficiaryDeleteResponse;
 import ratna.genie1.user.genie.ObjectNew.BeneficiaryDeleteValidateResponse;
@@ -10,9 +9,9 @@ import ratna.genie1.user.genie.ObjectNew.BrowsePlansResponse;
 import ratna.genie1.user.genie.ObjectNew.BusCitesResponse;
 import ratna.genie1.user.genie.ObjectNew.BusToCitiesResponse;
 import ratna.genie1.user.genie.ObjectNew.CabResponse;
-import ratna.genie1.user.genie.ObjectNew.DatacardRechargeResponse;
 import ratna.genie1.user.genie.ObjectNew.DatacardResponse;
 import ratna.genie1.user.genie.ObjectNew.FSESignupResponse;
+import ratna.genie1.user.genie.ObjectNew.FSEUpdateResponse;
 import ratna.genie1.user.genie.ObjectNew.FundTransferResponse;
 import ratna.genie1.user.genie.ObjectNew.FundTransferStatusResponse;
 import ratna.genie1.user.genie.ObjectNew.GenPNRResponse;
@@ -35,20 +34,17 @@ import ratna.genie1.user.genie.ObjectNew.RemiterRegisterResponse;
 import ratna.genie1.user.genie.ObjectNew.RentResponse;
 import ratna.genie1.user.genie.ObjectNew.ResendOTPResponse;
 import ratna.genie1.user.genie.ObjectNew.RetailerSignupResponse;
+import ratna.genie1.user.genie.ObjectNew.RetailerUpdateResponse;
 import ratna.genie1.user.genie.ObjectNew.SellResponse;
 import ratna.genie1.user.genie.ObjectNew.ServiceImage;
 import ratna.genie1.user.genie.ObjectNew.UpdateImageResponse;
 import ratna.genie1.user.genie.ObjectNew.getDataCardCircle;
 import ratna.genie1.user.genie.ObjectNew.getDataCardOperatorResponse;
-import ratna.genie1.user.genie.helper.RegPrefManager;
-
-import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -256,11 +252,34 @@ public interface ApiInterface {
                                             @Part("job_type")RequestBody job_type,@Part("address_proof")RequestBody address_proof,
                                             @Part("line1")RequestBody line1,@Part("city")RequestBody city,@Part("pin")RequestBody pin,
                                             @Part("state")RequestBody state,@Part("country")RequestBody country);
+    @Multipart
+    @POST("api/user/updatefseProfile")
+    Call<FSEUpdateResponse> updateFSEResponse(@Part MultipartBody.Part icon,
+                                            @Part MultipartBody.Part icon1,
+                                            @Part MultipartBody.Part icon2,
+                                            @Part("first_name")RequestBody first_name,
+                                            @Part("email")RequestBody email,@Part("phone")RequestBody phone,
+                                            @Part("distributor_user_id")RequestBody distributor_user_id,@Part("sales_experience")RequestBody sales_experience,
+                                            @Part("job_type")RequestBody job_type,@Part("address_proof")RequestBody address_proof,
+                                            @Part("line1")RequestBody line1,@Part("city")RequestBody city,@Part("pin")RequestBody pin,
+                                            @Part("state")RequestBody state,@Part("country")RequestBody country);
 
 
     @Multipart
     @POST("api/user/registerRetailer")
     Call<RetailerSignupResponse> postRetailerResponse(@Part MultipartBody.Part icon,
+                                                 @Part MultipartBody.Part icon1,
+                                                 @Part MultipartBody.Part icon2,
+                                                 @Part("first_name")RequestBody first_name,
+                                                 @Part("email")RequestBody email, @Part("phone")RequestBody phone,
+                                                 @Part("fse_user_id")RequestBody fse_user_id, @Part("business_name")RequestBody business_name,
+                                                 @Part("retail_sub_type")RequestBody retail_sub_type, @Part("address_proof")RequestBody address_proof,
+                                                 @Part("line1")RequestBody line1, @Part("city")RequestBody city, @Part("pin")RequestBody pin,
+                                                 @Part("state")RequestBody state, @Part("country")RequestBody country);
+
+    @Multipart
+    @POST("api/user/updateRetailerProfile")
+    Call<RetailerUpdateResponse> updateRetailerResponse(@Part MultipartBody.Part icon,
                                                  @Part MultipartBody.Part icon1,
                                                  @Part MultipartBody.Part icon2,
                                                  @Part("first_name")RequestBody first_name,

@@ -509,6 +509,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
         if(image_value!=null) {
             Uri image_uri = Uri.parse(image_value);
             imageHeader.setImageURI(image_uri);
+            Log.d("uriimage", image_value);
         }
 
         sharedpreferences = getSharedPreferences(mypreference,
@@ -562,10 +563,11 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
 
             @Override
             public void onClick(View arg0) {
+                startActivity(new Intent(getApplicationContext(),AddMoneyActivity.class));
 
-                FragmentSendMoney fragmentSendMoney = (FragmentSendMoney) myFragmentManager.findFragmentByTag(TAG_2);
+              //  FragmentSendMoney fragmentSendMoney = (FragmentSendMoney) myFragmentManager.findFragmentByTag(TAG_2);
 
-                if (fragmentSendMoney == null) {
+
 
                  /*   Bundle bundle = new Bundle();
                     bundle.putString(KEY_MSG_2, "Send Money");
@@ -580,7 +582,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                     button4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
-                } /*else {
+                /*else {
                     // fragment.setMsg("Offer");
                     button2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                     button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -610,9 +612,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
             @Override
             public void onClick(View arg0) {
 
-                FragmentAddMoney fragmentAddMoney = (FragmentAddMoney) myFragmentManager.findFragmentByTag(TAG_4);
-
-                if (fragmentAddMoney == null) {
+                startActivity(new Intent(getApplicationContext(),RequestWalletActivity.class));
 
                   /*  Bundle bundle = new Bundle();
                     bundle.putString(KEY_MSG_4, "Add Money");
@@ -628,7 +628,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                     button3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     button5.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
-                } /*else {
+               /*else {
 
                     // fragment.setMsg("Home");
                     button4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
@@ -927,7 +927,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 break;
 
             case R.id.add_fse:
-                Intent addfse = new Intent(MainActivity2.this,FSESignupActivity.class);
+                Intent addfse = new Intent(MainActivity2.this,DemoSignUp.class);//FSESignupActivity
                 startActivity(addfse);
                 break;
 

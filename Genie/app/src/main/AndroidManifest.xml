@@ -419,7 +419,9 @@
         <activity
             android:name=".FSERegisterPaymentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RetailerRegisterPaymentActivity"></activity>
+        <activity android:name=".RetailerRegisterPaymentActivity" />
+        <activity android:name=".DemoSignUp"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

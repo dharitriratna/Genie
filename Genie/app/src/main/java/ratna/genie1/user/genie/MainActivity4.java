@@ -538,6 +538,7 @@ public class MainActivity4 extends AppCompatActivity implements NavigationView.O
 
             @Override
             public void onClick(View arg0) {
+                startActivity(new Intent(getApplicationContext(),AddMoneyActivity.class));
 
                 button2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -564,6 +565,7 @@ public class MainActivity4 extends AppCompatActivity implements NavigationView.O
 
             @Override
             public void onClick(View arg0) {
+                startActivity(new Intent(getApplicationContext(),RequestWalletActivity.class));
 
                 button4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -812,7 +814,7 @@ public class MainActivity4 extends AppCompatActivity implements NavigationView.O
 
             case R.id.profile:
                 setTitleColor(R.color.colorPrimaryDark);
-                Intent intent = new Intent(MainActivity4.this, UpdateProfile.class);
+                Intent intent = new Intent(MainActivity4.this, ViewRetailerProfileActivity.class);
                 startActivity(intent);
                 break;
 

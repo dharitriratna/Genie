@@ -75,7 +75,7 @@ public class ViewRetailerProfileActivity extends AppCompatActivity {
         state = findViewById(R.id.state);
         country = findViewById(R.id.country);
         edit=findViewById(R.id.edit);
-        fseuserimage=findViewById(R.id.shopimage);
+        fseuserimage=findViewById(R.id.fseuserimage);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
