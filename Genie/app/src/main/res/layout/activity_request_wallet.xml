@@ -87,6 +87,25 @@
             android:layout_marginRight="10dp"
             tools:ignore="RtlCompat" />
 
+        <EditText
+            android:layout_marginTop="5dp"
+            android:id="@+id/payment_method"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:cursorVisible="false"
+            android:gravity="start|center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="Payment Method"
+            android:textSize="15sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:inputType="text"
+            android:singleLine="true"
+            android:padding="10dp"
+            android:background="@drawable/edittext_top_bg"
+            tools:ignore="RtlCompat" />
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -128,23 +147,6 @@
             tools:ignore="RtlCompat" />
 
 
-        <EditText
-            android:layout_marginTop="5dp"
-            android:id="@+id/payment_method"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:cursorVisible="false"
-            android:gravity="start|center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:hint="Payment Method"
-            android:textSize="15sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:inputType="text"
-            android:singleLine="true"
-            android:padding="10dp"
-            android:background="@drawable/edittext_top_bg"
-            tools:ignore="RtlCompat" />
 
 
         <RelativeLayout

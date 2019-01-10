@@ -32,12 +32,9 @@ public class BrowsePlansAdapter extends RecyclerView.Adapter<BrowsePlansAdapter.
     private ArrayList<planDescription> plansList;
     private Context context;
 
-
-
     public BrowsePlansAdapter(ArrayList<planDescription> plansList, Context context) {
         this.plansList = plansList;
         this.context=context;
-
     }
 
     @Override
@@ -70,19 +67,6 @@ public class BrowsePlansAdapter extends RecyclerView.Adapter<BrowsePlansAdapter.
                 //  ((Activity)context).finish();
             }
         });
-
-
-
-        /*holder.card_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-           *//* RegPrefManager.getInstance(context).setRemiterDetails(data.getId(),data.getRecharge_amount(),
-                    data.getRecharge_short_desc(),data.getRecharge_talktime(),data.getRecharge_validity(),data.getRecharge_long_desc());*//*
-
-             context.startActivity(new Intent(context, BeneficiaryDeleteActivity.class));
-
-            }
-        });*/
     }
 
     @Override
@@ -111,16 +95,4 @@ public class BrowsePlansAdapter extends RecyclerView.Adapter<BrowsePlansAdapter.
             card_view=(CardView)itemView.findViewById(ratna.genie1.user.genie.R.id.card_view);
         }
     }
-
-    //This method will filter the list
-    //here we are passing the filtered data
-    //and assigning it to the list with notifydatasetchanged method
-   /* public void filterList(ArrayList<planDescription > filterdNames) {
-        this.operatorList = filterdNames;
-        notifyDataSetChanged();
-    }
-*/
-
-
-
 }

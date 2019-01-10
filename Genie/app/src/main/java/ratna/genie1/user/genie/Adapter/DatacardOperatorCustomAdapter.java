@@ -26,8 +26,6 @@ public class DatacardOperatorCustomAdapter extends RecyclerView.Adapter<Datacard
     private Context context;
     private ArrayList<DataOperatorListModel> operatorList;
 
-
-
     public DatacardOperatorCustomAdapter(Context context, ArrayList<DataOperatorListModel> operatorList) {
         this.operatorList = operatorList;
         this.context=context;
@@ -78,9 +76,6 @@ public class DatacardOperatorCustomAdapter extends RecyclerView.Adapter<Datacard
         }
     }
 
-    //This method will filter the list
-    //here we are passing the filtered data
-    //and assigning it to the list with notifydatasetchanged method
     public void filterList(ArrayList<DataOperatorListModel > filterdNames) {
         this.operatorList = filterdNames;
         notifyDataSetChanged();

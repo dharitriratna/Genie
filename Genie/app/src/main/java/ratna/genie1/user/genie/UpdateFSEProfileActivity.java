@@ -1,5 +1,6 @@
 package ratna.genie1.user.genie;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,7 +14,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -70,6 +73,7 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
     private static final int PICK_PHOTO = 1958;
     private static final int PICK_PHOTOfront = 1958;
     private static final int PICK_PHOTOback = 1958;
+    private static final int CAMERA_REQUEST = 1888;
     private final int requestCode = 20;
     private final int requestCodefront = 20;
     private final int requestCodeback = 20;
@@ -93,6 +97,7 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
     Spinner userAdproofpinner;
     ProgressDialog progressDialog;
     int i = 0;
+    Bitmap bitmap;
 
     String userName,phoneNumber,EmailId,userAddress,userLane,userCity,userPin,userState,userCountry,UserFilePath,FrontFilePath,BackFilePath;
     String userAddressProof;
@@ -125,6 +130,7 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
         });
         progressDialog = new ProgressDialog(UpdateFSEProfileActivity.this);
 
+        requestStoragePermission();
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
@@ -259,7 +265,7 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         if (options_array[item].equals("Camera")) {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, requestCode);
+                            startActivityForResult(intent, CAMERA_REQUEST);
                         } else if (options_array[item].equals("Gallery")) {
                             Intent intent = new Intent(Intent.ACTION_PICK,
                                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -287,7 +293,7 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         if (options_array[item].equals("Camera")) {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, requestCode);
+                            startActivityForResult(intent, CAMERA_REQUEST);
                         } else if (options_array[item].equals("Gallery")) {
                             Intent intent = new Intent(Intent.ACTION_PICK,
                                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -315,7 +321,7 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         if (options_array[item].equals("Camera")) {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, requestCode);
+                            startActivityForResult(intent, CAMERA_REQUEST);
                         } else if (options_array[item].equals("Gallery")) {
                             Intent intent = new Intent(Intent.ACTION_PICK,
                                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -327,33 +333,8 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
 
             }
         });
-        int Permission_All = 1;
-
-        String[] Permissions = {
-//                android.Manifest.permission.ACCESS_COARSE_LOCATION,
-//                android.Manifest.permission.ACCESS_FINE_LOCATION,
-//                Manifest.permission.CALL_PHONE,
-                android.Manifest.permission.INTERNET,
-                android.Manifest.permission.ACCESS_WIFI_STATE,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.CAMERA, };
-        if(!hasPermissions(getApplicationContext(), Permissions)){
-            ActivityCompat.requestPermissions(UpdateFSEProfileActivity.this, Permissions, Permission_All);
-        }
     }
 
-    public boolean hasPermissions(Context context, String... permissions){
-
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N && context!=null && permissions!=null){
-            for(String permission: permissions){
-                if(ActivityCompat.checkSelfPermission(context, permission)!= PackageManager.PERMISSION_GRANTED){
-                    return  false;
-                }
-            }
-        }
-        return true;
-    }
 
     private String getRealPathFromURI(Uri contentUri) {
         String[] proj = {MediaStore.Images.Media.DATA};
@@ -365,6 +346,100 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
         cursor.close();
         return result;
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == PICK_PHOTO) {
+
+            imageUri = data.getData();
+            imagefilePath = getPath(imageUri);
+
+
+            //set_image.setImageURI(imageUri);
+            // String imageProfile=imageUri.toString();
+            //  RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
+
+            //  file=new File(imagefilePath);
+            if(userImage==true){
+                imageUri1=imageUri;
+                UserFilePath=imagefilePath;
+                candidate_photo.setImageURI(imageUri);
+                addImg.setVisibility(View.GONE);
+
+                file = new File(UserFilePath);
+            }
+            else if(frontImage==true){
+                imageUri2=imageUri;
+                FrontFilePath=imagefilePath;
+                front_photo.setImageURI(imageUri);
+                frontImg.setVisibility(View.GONE);
+
+                file1 = new File(FrontFilePath);
+            }
+            else if (backImage==true){
+                imageUri3=imageUri;
+                BackFilePath=imagefilePath;
+                back_photo.setImageURI(imageUri);
+                backImg.setVisibility(View.GONE);
+
+                file2 = new File(BackFilePath);
+            }
+            Log.d("imagefilePath",imagefilePath);
+
+        }
+        else if(requestCode == CAMERA_REQUEST && resultCode == RESULT_OK)
+        {
+            bitmap = (Bitmap)data.getExtras().get("data");
+            //set_image.setImageBitmap(bitmap);
+
+            imageUri= getImageUri(this,bitmap);
+            imagefilePath = getPath(imageUri);
+
+            //String imageProfile=imageUri.toString();
+            //RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
+
+            Log.d("Tag","imagefilePath==================> "+imagefilePath);
+            //  file=new File(imagefilePath);  // getting image captured filepath  < ----------------------------------------
+            //  if(userImage!=null){
+            if (userImage == true) {
+                imageUri1=imageUri;
+                UserFilePath = imagefilePath;
+                candidate_photo.setImageBitmap(bitmap);
+                addImg.setVisibility(View.GONE);
+
+                file = new File(UserFilePath);
+                // }
+            }
+            //  if(frontImage!=null){
+            else if (frontImage == true) {
+                imageUri2=imageUri;
+                FrontFilePath = imagefilePath;
+                front_photo.setImageBitmap(bitmap);
+                frontImg.setVisibility(View.GONE);
+
+
+                file1 = new File(FrontFilePath);
+                //   }
+            }
+            //   if(backImage!=null) {
+            else     if (backImage == true) {
+                imageUri3=imageUri;
+                BackFilePath = imagefilePath;
+                back_photo.setImageBitmap(bitmap);
+                backImg.setVisibility(View.GONE);
+
+                file2 = new File(BackFilePath);
+                //   }
+            }
+        }
+
+
+    }
+
 
     private void getProfileDetails() {
         progressDialog.setMessage("loading...");
@@ -513,12 +588,12 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
                     String msg=response.body().getMessage();
                     Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
 
-                    int fse_user_id=response.body().getUser_id();
+                 /*   int fse_user_id=response.body().getUser_id();
 
                     RegPrefManager.getInstance(UpdateFSEProfileActivity.this).setFseUserId(String.valueOf(fse_user_id));
                     //  Toast.makeText(getApplicationContext(),"Registration Successful", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(UpdateFSEProfileActivity.this,FSERegisterPaymentActivity.class));
-                    finish();
+                    startActivity(new Intent(UpdateFSEProfileActivity.this,FSERegisterPaymentActivity.class));*/
+                   // finish();
 
                     //  Toast.makeText(FSESignupActivity.this, fse_user_id, Toast.LENGTH_SHORT).show();
 
@@ -528,13 +603,13 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
                 }
                 else {
                     // String msg=response.body().getMessage();
-                    Toast.makeText(UpdateFSEProfileActivity.this, "Registration Failed ! Try Again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateFSEProfileActivity.this, "Update Failed ! Try Again", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FSEUpdateResponse> call, Throwable t) {
-                Toast.makeText(UpdateFSEProfileActivity.this, "Registration Failed ! Try Again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdateFSEProfileActivity.this, "Update Failed ! Try Again", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -542,75 +617,6 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
 
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK && requestCode == PICK_PHOTO) {
-
-            imageUri = data.getData();
-            imagefilePath = getPath(imageUri);
-
-
-            //set_image.setImageURI(imageUri);
-            // String imageProfile=imageUri.toString();
-            //  RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
-
-            file=new File(imagefilePath);
-            if(userImage==true){
-                imageUri1=imageUri;
-                UserFilePath=imagefilePath;
-                candidate_photo.setImageURI(imageUri);
-                addImg.setVisibility(View.GONE);
-            }
-            else if(frontImage==true){
-                imageUri2=imageUri;
-                FrontFilePath=imagefilePath;
-                front_photo.setImageURI(imageUri);
-                frontImg.setVisibility(View.GONE);
-            }
-            else if (backImage==true){
-                imageUri3=imageUri;
-                BackFilePath=imagefilePath;
-                back_photo.setImageURI(imageUri);
-                backImg.setVisibility(View.GONE);
-            }
-            Log.d("imagefilePath",imagefilePath);
-
-        }
-        else if(this.requestCode == requestCode && resultCode == RESULT_OK)
-        {
-            Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-            //set_image.setImageBitmap(bitmap);
-
-            imageUri= getImageUri(this,bitmap);
-            imagefilePath = getPath(imageUri);
-
-            //String imageProfile=imageUri.toString();
-            //RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
-
-            Log.d("imagefilePath",imagefilePath);
-            file=new File(imagefilePath);  // getting image captured filepath  < ----------------------------------------
-
-            if(userImage==true){
-                UserFilePath=imagefilePath;
-                candidate_photo.setImageURI(imageUri);
-                addImg.setVisibility(View.GONE);
-            }
-            else if(frontImage==true){
-                FrontFilePath=imagefilePath;
-                front_photo.setImageURI(imageUri);
-                frontImg.setVisibility(View.GONE);
-            }
-            else if (backImage==true){
-                BackFilePath=imagefilePath;
-                back_photo.setImageURI(imageUri);
-                backImg.setVisibility(View.GONE);
-            }
-        }
-
-    }
 
     private String getPath(Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };//,Video,Audio
@@ -626,90 +632,43 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
         return Uri.parse(path);
     }
 
+    private void requestStoragePermission() {
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                ||(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                ||(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED))
+            return;
 
-    @SuppressLint("StaticFieldLeak")
-    private class AsyncUpdate extends AsyncTask<Void, Void, Void> {
-        String success = null,message="",status="true";
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            progressDialog.show();
-            ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
-            cred.add(new BasicNameValuePair("first_name",userName));
-            cred.add(new BasicNameValuePair("email",EmailId));//user_email
-            cred.add(new BasicNameValuePair("phone",phoneNumber ));
-            cred.add(new BasicNameValuePair("user_id ",login_user ));
-            cred.add(new BasicNameValuePair("sales_experience",experience_rb ));
-            cred.add(new BasicNameValuePair("job_type",workculture_rb ));
-            cred.add(new BasicNameValuePair("address_proof",userAddressProof ));
-            cred.add(new BasicNameValuePair("icon",FrontFilePath ));
-            cred.add(new BasicNameValuePair("icon1",BackFilePath ));
-            cred.add(new BasicNameValuePair("icon2",UserFilePath ));
-            cred.add(new BasicNameValuePair("line1",userAddress ));
-            cred.add(new BasicNameValuePair("city",userCity ));
-            cred.add(new BasicNameValuePair("pin",userPin ));
-            cred.add(new BasicNameValuePair("state",userState ));
-            cred.add(new BasicNameValuePair("country",userCountry ));
-            Log.v("RES","Sending data " +userName+ EmailId+ phoneNumber +login_user+experience_rb+workculture_rb
-                    +userAddressProof+imagefilePathfront+imagefilePathback+imagefilePath+userAddress+userCity+userPin+userState+userCountry);
-
-            String urlRouteList="https://genieservice.in/api/user/updatefseProfile";
-            try {
-                String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
-
-                success = route_response;
-                JSONObject jsonObject = new JSONObject(success);
-
-                // user_email=jsonObject.getString("user_email");
-                status=jsonObject.getString("status");
-                if(status.equals("false")) {
-                    message = jsonObject.getString("errors");
-                }
-             /*   String data=jsonObject.getString("data");
-                // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
-                JSONObject jsonObject1 = new JSONObject(data);*/
-                String user_id=jsonObject.getString("user_id");
-                Toast.makeText(UpdateFSEProfileActivity.this, user_id, Toast.LENGTH_SHORT).show();
-              /*  SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("FLAG", user_id);
-                Log.d("user_id", user_id);
-                editor.commit();*/
-                String user_phone = jsonObject.getString("phone");
-                RegPrefManager.getInstance(UpdateFSEProfileActivity.this).setPhoneNo(user_phone);
-                //   String user_email=jsonObject1.getString("user_email");
-
-            } catch (Exception e)
-
-            {
-                Log.v("Connection error", e.toString());
-
-            }return null;
+        if ((ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) ||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE))||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION))||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION))) {
+            //If the user has denied the permission previously your code will come to this block
+            //Here you can explain why you need this permission
+            //Explain here why you need this permission
         }
-        protected void onPostExecute(Void result) {
-            progressDialog.dismiss();
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+    }
 
-            if(status.equals("true"))
-            {
-                Toast.makeText(getApplicationContext(),"Updated Successfully", Toast.LENGTH_LONG).show();
-               // startActivity(new Intent(UpdateFSEProfileActivity.this,FSEListActivty.class));
-                finish();
-            }
-            else{
-                Toast.makeText(getApplicationContext(),"Update Failed",
-                        Toast.LENGTH_LONG).show();
-                email.setError("Please enter a valid email");
-                phone_no.setError("Please enter a valid no.");
-            }
-        }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        @Override
-        protected void onPreExecute() {
-            progressDialog = new ProgressDialog(UpdateFSEProfileActivity.this);
-            progressDialog.setMessage("Loading In...");
-            progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(true);
-            progressDialog.show();
+        //Checking the request code of our request
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+
+            //If permission is granted
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //Displaying a toast
+                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
+            } else {
+                //Displaying another toast if permission is not granted
+                Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
+            }
         }
     }
+
 
 }

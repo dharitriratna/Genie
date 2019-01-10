@@ -39,12 +39,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public void onBindViewHolder(OrderAdapter.ViewHolder holder, int position) {
         AllOrdersResponse.allOrdersArrayListResponse listItem = ordersArrayListResponses.get(position);
 
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
-
-
-        //   holder.samagri_amt.setTypeface(tf3);
         holder.name.setText(listItem.getFirst_name());
         holder.service_name.setText(listItem.getServiceName());
         holder.transactiondate.setText(listItem.getTransactionDate());

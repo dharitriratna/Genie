@@ -41,17 +41,7 @@ public class RentCustomAdapter1 extends RecyclerView.Adapter<RentCustomAdapter1.
 
     @Override
     public void onBindViewHolder(final ViewHolder holder,final int position) {
-      //  holder.nameTv.setText(names.get(position));
 
-        /*holder.textViewName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String city= (String) holder.textViewName.getText();
-                Intent i=new Intent(context, MoviesListActivity.class);
-                RegPrefManager.getInstance(context).setCity(city);
-                context.startActivity(i);
-            }
-        });*/
         RentFilterModel data=names.get(position);
         holder.nameTv.setText(data.getCategory());
         holder.addressTv.setText("Address"+"\n"+data.getAddress());

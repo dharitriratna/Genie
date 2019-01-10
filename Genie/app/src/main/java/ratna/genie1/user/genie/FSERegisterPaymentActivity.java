@@ -59,7 +59,7 @@ public class FSERegisterPaymentActivity extends AppCompatActivity {
     TextView dept_date;
     EditText payment_method;
     String fseuserID;
-    String retaileruserID;
+    String fseretaileruserID;
 
 
 
@@ -79,8 +79,8 @@ public class FSERegisterPaymentActivity extends AppCompatActivity {
         mcurrenttime = Calendar.getInstance();
         dateFormatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
 
-        fseuserID = RegPrefManager.getInstance(getApplicationContext()).getFseUserId();
-        retaileruserID = RegPrefManager.getInstance(getApplicationContext()).getRetailerUserId();
+       // fseuserID = RegPrefManager.getInstance(getApplicationContext()).getFseUserId();
+        fseretaileruserID = RegPrefManager.getInstance(getApplicationContext()).getRetailerUserId();
 
 
         amountTv = findViewById(R.id.amountTv);
@@ -182,9 +182,9 @@ public class FSERegisterPaymentActivity extends AppCompatActivity {
                 else if (Date_.length() < 1){
                     dept_date.setError("Please Enter Date");
                 }
-                else if (paymentMethod.length() < 1){
+             /*   else if (paymentMethod.length() < 1){
                     payment_method.setError("Please Set Payment Method");
-                }
+                }*/
                 else {
                     new Asynctask().execute();
                 }
@@ -200,7 +200,7 @@ public class FSERegisterPaymentActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             pDialog.show();
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
-            cred.add(new BasicNameValuePair("user_id",fseuserID));
+            cred.add(new BasicNameValuePair("user_id",fseretaileruserID));
             cred.add(new BasicNameValuePair("amount",SendingAmount ));
             cred.add(new BasicNameValuePair("ref_no",ReferralCode ));
             cred.add(new BasicNameValuePair("date_of_deposit",Date_ ));

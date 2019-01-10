@@ -19,9 +19,7 @@ public class AllAddressAdapter extends RecyclerView.Adapter<AllAddressAdapter.Vi
     private List<AllAddressModel> addressModels;
     private Context context;
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
+
 
     public AllAddressAdapter(List<AllAddressModel> addressModels, Context context) {
         this.addressModels = addressModels;
@@ -40,16 +38,10 @@ public class AllAddressAdapter extends RecyclerView.Adapter<AllAddressAdapter.Vi
     public void onBindViewHolder(AllAddressAdapter.ViewHolder holder, int position) {
         AllAddressModel listItem = addressModels.get(position);
 
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
 
-
-        //   holder.samagri_amt.setTypeface(tf3);
 
         holder.id.setText(listItem.getAdd_id());
         holder.name.setText(listItem.getName());
-        //   holder.pro_name.setTypeface(tf3);
         holder.lane.setText(listItem.getAddress_line());
         holder.landmark.setText(listItem.getAddress_landmark());
         holder.city.setText("City : "+listItem.getAdd_city());

@@ -58,7 +58,7 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     String[] web = {
             "Ranjha Refugee",
-            "Badhaii ho",
+            "Badhai ho",
             "Baazaar",
             "Baazaar"
 
@@ -66,7 +66,7 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
     } ;
     int[] imageId = {
             R.drawable.movie1,
-            R.drawable.movie2,
+         //   R.drawable.movie2,
             R.drawable.movie3,
             R.drawable.image5
 
@@ -175,9 +175,6 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
         } else {
             noNetwrokErrorMessage();
         }
-
-
-
     }
 
 
@@ -185,7 +182,7 @@ public class MoviesListActivity extends AppCompatActivity implements GridMoviesA
 
         List<Movies> data = new ArrayList<>();
         data.add(new Movies( R.drawable.movie1, "Image 1"));
-        data.add(new Movies( R.drawable.movie2, "Image 2"));
+     //   data.add(new Movies( R.drawable.movie2, "Image 2"));
         data.add(new Movies(  R.drawable.movie3, "Image 3"));
 
 

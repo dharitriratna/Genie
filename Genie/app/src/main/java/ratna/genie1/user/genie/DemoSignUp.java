@@ -43,12 +43,23 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import ratna.genie1.user.genie.ObjectNew.FSESignupResponse;
+import ratna.genie1.user.genie.client.ApiClientGenie;
+import ratna.genie1.user.genie.client.ApiInterface;
 import ratna.genie1.user.genie.helper.RegPrefManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class DemoSignUp extends AppCompatActivity {
@@ -72,6 +83,7 @@ public class DemoSignUp extends AppCompatActivity {
     TextView user_country;
     Spinner userAdproofpinner;
     Button btnSubmit;
+    String message = "";
 
 
 
@@ -85,6 +97,7 @@ public class DemoSignUp extends AppCompatActivity {
     private static final int PICK_PHOTOfront = 1958;
     private static final int PICK_PHOTOback = 1958;
     private final int requestCode = 20;
+    private static final int CAMERA_REQUEST = 1888;
     private final int requestCodefront = 20;
     private final int requestCodeback = 20;
 
@@ -100,7 +113,8 @@ public class DemoSignUp extends AppCompatActivity {
     public static final String mypreference = "mypref";
     String login_user="";
     ProgressDialog progressDialog;
-
+    Bitmap bitmap;
+    ApiInterface apiService;
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -117,7 +131,7 @@ public class DemoSignUp extends AppCompatActivity {
             }
         });
 
-        progressDialog = new ProgressDialog(getApplicationContext());
+        progressDialog =new ProgressDialog(this);
 
         experienceRB = findViewById(R.id.experienceRB);
         workcultureRB = findViewById(R.id.workcultureRB);
@@ -145,6 +159,12 @@ public class DemoSignUp extends AppCompatActivity {
         backframe=findViewById(R.id.backframe);
         userframe=findViewById(R.id.userframe);
 
+    /*    OkHttpClient okHttpClient = new OkHttpClient() .newBuilder()
+                .addNetworkInterceptor(new StethoInterceptor())
+                .build();*/
+      //  AndroidNetworking.initialize(getApplicationContext());
+        apiService =
+                ApiClientGenie.getClient().create(ApiInterface.class);
 
         eye.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
@@ -262,9 +282,8 @@ public class DemoSignUp extends AppCompatActivity {
                     user_country.setError("Please Enter Your Country");
                 }
                 else {
-
-                  //  getRegisterResponse();
-                    SignUpWithData();
+                  getRegisterResponse();
+                    //SignUpWithData();
 
                 }
             }
@@ -288,7 +307,7 @@ public class DemoSignUp extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         if (options_array[item].equals("Camera")) {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, requestCode);
+                            startActivityForResult(intent, CAMERA_REQUEST);
                         } else if (options_array[item].equals("Gallery")) {
                             Intent intent = new Intent(Intent.ACTION_PICK,
                                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -317,7 +336,7 @@ public class DemoSignUp extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         if (options_array[item].equals("Camera")) {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, requestCode);
+                            startActivityForResult(intent, CAMERA_REQUEST);
                         } else if (options_array[item].equals("Gallery")) {
                             Intent intent = new Intent(Intent.ACTION_PICK,
                                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -345,7 +364,7 @@ public class DemoSignUp extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         if (options_array[item].equals("Camera")) {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, requestCode);
+                            startActivityForResult(intent, CAMERA_REQUEST);
                         } else if (options_array[item].equals("Gallery")) {
                             Intent intent = new Intent(Intent.ACTION_PICK,
                                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -401,31 +420,37 @@ public class DemoSignUp extends AppCompatActivity {
             // String imageProfile=imageUri.toString();
             //  RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
 
-            file=new File(imagefilePath);
+          //  file=new File(imagefilePath);
             if(userImage==true){
                 imageUri1=imageUri;
                 UserFilePath=imagefilePath;
                 candidate_photo.setImageURI(imageUri);
                 addImg.setVisibility(View.GONE);
+
+                file = new File(UserFilePath);
             }
             else if(frontImage==true){
                 imageUri2=imageUri;
                 FrontFilePath=imagefilePath;
                 front_photo.setImageURI(imageUri);
                 frontImg.setVisibility(View.GONE);
+
+                file1 = new File(FrontFilePath);
             }
             else if (backImage==true){
                 imageUri3=imageUri;
                 BackFilePath=imagefilePath;
                 back_photo.setImageURI(imageUri);
                 backImg.setVisibility(View.GONE);
+
+                file2 = new File(BackFilePath);
             }
             Log.d("imagefilePath",imagefilePath);
 
         }
-        else if(this.requestCode == requestCode && resultCode == RESULT_OK)
+        else if(requestCode == CAMERA_REQUEST && resultCode == RESULT_OK)
         {
-            Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+             bitmap = (Bitmap)data.getExtras().get("data");
             //set_image.setImageBitmap(bitmap);
 
             imageUri= getImageUri(this,bitmap);
@@ -434,33 +459,41 @@ public class DemoSignUp extends AppCompatActivity {
             //String imageProfile=imageUri.toString();
             //RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
 
-            Log.d("imagefilePath",imagefilePath);
+            Log.d("Tag","imagefilePath==================> "+imagefilePath);
           //  file=new File(imagefilePath);  // getting image captured filepath  < ----------------------------------------
+              //  if(userImage!=null){
+                if (userImage == true) {
+                    imageUri1=imageUri;
+                    UserFilePath = imagefilePath;
+                    candidate_photo.setImageBitmap(bitmap);
+                    addImg.setVisibility(View.GONE);
 
-            if(userImage==true){
-                UserFilePath=imagefilePath;
-                candidate_photo.setImageURI(imageUri);
-                addImg.setVisibility(View.GONE);
-
-                file=new File(UserFilePath);
-            }
-            else if(frontImage==true){
-                FrontFilePath=imagefilePath;
-                front_photo.setImageURI(imageUri);
-                frontImg.setVisibility(View.GONE);
-
-
-                file1=new File(FrontFilePath);
-            }
-            else if (backImage==true){
-                BackFilePath=imagefilePath;
-                back_photo.setImageURI(imageUri);
-                backImg.setVisibility(View.GONE);
+                    file = new File(UserFilePath);
+               // }
+                }
+              //  if(frontImage!=null){
+               else if (frontImage == true) {
+                    imageUri2=imageUri;
+                    FrontFilePath = imagefilePath;
+                    front_photo.setImageBitmap(bitmap);
+                    frontImg.setVisibility(View.GONE);
 
 
-                file2=new File(BackFilePath);
-            }
+                    file1 = new File(FrontFilePath);
+             //   }
         }
+             //   if(backImage!=null) {
+                else     if (backImage == true) {
+                    imageUri3=imageUri;
+                        BackFilePath = imagefilePath;
+                        back_photo.setImageBitmap(bitmap);
+                        backImg.setVisibility(View.GONE);
+
+                        file2 = new File(BackFilePath);
+                 //   }
+                }
+            }
+
 
     }
 
@@ -468,12 +501,14 @@ public class DemoSignUp extends AppCompatActivity {
     private void requestStoragePermission() {
         if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
                 || (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
                 ||(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                 ||(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED))
             return;
 
         if ((ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) ||
                 (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE))||
                 (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION))||
                 (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION))) {
             //If the user has denied the permission previously your code will come to this block
@@ -481,7 +516,7 @@ public class DemoSignUp extends AppCompatActivity {
             //Explain here why you need this permission
         }
         //And finally ask for the permission
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, STORAGE_PERMISSION_CODE);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
     }
 
 
@@ -503,13 +538,10 @@ public class DemoSignUp extends AppCompatActivity {
         }
     }
 
-    private void SignUpWithData() {
-        String success = null;
-        final boolean status = true;
-        String message;
-        String error;
+   /* private void SignUpWithData() {
 
-       // progressDialog.show();
+
+    //    progressDialog.show();
         AndroidNetworking.upload("https://genieservice.in/api/user/registerFse")
                 .addMultipartFile("icon",file1)
                 .addMultipartFile("icon1",file2)
@@ -539,16 +571,114 @@ public class DemoSignUp extends AppCompatActivity {
 
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(DemoSignUp.this, response, Toast.LENGTH_SHORT).show();
+
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String status = jsonObject.getString("status");
+
+                            if(status.equals("false")) {
+                                String message1 = jsonObject.getString("message");
+                                Toast.makeText(DemoSignUp.this, message1, Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                progressDialog.dismiss();
+
+                                Toast.makeText(DemoSignUp.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(DemoSignUp.this,FSERegisterPaymentActivity.class));
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                     }
 
                     @Override
                     public void onError(ANError anError) {
-                        Toast.makeText(DemoSignUp.this, "Network Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DemoSignUp.this, "Registration Error", Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
+    }*/
+   private void  getRegisterResponse(){
+      // progressDialog.show();
+
+       //creating a file
+       File file1 = new File(getRealPathFromURI(imageUri1));
+       File file2=new File(getRealPathFromURI(imageUri2));
+       File file3=new File (getRealPathFromURI(imageUri3));
+
+       //creating request body for file
+       RequestBody mFile1 = RequestBody.create(MediaType.parse("image/jpeg"), file1);
+       MultipartBody.Part fileToUpload1 = MultipartBody.Part.createFormData("icon", file1.getName(), mFile1);
+
+       RequestBody mFile2 = RequestBody.create(MediaType.parse("image/jpeg"), file2);
+       MultipartBody.Part fileToUpload2 = MultipartBody.Part.createFormData("icon1", file2.getName(), mFile2);
+
+       RequestBody mFile3 = RequestBody.create(MediaType.parse("image/jpeg"), file3);
+       MultipartBody.Part fileToUpload3 = MultipartBody.Part.createFormData("icon2", file3.getName(), mFile3);
+
+
+       // RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(selectedImage)), file);
+       RequestBody firstnameBody = RequestBody.create(MediaType.parse("text/plain"), userName);
+       //  RequestBody useridBody = RequestBody.create(MediaType.parse("text/plain"), EmailId);
+       RequestBody emailBody = RequestBody.create(MediaType.parse("text/plain"), EmailId);
+       RequestBody phoneNumberBody = RequestBody.create(MediaType.parse("text/plain"), phoneNumber);
+       RequestBody distributoruseridBody = RequestBody.create(MediaType.parse("text/plain"), login_user);
+       RequestBody saleexperienceBody = RequestBody.create(MediaType.parse("text/plain"), experience_rb);
+       RequestBody jobtypeBody = RequestBody.create(MediaType.parse("text/plain"), workculture_rb);
+       RequestBody addressproofBody = RequestBody.create(MediaType.parse("text/plain"), userAddressProof);
+       RequestBody line1Body = RequestBody.create(MediaType.parse("text/plain"), userAddress);
+       RequestBody cityBody = RequestBody.create(MediaType.parse("text/plain"), userCity);
+       RequestBody pinBody = RequestBody.create(MediaType.parse("text/plain"), userPin);
+       RequestBody stateBody = RequestBody.create(MediaType.parse("text/plain"), userState);
+       RequestBody countryBody = RequestBody.create(MediaType.parse("text/plain"), userCountry);
+
+
+       //   ProgressDialog pDialog;
+       // pDialog.show();
+       //creating a call and calling the upload image method
+
+       progressDialog.setMessage("Please wait...");
+       progressDialog.setCanceledOnTouchOutside(false);
+       progressDialog.show();
+       Call<FSESignupResponse> call = apiService.postFSEResponse(fileToUpload1,fileToUpload2,fileToUpload3,
+               firstnameBody,emailBody,phoneNumberBody,distributoruseridBody,saleexperienceBody,jobtypeBody,addressproofBody,
+               line1Body,cityBody,pinBody,stateBody,countryBody);
+       call.enqueue(new Callback<FSESignupResponse>() {
+           @Override
+           public void onResponse(Call<FSESignupResponse> call, Response<FSESignupResponse> response) {
+               progressDialog.dismiss();
+               boolean status=response.body().isStatus();
+               if(status==true){
+                   Toast.makeText(DemoSignUp.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                   int fseretaileruserId = response.body().getUser_id();
+                   RegPrefManager.getInstance(DemoSignUp.this).setRetailerUserId(String.valueOf(fseretaileruserId));
+                   startActivity(new Intent(DemoSignUp.this,FSERegisterPaymentActivity.class));
+                   finish();
+
+                   //  Toast.makeText(FSESignupActivity.this, fse_user_id, Toast.LENGTH_SHORT).show();
+
+                   // String user_phone = response.body().getPhone();
+                   //RegPrefManager.getInstance(FSESignupActivity.this).setPhoneNo(user_phone);
+
+               }
+               else {
+                   String message1 = response.body().getMessage();
+                   Toast.makeText(DemoSignUp.this, message1, Toast.LENGTH_SHORT).show();
+
+                   // String msg=response.body().getMessage();
+           //        Toast.makeText(FSESignupActivity.this, "Registration Failed ! Try Again", Toast.LENGTH_SHORT).show();
+               }
+           }
+
+           @Override
+           public void onFailure(Call<FSESignupResponse> call, Throwable t) {
+               progressDialog.dismiss();
+               Toast.makeText(DemoSignUp.this, "Registration Failed ! Try Again", Toast.LENGTH_SHORT).show();
+           }
+       });
+   }
 
 
 }

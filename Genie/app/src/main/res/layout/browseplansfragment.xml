@@ -7,6 +7,27 @@
     android:background="@drawable/background"
     >
 
+    <RelativeLayout
+        android:id="@+id/searchOp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="10dp"
+        >
+        <EditText
+            android:id="@+id/searchEd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:hint="Search"
+            android:textSize="17sp"
+            android:inputType="text"
+            android:fontFamily="sans-serif"
+            android:imeOptions="actionDone"
+            android:background="@null"/>
+    </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/browsingPlansRecyclerView"
         android:layout_width="match_parent"

@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Users/user/Documents/EGDownloads/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/communication/ic_chat_bubble_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Users/user/Documents/EGDownloads/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_compare_arrows_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -29,9 +29,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_whatsapp" />
+                            <entry key="height" value="526" />
+                            <entry key="outputName" value="ic_dth_recharge" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\user\Desktop\whatsapp.svg" />
+                            <entry key="sourceFile" value="C:\Users\user\Desktop\DTH recharge.svg" />
+                            <entry key="width" value="925" />
                           </map>
                         </option>
                       </PersistentState>

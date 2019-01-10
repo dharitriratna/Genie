@@ -29,7 +29,6 @@ public class AllBusSearchAdapter extends RecyclerView.Adapter<AllBusSearchAdapte
     }
 
 
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view1 = LayoutInflater.from(context).inflate(R.layout.custom_allbuses, parent, false);

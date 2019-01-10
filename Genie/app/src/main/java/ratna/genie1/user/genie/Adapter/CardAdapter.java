@@ -27,9 +27,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 private List<CardModel> cardModels;
 private Context context;
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
+
 
 public CardAdapter(List<CardModel> cardModels, Context context) {
         this.cardModels = cardModels;
@@ -47,17 +45,8 @@ public CardAdapter(List<CardModel> cardModels, Context context) {
 
    public void onBindViewHolder(ViewHolder holder, int position) {
         CardModel listItem = cardModels.get(position);
-
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
-
-
-     //   holder.samagri_amt.setTypeface(tf3);
-
         holder.id_bank.setText(listItem.getBank_id());
         holder.bank_name.setText(listItem.getBank_name());
-        //   holder.pro_name.setTypeface(tf3);
         holder.url.setText(listItem.getBank_url());
 
         }

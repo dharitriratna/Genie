@@ -178,13 +178,7 @@ public class BrowsePlanDetailsFragmentFt extends Fragment {
               //  Toast.makeText(getActivity(),"Try again!",Toast.LENGTH_LONG).show();
             }
         });
-      /*  String request=new Gson().toJson(toCitesRequest);
-        JsonElement je = new Gson().toJsonTree(request);
-        JsonObject jsonObject=new JsonObject();
-        jsonObject.add("DestinationInput",je);
 
-
-        Log.d("Tag", String.valueOf(jsonObject));*/
     }
 
 }

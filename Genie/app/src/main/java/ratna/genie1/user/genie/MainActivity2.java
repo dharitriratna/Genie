@@ -159,7 +159,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
 
         start_nav = findViewById(R.id.start_nav);
         mDemoSlider = findViewById(R.id.slider);
-        home_delivery = findViewById(R.id.home_delivery);
+       /* home_delivery = findViewById(R.id.home_delivery);
         events = findViewById(R.id.events);
         prepaid = findViewById(R.id.prepaid);
         dth = findViewById(R.id.dth);
@@ -186,8 +186,8 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
         insuranceLn=findViewById(R.id.insuranceLn);
 
         joblin=findViewById(R.id.joblin);
-
-        prepaid.setId(13);
+*/
+     /*   prepaid.setId(13);
         dth.setId(14);
         electricity.setId(15);
         cabBookingLin.setId(37);
@@ -202,9 +202,9 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
         al.add("38");
         al.add("39");
         al.add("MN");
+*/
 
-
-        prepaid.setOnClickListener(new View.OnClickListener() {
+     /*   prepaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //     RegPrefManager.getInstance(MainActivity2.this).setMobileCircle();
@@ -234,7 +234,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 RegPrefManager.getInstance(MainActivity2.this).SetElectricityBoard("","");
                 RegPrefManager.getInstance(MainActivity2.this).setElectricityOperator("","");
                 Intent intent=(new Intent(MainActivity2.this,PayForElectricity.class));
-                intent.putExtra("ElectricityId",al.indexOf("15"));
+             //   intent.putExtra("ElectricityId",al.indexOf("15"));
                 startActivity(intent);
             }
         });
@@ -294,7 +294,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 RegPrefManager.getInstance(MainActivity2.this).setCustomerId("");
                 RegPrefManager.getInstance(MainActivity2.this).setSuccessID("");
                 Intent intent=(new Intent(MainActivity2.this,DTHRecharge.class));
-                intent.putExtra("DTHId",al.indexOf("14"));
+              //  intent.putExtra("DTHId",al.indexOf("14"));
                 startActivity(intent);
             }
         });
@@ -420,7 +420,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 RegPrefManager.getInstance(MainActivity2.this).setSuccessID("");
                 startActivity(new Intent(MainActivity2.this,ComingSoonActivity.class));
             }
-        });
+        });*/
 
 
         service_recyclerview = findViewById(R.id.service_recyclerview);
@@ -598,6 +598,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
 
             @Override
             public void onClick(View arg0) {
+                startActivity(new Intent(getApplicationContext(),OffersActivity.class));
 
                 button3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -916,6 +917,11 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 startActivity(intent);
                 break;
 
+            case R.id.changepassword:
+                Intent changepassword = new Intent(MainActivity2.this, ChangePassword.class);
+                startActivity(changepassword);
+                break;
+
             case R.id.privacy:
                 Intent privacy = new Intent(MainActivity2.this, PrivacyPolicy.class);
                 startActivity(privacy);
@@ -938,7 +944,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
 
 
             case R.id.add_retailer:
-                Intent addretailer = new Intent(MainActivity2.this,RetailerSignupActivity.class);
+                Intent addretailer = new Intent(MainActivity2.this,DemoRetailerSignUp.class);
                 startActivity(addretailer);
                 break;
 

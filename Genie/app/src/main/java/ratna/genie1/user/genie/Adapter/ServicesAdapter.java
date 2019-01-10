@@ -37,12 +37,6 @@ public class ServicesAdapter  extends RecyclerView.Adapter<ServicesAdapter.ViewH
     public void onBindViewHolder(ViewHolder holder, int position) {
         ServicesModel listItem = servicesModels.get(position);
 
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
-
-
-        //   holder.samagri_amt.setTypeface(tf3);
 
         holder.service_id.setText(listItem.getService_id());
         holder.service_fees.setText(listItem.getService_fee());

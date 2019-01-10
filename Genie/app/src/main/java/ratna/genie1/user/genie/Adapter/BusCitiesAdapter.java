@@ -27,10 +27,6 @@ public class BusCitiesAdapter extends RecyclerView.Adapter<BusCitiesAdapter.View
     private ArrayList<oRiginCities> busCitiesModels;
     private Context context;
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
-
     public BusCitiesAdapter(ArrayList<oRiginCities> busCitiesModels, Context context) {
         this.busCitiesModels = busCitiesModels;
         this.context = context;
@@ -48,13 +44,6 @@ public class BusCitiesAdapter extends RecyclerView.Adapter<BusCitiesAdapter.View
     public void onBindViewHolder(BusCitiesAdapter.ViewHolder holder, final int position) {
         oRiginCities listItem = busCitiesModels.get(position);
 
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
-
-
-        //   holder.samagri_amt.setTypeface(tf3);
-       // holder.origin_id.setText(listItem.getOriginId());
         holder.origin_name.setText(listItem.getOriginName());
         holder.origin_name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,12 +56,6 @@ public class BusCitiesAdapter extends RecyclerView.Adapter<BusCitiesAdapter.View
 
             }
         });
-
-       /* holder.mob_operator_id.setText(listItem.getOperator_id());
-        holder.operator_name.setText(listItem.getOperator_name());
-        holder.service_type.setText(listItem.getService_type());
-        //   holder.pro_name.setTypeface(tf3);
-        holder.operator_code.setText(listItem.getOperator_code());*/
 
     }
 
@@ -88,10 +71,7 @@ public class BusCitiesAdapter extends RecyclerView.Adapter<BusCitiesAdapter.View
 
         public ViewHolder(View itemView) {
             super(itemView);
-        //    origin_id = itemView.findViewById(R.id.origin_id);
             origin_name = itemView.findViewById(ratna.genie1.user.genie.R.id.origin_name);
-
-
         }
     }
 

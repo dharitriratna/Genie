@@ -21,9 +21,6 @@ public class HotelCitiesAdapter extends RecyclerView.Adapter<HotelCitiesAdapter.
     private List<HotelCitiesModel> hotelCitiesModels;
     private Context context;
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
 
     public HotelCitiesAdapter(List<HotelCitiesModel> hotelCitiesModels, Context context) {
         this.hotelCitiesModels = hotelCitiesModels;
@@ -41,24 +38,6 @@ public class HotelCitiesAdapter extends RecyclerView.Adapter<HotelCitiesAdapter.
 
     public void onBindViewHolder(HotelCitiesAdapter.ViewHolder holder, int position) {
         HotelCitiesModel listItem = hotelCitiesModels.get(position);
-
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
-
-
-        //   holder.samagri_amt.setTypeface(tf3);
-       /* holder.mob_operator_id.setText(listItem.getGas_board_id());
-        holder.operator_name.setText(listItem.getGas_board_name());
-        holder.operator_code.setText(listItem.getGas_board_code());
-        holder.service_type.setText(listItem.getGas_board_type());*/
-
-
-       /* holder.mob_operator_id.setText(listItem.getOperator_id());
-        holder.operator_name.setText(listItem.getOperator_name());
-        holder.service_type.setText(listItem.getService_type());
-        //   holder.pro_name.setTypeface(tf3);
-        holder.operator_code.setText(listItem.getOperator_code());*/
 
     }
 

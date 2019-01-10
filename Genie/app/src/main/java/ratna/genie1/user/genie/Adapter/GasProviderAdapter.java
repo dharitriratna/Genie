@@ -28,9 +28,6 @@ public class GasProviderAdapter extends RecyclerView.Adapter<GasProviderAdapter.
     private List<GasProviderModel> gasProviderModels;
     private Context context;
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
 
     public GasProviderAdapter(List<GasProviderModel> gasProviderModels, Context context) {
         this.gasProviderModels = gasProviderModels;
@@ -49,12 +46,6 @@ public class GasProviderAdapter extends RecyclerView.Adapter<GasProviderAdapter.
     public void onBindViewHolder(GasProviderAdapter.ViewHolder holder, int position) {
        final GasProviderModel listItem = gasProviderModels.get(position);
 
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
-
-
-        //   holder.samagri_amt.setTypeface(tf3);
         holder.mob_operator_id.setText(listItem.getGas_board_id());
         holder.operator_name.setText(listItem.getGas_board_name());
         holder.operator_code.setText(listItem.getGas_board_code());
@@ -70,12 +61,6 @@ public class GasProviderAdapter extends RecyclerView.Adapter<GasProviderAdapter.
               //  ((Activity)context).finish();
             }
         });
-
-       /* holder.mob_operator_id.setText(listItem.getOperator_id());
-        holder.operator_name.setText(listItem.getOperator_name());
-        holder.service_type.setText(listItem.getService_type());
-        //   holder.pro_name.setTypeface(tf3);
-        holder.operator_code.setText(listItem.getOperator_code());*/
 
     }
 

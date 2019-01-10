@@ -83,10 +83,7 @@ public class AllOrdersFragment extends Fragment {
         fragment.setArguments(bundle);
         return fragment;
     }
-  /*  public static AllOrdersFragment newInstance() {
 
-        return new AllOrdersFragment();
-    }*/
 
     @Nullable
     @Override

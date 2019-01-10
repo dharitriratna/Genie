@@ -21,10 +21,6 @@ public class GiftsAdapter extends RecyclerView.Adapter<GiftsAdapter.ViewHolder> 
     private Context context;
     String demo;
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
-
     public GiftsAdapter(List<GiftsModel> giftsModels, Context context) {
         this.giftsModels = giftsModels;
         this.context = context;
@@ -42,23 +38,13 @@ public class GiftsAdapter extends RecyclerView.Adapter<GiftsAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         GiftsModel listItem = giftsModels.get(position);
 
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
 
-
-        //   holder.samagri_amt.setTypeface(tf3);
         holder.gift_id.setText(listItem.getGift_id());
         holder.gift_name.setText(listItem.getGift_name());
         holder.gift_price.setText(context.getResources().getString(R.string.rupee) + listItem.getGift_price());
         Picasso.with(context).load(listItem.getGift_image()).into(holder.gift_image);
 
 
-       /* holder.mob_operator_id.setText(listItem.getOperator_id());
-        holder.operator_name.setText(listItem.getOperator_name());
-        holder.service_type.setText(listItem.getService_type());
-        //   holder.pro_name.setTypeface(tf3);
-        holder.operator_code.setText(listItem.getOperator_code());*/
 
     }
 

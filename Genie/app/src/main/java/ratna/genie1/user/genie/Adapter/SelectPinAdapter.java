@@ -18,9 +18,7 @@ public class SelectPinAdapter extends RecyclerView.Adapter<SelectPinAdapter.View
     private List<SelectPinModel> selectPinModels;
     private Context context;
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
+
 
     public SelectPinAdapter(List<SelectPinModel> selectPinModels, Context context) {
         this.selectPinModels = selectPinModels;
@@ -39,12 +37,6 @@ public class SelectPinAdapter extends RecyclerView.Adapter<SelectPinAdapter.View
     public void onBindViewHolder(SelectPinAdapter.ViewHolder holder, int position) {
         SelectPinModel listItem = selectPinModels.get(position);
 
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
-
-
-        //   holder.samagri_amt.setTypeface(tf3);
 
         holder.text_pin_id.setText(listItem.getCity_id());
         holder.text_area_name.setText(listItem.getArea_name());

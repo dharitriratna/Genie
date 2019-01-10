@@ -23,10 +23,6 @@ public class FSEListAdapter extends RecyclerView.Adapter<FSEListAdapter.ViewHold
     private Context context;
     String demo;
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
-
     public FSEListAdapter(List<FSEListModel> fseListModels, Context context) {
         this.fseListModels = fseListModels;
         this.context = context;
@@ -44,26 +40,11 @@ public class FSEListAdapter extends RecyclerView.Adapter<FSEListAdapter.ViewHold
     public void onBindViewHolder(FSEListAdapter.ViewHolder holder, int position) {
         FSEListModel listItem = fseListModels.get(position);
 
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
-
-
-        //   holder.samagri_amt.setTypeface(tf3);
         holder.userId.setText(listItem.getId());
         holder.userName.setText(listItem.getFirst_name());
         holder.userEmail.setText(listItem.getEmail());
         holder.userNumber.setText(listItem.getPhone());
-      //  Picasso.with(context).load(listItem.getGift_image()).into(holder.gift_image);
-
-
-       /* holder.mob_operator_id.setText(listItem.getOperator_id());
-        holder.operator_name.setText(listItem.getOperator_name());
-        holder.service_type.setText(listItem.getService_type());
-        //   holder.pro_name.setTypeface(tf3);
-        holder.operator_code.setText(listItem.getOperator_code());*/
-
-    }
+        }
 
     @Override
     public int getItemCount() {

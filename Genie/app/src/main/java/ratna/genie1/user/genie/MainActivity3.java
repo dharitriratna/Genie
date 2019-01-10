@@ -554,6 +554,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
 
             @Override
             public void onClick(View arg0) {
+                startActivity(new Intent(getApplicationContext(),OffersActivity.class));
 
                 button3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -833,7 +834,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
                 break;
 */
             case R.id.add_retailer:
-                Intent addretailer = new Intent(MainActivity3.this,RetailerSignupActivity.class);
+                Intent addretailer = new Intent(MainActivity3.this,DemoRetailerSignUp.class);
                 startActivity(addretailer);
                 break;
 

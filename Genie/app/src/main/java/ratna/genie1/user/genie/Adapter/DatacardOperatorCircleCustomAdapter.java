@@ -86,9 +86,6 @@ public class DatacardOperatorCircleCustomAdapter extends RecyclerView.Adapter<Da
         }
     }
 
-    //This method will filter the list
-    //here we are passing the filtered data
-    //and assigning it to the list with notifydatasetchanged method
     public void filterList(ArrayList<DataCardCircleResponse > filterdNames) {
         this.operatorList = filterdNames;
         notifyDataSetChanged();

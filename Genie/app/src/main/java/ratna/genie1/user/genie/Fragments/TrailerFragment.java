@@ -35,7 +35,7 @@ public class TrailerFragment extends Fragment implements View.OnClickListener{
     } ;
     int[] imageId = {
             ratna.genie1.user.genie.R.drawable.movie1,
-            ratna.genie1.user.genie.R.drawable.movie2,
+           // ratna.genie1.user.genie.R.drawable.movie2,
             ratna.genie1.user.genie.R.drawable.movie3,
             ratna.genie1.user.genie.R.drawable.image5
 
@@ -86,7 +86,7 @@ public class TrailerFragment extends Fragment implements View.OnClickListener{
         List<Movies> data = new ArrayList<>();
         data.add(new Movies( ratna.genie1.user.genie.R.drawable.movie1, "Image 1"));
         data.add(new Movies( ratna.genie1.user.genie.R.drawable.image5, "Image 2"));
-        data.add(new Movies(  ratna.genie1.user.genie.R.drawable.movie2, "Image 3"));
+     //   data.add(new Movies(  ratna.genie1.user.genie.R.drawable.movie2, "Image 3"));
 
 
 

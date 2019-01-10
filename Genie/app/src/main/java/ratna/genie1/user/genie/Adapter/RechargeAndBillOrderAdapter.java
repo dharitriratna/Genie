@@ -18,10 +18,6 @@ public class RechargeAndBillOrderAdapter extends RecyclerView.Adapter<RechargeAn
     private List<RechargeOrderModel> orderModels;
     private Context context;
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
-
     public RechargeAndBillOrderAdapter(List<RechargeOrderModel> orderModels, Context context) {
         this.orderModels = orderModels;
         this.context = context;
@@ -37,14 +33,6 @@ public class RechargeAndBillOrderAdapter extends RecyclerView.Adapter<RechargeAn
 
     public void onBindViewHolder(RechargeAndBillOrderAdapter.ViewHolder holder, int position) {
         RechargeOrderModel listItem = orderModels.get(position);
-
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
-
-
-        //   holder.samagri_amt.setTypeface(tf3);
-
 
         holder.orderNo.setText("Order No: "+listItem.getOrderNumber());
         //   holder.pro_name.setTypeface(tf3);

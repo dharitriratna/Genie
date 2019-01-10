@@ -21,6 +21,10 @@
     <uses-permission android:name=" android.permission. READ_CONTACTS " />
     <uses-permission android:name=" android.permission. WRITE_CONTACTS " />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <application
         android:name=".Utils.MyApplication"
         android:allowBackup="true"
@@ -230,9 +234,6 @@
             android:name=".JobSearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CartActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".ThankYouActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -419,9 +420,23 @@
         <activity
             android:name=".FSERegisterPaymentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RetailerRegisterPaymentActivity" />
-        <activity android:name=".DemoSignUp"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".RetailerRegisterPaymentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DemoSignUp"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DemoRetailerSignUp"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UpdateDemoFSE"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UpdateRetailerDemo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".OffersActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

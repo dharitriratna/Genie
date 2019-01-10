@@ -30,10 +30,6 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
     private Filter filter;
 
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
-
     public MobileOperatorsAdapter(List<MobileOperatorsModel> operatorsModels, Context context) {
         this.operatorsModels = operatorsModels;
         this.context = context;
@@ -53,12 +49,7 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
     public void onBindViewHolder(MobileOperatorsAdapter.ViewHolder holder, int position) {
         final MobileOperatorsModel listItem = operatorsModels.get(position);
 
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
 
-
-        //   holder.samagri_amt.setTypeface(tf3);
         holder.mob_operator_id.setText(listItem.getOperator_id());
         holder.operator_name.setText(listItem.getOperator_name());
         holder.operator_code.setText(listItem.getOperator_code());
@@ -76,11 +67,6 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
             }
         });
 
-       /* holder.mob_operator_id.setText(listItem.getOperator_id());
-        holder.operator_name.setText(listItem.getOperator_name());
-        holder.service_type.setText(listItem.getService_type());
-        //   holder.pro_name.setTypeface(tf3);
-        holder.operator_code.setText(listItem.getOperator_code());*/
     }
 
 

@@ -11,13 +11,10 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -28,10 +25,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import ratna.genie1.user.genie.Adapter.ViewPagerAdapter;
-import ratna.genie1.user.genie.Fragments.AboutEventsFragment;
-import ratna.genie1.user.genie.Fragments.ShowTimeFragment;
-import ratna.genie1.user.genie.Fragments.TrailerFragment;
 import ratna.genie1.user.genie.helper.RegPrefManager;
 import com.squareup.picasso.Picasso;
 
@@ -43,8 +36,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-
-import ratna.genie1.user.genie.helper.RegPrefManager;
 
 public class EventDetails extends AppCompatActivity {
 

@@ -108,36 +108,9 @@ public class MobileOperatorCircle extends AppCompatActivity {
 
             operator_name = bundle.getString("OPERATOR_NAME");
             operator_code = bundle.getString("OPERATOR_CODE");
-        //    number = bundle.getString("NUMBER");
 
-//               Log.d("number", number);
         }
 
-
-      /*  mob_operators_circle_recyclerview.addOnItemTouchListener(new RecyclerTouchListener(this, mob_operators_circle_recyclerview, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public boolean onClick(View view, int position) {
-                MobileOperatorCircleModel list = mobileOperatorCircleModels.get(position);
-                String name = list.getOperator_circle_name();
-                String circle_code = list.getOperator_circle_code();
-
-
-                Intent intent = new Intent(MobileOperatorCircle.this,MobileRecharge.class);
-                intent.putExtra("CIRCLE_NAME", name);
-                intent.putExtra("CIRCLE_CODE", circle_code);
-                intent.putExtra("OPERATOR_NAME", operator_name);
-                intent.putExtra("OPERATOR_CODE", operator_code);
-                startActivity(intent);
-                finish();
-
-                return true;
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));*/
     }
 
     private void filter(String text) {

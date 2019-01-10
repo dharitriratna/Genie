@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import ratna.genie1.user.genie.DTHRecharge;
 import ratna.genie1.user.genie.MobileRecharge;
+import ratna.genie1.user.genie.Model.DTHOperatorsModel;
 import ratna.genie1.user.genie.ObjectNew.planDescription;
 import ratna.genie1.user.genie.R;
 import ratna.genie1.user.genie.helper.RegPrefManager;
@@ -62,22 +63,9 @@ public class DTHBrowsePlansAdapter extends RecyclerView.Adapter<DTHBrowsePlansAd
                 RegPrefManager.getInstance(context).setMobileRechargeAmount(data.getRecharge_amount());
 
                 context.startActivity(new Intent(context,DTHRecharge.class));
-                //  ((Activity)context).finish();
             }
         });
 
-
-
-        /*holder.card_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-           *//* RegPrefManager.getInstance(context).setRemiterDetails(data.getId(),data.getRecharge_amount(),
-                    data.getRecharge_short_desc(),data.getRecharge_talktime(),data.getRecharge_validity(),data.getRecharge_long_desc());*//*
-
-             context.startActivity(new Intent(context, BeneficiaryDeleteActivity.class));
-
-            }
-        });*/
     }
 
     @Override
@@ -105,17 +93,10 @@ public class DTHBrowsePlansAdapter extends RecyclerView.Adapter<DTHBrowsePlansAd
 
             card_view=(CardView)itemView.findViewById(R.id.card_view);
         }
-    }
 
-    //This method will filter the list
-    //here we are passing the filtered data
-    //and assigning it to the list with notifydatasetchanged method
-   /* public void filterList(ArrayList<planDescription > filterdNames) {
-        this.operatorList = filterdNames;
+    }
+    public void filterList(ArrayList<planDescription> filterdNames) {
+        this.plansList = filterdNames;
         notifyDataSetChanged();
     }
-*/
-
-
-
 }

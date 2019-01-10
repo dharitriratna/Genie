@@ -14,10 +14,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,7 +61,7 @@ public class BrowsePlanDetailsFragment6M extends Fragment {
 
     int position;
     TextView textView;
-
+    EditText searchEd;
 
     public static Fragment getInstance(int position) {
         Bundle bundle = new Bundle();
@@ -81,6 +84,24 @@ public class BrowsePlanDetailsFragment6M extends Fragment {
 
 
        // textView.setText("Fragment " + (position + 1));
+        searchEd = v.findViewById(R.id.searchEd);
+        searchEd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
+
 
 
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
@@ -109,6 +130,29 @@ public class BrowsePlanDetailsFragment6M extends Fragment {
         }
         return v;
     }
+
+    private void filter(String text) {
+        //new array list that will hold the filtered data
+        ArrayList<planDescription> filterdNames = new ArrayList<>();
+
+        for(int i=0;i<plansList.size();i++) {
+            //looping through existing elements
+            /*for (String s : placeList) {
+                //if the existing elements contains the search input
+                if (s.toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdNames.add(s);
+                }
+            }*/
+            planDescription circleModel=plansList.get(i);
+            if(circleModel.getRecharge_long_desc().toLowerCase().contains(text.toLowerCase())){
+                filterdNames.add(circleModel);
+            }
+        }
+        //calling a method of the adapter class and passing the filtered list
+        plansAdapter.filterList(filterdNames);
+    }
+
 
     public boolean isNetworkAvailable(){
         ConnectivityManager connectivityManager= (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -184,13 +228,7 @@ public class BrowsePlanDetailsFragment6M extends Fragment {
               //  Toast.makeText(getActivity(),"Try again!",Toast.LENGTH_LONG).show();
             }
         });
-      /*  String request=new Gson().toJson(toCitesRequest);
-        JsonElement je = new Gson().toJsonTree(request);
-        JsonObject jsonObject=new JsonObject();
-        jsonObject.add("DestinationInput",je);
 
-
-        Log.d("Tag", String.valueOf(jsonObject));*/
     }
 
 }

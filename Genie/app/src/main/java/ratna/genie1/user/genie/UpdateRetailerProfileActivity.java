@@ -1,5 +1,6 @@
 package ratna.genie1.user.genie;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,7 +14,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -68,6 +71,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
     private static final int PICK_PHOTO = 1958;
     private static final int PICK_PHOTOfront = 1958;
     private static final int PICK_PHOTOback = 1958;
+    private static final int CAMERA_REQUEST = 1888;
     private final int requestCode = 20;
     private final int requestCodefront = 20;
     private final int requestCodeback = 20;
@@ -92,6 +96,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
     Spinner userAdproofpinner;
     int i= 0;
     ApiInterface apiService;
+    Bitmap bitmap;
 
 
     String ownerName,phoneNumber,EmailId,userAddress,userLane,userCity,userPin,userState,userCountry,UserFilePath,FrontFilePath,BackFilePath;
@@ -120,6 +125,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
         });
         apiService =
                 ApiClientGenie.getClient().create(ApiInterface.class);
+        requestStoragePermission();
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
@@ -235,7 +241,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         if (options_array[item].equals("Camera")) {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, requestCode);
+                            startActivityForResult(intent, CAMERA_REQUEST);
                         } else if (options_array[item].equals("Gallery")) {
                             Intent intent = new Intent(Intent.ACTION_PICK,
                                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -263,7 +269,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         if (options_array[item].equals("Camera")) {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, requestCode);
+                            startActivityForResult(intent, CAMERA_REQUEST);
                         } else if (options_array[item].equals("Gallery")) {
                             Intent intent = new Intent(Intent.ACTION_PICK,
                                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -291,7 +297,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         if (options_array[item].equals("Camera")) {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, requestCode);
+                            startActivityForResult(intent, CAMERA_REQUEST);
                         } else if (options_array[item].equals("Gallery")) {
                             Intent intent = new Intent(Intent.ACTION_PICK,
                                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -304,34 +310,102 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
             }
         });
 
-        int Permission_All = 1;
 
-        String[] Permissions = {
-//                android.Manifest.permission.ACCESS_COARSE_LOCATION,
-//                android.Manifest.permission.ACCESS_FINE_LOCATION,
-//                Manifest.permission.CALL_PHONE,
-                android.Manifest.permission.INTERNET,
-                android.Manifest.permission.ACCESS_WIFI_STATE,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.CAMERA, };
-        if(!hasPermissions(getApplicationContext(), Permissions)){
-            ActivityCompat.requestPermissions(UpdateRetailerProfileActivity.this, Permissions, Permission_All);
-        }
     }
 
 
-    public boolean hasPermissions(Context context, String... permissions){
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
 
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N && context!=null && permissions!=null){
-            for(String permission: permissions){
-                if(ActivityCompat.checkSelfPermission(context, permission)!= PackageManager.PERMISSION_GRANTED){
-                    return  false;
-                }
+        if (resultCode == RESULT_OK && requestCode == PICK_PHOTO) {
+
+            imageUri = data.getData();
+            imagefilePath = getPath(imageUri);
+
+
+            //set_image.setImageURI(imageUri);
+            // String imageProfile=imageUri.toString();
+            //  RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
+
+            //  file=new File(imagefilePath);
+            if(userImage==true){
+                imageUri1=imageUri;
+                UserFilePath=imagefilePath;
+                shop_photo.setImageURI(imageUri);
+                addImg.setVisibility(View.GONE);
+
+                file = new File(UserFilePath);
+            }
+            else if(frontImage==true){
+                imageUri2=imageUri;
+                FrontFilePath=imagefilePath;
+                front_photo.setImageURI(imageUri);
+                frontImg.setVisibility(View.GONE);
+
+                file1 = new File(FrontFilePath);
+            }
+            else if (backImage==true){
+                imageUri3=imageUri;
+                BackFilePath=imagefilePath;
+                back_photo.setImageURI(imageUri);
+                backImg.setVisibility(View.GONE);
+
+                file2 = new File(BackFilePath);
+            }
+            Log.d("imagefilePath",imagefilePath);
+
+        }
+        else if(requestCode == CAMERA_REQUEST && resultCode == RESULT_OK)
+        {
+            bitmap = (Bitmap)data.getExtras().get("data");
+            //set_image.setImageBitmap(bitmap);
+
+            imageUri= getImageUri(this,bitmap);
+            imagefilePath = getPath(imageUri);
+
+            //String imageProfile=imageUri.toString();
+            //RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
+
+            Log.d("Tag","imagefilePath==================> "+imagefilePath);
+            //  file=new File(imagefilePath);  // getting image captured filepath  < ----------------------------------------
+            //  if(userImage!=null){
+            if (userImage == true) {
+                imageUri1=imageUri;
+                UserFilePath = imagefilePath;
+                shop_photo.setImageBitmap(bitmap);
+                addImg.setVisibility(View.GONE);
+
+                file = new File(UserFilePath);
+                // }
+            }
+            //  if(frontImage!=null){
+            else if (frontImage == true) {
+                imageUri2=imageUri;
+                FrontFilePath = imagefilePath;
+                front_photo.setImageBitmap(bitmap);
+                frontImg.setVisibility(View.GONE);
+
+
+                file1 = new File(FrontFilePath);
+                //   }
+            }
+            //   if(backImage!=null) {
+            else     if (backImage == true) {
+                imageUri3=imageUri;
+                BackFilePath = imagefilePath;
+                back_photo.setImageBitmap(bitmap);
+                backImg.setVisibility(View.GONE);
+
+                file2 = new File(BackFilePath);
+                //   }
             }
         }
-        return true;
+
+
     }
+
 
 
 
@@ -383,12 +457,12 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                     String msg=response.body().getMessage();
                     Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
 
-                    int retailer_user_id=response.body().getUser_id();
+                  /*  int retailer_user_id=response.body().getUser_id();
 
                     RegPrefManager.getInstance(UpdateRetailerProfileActivity.this).setRetailerUserId(String.valueOf(retailer_user_id));
 
                     startActivity(new Intent(UpdateRetailerProfileActivity.this,RetailerRegisterPaymentActivity.class));
-                    finish();
+                    finish();*/
 
                     // String user_phone = response.body().getPhone();
                     //RegPrefManager.getInstance(FSESignupActivity.this).setPhoneNo(user_phone);
@@ -396,13 +470,13 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                 }
                 else {
                     String msg=response.body().getMessage();
-                    Toast.makeText(UpdateRetailerProfileActivity.this, "Registration Failed ! Try Again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateRetailerProfileActivity.this, "Update Failed ! Try Again", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<RetailerUpdateResponse> call, Throwable t) {
-                Toast.makeText(UpdateRetailerProfileActivity.this, "Registration Failed ! Try Again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdateRetailerProfileActivity.this, "Update Failed ! Try Again", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -421,70 +495,6 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK && requestCode == PICK_PHOTO) {
-            imageUri = data.getData();
-            imagefilePath = getPath(imageUri);
-
-            //set_image.setImageURI(imageUri);
-            // String imageProfile=imageUri.toString();
-            //  RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
-
-            file=new File(imagefilePath);
-            if(userImage==true){
-                UserFilePath=imagefilePath;
-                shop_photo.setImageURI(imageUri);
-                addImg.setVisibility(View.GONE);
-            }
-            else if(frontImage==true){
-                FrontFilePath=imagefilePath;
-                front_photo.setImageURI(imageUri);
-                frontImg.setVisibility(View.GONE);
-            }
-            else if (backImage==true){
-                BackFilePath=imagefilePath;
-                back_photo.setImageURI(imageUri);
-                backImg.setVisibility(View.GONE);
-            }
-            Log.d("imagefilePath",imagefilePath);
-
-        }
-        else if(this.requestCode == requestCode && resultCode == RESULT_OK)
-        {
-            Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-            //set_image.setImageBitmap(bitmap);
-
-            imageUri= getImageUri(this,bitmap);
-            imagefilePath = getPath(imageUri);
-
-            //String imageProfile=imageUri.toString();
-            //RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
-
-            Log.d("imagefilePath",imagefilePath);
-            file=new File(imagefilePath);  // getting image captured filepath  < ----------------------------------------
-
-            if(userImage==true){
-                UserFilePath=imagefilePath;
-                shop_photo.setImageURI(imageUri);
-                addImg.setVisibility(View.GONE);
-            }
-            else if(frontImage==true){
-                FrontFilePath=imagefilePath;
-                front_photo.setImageURI(imageUri);
-                frontImg.setVisibility(View.GONE);
-            }
-            else if (backImage==true){
-                BackFilePath=imagefilePath;
-                back_photo.setImageURI(imageUri);
-                backImg.setVisibility(View.GONE);
-            }
-        }
-
-    }
 
     private String getPath(Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };//,Video,Audio
@@ -603,92 +613,45 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
+    private void requestStoragePermission() {
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                ||(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                ||(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED))
+            return;
 
-
-
-    @SuppressLint("StaticFieldLeak")
-    private class AsyncUpdateRetailerProfile extends AsyncTask<Void, Void, Void> {
-        ProgressDialog pDialog;
-        String success = null,message="",status="true";
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            pDialog.show();
-            ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
-            cred.add(new BasicNameValuePair("first_name",ownerName));
-            cred.add(new BasicNameValuePair("email",EmailId));//user_email
-            cred.add(new BasicNameValuePair("phone",phoneNumber ));
-            cred.add(new BasicNameValuePair("user_id",login_user ));
-            cred.add(new BasicNameValuePair("business_name",retailerBusinessName ));
-            cred.add(new BasicNameValuePair("retail_sub_type",retailerSubType ));
-            cred.add(new BasicNameValuePair("icon",FrontFilePath ));
-            cred.add(new BasicNameValuePair("icon1",BackFilePath ));
-            cred.add(new BasicNameValuePair("icon2",UserFilePath ));
-            cred.add(new BasicNameValuePair("address_proof",userAddressProof ));
-            cred.add(new BasicNameValuePair("line1",userAddress ));
-            cred.add(new BasicNameValuePair("city",userCity ));
-            cred.add(new BasicNameValuePair("pin",userPin ));
-            cred.add(new BasicNameValuePair("state",userState ));
-            cred.add(new BasicNameValuePair("country",userCountry ));
-            Log.v("RES","Sending data " +ownerName+ EmailId+ phoneNumber +login_user+retailerBusinessName+retailerSubType
-                    +FrontFilePath+BackFilePath+UserFilePath+userAddressProof+userAddress+userCity+userPin+userState+userCountry);
-
-            String urlRouteList= "https://genieservice.in/api/user/updateRetailerProfile";
-            try {
-                String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
-
-                success = route_response;
-                JSONObject jsonObject = new JSONObject(success);
-
-                // user_email=jsonObject.getString("user_email");
-                status=jsonObject.getString("status");
-                if(status.equals("false")) {
-                    message = jsonObject.getString("errors");
-                }
-             /*   String data=jsonObject.getString("data");
-                // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
-                JSONObject jsonObject1 = new JSONObject(data);*/
-                String user_id=jsonObject.getString("user_id");
-                Toast.makeText(UpdateRetailerProfileActivity.this, user_id, Toast.LENGTH_SHORT).show();
-              /*  SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("FLAG", user_id);
-                Log.d("user_id", user_id);
-                editor.commit();*/
-                String user_phone = jsonObject.getString("phone");
-                RegPrefManager.getInstance(UpdateRetailerProfileActivity.this).setPhoneNo(user_phone);
-                //   String user_email=jsonObject1.getString("user_email");
-
-            } catch (Exception e)
-
-            {
-                Log.v("Connection error", e.toString());
-
-            }return null;
+        if ((ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) ||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE))||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION))||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION))) {
+            //If the user has denied the permission previously your code will come to this block
+            //Here you can explain why you need this permission
+            //Explain here why you need this permission
         }
-        protected void onPostExecute(Void result) {
-            pDialog.dismiss();
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+    }
 
-            if(status.equals("true"))
-            {
-                Toast.makeText(getApplicationContext(),"Updated Successfully", Toast.LENGTH_LONG).show();
-            }
-            else{
-                Toast.makeText(getApplicationContext(),"Update Failed",
-                        Toast.LENGTH_LONG).show();
-                emailId.setError("Please enter an unique email");
-                phone_no.setError("Please enter an unique no.");
-            }
-        }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        @Override
-        protected void onPreExecute() {
-            pDialog = new ProgressDialog(UpdateRetailerProfileActivity.this);
-            pDialog.setMessage("Loading In...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
+        //Checking the request code of our request
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+
+            //If permission is granted
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //Displaying a toast
+                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
+            } else {
+                //Displaying another toast if permission is not granted
+                Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
+            }
         }
     }
+
+
 
 
 }

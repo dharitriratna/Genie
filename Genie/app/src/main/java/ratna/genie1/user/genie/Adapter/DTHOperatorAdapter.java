@@ -25,10 +25,6 @@ public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.
     private List<DTHOperatorsModel> dthOperatorsModels;
     private Context context;
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
-
     public DTHOperatorAdapter(List<DTHOperatorsModel> operatorsModels, Context context) {
         this.dthOperatorsModels = operatorsModels;
         this.context = context;
@@ -45,10 +41,6 @@ public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.
     public void onBindViewHolder(DTHOperatorAdapter.ViewHolder holder, int position) {
        final DTHOperatorsModel listItem = dthOperatorsModels.get(position);
 
-      /* Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
-        //   \
 
         holder.mob_operator_id.setText(listItem.getDth_operator_id());
         holder.operator_name.setText(listItem.getDth_operator_name());
@@ -62,16 +54,9 @@ public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.
                 RegPrefManager.getInstance(context).setDTHOperator(listItem.getDth_operator_name(),listItem.getDth_operator_code());
 
                 context.startActivity(new Intent(context, DTHRecharge.class));
-             //   ((DTHRecharge)context).finish();
+
             }
         });
-
-
-       /* holder.mob_operator_id.setText(listItem.getOperator_id());
-        holder.operator_name.setText(listItem.getOperator_name());
-        holder.service_type.setText(listItem.getService_type());
-        //   holder.pro_name.setTypeface(tf3);
-        holder.operator_code.setText(listItem.getOperator_code());*/
 
     }
 

@@ -23,9 +23,7 @@ import ratna.genie1.user.genie.InsuranceDetailsActivity;
 import ratna.genie1.user.genie.Model.AllInsurarModel;
 import ratna.genie1.user.genie.helper.RegPrefManager;
 
-/**
- * Created by RatnaDev008 on 10/29/2018.
- */
+
 
 public class AllInsuranceCustomAdapter extends RecyclerView.Adapter<AllInsuranceCustomAdapter.ViewHolder> {
     private Context context;
@@ -83,12 +81,8 @@ public class AllInsuranceCustomAdapter extends RecyclerView.Adapter<AllInsurance
             textViewName = (TextView) itemView.findViewById(ratna.genie1.user.genie.R.id.textViewName);
         }
     }
-
-    //This method will filter the list
-    //here we are passing the filtered data
-    //and assigning it to the list with notifydatasetchanged method
     public void filterList(ArrayList<AllInsurarModel > filterdNames) {
-        this.operatorList = filterdNames;
+        this.operatorList = filterdNames;      //This method will filter the list
         notifyDataSetChanged();
     }
 

@@ -38,11 +38,6 @@ public class TrainSeatAdapter extends RecyclerView.Adapter<TrainSeatAdapter.View
        // TrainSeatAvailableModel trainSeatAvailableModel=names.get(position);
         holder.seatTv.setText(names.get(position));
         /*destTimeTv,arriveTimeTv,destplaceTv,arriveplaceTv*/
-
-
-
-
-
     }
 
     @Override

@@ -20,10 +20,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     private List<EventsModel> eventsModels;
     private Context context;
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
-
     public EventsAdapter(List<EventsModel> eventsModels, Context context) {
         this.eventsModels = eventsModels;
         this.context = context;
@@ -41,23 +37,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         EventsModel listItem = eventsModels.get(position);
 
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
-
-
-        //   holder.samagri_amt.setTypeface(tf3);
         holder.event_id.setText(listItem.getEvent_id());
         holder.event_name.setText(listItem.getEvent_name());
         holder.event_entry_fees.setText("Starting From" +" "+context.getResources().getString(R.string.rupee)+listItem.getEvent_price());
         Picasso.with(context).load(listItem.getEvent_image()).into(holder.event_image);
 
-
-       /* holder.mob_operator_id.setText(listItem.getOperator_id());
-        holder.operator_name.setText(listItem.getOperator_name());
-        holder.service_type.setText(listItem.getService_type());
-        //   holder.pro_name.setTypeface(tf3);
-        holder.operator_code.setText(listItem.getOperator_code());*/
     }
 
     @Override

@@ -30,9 +30,7 @@ public class AirplaneAdapter extends SelectableAdapter<RecyclerView.ViewHolder> 
             super(itemView);
             imgSeat = (ImageView) itemView.findViewById(R.id.img_seat);
             imgSeatSelected = (ImageView) itemView.findViewById(R.id.img_seat_selected);
-
         }
-
     }
 
     private static class CenterViewHolder extends RecyclerView.ViewHolder {
@@ -44,10 +42,7 @@ public class AirplaneAdapter extends SelectableAdapter<RecyclerView.ViewHolder> 
             super(itemView);
             imgSeat = (ImageView) itemView.findViewById(R.id.img_seat);
             imgSeatSelected = (ImageView) itemView.findViewById(R.id.img_seat_selected);
-
-
         }
-
     }
 
     private static class EmptyViewHolder extends RecyclerView.ViewHolder {
@@ -55,7 +50,6 @@ public class AirplaneAdapter extends SelectableAdapter<RecyclerView.ViewHolder> 
         public EmptyViewHolder(View itemView) {
             super(itemView);
         }
-
     }
 
     private Context mContext;
@@ -100,10 +94,6 @@ public class AirplaneAdapter extends SelectableAdapter<RecyclerView.ViewHolder> 
         if (type == AbstractItem.TYPE_CENTER) {
             final CenterItem item = (CenterItem) mItems.get(position);
             CenterViewHolder holder = (CenterViewHolder) viewHolder;
-
-
-
-
             holder.imgSeat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -121,15 +111,12 @@ public class AirplaneAdapter extends SelectableAdapter<RecyclerView.ViewHolder> 
             final EdgeItem item = (EdgeItem) mItems.get(position);
             EdgeViewHolder holder = (EdgeViewHolder) viewHolder;
 
-
-
             holder.imgSeat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     toggleSelection(position);
                     mOnSeatSelected.onSeatSelected(getSelectedItemCount());
-
 
                 }
             });

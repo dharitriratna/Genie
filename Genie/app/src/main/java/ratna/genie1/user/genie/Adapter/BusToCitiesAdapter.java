@@ -21,16 +21,10 @@ public class BusToCitiesAdapter extends RecyclerView.Adapter<BusToCitiesAdapter.
     private ArrayList<destinationCities> destinationCitiesModels;
     private Context context;
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
-
     public BusToCitiesAdapter(ArrayList<destinationCities> destinationCitiesModels, Context context) {
         this.destinationCitiesModels = destinationCitiesModels;
         this.context = context;
-
     }
-
 
     @Override
     public BusToCitiesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -44,11 +38,7 @@ public class BusToCitiesAdapter extends RecyclerView.Adapter<BusToCitiesAdapter.
     public void onBindViewHolder(BusToCitiesAdapter.ViewHolder holder, final int position) {
         destinationCities listItem = destinationCitiesModels.get(position);
 
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
-        //   holder.samagri_amt.setTypeface(tf3);
-       // holder.origin_id.setText(listItem.getOriginId());
+
         holder.origin_name.setText(listItem.getDestinationName());
         holder.origin_name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,16 +50,8 @@ public class BusToCitiesAdapter extends RecyclerView.Adapter<BusToCitiesAdapter.
 
                 Intent intent = new Intent(context,BusBookingActivity.class);
                 context.startActivity(intent);
-
-
             }
         });
-
-       /* holder.mob_operator_id.setText(listItem.getOperator_id());
-        holder.operator_name.setText(listItem.getOperator_name());
-        holder.service_type.setText(listItem.getService_type());
-        //   holder.pro_name.setTypeface(tf3);
-        holder.operator_code.setText(listItem.getOperator_code());*/
 
     }
 
@@ -81,14 +63,9 @@ public class BusToCitiesAdapter extends RecyclerView.Adapter<BusToCitiesAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView origin_name, origin_id;
-
-
         public ViewHolder(View itemView) {
             super(itemView);
-        //    origin_id = itemView.findViewById(R.id.origin_id);
             origin_name = itemView.findViewById(R.id.origin_name);
-
-
         }
     }
 

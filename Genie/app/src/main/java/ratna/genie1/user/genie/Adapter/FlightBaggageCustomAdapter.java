@@ -67,9 +67,7 @@ public class FlightBaggageCustomAdapter extends RecyclerView.Adapter<FlightBagga
             textViewName = (TextView) itemView.findViewById(ratna.genie1.user.genie.R.id.textViewName);
         }
     }
-    //This method will filter the list
-    //here we are passing the filtered data
-    //and assigning it to the list with notifydatasetchanged method
+
     public void filterList(ArrayList<String> filterdNames) {
         this.names = filterdNames;
         notifyDataSetChanged();

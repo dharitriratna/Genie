@@ -57,6 +57,7 @@ public class LogIn extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     String login_user="";
+    String admin_status;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -271,6 +272,8 @@ public class LogIn extends AppCompatActivity {
                 String user_name = jsonObject1.getString("user_name");
                 String user_phone = jsonObject1.getString("user_phone");
                 user_groups = jsonObject1.getString("user_groups");
+                admin_status = jsonObject1.getString("admin_status");
+
                 RegPrefManager.getInstance(LogIn.this).setUserGroup(user_groups);
                 RegPrefManager.getInstance(LogIn.this).setPhoneNo(user_phone);
                 RegPrefManager.getInstance(LogIn.this).setUserName(user_name);
@@ -294,6 +297,8 @@ public class LogIn extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
 
+
+
             if(status==true&&user_groups.equals("4"))
             {
                 Toast.makeText(getApplicationContext(),"Login Successful As Distributor", Toast.LENGTH_LONG).show();
@@ -304,26 +309,38 @@ public class LogIn extends AppCompatActivity {
                 editor.commit();
                 startActivity(new Intent(LogIn.this,MainActivity2.class));finish();
             }
-            else if (status==true&&user_groups.equals("5")){
+            else if (status==true&&user_groups.equals("5")) {
+             if(admin_status.equals("1")) {
 
-                Toast.makeText(getApplicationContext(),"Login Successful As FSE", Toast.LENGTH_LONG).show();
-                sharedpreferences = getSharedPreferences(mypreference,
-                        Context.MODE_MULTI_PROCESS);
-                SharedPreferences.Editor editor = sharedpreferences.edit();  //deb done code for one time login
-                editor.putString("LOGGED_IN_AS", "2");
-                editor.commit();
-                startActivity(new Intent(LogIn.this,MainActivity3.class));finish();
+                    Toast.makeText(getApplicationContext(), "Login Successful As FSE", Toast.LENGTH_LONG).show();
+                    sharedpreferences = getSharedPreferences(mypreference,
+                            Context.MODE_MULTI_PROCESS);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();  //deb done code for one time login
+                    editor.putString("LOGGED_IN_AS", "2");
+                    editor.commit();
+                    startActivity(new Intent(LogIn.this, MainActivity3.class));
+                    finish();
+                }
+                else {
+                 Toast.makeText(getApplicationContext(), "Payment Under Verification!", Toast.LENGTH_LONG).show();
+             }
             }
 
-            else if (status==true&&user_groups.equals("3")){
-                Toast.makeText(LogIn.this, "Login Successful As Retailer", Toast.LENGTH_SHORT).show();
+            else if (status==true&&user_groups.equals("3")) {
+                if (admin_status.equals("1")) {
+                    Toast.makeText(LogIn.this, "Login Successful As Retailer", Toast.LENGTH_SHORT).show();
 
-                sharedpreferences = getSharedPreferences(mypreference,
-                        Context.MODE_MULTI_PROCESS);
-                SharedPreferences.Editor editor = sharedpreferences.edit();  //deb done code for one time login
-                editor.putString("LOGGED_IN_AS", "3");
-                editor.commit();
-                startActivity(new Intent(LogIn.this,MainActivity4.class));finish();
+                    sharedpreferences = getSharedPreferences(mypreference,
+                            Context.MODE_MULTI_PROCESS);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();  //deb done code for one time login
+                    editor.putString("LOGGED_IN_AS", "3");
+                    editor.commit();
+                    startActivity(new Intent(LogIn.this, MainActivity4.class));
+                    finish();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Payment Under Verification!", Toast.LENGTH_LONG).show();
+                }
             }
             else if (status==true&&user_groups.equals("2")){
                 Toast.makeText(LogIn.this, "Login Successful As Customer", Toast.LENGTH_SHORT).show();
@@ -336,7 +353,14 @@ public class LogIn extends AppCompatActivity {
                 startActivity(new Intent(LogIn.this,MainActivity.class));finish();
             }
             else {
-                Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();
+                if (message.equals("payment not done yet")){
+                    Toast.makeText(LogIn.this, "payment not done yet", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LogIn.this,FSERegisterPaymentActivity.class));
+                }
+                else {
+                    Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();
+                }
+
             }
 
         }

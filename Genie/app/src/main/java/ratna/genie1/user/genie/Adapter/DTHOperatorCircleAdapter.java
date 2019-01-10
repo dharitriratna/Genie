@@ -22,10 +22,6 @@ public class DTHOperatorCircleAdapter extends RecyclerView.Adapter<DTHOperatorCi
     private List<MobileOperatorCircleModel> operatorCircleModels;
     private Context context;
 
-   /* String fontPath = "fonts/Raleway-Light.ttf";
-    String fontPath2 = "fonts/Raleway-Thin.ttf";
-    String fontPath3 = "fonts/Raleway_SemiBold.ttf";*/
-
     public DTHOperatorCircleAdapter(List<MobileOperatorCircleModel> operatorCircleModels, Context context) {
         this.operatorCircleModels = operatorCircleModels;
         this.context = context;
@@ -42,11 +38,6 @@ public class DTHOperatorCircleAdapter extends RecyclerView.Adapter<DTHOperatorCi
     public void onBindViewHolder(DTHOperatorCircleAdapter.ViewHolder holder, int position) {
        final MobileOperatorCircleModel listItem = operatorCircleModels.get(position);
 
-      /*  Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-        Typeface tf2 = Typeface.createFromAsset(context.getAssets(), fontPath2);
-        Typeface tf3 = Typeface.createFromAsset(context.getAssets(), fontPath3);*/
-
-        //   holder.samagri_amt.setTypeface(tf3);
         holder.operator_circle_id.setText(listItem.getOperator_circle_id());
         holder.operator_circle_name.setText(listItem.getOperator_circle_name());
         holder.operator_circle_code.setText(listItem.getOperator_circle_code());
@@ -62,12 +53,6 @@ public class DTHOperatorCircleAdapter extends RecyclerView.Adapter<DTHOperatorCi
             }
         });
 
-
-       /* holder.mob_operator_id.setText(listItem.getOperator_id());
-        holder.operator_name.setText(listItem.getOperator_name());
-        holder.service_type.setText(listItem.getService_type());
-        //   holder.pro_name.setTypeface(tf3);
-        holder.operator_code.setText(listItem.getOperator_code());*/
     }
 
     @Override

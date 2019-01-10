@@ -81,10 +81,10 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
-                                    android:src="@drawable/mobile"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/phone"
 
                                     />
 
@@ -105,10 +105,10 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
-                                    android:src="@drawable/money_transfer_new"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/money_transfer"
 
                                     />
 
@@ -129,9 +129,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/dth_recharge"
                                     />
 
@@ -152,10 +152,10 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
-                                    android:src="@drawable/datacard_recharge"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/data_card_recharge"
 
                                     />
 
@@ -190,9 +190,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/broadband_bill" />
 
                                 <TextView
@@ -212,9 +212,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/landline_bill"
 
                                     />
@@ -236,10 +236,10 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
-                                    android:src="@drawable/electricity_bill"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/electricity"
 
                                     />
 
@@ -260,9 +260,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/water_bill"
 
                                     />
@@ -300,9 +300,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/event_management"
                                     />
 
@@ -323,9 +323,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/insurance_payment" />
 
                                 <TextView
@@ -345,9 +345,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/movie"
                                     />
 
@@ -368,9 +368,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/railway_ticket"
 
                                     />
@@ -407,9 +407,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/location"
 
                                     />
@@ -431,9 +431,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/rent_guru"
 
                                     />
@@ -456,9 +456,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/birthday_planners"
                                     />
 
@@ -479,9 +479,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/home_delvery"
 
                                     />
@@ -520,9 +520,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/gas"
 
                                     />
@@ -545,9 +545,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/bus"
 
                                     />
@@ -569,9 +569,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/hotel"
 
                                     />
@@ -593,9 +593,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/flight"
 
                                     />
@@ -632,9 +632,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/job"
 
                                     />
@@ -658,9 +658,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/lone_payment"
 
                                     />
@@ -683,9 +683,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/bike_insurance"
 
                                     />
@@ -709,9 +709,9 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1">
                                 <ImageView
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_gravity="center"
-                                    android:layout_height="50dp"
+                                    android:layout_height="40dp"
                                     android:src="@drawable/car_insurance"
 
                                     />
@@ -730,7 +730,6 @@
 
                 </LinearLayout>
             </ScrollView>
-
 
             <FrameLayout
                 android:id="@+id/frame_slider"

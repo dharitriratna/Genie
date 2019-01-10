@@ -26,8 +26,6 @@ public class AllHotelAdapter extends RecyclerView.Adapter<AllHotelAdapter.MyView
         this.context = context;
     }
 
-
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view1 = LayoutInflater.from(context).inflate(R.layout.custom_allhotels, parent, false);
