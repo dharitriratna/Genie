@@ -412,7 +412,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 progressDialog.dismiss();
                 startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
                 finish();
-                Toast.makeText(getApplicationContext(),"Failed.Try again!",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -483,6 +483,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(),"Recharge Failed, Try again",Toast.LENGTH_LONG).show();
                 startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
+                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
                 finish();
             }
         });
@@ -525,6 +526,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
                 finish();
                 Log.d("Tag","Failure");
+                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -567,7 +569,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 progressDialog.dismiss();
                 startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
                 finish();
-                Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -597,7 +599,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             cred.add(new BasicNameValuePair("service_id",service_id ));
             Log.v("RES","Sending data " + PhoneNumber+ value +opName+cirle_code+RechargeAmount+service_id);
 
-            String urlRouteList="https://genieservice.in/api/service/mobile_dth_datacard_recharge";
+            String urlRouteList="https://genieservice.in/api/service/mobile_dth_datacard_recharge1";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 
@@ -622,34 +624,35 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         }
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
+            Log.d("result===========>", String.valueOf(result));
+            try {
 
-            if(status_response.contains("S"))
-            {
-                Toast.makeText(getApplicationContext(),"Recharge Successful", Toast.LENGTH_LONG).show();
-                RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
-                startActivity(new Intent(PaymentCartActivity.this,ThankuActivity.class));
+                if (status_response.contains("S")) {
+                    Toast.makeText(getApplicationContext(), "Recharge Successful", Toast.LENGTH_LONG).show();
+                    RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                    startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
 
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("AMOUNT",RechargeAmount );
-                editor.commit();
-                // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
-                // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
-            }
-            else if(status_response.contains("P")){
-                Toast.makeText(getApplicationContext(),"Pending", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(PaymentCartActivity.this,PendingActivity.class));
-            }
-
-            else{
-                Toast.makeText(getApplicationContext(),"Recharge Failed! Try again", Toast.LENGTH_LONG).show();
-                RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
-                startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.remove("PHONE_NUMBER");
-                editor.clear();
-                editor.commit();
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("AMOUNT", RechargeAmount);
+                    editor.commit();
+                    // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
+                    // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
+                } else if (status_response.contains("P")) {
+                    Toast.makeText(getApplicationContext(), "Pending", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(PaymentCartActivity.this, PendingActivity.class));
+                } else {
+                    Toast.makeText(getApplicationContext(), "Recharge Failed! Try again", Toast.LENGTH_LONG).show();
+                    RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                    startActivity(new Intent(PaymentCartActivity.this, FailureActivity.class));
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.remove("PHONE_NUMBER");
+                    editor.clear();
+                    editor.commit();
+                }
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -715,16 +718,19 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         }
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
+            try {
 
-            if(status.equals("true"))
-            {
-                Toast.makeText(getApplicationContext(),"Bill Paid Successfully", Toast.LENGTH_LONG).show();
+                if (status.equals("true")) {
+                    Toast.makeText(getApplicationContext(), "Bill Paid Successfully", Toast.LENGTH_LONG).show();
 
-                startActivity(new Intent(PaymentCartActivity.this,ThankuActivity.class));finish();
-            }
-            else{
-                Toast.makeText(getApplicationContext(),data, Toast.LENGTH_LONG).show();
-                startActivity(new Intent(getApplicationContext(),FailureActivity.class));
+                    startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getApplicationContext(), FailureActivity.class));
+                }
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -786,16 +792,19 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         }
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
+            try {
 
-            if(status.equals("true"))
-            {
-                Toast.makeText(getApplicationContext(),"Bill Paid Successfully", Toast.LENGTH_LONG).show();
+                if (status.equals("true")) {
+                    Toast.makeText(getApplicationContext(), "Bill Paid Successfully", Toast.LENGTH_LONG).show();
 
-                startActivity(new Intent(PaymentCartActivity.this,ThankuActivity.class));finish();
-            }
-            else{
-                Toast.makeText(getApplicationContext(),data, Toast.LENGTH_LONG).show();
-                startActivity(new Intent(getApplicationContext(), FailureActivity.class));
+                    startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getApplicationContext(), FailureActivity.class));
+                }
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -864,43 +873,41 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         }
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
+            try {
 
-            if(status_response.contains("S"))
-            {
-                Toast.makeText(getApplicationContext(),"Recharge Successful", Toast.LENGTH_LONG).show();
-                RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
-                RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("DTH");
-                startActivity(new Intent(getApplicationContext(),ThankuActivity.class));
+                if (status_response.contains("S")) {
+                    Toast.makeText(getApplicationContext(), "Recharge Successful", Toast.LENGTH_LONG).show();
+                    RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
+                    RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("DTH");
+                    startActivity(new Intent(getApplicationContext(), ThankuActivity.class));
 
 
                /* SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("AMOUNT", dth_recharge_amount = dth_amount.getText().toString());
                 editor.commit();*/
-                // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
-                // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
-            }
-            else if(status_response.contains("P")){
-                Toast.makeText(getApplicationContext(),"Pending", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(PaymentCartActivity.this,PendingActivity.class));
-            }
+                    // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
+                    // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
+                } else if (status_response.contains("P")) {
+                    Toast.makeText(getApplicationContext(), "Pending", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(PaymentCartActivity.this, PendingActivity.class));
+                } else if (status_response.contains("F")) {
+                    Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(PaymentCartActivity.this, FailureActivity.class));
+                } else {
+                    Toast.makeText(getApplicationContext(), "Unsuccessful", Toast.LENGTH_LONG).show();
+                    RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
+                    RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("DTH");
+                    startActivity(new Intent(getApplicationContext(), FailureActivity.class));
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.remove("OPERATOR_NAME");
+                    editor.clear();
+                    editor.commit();
 
-            else if(status_response.contains("F")){
-                Toast.makeText(getApplicationContext(),"Failure", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(PaymentCartActivity.this,FailureActivity.class));
-            }
-
-            else{
-                Toast.makeText(getApplicationContext(),"Unsuccessful", Toast.LENGTH_LONG).show();
-                RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
-                RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("DTH");
-                startActivity(new Intent(getApplicationContext(),FailureActivity.class));
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.remove("OPERATOR_NAME");
-                editor.clear();
-                editor.commit();
-
+                }
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
             }
         }
 

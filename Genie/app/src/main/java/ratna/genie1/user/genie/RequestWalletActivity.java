@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -173,15 +175,40 @@ public class RequestWalletActivity extends AppCompatActivity {
                     payment_method.setError("Please Set Payment Method");
                 }*/
                 else {
-                    new Asynctask().execute();
+                    if (isNetworkAvailable()) {
+                        new Asynctask().execute();//register add beneficiary
+                    }
+                    else {
+                        noNetwrokErrorMessage();
+                    }
+                  //  new Asynctask().execute();
                 }
             }
         });
     }
 
+    public boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager= (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    public void noNetwrokErrorMessage(){
+        alertDialog.setTitle("Error!");
+        alertDialog.setMessage("No internet connection. Please check your internet setting.");
+        alertDialog.setCancelable(true);
+        alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert=alertDialog.create();
+        alert.show();
+    }
+
     private class Asynctask extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
-        String success = null,message="",status="true";
+        String success = null,message="",status;
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -227,17 +254,20 @@ public class RequestWalletActivity extends AppCompatActivity {
         }
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
+            try {
 
-            if(status.equals("true"))
-            {
-                Toast.makeText(getApplicationContext(),"Sucessfully requested", Toast.LENGTH_LONG).show();
-                //   startActivity(new Intent(getApplicationContext(),VerifyWalletOTPActivity.class));
-                finish();
+                if (status.equals("true")) {
+                    Toast.makeText(getApplicationContext(), "Sucessfully requested", Toast.LENGTH_LONG).show();
+                    //   startActivity(new Intent(getApplicationContext(),VerifyWalletOTPActivity.class));
+                    finish();
 
-                //    startActivity(new Intent(AddMoneyActivity.this,OTPActivity.class));finish();
-            }
-            else{
-                Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
+                    //    startActivity(new Intent(AddMoneyActivity.this,OTPActivity.class));finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                }
+
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
             }
         }
 

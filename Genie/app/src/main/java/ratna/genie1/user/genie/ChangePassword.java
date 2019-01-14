@@ -115,14 +115,15 @@ public class ChangePassword extends AppCompatActivity {
         }
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
-            Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
-            if (message.equals("Password Changed Successfully"))
-            {
-                startActivity(new Intent(ChangePassword.this,ChangePassword.class));
-            }
-            else
-            {
-                Toast.makeText(ChangePassword.this, "Invalid Email id", Toast.LENGTH_SHORT).show();
+            try {
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                if (message.equals("Password Changed Successfully")) {
+                    startActivity(new Intent(ChangePassword.this, ChangePassword.class));
+                } else {
+                    Toast.makeText(ChangePassword.this, "Invalid Email id", Toast.LENGTH_SHORT).show();
+                }
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
             }
         }
         @Override

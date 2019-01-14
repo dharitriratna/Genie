@@ -43,7 +43,7 @@ public class ViewFSEProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_fseprofile2);
+        setContentView(R.layout.activity_view_fseprofile);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +75,7 @@ public class ViewFSEProfileActivity extends AppCompatActivity {
         state = findViewById(R.id.state);
         country = findViewById(R.id.country);
         edit=findViewById(R.id.edit);
-        fseuserimage=findViewById(R.id.shopimage);
+        fseuserimage=findViewById(R.id.fseuserimage);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

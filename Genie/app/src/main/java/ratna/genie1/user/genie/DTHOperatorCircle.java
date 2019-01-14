@@ -234,7 +234,7 @@ public class DTHOperatorCircle extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     }
                 } else
-                    Toast.makeText(DTHOperatorCircle.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
             }
         });
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import ratna.genie1.user.genie.Model.InsuranceDetails;
 import ratna.genie1.user.genie.helper.RegPrefManager;
 
 import ratna.genie1.user.genie.helper.RegPrefManager;
@@ -31,20 +32,20 @@ public class FailureActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(back.equals("Insurance")){
-                    startActivity(new Intent(FailureActivity.this,PaymentCartActivity.class));
+                    startActivity(new Intent(FailureActivity.this,InsuranceDetails.class));
                     finish();
                 }
                 else if(back.equals("Landline")){
-                    startActivity(new Intent(FailureActivity.this,PaymentCartActivity.class));
+                    startActivity(new Intent(FailureActivity.this,LandLine.class));
                     finish();
                 }
                 else if(back.equals("MobileRecharge")){
-                    startActivity(new Intent(FailureActivity.this,PaymentCartActivity.class));
+                    startActivity(new Intent(FailureActivity.this,MobileRecharge.class));
                     finish();
 
                 }
                 else if(back.equals("DTH")){
-                    startActivity(new Intent(FailureActivity.this,PaymentCartActivity.class));
+                    startActivity(new Intent(FailureActivity.this,DTHRecharge.class));
                     finish();
                 }
             }

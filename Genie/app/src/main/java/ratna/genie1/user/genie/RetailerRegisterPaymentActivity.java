@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +53,7 @@ public class RetailerRegisterPaymentActivity extends AppCompatActivity {
     EditText refCode;
     LinearLayout netBankingLayout,upiLayout;
 
+
     private AlertDialog.Builder alertDialog;
     private DatePickerDialog fromDatePickerDialog;
     Calendar mcurrenttime;
@@ -83,6 +86,7 @@ public class RetailerRegisterPaymentActivity extends AppCompatActivity {
         fseretaileruserID = RegPrefManager.getInstance(getApplicationContext()).getRetailerUserId();
 
 
+        alertDialog=new AlertDialog.Builder(this);
         amountTv = findViewById(R.id.amountTv);
         refCode = findViewById(R.id.refCode);
         btnProceed = findViewById(R.id.btnProceed);
@@ -183,10 +187,36 @@ public class RetailerRegisterPaymentActivity extends AppCompatActivity {
                     payment_method.setError("Please Set Payment Method");
                 }*/
                 else {
-                    new Asynctask().execute();
+                    if (isNetworkAvailable()) {
+                        new Asynctask().execute();//register add beneficiary
+                    }
+                    else {
+                        noNetwrokErrorMessage();
+                    }
+                  //  new Asynctask().execute();
                 }
             }
         });
+    }
+
+
+    public boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager= (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    public void noNetwrokErrorMessage(){
+        alertDialog.setTitle("Error!");
+        alertDialog.setMessage("No internet connection. Please check your internet setting.");
+        alertDialog.setCancelable(true);
+        alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert=alertDialog.create();
+        alert.show();
     }
 
     private class Asynctask extends AsyncTask<Void, Void, Void> {

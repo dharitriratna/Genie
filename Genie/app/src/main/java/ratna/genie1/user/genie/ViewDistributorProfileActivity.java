@@ -43,7 +43,7 @@ public class ViewDistributorProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_distributor_profile);
+        setContentView(R.layout.activity_view_fseprofile);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +54,7 @@ public class ViewDistributorProfileActivity extends AppCompatActivity {
         });
         progressDialog = new ProgressDialog(this);
         edit=findViewById(R.id.edit);
-        fseuserimage=findViewById(R.id.shopimage);
+        fseuserimage=findViewById(R.id.fseuserimage);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -17,7 +17,14 @@
         android:iconTint="@color/colorPrimaryDark"
         android:title="My Profile"/>
 
-    <item
+        <item
+            android:id="@+id/changepassword"
+            android:icon="@drawable/change_password"
+            android:iconTint="@color/colorPrimaryDark"
+            android:title="Change Password"/>
+
+
+        <item
         android:id="@+id/wallet"
         android:icon="@drawable/ic_wallet_black_24dp"
         android:iconTint="@color/colorPrimaryDark"

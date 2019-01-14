@@ -501,7 +501,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         keyname=(TextView) headerView.findViewById(R.id.keyname);
 
 
-        keyphone.setText(RegPrefManager.getInstance(this).getPhoneNo());
+        keyphone.setText(RegPrefManager.getInstance(this).getLoggedInPhoneNo());
         keyname.setText(RegPrefManager.getInstance(this).getUserName());
 
         imageHeader=(ImageView)headerView.findViewById(R.id.imageHeader);

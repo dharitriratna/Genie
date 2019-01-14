@@ -75,6 +75,7 @@ public class MobileRecharge extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 1995;
 
+
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     String login_user="";
@@ -125,6 +126,7 @@ public class MobileRecharge extends AppCompatActivity {
             }
         });
 
+        alertDialog=new AlertDialog.Builder(this);
         radioGroup = findViewById(R.id.radioGroup);
         browseplansLayout = findViewById(R.id.browseplansLayout);
         serviceId=findViewById(R.id.serviceId);
@@ -434,8 +436,14 @@ public class MobileRecharge extends AppCompatActivity {
 
               }
               else if (!contact_number.equals("")&& contact_number.length()>=10){
+                  if (isNetworkAvailable()) {
+                      new AsyngetOperator().execute();//register add beneficiary
+                  }
+                  else {
+                      noNetwrokErrorMessage();
+                  }
 
-                  new AsyngetOperator().execute();
+                //  new AsyngetOperator().execute();
               }
 
             }
@@ -631,7 +639,7 @@ public class MobileRecharge extends AppCompatActivity {
                 operator_code=jsonObject1.getString("OperatorCode");
                 circle_code=jsonObject1.getString("CircleCode");
 
-
+          //      RegPrefManager.getInstance(MobileRecharge.this).setMobileOperator(operator_code,listItem.getOperator_code());
 
                 Log.d("code", operator_code);
                 Log.d("code1", circle_code);
@@ -652,6 +660,7 @@ public class MobileRecharge extends AppCompatActivity {
         }
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
+            try {
 
             if(status==true)
             {
@@ -675,7 +684,11 @@ public class MobileRecharge extends AppCompatActivity {
                 editor.remove("PHONE_NUMBER");
                 editor.commit();*/
             }
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
+            }
         }
+
 
         @Override
         protected void onPreExecute() {
@@ -736,12 +749,20 @@ public class MobileRecharge extends AppCompatActivity {
         }
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
+            try {
 
-            if(status.equals("true"))
-            {
-              //  Toast.makeText(getApplicationContext(),carrierName, Toast.LENGTH_LONG).show();
-                circle.setText(operator_circle_name);
-            //    Toast.makeText(MobileRecharge.this, operator_circle_name, Toast.LENGTH_SHORT).show();
+                if (status.equals("true")) {
+                    //  Toast.makeText(getApplicationContext(),carrierName, Toast.LENGTH_LONG).show();
+                    circle.setText(operator_circle_name);
+
+                    if(!operator_code.isEmpty()) {
+                        RegPrefManager.getInstance(MobileRecharge.this).setMobileOperator(carrierName, operator_code);
+                    }
+
+                    if(!circle_code.isEmpty()){
+                        RegPrefManager.getInstance(MobileRecharge.this).setMobileCircle(operator_circle_name,circle_code);
+                    }
+                    //    Toast.makeText(MobileRecharge.this, operator_circle_name, Toast.LENGTH_SHORT).show();
 
                /* SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
@@ -749,13 +770,15 @@ public class MobileRecharge extends AppCompatActivity {
                 editor.commit();
                 Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();*/
-            }
-            else{
-                Toast.makeText(getApplicationContext(),"Please Select Manually", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please Select Manually", Toast.LENGTH_LONG).show();
                /* SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.remove("PHONE_NUMBER");
                 editor.commit();*/
+                }
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
             }
         }
 

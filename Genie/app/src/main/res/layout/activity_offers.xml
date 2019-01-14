@@ -21,7 +21,7 @@
             android:id="@+id/about_us"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Offers"
+            android:text="Offers For You"
             android:textSize="18sp"
             android:textAllCaps="false"
             android:layout_gravity="center"
@@ -49,31 +49,82 @@
             android:orientation="vertical"
             >
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Get Offers On Referral"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:padding="5dp"
+                android:textSize="15sp"/>
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/offer1"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Get Cashbacks On All Types Of Recharges"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:padding="5dp"
+                android:textSize="15sp"/>
+
+
             <ImageView
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/offer2"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Get Offers On Insurance And Loan Payment"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:padding="5dp"
+                android:textSize="15sp"/>
+
+
             <ImageView
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/offer3"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Get Offers On Money Transfer"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:padding="5dp"
+                android:textSize="15sp"/>
+
+
 
             <ImageView
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/offer4"/>
         </LinearLayout>

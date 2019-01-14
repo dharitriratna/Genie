@@ -339,7 +339,7 @@ public class MobileOperators extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     }
                 } else
-                    Toast.makeText(MobileOperators.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
             }
         });
 

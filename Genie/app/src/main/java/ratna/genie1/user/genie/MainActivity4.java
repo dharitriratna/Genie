@@ -498,7 +498,7 @@ public class MainActivity4 extends AppCompatActivity implements NavigationView.O
         keyname=(TextView) headerView.findViewById(R.id.keyname);
 
 
-        keyphone.setText(RegPrefManager.getInstance(this).getPhoneNo());
+        keyphone.setText(RegPrefManager.getInstance(this).getLoggedInPhoneNo());
         keyname.setText(RegPrefManager.getInstance(this).getUserName());
 
         imageHeader=(ImageView)headerView.findViewById(R.id.imageHeader);
@@ -583,7 +583,7 @@ public class MainActivity4 extends AppCompatActivity implements NavigationView.O
 
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "App is not available in playstore yet");//share_cont + "\n" + "https://play.google.com/store/apps/details?id=com.nursevibe.vibe.nurse");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=ratna.genie1.user.genie&hl=en");//share_cont + "\n" + "https://play.google.com/store/apps/details?id=com.nursevibe.vibe.nurse");
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent,"share via:"));
                 //
@@ -818,6 +818,12 @@ public class MainActivity4 extends AppCompatActivity implements NavigationView.O
                 Intent intent = new Intent(MainActivity4.this, ViewRetailerProfileActivity.class);
                 startActivity(intent);
                 break;
+
+            case R.id.changepassword:
+                Intent changepassword = new Intent(MainActivity4.this, ChangePassword2.class);
+                startActivity(changepassword);
+                break;
+
 
             case R.id.contest:
                 Intent contest = new Intent(MainActivity4.this, ContestActivity.class);

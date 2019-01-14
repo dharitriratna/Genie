@@ -500,7 +500,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
         keyname=(TextView) headerView.findViewById(R.id.keyname);
 
 
-        keyphone.setText(RegPrefManager.getInstance(this).getPhoneNo());
+        keyphone.setText(RegPrefManager.getInstance(this).getLoggedInPhoneNo());
         keyname.setText(RegPrefManager.getInstance(this).getUserName());
 
         imageHeader=(ImageView)headerView.findViewById(R.id.imageHeader);
@@ -540,7 +540,38 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
 
             @Override
             public void onClick(View arg0) {
-                startActivity(new Intent(getApplicationContext(),AddMoneyActivity.class));
+               // startActivity(new Intent(getApplicationContext(),AddMoneyActivity.class));
+               /* AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
+                alertDialogBuilder
+                        .setMessage("You are not authorized user to use this service")
+                        .setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // if this button is clicked, close
+                                // current activity
+                              *//*  sharedpreferences = getSharedPreferences(mypreference,
+                                        Context.MODE_PRIVATE);
+                                Intent i = new Intent(LogIn.this, LogIn.class);
+                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                editor.remove("LOGGED_IN_AS"); // will delete key email
+                                editor.commit(); // commit changes
+                                startActivity(i);*//*
+
+                            }
+                        });
+                      *//*  .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        });*//*
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();*/
+                Toast.makeText(MainActivity3.this, "You are not authorized user to use this service", Toast.LENGTH_SHORT).show();
 
                 button2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -568,7 +599,40 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
 
             @Override
             public void onClick(View arg0) {
-                startActivity(new Intent(getApplicationContext(),RequestWalletActivity.class));
+            //    startActivity(new Intent(getApplicationContext(),RequestWalletActivity.class));
+
+              /*  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
+                alertDialogBuilder
+                        .setMessage("You are not authorized user to use this service")
+                        .setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // if this button is clicked, close
+                                // current activity
+                              *//*  sharedpreferences = getSharedPreferences(mypreference,
+                                        Context.MODE_PRIVATE);
+                                Intent i = new Intent(LogIn.this, LogIn.class);
+                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                editor.remove("LOGGED_IN_AS"); // will delete key email
+                                editor.commit(); // commit changes
+                                startActivity(i);*//*
+
+                            }
+                        });
+                      *//*  .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        });*//*
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();*/
+
+                Toast.makeText(MainActivity3.this, "You are not authorized user to use this service", Toast.LENGTH_SHORT).show();
 
                 button4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -585,7 +649,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
 
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "App is not available in playstore yet");//share_cont + "\n" + "https://play.google.com/store/apps/details?id=com.nursevibe.vibe.nurse");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=ratna.genie1.user.genie&hl=en");//share_cont + "\n" + "https://play.google.com/store/apps/details?id=com.nursevibe.vibe.nurse");
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent,"share via:"));
                 //
@@ -821,6 +885,11 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
                 setTitleColor(R.color.colorPrimaryDark);
                 Intent intent = new Intent(MainActivity3.this, ViewFSEProfileActivity.class);
                 startActivity(intent);
+                break;
+
+            case R.id.changepassword:
+                Intent changepassword = new Intent(MainActivity3.this, ChangePassword2.class);
+                startActivity(changepassword);
                 break;
 
          /*   case R.id.privacy:

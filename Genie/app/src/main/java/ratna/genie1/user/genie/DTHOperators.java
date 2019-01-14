@@ -205,7 +205,7 @@ public class DTHOperators extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     }
                 } else
-                    Toast.makeText(DTHOperators.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
             }
         });
 

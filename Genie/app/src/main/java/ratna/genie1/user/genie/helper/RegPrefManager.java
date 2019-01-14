@@ -542,6 +542,14 @@ public class RegPrefManager {
         return mSharedPreferences.getString("UserGroup",null);
     }
 
+    public void setLoggedinUserId(String loggedinUserId){
+        mSharedPreferences.edit().putString("UserId",loggedinUserId).apply();
+
+    }
+    public String getLoggedinUserId(){
+        return mSharedPreferences.getString("UserId",null);
+    }
+
     public void setUserEmail(String name){
         mSharedPreferences.edit().putString("Useremail",name).apply();
 

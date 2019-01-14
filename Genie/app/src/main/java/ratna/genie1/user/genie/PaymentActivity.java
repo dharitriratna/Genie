@@ -4,9 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -61,6 +65,7 @@ public class PaymentActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     String login_user="";
+    private AlertDialog.Builder alertDialog;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -79,6 +84,7 @@ public class PaymentActivity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
+        alertDialog=new AlertDialog.Builder(this);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         login_user=sharedpreferences.getString("FLAG", "");
         editor.commit(); // commit changes
@@ -119,7 +125,13 @@ public class PaymentActivity extends AppCompatActivity {
         proceed_payment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AsynGiftSubmit().execute();
+                if (isNetworkAvailable()) {
+                    new AsynGiftSubmit().execute();//register add beneficiary
+                }
+                else {
+                    noNetwrokErrorMessage();
+                }
+              //  new AsynGiftSubmit().execute();
 
             }
         });
@@ -157,6 +169,25 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
 */
+    }
+
+    public boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager= (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    public void noNetwrokErrorMessage(){
+        alertDialog.setTitle("Error!");
+        alertDialog.setMessage("No internet connection. Please check your internet setting.");
+        alertDialog.setCancelable(true);
+        alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert=alertDialog.create();
+        alert.show();
     }
 
     private class AsynGiftSubmit extends AsyncTask<Void, Void, Void> {

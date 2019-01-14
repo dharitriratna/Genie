@@ -87,15 +87,16 @@ public class ForgotPassword extends AppCompatActivity {
 
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
+            try {
 
-            if (message.equals("Check your email for passcode"))
-            {
-                Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
-                startActivity(new Intent(ForgotPassword.this,PasscodeVerification.class));
-            }
-            else
-            {
-                Toast.makeText(ForgotPassword.this, "Invalid email id", Toast.LENGTH_SHORT).show();
+                if (message.equals("Check your email for passcode")) {
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(ForgotPassword.this, PasscodeVerification.class));
+                } else {
+                    Toast.makeText(ForgotPassword.this, "Invalid email id", Toast.LENGTH_SHORT).show();
+                }
+            }catch(Exception e){
+                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
             }
         }
         @Override

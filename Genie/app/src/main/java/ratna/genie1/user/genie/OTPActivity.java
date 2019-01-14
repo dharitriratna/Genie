@@ -4,14 +4,18 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -46,6 +50,7 @@ public class OTPActivity extends AppCompatActivity {
     public static final String mypreference = "mypref";
     String login_user="";
     String phoneNo;
+    private AlertDialog.Builder alertDialog;
 
 
 
@@ -66,6 +71,7 @@ public class OTPActivity extends AppCompatActivity {
             // carry on the normal flow, as the case of  permissions  granted.
         }
 */
+        alertDialog=new AlertDialog.Builder(this);
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
@@ -89,10 +95,37 @@ public class OTPActivity extends AppCompatActivity {
                     otpEd.setError("Please Enter OTP");
                 }
                 else {
-                    new AsynVerifyOtp().execute();
+                    if (isNetworkAvailable()) {
+                    new AsynVerifyOtp().execute();//register add beneficiary
+                }
+                else {
+                    noNetwrokErrorMessage();
+                }
+                   // new AsynVerifyOtp().execute();
                 }
             }
         });
+    }
+
+
+
+    public boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager= (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    public void noNetwrokErrorMessage(){
+        alertDialog.setTitle("Error!");
+        alertDialog.setMessage("No internet connection. Please check your internet setting.");
+        alertDialog.setCancelable(true);
+        alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert=alertDialog.create();
+        alert.show();
     }
 
   /*  private BroadcastReceiver receiver = new BroadcastReceiver() {
