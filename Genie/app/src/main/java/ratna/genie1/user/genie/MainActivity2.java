@@ -696,32 +696,13 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
     }
 
 
-    boolean doubleBackToExitPressedOnce = false;
+ //   boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onBackPressed() {
-
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
-
-
-
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-                RegPrefManager.getInstance(MainActivity2.this).setBackService("");
-                finish();
-            }
-
-        }, 2000);
+        super.onBackPressed();
+        this.finishAffinity();
+        this.finish();
     }
 
 
@@ -952,6 +933,11 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
             case R.id.retailer_list:
                 Intent retailerlists = new Intent(MainActivity2.this,RetailersListActivity.class);
                 startActivity(retailerlists);
+                break;
+
+            case R.id.approvalReq:
+                Intent approvalReq = new Intent(MainActivity2.this,ApprovalActivity.class);
+                startActivity(approvalReq);
                 break;
 
             case R.id.contest:

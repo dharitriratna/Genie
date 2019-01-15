@@ -54,6 +54,14 @@
             android:iconTint="@color/colorPrimaryDark"
             android:title="Retailer List"/>
 
+
+        <item
+            android:id="@+id/approvalReq"
+            android:visible="true"
+            android:icon="@drawable/ic_check_black_24dp"
+            android:iconTint="@color/colorPrimaryDark"
+            android:title="Request Approval"/>
+
         <item
             android:id="@+id/contest"
             android:visible="true"

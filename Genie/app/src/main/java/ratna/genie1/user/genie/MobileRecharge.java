@@ -149,7 +149,18 @@ public class MobileRecharge extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         phone_number = contact_number.getText().toString().trim();
 
+        phone_number = RegPrefManager.getInstance(getApplicationContext()).getPhoneNo();
+        Toast.makeText(this, phone_number, Toast.LENGTH_SHORT).show();
+        contact_number.setText(RegPrefManager.getInstance(getApplicationContext()).getPhoneNo());
 
+
+       /* SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        // commit changes
+        String number=pref.getString("PHONE_NUMBER", null);
+        editor.commit();
+        Toast.makeText(this, number, Toast.LENGTH_SHORT).show();
+*/
 
      /*   Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -208,12 +219,7 @@ public class MobileRecharge extends AppCompatActivity {
         });
 */
 
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        // commit changes
-        String number=pref.getString("PHONE_NUMBER", null);
-        editor.commit();
-      //  Toast.makeText(this, number, Toast.LENGTH_SHORT).show();
+
 
         carrierName= RegPrefManager.getInstance(this).getMobileOperatorName();
         String carrierCode = RegPrefManager.getInstance(this).getMobileOperatorCode();
@@ -226,8 +232,9 @@ public class MobileRecharge extends AppCompatActivity {
         recharge_amount= RegPrefManager.getInstance(this).getMobileRechargeAmount();
         amount.setText(recharge_amount);
 
-       /* phone_number = RegPrefManager.getInstance(MobileRecharge.this).getPhoneNo();
-        contact_number.setText(phone_number);*/
+     /*   phone_number = RegPrefManager.getInstance(MobileRecharge.this).getPhoneNo();
+      //  contact_number.setText(phone_number);
+        Log.d("tagphone", phone_number);*/
 
         /*Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -792,4 +799,28 @@ public class MobileRecharge extends AppCompatActivity {
         }
     }
 
+
+  //  boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+            super.onBackPressed();
+        if (groupId.equals("4")){
+            startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+            finish();
+        }
+        else if (groupId.equals("5")){
+            startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+            finish();
+        }
+        else if (groupId.equals("3")){
+            startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+            finish();
+        }
+        else if (groupId.equals("2")){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            finish();
+        }
+          //  return;
+        }
 }

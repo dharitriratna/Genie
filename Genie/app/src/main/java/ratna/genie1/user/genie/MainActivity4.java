@@ -597,31 +597,11 @@ public class MainActivity4 extends AppCompatActivity implements NavigationView.O
         });
         }
 
-
-    boolean doubleBackToExitPressedOnce = false;
-
     @Override
     public void onBackPressed() {
-
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
-
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-                RegPrefManager.getInstance(MainActivity4.this).setBackService("");
-                finish();
-            }
-
-        }, 2000);
+        super.onBackPressed();
+        this.finishAffinity();
+        this.finish();
     }
 
 

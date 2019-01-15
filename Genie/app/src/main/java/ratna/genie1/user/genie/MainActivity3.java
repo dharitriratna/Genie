@@ -664,34 +664,6 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
     }
 
 
-    boolean doubleBackToExitPressedOnce = false;
-
-    @Override
-    public void onBackPressed() {
-
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
-
-
-
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-                RegPrefManager.getInstance(MainActivity3.this).setBackService("");
-                finish();
-            }
-
-        }, 2000);
-    }
-
 
     private void setImagePager() {
         for(int i=0;i<image.length;i++){
@@ -1023,5 +995,12 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finishAffinity();
+        this.finish();
     }
 }

@@ -442,15 +442,18 @@
             android:name=".OffersActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-<!--
+        <!--
         <receiver android:name=".MySMSBroadCastReceiver">
             <intent-filter android:priority="999">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
--->
+        -->
 
-        <activity android:name=".ChangePassword2"
+        <activity
+            android:name=".ChangePassword2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ApprovalActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

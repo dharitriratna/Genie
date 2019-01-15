@@ -312,9 +312,12 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
 
                 }
                 if(back.equals("Landline")){
-                    if (isNetworkAvailable()) {
+                    if (checkBox.isChecked()&&isNetworkAvailable()) {
                         networkLandlineService();
-                    } else {
+                    }
+                    else if (!checkBox.isChecked()){
+                        Toast.makeText(this, "Pay From Wallet", Toast.LENGTH_SHORT).show();
+                    }else {
                         noNetwrokErrorMessage();
                     }
                 }
@@ -337,25 +340,36 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
                 if (back.equals("Electricity")){
-                    if (isNetworkAvailable()){
+                    if (checkBox.isChecked()&&isNetworkAvailable()){
                         new AsynBillSubmit().execute();
-                    }else{
+                    }
+                    else if (!checkBox.isChecked()){
+                        Toast.makeText(this, "Pay From Wallet", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
                         noNetwrokErrorMessage();
                     }
                 }
                 if (back.equals("WaterBill")){
-                    if (isNetworkAvailable()){
+                    if (checkBox.isChecked()&&isNetworkAvailable()){
                         new AsynWaterBillSubmit().execute();
-                    }else {
+                    }
+                    else if (!checkBox.isChecked()){
+                        Toast.makeText(this, "Pay From Wallet", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
                         noNetwrokErrorMessage();
                     }
                 }
                 if (back.equals("Gas")){
-                    if (isNetworkAvailable()){
+                    if (checkBox.isChecked()&&isNetworkAvailable()){
                         new AsynWaterBillSubmit().execute();
+                    }
+                    else if (!checkBox.isChecked()){
+                        Toast.makeText(this, "Pay From Wallet", Toast.LENGTH_SHORT).show();
                     }else {
                         noNetwrokErrorMessage();
-                        new AsynBillSubmit().execute();
+                      //  new AsynBillSubmit().execute();
                     }
                 }
                 if (back.equals("DTH")){
@@ -370,9 +384,13 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
                 if(back.equals("Datacard")) {
-                    if (isNetworkAvailable()) {
+                    if (checkBox.isChecked() && isNetworkAvailable()) {
                         networkDataCardRecharge();
-                    } else {
+                    }
+                    else if (!checkBox.isChecked()){
+                        Toast.makeText(this, "Pay From Wallet", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
                         noNetwrokErrorMessage();
                     }
                 }

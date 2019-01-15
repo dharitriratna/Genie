@@ -32,12 +32,14 @@ import ratna.genie1.user.genie.ObjectNew.PlaceCabResponse;
 import ratna.genie1.user.genie.ObjectNew.RemiterDetailsResponse;
 import ratna.genie1.user.genie.ObjectNew.RemiterRegisterResponse;
 import ratna.genie1.user.genie.ObjectNew.RentResponse;
+import ratna.genie1.user.genie.ObjectNew.RequestResponse;
 import ratna.genie1.user.genie.ObjectNew.ResendOTPResponse;
 import ratna.genie1.user.genie.ObjectNew.RetailerSignupResponse;
 import ratna.genie1.user.genie.ObjectNew.RetailerUpdateResponse;
 import ratna.genie1.user.genie.ObjectNew.SellResponse;
 import ratna.genie1.user.genie.ObjectNew.ServiceImage;
 import ratna.genie1.user.genie.ObjectNew.UpdateImageResponse;
+import ratna.genie1.user.genie.ObjectNew.WalletTotalBalanceResponse;
 import ratna.genie1.user.genie.ObjectNew.getDataCardCircle;
 import ratna.genie1.user.genie.ObjectNew.getDataCardOperatorResponse;
 
@@ -61,6 +63,12 @@ import retrofit2.http.Query;
 public interface ApiInterface {
     @GET("pnr-status/pnr/{pnrno}/apikey/{apino}/")
     Call<GenPNRResponse> getPNRResponse(@Path("pnrno") String pnrno, @Path("apino") String apino);
+
+
+    @GET("api/user/getWalletDistributorApprove")
+    @Headers("Content-Type: application/json")
+    Call<RequestResponse> getRequestResponse(@Query("user_id") int user_id);
+
 
     @GET("index.php/api/service/getservice")
     Call<ServiceImage> getImageResponse();
@@ -216,6 +224,11 @@ public interface ApiInterface {
     @POST("api/service/getWalletBalance")
     @FormUrlEncoded
     Call<MyWalletResponse> postWallet(@Field("user_id") String  user_id);
+
+    @POST("api/service/getWalletBal")
+    @FormUrlEncoded
+    Call<WalletTotalBalanceResponse> postWalletTotalBalance(@Field("user_id") String  user_id);
+
 
     @POST("index.php/api/user/login")
     @FormUrlEncoded

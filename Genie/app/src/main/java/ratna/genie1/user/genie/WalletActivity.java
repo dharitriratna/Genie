@@ -11,6 +11,8 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -18,9 +20,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import ratna.genie1.user.genie.Adapter.BrowsePlansAdapter;
+import ratna.genie1.user.genie.Adapter.MobileOperatorsAdapter;
+import ratna.genie1.user.genie.Adapter.WalletHistoryAdapter;
+import ratna.genie1.user.genie.Model.MobileOperatorsModel;
 import ratna.genie1.user.genie.ObjectNew.DatacardResponse;
 import ratna.genie1.user.genie.ObjectNew.MyWalletData;
 import ratna.genie1.user.genie.ObjectNew.MyWalletResponse;
+import ratna.genie1.user.genie.ObjectNew.WalletTotalBalanceResponse;
 import ratna.genie1.user.genie.client.ApiClientGenie;
 import ratna.genie1.user.genie.client.ApiClientGenie1;
 import ratna.genie1.user.genie.client.ApiInterface;
@@ -42,11 +60,17 @@ public class WalletActivity extends AppCompatActivity {
     String login_user="";
     private AlertDialog.Builder alertDialog;
     ApiInterface apiService;
-    private TextView balanceTv,noWalletTv;
+    private TextView balanceTv,noWalletTv,errortext;
     private ImageView walletImg;
     private ArrayList<MyWalletData> dataArrayList;
     ImageView add_money;
     String groupId;
+    int i = 0;
+    RecyclerView transactiondetailsRecyclerview;
+    private WalletHistoryAdapter walletHistoryAdapter;
+
+    private ArrayList<MyWalletData> myWalletData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +79,11 @@ public class WalletActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         groupId = RegPrefManager.getInstance(getApplicationContext()).getUserGroup();
+        transactiondetailsRecyclerview=findViewById(R.id.transactiondetailsRecyclerview);
+
+        GridLayoutManager manager = new GridLayoutManager(WalletActivity.this, 1, GridLayoutManager.VERTICAL, false);
+        transactiondetailsRecyclerview.setLayoutManager(manager);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,9 +125,10 @@ public class WalletActivity extends AppCompatActivity {
         balanceTv=findViewById(R.id.balanceTv);
         noWalletTv=findViewById(R.id.noWalletTv);
         add_money = findViewById(R.id.add_money);
+        errortext = findViewById(R.id.errortext);
         add_money.setVisibility(View.GONE);
         dataArrayList=new ArrayList<>();
-
+        myWalletData=new ArrayList<>();
         add_money.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,8 +186,12 @@ public class WalletActivity extends AppCompatActivity {
             }
         });*/
 
+
         if (isNetworkAvailable()) {
-            networkDataCardRecharge();
+            getWalletBalance();
+
+          //  networkDataCardRecharge();
+
         } else {
             noNetwrokErrorMessage();
         }
@@ -222,10 +256,37 @@ public class WalletActivity extends AppCompatActivity {
     }
 
 
-    private void networkDataCardRecharge(){
+    private void getWalletBalance(){
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
+        Call<WalletTotalBalanceResponse>call = apiService.postWalletTotalBalance(login_user);
+        call.enqueue(new Callback<WalletTotalBalanceResponse>() {
+            @Override
+            public void onResponse(Call<WalletTotalBalanceResponse> call, Response<WalletTotalBalanceResponse> response) {
+                progressDialog.dismiss();
+                boolean status = response.body().isStatus();
+                if (status==true){
+                    String balance = response.body().getData().getTotalWalletBalnce();
+                      balanceTv.setText("Balance: "+getResources().getString(R.string.rupee)+ balance);
+                      errortext.setVisibility(View.GONE);
+                      networkDataCardRecharge();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WalletTotalBalanceResponse> call, Throwable t) {
+                errortext.setVisibility(View.VISIBLE);
+                walletImg.setVisibility(View.GONE);
+                balanceTv.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void networkDataCardRecharge(){
+       /* progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();*/
        // login_user="40";
         Call<MyWalletResponse> call=apiService.postWallet(login_user);
 
@@ -235,15 +296,14 @@ public class WalletActivity extends AppCompatActivity {
                 progressDialog.dismiss();
                 boolean status=response.body().isStatus();
                 if(status==true){
-                    noWalletTv.setVisibility(View.GONE);
-                    walletImg.setVisibility(View.VISIBLE);
-                    balanceTv.setVisibility(View.VISIBLE);
-                    dataArrayList=response.body().getData();
-                    String balance="";
-                    for (int i=0;i<dataArrayList.size();i++){
-                        balance=dataArrayList.get(i).getBalance();
-                    }
-                    balanceTv.setText("Balance: "+getResources().getString(R.string.rupee)+ balance);
+
+                  //  balanceTv.setText("Balance: "+getResources().getString(R.string.rupee)+ balance);
+
+                    myWalletData=response.body().getData();
+                    walletHistoryAdapter = new WalletHistoryAdapter(myWalletData, WalletActivity.this);
+                    transactiondetailsRecyclerview.setVisibility(View.VISIBLE);
+                    // browsing_plans.setBackgroundColor(R.color.colorPrimaryDark);
+                    transactiondetailsRecyclerview.setAdapter(walletHistoryAdapter);
                 }else {
                     noWalletTv.setVisibility(View.VISIBLE);
                     walletImg.setVisibility(View.GONE);
@@ -280,5 +340,6 @@ public class WalletActivity extends AppCompatActivity {
         alert.show();
 
     }
+
 
 }
