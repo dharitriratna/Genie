@@ -39,6 +39,13 @@
 
 
         <item
+            android:id="@+id/dashboard"
+            android:visible="true"
+            android:icon="@drawable/ic_description_black_24dp"
+            android:iconTint="@color/colorPrimaryDark"
+            android:title="Dashboard"/>
+
+        <item
             android:id="@+id/contest"
             android:visible="true"
             android:icon="@drawable/ic_contest"

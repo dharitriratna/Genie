@@ -63,6 +63,13 @@
             android:title="Request Approval"/>
 
         <item
+            android:id="@+id/dashboard"
+            android:visible="true"
+            android:icon="@drawable/ic_description_black_24dp"
+            android:iconTint="@color/colorPrimaryDark"
+            android:title="Dashboard"/>
+
+        <item
             android:id="@+id/contest"
             android:visible="true"
             android:icon="@drawable/ic_contest"
@@ -77,12 +84,7 @@
             android:title="Help and Support"/>
 
 
-        <item
-            android:id="@+id/request_money"
-            android:visible="false"
-            android:icon="@drawable/ic_add_wallet"
-            android:iconTint="@color/colorPrimaryDark"
-            android:title="Request Money"/>
+
 
 
 

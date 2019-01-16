@@ -21,7 +21,6 @@
     <uses-permission android:name=" android.permission. READ_CONTACTS " />
     <uses-permission android:name=" android.permission. WRITE_CONTACTS " />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <uses-feature
@@ -453,7 +452,13 @@
         <activity
             android:name=".ChangePassword2"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ApprovalActivity"
+        <activity
+            android:name=".ApprovalActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DashboardActivity2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

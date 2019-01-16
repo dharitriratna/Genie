@@ -150,8 +150,8 @@ public class MobileRecharge extends AppCompatActivity {
         phone_number = contact_number.getText().toString().trim();
 
         phone_number = RegPrefManager.getInstance(getApplicationContext()).getPhoneNo();
-        Toast.makeText(this, phone_number, Toast.LENGTH_SHORT).show();
-        contact_number.setText(RegPrefManager.getInstance(getApplicationContext()).getPhoneNo());
+    //    Toast.makeText(this, phone_number, Toast.LENGTH_SHORT).show();
+        contact_number.setText(""+phone_number);
 
 
        /* SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
@@ -302,7 +302,7 @@ public class MobileRecharge extends AppCompatActivity {
 
         loadRadioButtons();
 
-        contact_number.setText(number);
+      //  contact_number.setText(number);
 
       //  if (contact_number.equals(contact_number.getText().toString()))
 

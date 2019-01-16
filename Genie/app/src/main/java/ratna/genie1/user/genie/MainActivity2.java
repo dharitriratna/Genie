@@ -940,6 +940,11 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 startActivity(approvalReq);
                 break;
 
+            case R.id.dashboard:
+                Intent dashboard = new Intent(MainActivity2.this,DashboardActivity.class);
+                startActivity(dashboard);
+                break;
+
             case R.id.contest:
                 Intent contest = new Intent(MainActivity2.this, ContestActivity.class);
                 startActivity(contest);
@@ -950,11 +955,11 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 startActivity(help_support);
                 break;
 
-            case R.id.request_money:
+          /*  case R.id.request_money:
                 Intent request_money = new Intent(MainActivity2.this, RequestWalletActivity.class);
                 startActivity(request_money);
                 break;
-
+*/
             case R.id.logout:
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity2.this);

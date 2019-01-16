@@ -102,7 +102,18 @@
             </LinearLayout>
 
 
-
+            <Button
+                android:visibility="visible"
+                android:id="@+id/approveTv"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:text="Approve"
+                android:textAllCaps="false"
+                android:background="@drawable/my_button"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18dp" />
 
 
         </LinearLayout>

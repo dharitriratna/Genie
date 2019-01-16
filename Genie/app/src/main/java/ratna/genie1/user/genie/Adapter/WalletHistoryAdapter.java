@@ -43,6 +43,7 @@ public class WalletHistoryAdapter extends RecyclerView.Adapter<WalletHistoryAdap
 
         final MyWalletData data=plansList.get(position);
         holder.balanceTv.setText(context.getResources().getString(R.string.rupee)+" "+data.getBalance());
+        holder.shortDesc.setText(data.getSenderFirstName());
 
     }
 
@@ -54,13 +55,14 @@ public class WalletHistoryAdapter extends RecyclerView.Adapter<WalletHistoryAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView balanceTv;
+        TextView balanceTv,shortDesc;
 
 
         ViewHolder(View itemView) {
             super(itemView);
 
             balanceTv = (TextView) itemView.findViewById(R.id.balanceTv);
+            shortDesc = (TextView) itemView.findViewById(R.id.shortDesc);
 
         }
     }

@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -45,6 +44,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+
 import ratna.genie1.user.genie.Adapter.ServicesAdapter;
 import ratna.genie1.user.genie.Fragments.FragmentMain;
 import ratna.genie1.user.genie.Fragments.FragmentSendMoney;
@@ -62,17 +62,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import ratna.genie1.user.genie.Adapter.ServicesAdapter;
-import ratna.genie1.user.genie.Model.ServicesModel;
 import ratna.genie1.user.genie.Utils.Count;
-import ratna.genie1.user.genie.Utils.GlobalClass;
-import ratna.genie1.user.genie.client.ApiClientGenie;
-import ratna.genie1.user.genie.client.ApiInterface;
-import ratna.genie1.user.genie.helper.RegPrefManager;
 import retrofit2.Call;
 import retrofit2.Callback;
-
-import static ratna.genie1.user.genie.Utils.Count.setCounting;
 
 public class MainActivity3 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         ViewPagerEx.OnPageChangeListener,BaseSliderView.OnSliderClickListener {
@@ -882,6 +874,11 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
             case R.id.retailer_list:
                 Intent retailerlists = new Intent(MainActivity3.this,RetailersListActivity.class);
                 startActivity(retailerlists);
+                break;
+
+            case R.id.dashboard:
+                Intent dashboard = new Intent(MainActivity3.this, DashboardActivity2.class);
+                startActivity(dashboard);
                 break;
 
             case R.id.contest:

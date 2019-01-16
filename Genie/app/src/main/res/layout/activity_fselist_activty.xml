@@ -28,10 +28,10 @@
                 android:id="@+id/start_nav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/menu_black"/>
+                app:srcCompat="@drawable/menu_black"/>
 
             <TextView
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="30dp"
                 android:id="@+id/order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

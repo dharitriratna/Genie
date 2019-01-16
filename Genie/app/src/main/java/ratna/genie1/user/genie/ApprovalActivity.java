@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class ApprovalActivity extends AppCompatActivity {
     public static final String mypreference = "mypref";
     String login_user="";
     ProgressDialog progressDialog;
+    TextView noWalletTv;
 
 
     @Override
@@ -58,6 +60,7 @@ public class ApprovalActivity extends AppCompatActivity {
         });
         requestDataArraylist = new ArrayList<>();
 
+        noWalletTv= findViewById(R.id.noWalletTv);
         requestRecyclerview = findViewById(R.id.requestRecyclerview);
         GridLayoutManager manager = new GridLayoutManager(ApprovalActivity.this, 1, GridLayoutManager.VERTICAL, false);
         requestRecyclerview.setLayoutManager(manager);
@@ -94,24 +97,35 @@ public class ApprovalActivity extends AppCompatActivity {
         call.enqueue(new Callback<RequestResponse>() {
             @Override
             public void onResponse(Call<RequestResponse> call, Response<RequestResponse> response) {
-                boolean status=response.body().isStatus();
+
+                try{
+                    boolean status=response.body().isStatus();
                 if(status==true){
                     progressDialog.dismiss();
 
                     //  balanceTv.setText("Balance: "+getResources().getString(R.string.rupee)+ balance);
                     requestDataArraylist=new ArrayList<>();
                     requestDataArraylist=response.body().getData();
-
+                    if(!requestDataArraylist.isEmpty()) {
                         requestApprovalAdapter = new RequestApprovalAdapter(requestDataArraylist, ApprovalActivity.this);
                         requestRecyclerview.setVisibility(View.VISIBLE);
                         // browsing_plans.setBackgroundColor(R.color.colorPrimaryDark);
                         requestRecyclerview.setAdapter(requestApprovalAdapter);
+                    }else {
+                        noWalletTv.setVisibility(View.VISIBLE);
+                        Toast.makeText(ApprovalActivity.this, "No Data Found", Toast.LENGTH_SHORT).show();
+                    }
 
                 }else {
-                    Toast.makeText(ApprovalActivity.this, "No Data Found", Toast.LENGTH_SHORT).show();
-                 /*   noWalletTv.setVisibility(View.VISIBLE);
-                    walletImg.setVisibility(View.GONE);
+                   String message =response.body().getMessage();
+                    Toast.makeText(ApprovalActivity.this, message, Toast.LENGTH_SHORT).show();
+                    noWalletTv.setVisibility(View.VISIBLE);
+                    /*walletImg.setVisibility(View.GONE);
                     balanceTv.setVisibility(View.GONE);*/
+                }
+            }catch (Exception e){
+                    noWalletTv.setVisibility(View.VISIBLE);
+                   // Toast.makeText(ApprovalActivity.this, "No Data Found", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -119,8 +133,6 @@ public class ApprovalActivity extends AppCompatActivity {
             public void onFailure(Call<RequestResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(ApprovalActivity.this, "Try Again", Toast.LENGTH_SHORT).show();
-
-
             }
         });
     }

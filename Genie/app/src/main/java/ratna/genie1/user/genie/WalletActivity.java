@@ -140,10 +140,10 @@ public class WalletActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
                         if (options_array[item].equals("Add Money")) {
-                            dialog();
+                          //  dialog();
 
                         } else if (options_array[item].equals("Send Money")) {
-                            dailog();
+                         //   dailog();
 
                         }
                     }
@@ -152,39 +152,6 @@ public class WalletActivity extends AppCompatActivity {
 
             }
         });
-
-      /*  add_money.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WalletActivity.this);
-                alertDialogBuilder.setTitle("Add Money");
-
-                alertDialogBuilder
-                        .setMessage("Do you want to add money to wallet")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Intent i = new Intent(WalletActivity.this, AddMoneyActivity.class);
-                                startActivity(i);
-                                finish();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // if this button is clicked, just close
-                                // the dialog box and do nothing
-                                dialog.cancel();
-                            }
-                        });
-
-                // create alert dialog
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                // show it
-                alertDialog.show();
-            }
-        });*/
 
 
         if (isNetworkAvailable()) {
@@ -226,35 +193,6 @@ public class WalletActivity extends AppCompatActivity {
         // show it
         alertDialog.show();
     }
-
-    private void dialog() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WalletActivity.this);
-        alertDialogBuilder.setTitle("Add Money");
-
-        alertDialogBuilder
-                .setMessage("Do you want to add money to wallet")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent i = new Intent(WalletActivity.this, RequestWalletActivity.class);
-                        startActivity(i);
-                        finish();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, just close
-                        // the dialog box and do nothing
-                        dialog.cancel();
-                    }
-                });
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        // show it
-        alertDialog.show();
-    }
-
 
     private void getWalletBalance(){
         progressDialog.setMessage("Please wait...");

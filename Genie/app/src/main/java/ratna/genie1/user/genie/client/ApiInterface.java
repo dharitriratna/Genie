@@ -1,6 +1,7 @@
 package ratna.genie1.user.genie.client;
 
 import ratna.genie1.user.genie.ObjectNew.AllOrdersResponse;
+import ratna.genie1.user.genie.ObjectNew.ApproveResponse;
 import ratna.genie1.user.genie.ObjectNew.BeneficiaryDeleteResponse;
 import ratna.genie1.user.genie.ObjectNew.BeneficiaryDeleteValidateResponse;
 import ratna.genie1.user.genie.ObjectNew.BeneficiaryRegisterResponse;
@@ -9,6 +10,7 @@ import ratna.genie1.user.genie.ObjectNew.BrowsePlansResponse;
 import ratna.genie1.user.genie.ObjectNew.BusCitesResponse;
 import ratna.genie1.user.genie.ObjectNew.BusToCitiesResponse;
 import ratna.genie1.user.genie.ObjectNew.CabResponse;
+import ratna.genie1.user.genie.ObjectNew.DashboardResponse;
 import ratna.genie1.user.genie.ObjectNew.DatacardResponse;
 import ratna.genie1.user.genie.ObjectNew.FSESignupResponse;
 import ratna.genie1.user.genie.ObjectNew.FSEUpdateResponse;
@@ -152,6 +154,13 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<InsurancePaymentResponse> postInsurancePayment(@Field("user_id") String  user_id, @Field("req_id") String req_id,
                                                        @Field("policyNo") String policyNo);
+
+
+    @POST("api/user/distributorDashboard")
+    @FormUrlEncoded
+    Call<DashboardResponse> postDashboard(@Field("user_id") String  user_id, @Field("group_id") String group_id,
+                                                 @Field("date") String date);
+
     @POST("api/service/remiterRegistation")
     @FormUrlEncoded
     Call<RemiterRegisterResponse> postRemiterRegister(@Field("phone") String  phone, @Field("name") String name,
@@ -253,6 +262,10 @@ public interface ApiInterface {
     @POST("api/user/registerFse")
     @FormUrlEncoded
     Call<FSESignupResponse> postFSEResponse(@Field("order") String  order);
+
+    @POST("api/user/approveByDistributorWallet")
+    @FormUrlEncoded
+    Call<ApproveResponse> postApproveResponse(@Field("id") String  id,@Field("distributor_status") String  distributor_status);
 
     @Multipart
     @POST("api/user/registerFse")
