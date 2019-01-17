@@ -12,13 +12,13 @@ public class WalletTotalBalanceResponse {
         this.status = status;
     }
 
-    public Data getData() {
-        return data;
+   /* public Data getData() {
+        return totalWalletBalnce;
     }
 
     public void setData(Data data) {
-        this.data = data;
-    }
+        this.totalWalletBalnce = data;
+    }*/
 
     public String getMessage() {
         return message;
@@ -30,12 +30,21 @@ public class WalletTotalBalanceResponse {
 
     @SerializedName("status")
     private boolean status;
-    @SerializedName("data")
-    private Data data;
+
+    public String getTotalWalletBalnce() {
+        return totalWalletBalnce;
+    }
+
+    public void setTotalWalletBalnce(String totalWalletBalnce) {
+        this.totalWalletBalnce = totalWalletBalnce;
+    }
+
+    @SerializedName("totalWalletBalnce")
+    private String totalWalletBalnce;
     @SerializedName("message")
     private String message;
 
-    public class Data{
+/*    public class Data{
         public String getTotalWalletBalnce() {
             return totalWalletBalnce;
         }
@@ -46,7 +55,7 @@ public class WalletTotalBalanceResponse {
 
         @SerializedName("totalWalletBalnce")
         private String totalWalletBalnce;
-    }
+    }*/
 
 
 }

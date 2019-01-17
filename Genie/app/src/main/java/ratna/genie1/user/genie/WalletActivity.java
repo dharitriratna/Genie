@@ -144,12 +144,10 @@ public class WalletActivity extends AppCompatActivity {
 
                         } else if (options_array[item].equals("Send Money")) {
                          //   dailog();
-
                         }
                     }
                 });
                 builder.show();
-
             }
         });
 
@@ -164,36 +162,6 @@ public class WalletActivity extends AppCompatActivity {
         }
     }
 
-    private void dailog() {
-
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WalletActivity.this);
-        alertDialogBuilder.setTitle("Send Money");
-
-        alertDialogBuilder
-                .setMessage("Do you want to send money")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent i = new Intent(WalletActivity.this, AddMoneyActivity.class);
-                        startActivity(i);
-                        finish();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, just close
-                        // the dialog box and do nothing
-                        dialog.cancel();
-                    }
-                });
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        // show it
-        alertDialog.show();
-    }
-
     private void getWalletBalance(){
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
@@ -205,7 +173,7 @@ public class WalletActivity extends AppCompatActivity {
                 progressDialog.dismiss();
                 boolean status = response.body().isStatus();
                 if (status==true){
-                    String balance = response.body().getData().getTotalWalletBalnce();
+                    String balance = response.body().getTotalWalletBalnce();
                       balanceTv.setText("Balance: "+getResources().getString(R.string.rupee)+ balance);
                       errortext.setVisibility(View.GONE);
                       networkDataCardRecharge();
@@ -276,8 +244,6 @@ public class WalletActivity extends AppCompatActivity {
         });
         AlertDialog alert=alertDialog.create();
         alert.show();
-
     }
-
 
 }

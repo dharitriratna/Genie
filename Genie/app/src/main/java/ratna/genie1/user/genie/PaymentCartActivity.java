@@ -139,8 +139,8 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     finish();
                 }
                 else if (back.equals("Gas")){
-                    onBackPressed();
-                   // startActivity(new Intent(PaymentCartActivity.this,GasBillActivity.class));
+                   // onBackPressed();
+                   startActivity(new Intent(PaymentCartActivity.this,GasBillActivity.class));
 
                     finish();
 
@@ -238,6 +238,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 Log.d("am", BillAmount);
             }
 
+            numberTv.setText(ConsumerID);
             servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
             mobileTv.setText(SelectStateName);
             amountpTv.setText(getResources().getString(R.string.rupee)+BillAmount);
@@ -255,6 +256,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 Log.d("wp", PayAmount);
             }
 
+            numberTv.setText(ConsumerID);
             servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
             mobileTv.setText(Boardname);
             amountpTv.setText(getResources().getString(R.string.rupee)+PayAmount);
@@ -273,6 +275,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 Log.d("am", BillAmount);
             }
 
+            numberTv.setText(ConsumerID);
             servicenameTv.setText(RegPrefManager.getInstance(this).getServiceName());
             mobileTv.setText(SelectStateName);
             amountpTv.setText(getResources().getString(R.string.rupee)+BillAmount);
