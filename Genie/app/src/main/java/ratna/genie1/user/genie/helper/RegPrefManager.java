@@ -181,6 +181,12 @@ public class RegPrefManager {
     public String getRetailerUserId(){ return mSharedPreferences.getString("retailerUserId",null);
     }
 
+    public void setUserIdPayment(String user_id_payment){
+        mSharedPreferences.edit().putString("user_id_payment",user_id_payment).apply();
+    }
+    public String getUserIdPayment(){ return mSharedPreferences.getString("user_id_payment",null);
+    }
+
 
     public void setDataCardNo(String phone){
         mSharedPreferences.edit().putString("datacardno",phone).apply();

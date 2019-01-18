@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ratna.genie1.user.genie.MoneyTransfer.MoneyTransferActivity;
 import ratna.genie1.user.genie.helper.RegPrefManager;
 
 import org.apache.http.NameValuePair;
@@ -41,6 +42,7 @@ public class GasBillActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     String login_user="";
+    String groupId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +50,28 @@ public class GasBillActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gas_bill);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(GasBillActivity.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
-
         water_board = findViewById(R.id.water_board);
         acc_user_name = findViewById(R.id.acc_user_name);
         paidAmount = findViewById(R.id.paidAmount);

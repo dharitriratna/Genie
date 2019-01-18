@@ -253,6 +253,7 @@ public class LogIn extends AppCompatActivity {
             String urlRouteList="https://genieservice.in/api/user/login";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
+              //  Toast.makeText(LogIn.this, route_response, Toast.LENGTH_SHORT).show();
 
                 success = route_response;
                 JSONObject jsonObject = new JSONObject(success);
@@ -267,6 +268,8 @@ public class LogIn extends AppCompatActivity {
 
                 JSONObject jsonObject1 = new JSONObject(data);
                 String user_id=jsonObject1.getString("user_id");
+              //  Toast.makeText(LogIn.this, user_id, Toast.LENGTH_SHORT).show();
+                Log.d("user_id", user_id);
                 String user_email=jsonObject1.getString("user_email");
 
                 String user_name = jsonObject1.getString("user_name");
@@ -349,9 +352,15 @@ public class LogIn extends AppCompatActivity {
                     startActivity(new Intent(LogIn.this, MainActivity.class));
                     finish();
                 } else {
-                    if (message.equals("payment not done yet")) {
+                    if (status==false && message.equals("payment not done yet")) {
+                        JSONObject jsonObject = new JSONObject(success);
+
+                        status =jsonObject.getBoolean("status");
+                        message = jsonObject.getString("message");
+                        String user_id_payment = jsonObject.getString("user_id_payment");
+                        RegPrefManager.getInstance(LogIn.this).setUserIdPayment(user_id_payment);
                         Toast.makeText(LogIn.this, "payment not done yet", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LogIn.this, FSERegisterPaymentActivity.class));
+                        startActivity(new Intent(LogIn.this, RetailerRegisterPaymentActivity.class));
                     } else {
                         Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();
                     }

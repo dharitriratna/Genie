@@ -22,6 +22,7 @@ import ratna.genie1.user.genie.Adapter.CityMoviesCustomAdapter;
 import ratna.genie1.user.genie.Adapter.RentCustomAdapter;
 import ratna.genie1.user.genie.Adapter.RentCustomAdapter1;
 import ratna.genie1.user.genie.Model.RentFilterModel;
+import ratna.genie1.user.genie.MoneyTransfer.MoneyTransferActivity;
 import ratna.genie1.user.genie.ObjectNew.RentResponse;
 import ratna.genie1.user.genie.client.ApiClientGenie;
 import ratna.genie1.user.genie.client.ApiClientGenie1;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import ratna.genie1.user.genie.Model.RentFilterModel;
 import ratna.genie1.user.genie.client.ApiClientGenie1;
 import ratna.genie1.user.genie.client.ApiInterface;
+import ratna.genie1.user.genie.helper.RegPrefManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,6 +53,7 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
     String login_user="";
     private TextView noMesgTv;
     private Spinner spinner;
+    String groupId;
     String[] rent = {"All","Room Rents", "Office Rents", "Shop rent"};
 
 
@@ -61,11 +64,26 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
         apiService = ApiClientGenie1.getClient().create(ApiInterface.class);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(RentActivity.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RentActivity.this,MainActivity.class));
-                finish();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
         progressDialog =new ProgressDialog(this);

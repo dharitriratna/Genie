@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import ratna.genie1.user.genie.Fragments.FlightBottomFragment;
+import ratna.genie1.user.genie.MoneyTransfer.MoneyTransferActivity;
 import ratna.genie1.user.genie.helper.DatePickerFragmentFrom;
 import ratna.genie1.user.genie.helper.ItemClickListener;
 import ratna.genie1.user.genie.helper.RegPrefManager;
@@ -34,6 +35,7 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
     private RelativeLayout depRel,arrRel;
 
     FlightBottomFragment flightBottomFragment;
+    String groupId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +43,26 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_flight);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(FlightActivity.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //onBackPressed();
-                startActivity(new Intent(FlightActivity.this,MainActivity.class));
-                finish();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
 

@@ -28,6 +28,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ratna.genie1.user.genie.MoneyTransfer.MoneyTransferActivity;
 import ratna.genie1.user.genie.ObjectNew.DataCardCircleResponse;
 import ratna.genie1.user.genie.ObjectNew.DatacardRechargeResponse;
 import ratna.genie1.user.genie.ObjectNew.DatacardResponse;
@@ -64,6 +65,7 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
     private ArrayList<DataCardCircleResponse> dataCardArrayList;
     private String operatorcode="";
     private int  circlecode=0,customer_id,userid,amount;
+    String groupId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +77,26 @@ public class DataCardActivity extends AppCompatActivity implements View.OnClickL
         progressDialog =new ProgressDialog(this);
         alertDialog=new AlertDialog.Builder(this);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(DataCardActivity.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DataCardActivity.this,MainActivity.class));
-                finish();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
 

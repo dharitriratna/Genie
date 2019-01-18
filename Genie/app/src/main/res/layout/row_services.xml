@@ -30,8 +30,9 @@
             android:id="@+id/service_image"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ac_mechanic" />
+            android:scaleType="fitXY"
+            android:src="@drawable/ac_mechanic"
+            android:background="@drawable/square"/>
 
         <TextView
             android:id="@+id/service_type_name"

@@ -32,6 +32,8 @@ import java.util.List;
 
 import ratna.genie1.user.genie.Adapter.GiftsAdapter;
 import ratna.genie1.user.genie.Model.GiftsModel;
+import ratna.genie1.user.genie.MoneyTransfer.MoneyTransferActivity;
+import ratna.genie1.user.genie.helper.RegPrefManager;
 
 public class GiftsList extends AppCompatActivity {
     Toolbar toolbar;
@@ -40,6 +42,7 @@ public class GiftsList extends AppCompatActivity {
     int i=0;
     private GiftsAdapter giftsAdapter;
     private List<GiftsModel> giftsModels;
+    String groupId;
 
 
     @Override
@@ -48,10 +51,26 @@ public class GiftsList extends AppCompatActivity {
         setContentView(R.layout.activity_gifts_list);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(GiftsList.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
 

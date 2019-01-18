@@ -80,7 +80,7 @@ public class FSERegisterPaymentActivity extends AppCompatActivity {
         dateFormatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
 
        // fseuserID = RegPrefManager.getInstance(getApplicationContext()).getFseUserId();
-        fseretaileruserID = RegPrefManager.getInstance(getApplicationContext()).getRetailerUserId();
+         fseretaileruserID = RegPrefManager.getInstance(getApplicationContext()).getRetailerUserId();
 
 
         amountTv = findViewById(R.id.amountTv);

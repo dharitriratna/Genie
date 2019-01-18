@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ratna.genie1.user.genie.MoneyTransfer.MoneyTransferActivity;
 import ratna.genie1.user.genie.ObjectNew.LandlineResponse;
 import ratna.genie1.user.genie.client.ApiClientGenie;
 import ratna.genie1.user.genie.client.ApiInterface;
@@ -46,6 +47,7 @@ public class LandLine extends AppCompatActivity implements View.OnClickListener 
     private LinearLayout stdlinear;
     String std ="";
     private boolean flag;
+    String groupId;
 
 
     @Override
@@ -58,11 +60,26 @@ public class LandLine extends AppCompatActivity implements View.OnClickListener 
         alertDialog=new AlertDialog.Builder(this);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(LandLine.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
         btn_lb_proceed = findViewById(R.id.btn_lb_proceed);

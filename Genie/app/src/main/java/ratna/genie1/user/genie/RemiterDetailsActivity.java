@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import ratna.genie1.user.genie.Adapter.RemiterDetailsCustomAdapter;
 import ratna.genie1.user.genie.Model.BeneficiaryDetailsResponse;
+import ratna.genie1.user.genie.MoneyTransfer.MoneyTransferActivity;
 import ratna.genie1.user.genie.ObjectNew.RemiterDetailsResponse;
 import ratna.genie1.user.genie.client.ApiClientGenie;
 import ratna.genie1.user.genie.client.ApiClientGenie1;
@@ -52,6 +53,7 @@ public class RemiterDetailsActivity extends AppCompatActivity implements View.On
     private RecyclerView opeartorRecyclerview;
     private RemiterDetailsCustomAdapter adapter;
     private ArrayList<BeneficiaryDetailsResponse> beneficiaryArraylist;
+    String groupId;
 
 
     @Override
@@ -65,11 +67,26 @@ public class RemiterDetailsActivity extends AppCompatActivity implements View.On
         progressDialog =new ProgressDialog(this);
         alertDialog=new AlertDialog.Builder(this);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(RemiterDetailsActivity.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RemiterDetailsActivity.this,MainActivity.class));
-                finish();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
 

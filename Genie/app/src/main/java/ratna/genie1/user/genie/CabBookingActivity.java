@@ -24,6 +24,7 @@ import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import ratna.genie1.user.genie.MoneyTransfer.MoneyTransferActivity;
 import ratna.genie1.user.genie.ObjectNew.CabResponse;
 import ratna.genie1.user.genie.ObjectNew.ServiceImage;
 import ratna.genie1.user.genie.client.ApiClientGenie;
@@ -57,6 +58,7 @@ private Button bookingBtn;
     int trip_value=0;
     String traveldate,returndate="",time;
     private AlertDialog.Builder alertDialog;
+    String groupId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +68,26 @@ private Button bookingBtn;
                 ApiClientGenie.getClient().create(ApiInterface.class);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(CabBookingActivity.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //onBackPressed();
-                startActivity(new Intent(CabBookingActivity.this,MainActivity.class));
-                finish();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
         progressDialog =new ProgressDialog(this);

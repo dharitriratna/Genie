@@ -458,7 +458,10 @@
         <activity
             android:name=".DashboardActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DashboardActivity2"
+        <activity
+            android:name=".DashboardActivity2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DemoSliderActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

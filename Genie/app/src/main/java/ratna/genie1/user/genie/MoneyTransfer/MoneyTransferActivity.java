@@ -13,20 +13,26 @@ import android.view.View;
 import android.widget.TextView;
 
 import ratna.genie1.user.genie.Adapter.ViewPagerAdapter;
+import ratna.genie1.user.genie.DTHRecharge;
 import ratna.genie1.user.genie.Fragments.IMPSFragment;
 import ratna.genie1.user.genie.Fragments.ShowTimeFragment;
 import ratna.genie1.user.genie.Fragments.TrailerFragment;
 import ratna.genie1.user.genie.Fragments.UPIFragment;
 import ratna.genie1.user.genie.Fragments.WalletFragment;
 import ratna.genie1.user.genie.MainActivity;
+import ratna.genie1.user.genie.MainActivity2;
+import ratna.genie1.user.genie.MainActivity3;
+import ratna.genie1.user.genie.MainActivity4;
 import ratna.genie1.user.genie.R;
 
 import ratna.genie1.user.genie.MainActivity;
+import ratna.genie1.user.genie.helper.RegPrefManager;
 
 public class MoneyTransferActivity extends AppCompatActivity {
     Toolbar toolbar;
     private TabLayout htab_tabs;
     private ViewPager viewPager;
+    String groupId;
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +40,26 @@ public class MoneyTransferActivity extends AppCompatActivity {
         setContentView(ratna.genie1.user.genie.R.layout.activity_money_transfer);
         toolbar = findViewById(ratna.genie1.user.genie.R.id.toolbar);
         toolbar.setNavigationIcon(ratna.genie1.user.genie.R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(MoneyTransferActivity.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //onBackPressed();
-                startActivity(new Intent(MoneyTransferActivity.this,MainActivity.class));
-                finish();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
         viewPager = (ViewPager) findViewById(ratna.genie1.user.genie.R.id.viewPager);

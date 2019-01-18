@@ -42,8 +42,13 @@ public class WalletHistoryAdapter extends RecyclerView.Adapter<WalletHistoryAdap
     public void onBindViewHolder(final ViewHolder holder,final int position) {
 
         final MyWalletData data=plansList.get(position);
-        holder.balanceTv.setText(context.getResources().getString(R.string.rupee)+" "+data.getBalance());
+        holder.balanceTv.setText("Amount"+context.getResources().getString(R.string.rupee)+" "+data.getBalance());
         holder.shortDesc.setText(data.getSenderFirstName());
+        holder.createdonDt.setText(data.getCreated_on());
+        holder.createdonDt.setVisibility(View.GONE);
+        holder.updatedonDt.setText(data.getUpdated_on());
+        holder.service_id.setText("Service Name - " + data.getService_id());
+        holder.description.setText("Description - " + data.getDescription());
 
     }
 
@@ -55,7 +60,7 @@ public class WalletHistoryAdapter extends RecyclerView.Adapter<WalletHistoryAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView balanceTv,shortDesc;
+        TextView balanceTv,shortDesc,createdonDt,updatedonDt,service_id,description;
 
 
         ViewHolder(View itemView) {
@@ -63,6 +68,10 @@ public class WalletHistoryAdapter extends RecyclerView.Adapter<WalletHistoryAdap
 
             balanceTv = (TextView) itemView.findViewById(R.id.balanceTv);
             shortDesc = (TextView) itemView.findViewById(R.id.shortDesc);
+            createdonDt = (TextView) itemView.findViewById(R.id.createdonDt);
+            updatedonDt = (TextView) itemView.findViewById(R.id.updatedonDt);
+            service_id = (TextView) itemView.findViewById(R.id.service_id);
+            description = (TextView) itemView.findViewById(R.id.description);
 
         }
     }

@@ -40,6 +40,7 @@ public class RemiterRegistrationActivity extends AppCompatActivity implements Vi
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     String login_user="",namevalue;
+    String groupId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +52,26 @@ public class RemiterRegistrationActivity extends AppCompatActivity implements Vi
         progressDialog =new ProgressDialog(this);
         alertDialog=new AlertDialog.Builder(this);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(RemiterRegistrationActivity.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RemiterRegistrationActivity.this,MainActivity.class));
-                finish();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
 

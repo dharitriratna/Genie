@@ -38,6 +38,7 @@ import android.widget.Toast;
 import ratna.genie1.user.genie.Adapter.CityMoviesCustomAdapter;
 import ratna.genie1.user.genie.LocationUtils.PermissionUtils;
 import ratna.genie1.user.genie.Model.MovieCityModel;
+import ratna.genie1.user.genie.MoneyTransfer.MoneyTransferActivity;
 import ratna.genie1.user.genie.ObjectNew.DatacardResponse;
 import ratna.genie1.user.genie.ObjectNew.MovieCityResponse;
 import ratna.genie1.user.genie.client.ApiClientGenie;
@@ -101,17 +102,33 @@ public class MovieActivity extends AppCompatActivity implements GoogleApiClient.
     private AlertDialog.Builder alertDialog;
     ApiInterface apiService;
     ProgressDialog progressDialog;
+    String groupId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(MovieActivity.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               startActivity(new Intent(MovieActivity.this,MainActivity.class));
-               finish();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
         apiService =

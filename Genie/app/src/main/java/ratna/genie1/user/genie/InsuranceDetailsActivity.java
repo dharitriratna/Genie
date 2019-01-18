@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ratna.genie1.user.genie.Model.InsuranceDetails;
+import ratna.genie1.user.genie.MoneyTransfer.MoneyTransferActivity;
 import ratna.genie1.user.genie.ObjectNew.InsuranceDetailResponse;
 import ratna.genie1.user.genie.ObjectNew.InsurancePaymentResponse;
 import ratna.genie1.user.genie.client.ApiClientGenie;
@@ -58,6 +59,7 @@ public class InsuranceDetailsActivity extends AppCompatActivity implements View.
     private DatePickerDialog dobdatepicker;
     private Calendar newCalendar;
     private SimpleDateFormat simpleDateFormat;
+    String groupId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,12 +70,26 @@ public class InsuranceDetailsActivity extends AppCompatActivity implements View.
         alertDialog=new AlertDialog.Builder(this);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(InsuranceDetailsActivity.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(InsuranceDetailsActivity.this,AllInsuranseActivity.class));
-                finish();
-
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
         });
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);

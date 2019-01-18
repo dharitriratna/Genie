@@ -14,7 +14,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
@@ -91,6 +94,7 @@ import ratna.genie1.user.genie.client.ApiInterface;
 import ratna.genie1.user.genie.helper.RegPrefManager;
 import retrofit2.Call;
 import retrofit2.Callback;
+import spencerstudios.com.bungeelib.Bungee;
 
 
 public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeListener,BaseSliderView.OnSliderClickListener {
@@ -388,6 +392,8 @@ public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeLi
 
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
         service_recyclerview.setLayoutManager(manager);
+       /* LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(),R.anim.hyperspace_jump);
+        service_recyclerview.setAnimation(animation);*/
         progressDialog =new ProgressDialog(getActivity());
 
         servicesModels = new ArrayList<>();
@@ -481,13 +487,13 @@ public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeLi
                     }
                 }
                 else {
-                                /*Toast.makeText(getApplicationContext(), "No Data Found",
-                                        Toast.LENGTH_LONG).show();*/
+                    Toast.makeText(getActivity(), "No Data Found", Toast.LENGTH_LONG).show();
                     service_recyclerview.setVisibility(View.GONE);
                     // no_orders_text.setVisibility(View.VISIBLE);
                 }
                 servicesAdapter = new ServicesAdapter(servicesModels, getActivity());
                 service_recyclerview.setAdapter(servicesAdapter);
+              //  service_recyclerview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
             }
 
             @Override

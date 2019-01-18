@@ -18,6 +18,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import ratna.genie1.user.genie.MoneyTransfer.MoneyTransferActivity;
+import ratna.genie1.user.genie.helper.RegPrefManager;
+
 public class BusBookingActivity extends AppCompatActivity {
     Toolbar toolbar;
     Button searchBusTv;
@@ -27,6 +30,7 @@ public class BusBookingActivity extends AppCompatActivity {
     Calendar mcurrenttime;
     private SimpleDateFormat dateFormatter;
     String Date_;
+    String groupId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +38,28 @@ public class BusBookingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bus_booking);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(BusBookingActivity.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
-        });
-        searchBusTv = findViewById(R.id.searchBusTv);
+        });        searchBusTv = findViewById(R.id.searchBusTv);
         searchBusTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

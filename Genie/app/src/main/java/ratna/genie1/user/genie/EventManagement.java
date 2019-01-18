@@ -37,6 +37,8 @@ import java.util.List;
 
 import ratna.genie1.user.genie.Adapter.EventsAdapter;
 import ratna.genie1.user.genie.Model.EventsModel;
+import ratna.genie1.user.genie.MoneyTransfer.MoneyTransferActivity;
+import ratna.genie1.user.genie.helper.RegPrefManager;
 
 public class EventManagement extends AppCompatActivity implements ViewPagerEx.OnPageChangeListener,BaseSliderView.OnSliderClickListener {
     Toolbar toolbar;
@@ -47,19 +49,35 @@ public class EventManagement extends AppCompatActivity implements ViewPagerEx.On
     private EventsAdapter eventsAdapter;
     private List<EventsModel> eventsModels;
     RecyclerView events_recyclerview;
+    String groupId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_management);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(EventManagement.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
             }
-        });
-        mDemoSlider = findViewById(R.id.slider);
+        });        mDemoSlider = findViewById(R.id.slider);
         events_recyclerview = findViewById(R.id.events_recyclerview);
         progressDialog = new ProgressDialog(this);
 

@@ -62,7 +62,7 @@ public class RetailerRegisterPaymentActivity extends AppCompatActivity {
     TextView dept_date;
     EditText payment_method;
     String fseuserID;
-    String fseretaileruserID;
+    String userIdPayment;
 
 
     @Override
@@ -83,7 +83,8 @@ public class RetailerRegisterPaymentActivity extends AppCompatActivity {
         dateFormatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
 
        // fseuserID = RegPrefManager.getInstance(getApplicationContext()).getFseUserId();
-        fseretaileruserID = RegPrefManager.getInstance(getApplicationContext()).getRetailerUserId();
+       // fseretaileruserID = RegPrefManager.getInstance(getApplicationContext()).getRetailerUserId();
+        userIdPayment = RegPrefManager.getInstance(RetailerRegisterPaymentActivity.this).getUserIdPayment();
 
 
         alertDialog=new AlertDialog.Builder(this);
@@ -227,7 +228,7 @@ public class RetailerRegisterPaymentActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             pDialog.show();
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
-            cred.add(new BasicNameValuePair("user_id",fseretaileruserID));
+            cred.add(new BasicNameValuePair("user_id",userIdPayment));
             cred.add(new BasicNameValuePair("amount",SendingAmount ));
             cred.add(new BasicNameValuePair("ref_no",ReferralCode ));
             cred.add(new BasicNameValuePair("date_of_deposit",Date_ ));

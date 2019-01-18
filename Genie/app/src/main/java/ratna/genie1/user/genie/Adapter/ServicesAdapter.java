@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ public class ServicesAdapter  extends RecyclerView.Adapter<ServicesAdapter.ViewH
 
     private List<ServicesModel> servicesModels;
     private Context context;
+    private int lastPosition = -1;
 
 
     public ServicesAdapter(List<ServicesModel> servicesModels, Context context) {
@@ -43,7 +46,20 @@ public class ServicesAdapter  extends RecyclerView.Adapter<ServicesAdapter.ViewH
         //   holder.pro_name.setTypeface(tf3);
         holder.service_type_name.setText(listItem.getService_name());
         Picasso.with(context).load(listItem.getService_img()).into(holder.service_image);
+        setAnimation(holder.itemView, position);
 
+    }
+
+
+    private void setAnimation(View viewToAnimate, int position)
+    {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 
     @Override
@@ -62,6 +78,7 @@ public class ServicesAdapter  extends RecyclerView.Adapter<ServicesAdapter.ViewH
             service_fees = itemView.findViewById(R.id.service_fees);
             service_type_name = itemView.findViewById(R.id.service_type_name);
             service_image = itemView.findViewById(R.id.service_image);
+
         }
     }
 }
