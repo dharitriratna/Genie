@@ -107,7 +107,7 @@ public class SignUp extends AppCompatActivity {
         userTypespinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String userType=   userTypespinner.getItemAtPosition(userTypespinner.getSelectedItemPosition()).toString();
+                String userType = userTypespinner.getItemAtPosition(userTypespinner.getSelectedItemPosition()).toString();
              //   Toast.makeText(getApplicationContext(),userType,Toast.LENGTH_LONG).show();
             }
             @Override

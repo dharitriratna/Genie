@@ -180,6 +180,17 @@ public class AllOrdersResponse {
         String tax_amount;
         @SerializedName("service_order_id")
         String service_order_id;
+
+        public String getApiTransID() {
+            return ApiTransID;
+        }
+
+        public void setApiTransID(String apiTransID) {
+            ApiTransID = apiTransID;
+        }
+
+        @SerializedName("ApiTransID")
+        String ApiTransID;
     }
 
 }

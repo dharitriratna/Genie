@@ -74,11 +74,13 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
     String SelectStateName;
     String ConsumerID;
     String BillAmount;
+    String circle_Code;
 
     //water
     String Boardname;
     String ConsumerId;
     String PayAmount;
+    String offerid;
 
     //DTH
     String DTHoperatorName;
@@ -86,6 +88,13 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
     String DTHcircleCode;
     String DTHcustomerId;
     String DTHbillAmount,Successid,DateAndTime;
+
+    //Insurance
+    String insurerOpName;
+    String insurerOpCode;
+    String accountNumber;
+    String InAmount;
+
     CheckBox checkBox;
 
     @Override
@@ -149,6 +158,11 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 else if(back.equals("DTH")){
                    startActivity(new Intent(PaymentCartActivity.this,DTHRecharge.class));
                    finish();
+                }
+
+                else if (back.equals("InsuranceCF")){
+                    startActivity(new Intent(PaymentCartActivity.this,InsuranceCrowdFinchActivity.class));
+                    finish();
                 }
             }
         });
@@ -226,6 +240,23 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             amountpTv.setText(getResources().getString(R.string.rupee)+RechargeAmount);
         }
 
+        else if (back.equals("InsuranceCF")){
+            Intent intent = getIntent();
+            Bundle bundle = intent.getExtras();
+
+            if (bundle != null){
+                insurerOpName = bundle.getString("StateName");
+                accountNumber = bundle.getString("ConsumerID");
+                InAmount = bundle.getString("Amount");
+                Log.d("am", InAmount);
+            }
+
+            numberTv.setText(accountNumber);
+            servicenameTv.setText(RegPrefManager.getInstance(this).getInsurerName());
+           // mobileTv.setText(insurerOpName);
+            amountpTv.setText(getResources().getString(R.string.rupee)+InAmount);
+        }
+
         else if (back.equals("Electricity")){
             Intent intent = getIntent();
             Bundle bundle = intent.getExtras();
@@ -235,6 +266,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 SelectStateName = bundle.getString("StateName");
                 ConsumerID = bundle.getString("ConsumerID");
                 BillAmount = bundle.getString("Amount");
+
                 Log.d("am", BillAmount);
             }
 
@@ -321,6 +353,19 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     else if (!checkBox.isChecked()){
                         Toast.makeText(this, "Pay From Wallet", Toast.LENGTH_SHORT).show();
                     }else {
+                        noNetwrokErrorMessage();
+                    }
+                }
+
+                if (back.equals("InsuranceCF")){
+                    if (checkBox.isChecked()&&isNetworkAvailable()){
+                        new AsyncInsurancePayment().execute();
+                    }
+                    else if (!checkBox.isChecked()){
+                        Toast.makeText(this, "Pay From Wallet", Toast.LENGTH_SHORT).show();
+                    }
+
+                    else {
                         noNetwrokErrorMessage();
                     }
                 }
@@ -673,7 +718,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                     editor.commit();
                 }
             }catch (Exception e){
-                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Some Error Occured! Try after sometime", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -690,44 +735,49 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
 
     private class AsynBillSubmit extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
-        String success = null,data="",status="true";
+        String success = null,data="";
+        boolean status;
+        String status_response;
+        String err_msg;
         String service_id=RegPrefManager.getInstance(PaymentCartActivity.this).getServiceId();
+        String operatorName = RegPrefManager.getInstance(PaymentCartActivity.this).getElectricityBoardName();
+        String operatorCode = RegPrefManager.getInstance(PaymentCartActivity.this).getElectricityBoardCode();
+        String circle_Code = RegPrefManager.getInstance(PaymentCartActivity.this).getCircleCodeElectricity();
 
         @Override
         protected Void doInBackground(Void... params) {
             pDialog.show();
             ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
             cred.add(new BasicNameValuePair("user_id",login_user));//user_email
-            cred.add(new BasicNameValuePair("customer_id",SelectStateName ));
-            cred.add(new BasicNameValuePair("operator", operator ));
-            cred.add(new BasicNameValuePair("circle",circle ));
+            cred.add(new BasicNameValuePair("customer_id",ConsumerID ));
+            cred.add(new BasicNameValuePair("operator_name", operatorName ));
+            cred.add(new BasicNameValuePair("operatorCode", operatorCode ));
             cred.add(new BasicNameValuePair("amount",BillAmount ));
+          /*  cred.add(new BasicNameValuePair("circle",circle_Code ));
             cred.add(new BasicNameValuePair("landline_ca_number",landline_ca_number ));
-            cred.add(new BasicNameValuePair("other_values",other_values ));
+            cred.add(new BasicNameValuePair("other_values",other_values ));*/
             cred.add(new BasicNameValuePair("service_id",service_id ));
-            Log.v("RES","Sending data" +login_user+ SelectStateName+ operator +circle+BillAmount
-                    +landline_ca_number+other_values+service_id);
+            cred.add(new BasicNameValuePair("offer_id",offerid ));
+            Log.v("RES","Sending data" +login_user+ SelectStateName+ operatorName+operatorCode +circle+BillAmount
+                    +landline_ca_number+other_values+service_id+offerid);
 
 
-            String urlRouteList="https://genieservice.in/api/service/electricity_insurance_gas_water";
+            String urlRouteList="https://genieservice.in/api/service/Crowdfinch_electricity";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
 
                 success = route_response;
                 JSONObject jsonObject = new JSONObject(success);
 
-                // user_email=jsonObject.getString("user_email");
-                status=jsonObject.getString("status");
-                if(status.equals("false")) {
-                    data = jsonObject.getString("data");
-                }
-                String data=jsonObject.getString("data");
-                // Toast.makeText(Cart.this, sum_total, Toast.LENGTH_SHORT).show();
-                JSONObject jsonObject1 = new JSONObject(data);
+                JSONObject jsonObject1=jsonObject.getJSONObject("data");
+                status_response = jsonObject1.getString("status");
+                err_msg = jsonObject1.getString("message");
+                String number = jsonObject1.getString("number");
+                Successid=jsonObject1.getString("transid");
+                String opratorid = jsonObject1.getString("opratorid");
 
-                String user_id=jsonObject1.getString("user_id");
-                String user_email=jsonObject1.getString("user_email");
-
+                RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
+                RegPrefManager.getInstance(PaymentCartActivity.this).setDateAndTime(DateAndTime);
 
 
             } catch (Exception e)
@@ -741,19 +791,45 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             pDialog.dismiss();
             try {
 
-                if (status.equals("true")) {
-                    Toast.makeText(getApplicationContext(), "Bill Paid Successfully", Toast.LENGTH_LONG).show();
-
-                    startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
-                    finish();
-                } else {
-                    Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(getApplicationContext(), FailureActivity.class));
+               /* if (status==false&&data.equals("wallet balance low")){
+                    Toast.makeText(PaymentCartActivity.this, data, Toast.LENGTH_SHORT).show();
                 }
+                else if (status==true&&data.equals("")){
+                    Toast.makeText(PaymentCartActivity.this, "No data found", Toast.LENGTH_SHORT).show();
+                }
+
+                else*/ if (status==true && status_response.equals("success")) {
+                    Toast.makeText(getApplicationContext(), status_response, Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(PaymentCartActivity.this,ThankuActivity.class));
+
+                   // RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                 //   startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
+
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("AMOUNT", RechargeAmount);
+                    editor.commit();
+                    // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
+                    // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
+                } else if (status_response.equals("fail")) {
+                    Toast.makeText(getApplicationContext(), err_msg, Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(PaymentCartActivity.this, FailureActivity.class));
+                } /*else if (status_response.contains("F")){
+                    Toast.makeText(getApplicationContext(), "Payment Failed! Try again", Toast.LENGTH_LONG).show();
+                   // RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                    startActivity(new Intent(PaymentCartActivity.this, FailureActivity.class));
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.remove("PHONE_NUMBER");
+                    editor.clear();
+                    editor.commit();
+                }*/
+
             }catch (Exception e){
-                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
-            }
+            Toast.makeText(getApplicationContext(), "Some error occuered or wallet balance is low", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Please try again later", Toast.LENGTH_LONG).show();
         }
+    }
 
         @Override
         protected void onPreExecute() {
@@ -928,7 +1004,8 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
 
                 }
             }catch (Exception e){
-                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Some Error Occured! Try after sometime", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(PaymentCartActivity.this, FailureActivity.class));
             }
         }
 
@@ -954,5 +1031,116 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             ex.printStackTrace();
         }
     }*/
+
+
+
+
+
+    private class AsyncInsurancePayment extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pDialog;
+        String success = null,data="";
+        boolean status;
+        String status_response;
+        String err_msg;
+        String service_id=RegPrefManager.getInstance(PaymentCartActivity.this).getServiceId();
+        String operatorName = RegPrefManager.getInstance(PaymentCartActivity.this).getInsurerName();
+        String operatorCode = RegPrefManager.getInstance(PaymentCartActivity.this).getInsurerCode();
+        String circle_Code = RegPrefManager.getInstance(PaymentCartActivity.this).getCircleCodeElectricity();
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            pDialog.show();
+            ArrayList<NameValuePair> cred = new ArrayList<NameValuePair>();
+            cred.add(new BasicNameValuePair("user_id",login_user));//user_email
+            cred.add(new BasicNameValuePair("customer_id",accountNumber ));
+            cred.add(new BasicNameValuePair("operator_name", operatorName ));
+            cred.add(new BasicNameValuePair("operatorCode", operatorCode ));
+            cred.add(new BasicNameValuePair("amount",InAmount ));
+          /*  cred.add(new BasicNameValuePair("circle",circle_Code ));
+            cred.add(new BasicNameValuePair("landline_ca_number",landline_ca_number ));
+            cred.add(new BasicNameValuePair("other_values",other_values ));*/
+            cred.add(new BasicNameValuePair("service_id",service_id ));
+            cred.add(new BasicNameValuePair("offer_id",offerid ));
+            Log.v("RES","Sending data" +login_user+ SelectStateName+ operatorName+operatorCode +circle+BillAmount
+                    +landline_ca_number+other_values+service_id+offerid);
+
+
+            String urlRouteList="https://genieservice.in/api/service/Crowdfinch_insurance";
+            try {
+                String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
+
+                success = route_response;
+                JSONObject jsonObject = new JSONObject(success);
+
+                JSONObject jsonObject1=jsonObject.getJSONObject("data");
+                status_response = jsonObject1.getString("status");
+                err_msg = jsonObject1.getString("message");
+                String number = jsonObject1.getString("number");
+                Successid=jsonObject1.getString("transid");
+                String opratorid = jsonObject1.getString("opratorid");
+
+                RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
+                RegPrefManager.getInstance(PaymentCartActivity.this).setDateAndTime(DateAndTime);
+
+
+            } catch (Exception e)
+
+            {
+                Log.v("Connection error", e.toString());
+
+            }return null;
+        }
+        protected void onPostExecute(Void result) {
+            pDialog.dismiss();
+            try {
+
+               /* if (status==false&&data.equals("wallet balance low")){
+                    Toast.makeText(PaymentCartActivity.this, data, Toast.LENGTH_SHORT).show();
+                }
+                else if (status==true&&data.equals("")){
+                    Toast.makeText(PaymentCartActivity.this, "No data found", Toast.LENGTH_SHORT).show();
+                }
+
+                else*/ if (status==true && status_response.equals("success")) {
+                    Toast.makeText(getApplicationContext(), err_msg, Toast.LENGTH_LONG).show();
+                    // RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                    startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
+
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("AMOUNT", RechargeAmount);
+                    editor.commit();
+                    // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
+                    // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
+                } else if (status_response.equals("fail")) {
+                    Toast.makeText(getApplicationContext(), err_msg, Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(PaymentCartActivity.this, FailureActivity.class));
+                } /*else if (status_response.contains("F")){
+                    Toast.makeText(getApplicationContext(), "Payment Failed! Try again", Toast.LENGTH_LONG).show();
+                   // RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                    startActivity(new Intent(PaymentCartActivity.this, FailureActivity.class));
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.remove("PHONE_NUMBER");
+                    editor.clear();
+                    editor.commit();
+                }*/
+
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(), "Some error occuered or wallet balance is low", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Please try again later", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(PaymentCartActivity.this);
+            pDialog.setMessage("Loading In...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+    }
+
 
 }

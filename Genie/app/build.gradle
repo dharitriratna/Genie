@@ -13,8 +13,9 @@ android {
         applicationId "ratna.genie1.user.genie"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 7
-        versionName "1.5.2"
+        multiDexEnabled true
+        versionCode 27
+        versionName "2.2.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -23,6 +24,7 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     'proguard-rules.pro'
+
         }
     }
 }
@@ -47,7 +49,7 @@ dependencies {
     implementation 'com.android.volley:volley:1.0.0'
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation 'com.github.Binary-Finery:Bungee:master-SNAPSHOT'
+    // implementation 'com.github.Binary-Finery:Bungee:master-SNAPSHOT'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -61,4 +63,5 @@ dependencies {
         exclude module: "httpclient"
     }
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
+    implementation 'com.android.support:multidex:1.0.1'
 }

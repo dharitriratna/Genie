@@ -57,10 +57,9 @@ public class FSERegisterPaymentActivity extends AppCompatActivity {
     private SimpleDateFormat dateFormatter;
     String Date_;
     TextView dept_date;
-    EditText payment_method;
+    TextView payment_method;
     String fseuserID;
     String fseretaileruserID;
-
 
 
     @Override
@@ -128,9 +127,10 @@ public class FSERegisterPaymentActivity extends AppCompatActivity {
         payment_method.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final CharSequence[] options_array = {"IMPS", "BHIM UPI"};
+                final CharSequence[] options_array = {"IMPS", "BHIM UPI", "PAY LATER"};
                 final String IMPSMethod = "IMPS";
                 final String UPIMethod = "UPI";
+                final String PAYMethod = "PAY LATER";
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(FSERegisterPaymentActivity.this);
                 builder.setTitle("Payment Method");
@@ -150,14 +150,16 @@ public class FSERegisterPaymentActivity extends AppCompatActivity {
 
                             //  dailog();
                         }
+
+                        else if (options_array[item].equals("PAY LATER")){
+                            payment_method.setText(PAYMethod);
+                        }
                     }
                 });
                 builder.show();
 
             }
         });
-
-
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
@@ -171,6 +173,7 @@ public class FSERegisterPaymentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SendingAmount = amountTv.getText().toString().trim();
                 ReferralCode = refCode.getText().toString().trim();
+                paymentMethod = payment_method.getText().toString().trim();
 
                 if (SendingAmount.length() < 1){
                     amountTv.setText("Please Enter Amount");
@@ -178,13 +181,14 @@ public class FSERegisterPaymentActivity extends AppCompatActivity {
                /* else if (ReferralCode.length() < 1){
                     refCode.setText("Please Enter Code");
                 }*/
+                else if (paymentMethod.length() < 1){
+                    payment_method.setError("Please Set Payment Method");
+                }
 
                 else if (Date_.length() < 1){
                     dept_date.setError("Please Enter Date");
                 }
-             /*   else if (paymentMethod.length() < 1){
-                    payment_method.setError("Please Set Payment Method");
-                }*/
+
                 else {
                     new Asynctask().execute();
                 }
@@ -241,6 +245,7 @@ public class FSERegisterPaymentActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
 
+            try{
             if(status.equals("true"))
             {
                 Toast.makeText(getApplicationContext(),"Sucessfully requested", Toast.LENGTH_LONG).show();
@@ -251,6 +256,9 @@ public class FSERegisterPaymentActivity extends AppCompatActivity {
             }
             else{
                 Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
+            }
+        }catch (Exception e){
+                Toast.makeText(FSERegisterPaymentActivity.this, "Some Error Occured ! Try after sometime", Toast.LENGTH_SHORT).show();
             }
         }
 

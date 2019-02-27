@@ -2,12 +2,14 @@ package ratna.genie1.user.genie.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,7 +27,9 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import ratna.genie1.user.genie.Adapter.ServicesAdapter;
+import ratna.genie1.user.genie.AddBeneficiaryActivity;
 import ratna.genie1.user.genie.AllInsuranseActivity;
+import ratna.genie1.user.genie.BePartnerActivity;
 import ratna.genie1.user.genie.BookTrain;
 import ratna.genie1.user.genie.BusBookingActivity;
 import ratna.genie1.user.genie.CabBookingActivity;
@@ -38,6 +42,8 @@ import ratna.genie1.user.genie.GasBillActivity;
 import ratna.genie1.user.genie.GiftsList;
 import ratna.genie1.user.genie.HomeDeliveryGrocery;
 import ratna.genie1.user.genie.HotelActivity;
+import ratna.genie1.user.genie.InsuranceCrowdFinchActivity;
+import ratna.genie1.user.genie.InsurersCFActivity;
 import ratna.genie1.user.genie.JobActivity;
 import ratna.genie1.user.genie.LandLine;
 import ratna.genie1.user.genie.LoanPaymentActivity;
@@ -53,6 +59,7 @@ import ratna.genie1.user.genie.RecyclerTouchListener;
 import ratna.genie1.user.genie.RemiterDetailsActivity;
 import ratna.genie1.user.genie.RemiterRegistrationActivity;
 import ratna.genie1.user.genie.RentActivity;
+import ratna.genie1.user.genie.RequestWalletActivity;
 import ratna.genie1.user.genie.WaterBill;
 import ratna.genie1.user.genie.client.ApiClientGenie;
 import ratna.genie1.user.genie.client.ApiInterface;
@@ -94,7 +101,7 @@ import ratna.genie1.user.genie.client.ApiInterface;
 import ratna.genie1.user.genie.helper.RegPrefManager;
 import retrofit2.Call;
 import retrofit2.Callback;
-import spencerstudios.com.bungeelib.Bungee;
+
 
 
 public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeListener,BaseSliderView.OnSliderClickListener {
@@ -118,6 +125,11 @@ public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeLi
 
     String acmech;
     ApiInterface apiService;
+
+    String service_id;
+    String service_name;
+    String service_fee;
+    String service_img;
 
     public static FragmentMain newInstance() {
 
@@ -197,9 +209,10 @@ public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeLi
         electricity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(getActivity()).setElectricityCircle("","");
                 RegPrefManager.getInstance(getActivity()).setSuccessID("");
                 RegPrefManager.getInstance(getActivity()).SetElectricityBoard("","");
-                RegPrefManager.getInstance(getActivity()).setElectricityOperator("","");
+             //   RegPrefManager.getInstance(getActivity()).setElectricityOperator("","");
                 Intent intent=(new Intent(getActivity(),PayForElectricity.class));
                 startActivity(intent);
             }
@@ -342,7 +355,7 @@ public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeLi
             @Override
             public void onClick(View view) {
                 RegPrefManager.getInstance(getActivity()).setSuccessID("");
-                startActivity(new Intent(getActivity(),AllInsuranseActivity.class));
+                startActivity(new Intent(getActivity(),InsuranceCrowdFinchActivity.class));
             }
         });
 
@@ -402,19 +415,35 @@ public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeLi
             @Override
             public boolean onClick(View view, int position) {
                 ServicesModel list = servicesModels.get(position);
-                String service_id = list.getService_id();
-                String service_name = list.getService_name();
-                String service_fee = list.getService_fee();
-                String service_img = list.getService_img();
+                 service_id = list.getService_id();
+                 service_name = list.getService_name();
+                 service_fee = list.getService_fee();
+                 service_img = list.getService_img();
 
 
-                Intent i = new Intent(getActivity(), OrderGenerate.class);
-                i.putExtra("SERVICE_ID", service_id);
-                i.putExtra("SERVICE_NAME", service_name);
-                i.putExtra("SERVICE_FEES", service_fee);
-                i.putExtra("SERVICE_IMAGE", service_img);
-                startActivity(i);
+                final CharSequence[] options_array = {"Be A Partner", "Generate Order"};
+                final String bePartner = "Be A Partner";
+                final String genOrder = "Generate Order";
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Select Any");
+                builder.setItems(options_array, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options_array[item].equals("Be A Partner")) {
+                            startActivity(new Intent(getActivity(), BePartnerActivity.class));
+
+                        } else if (options_array[item].equals("Generate Order")) {
+                            Intent i = new Intent(getActivity(), OrderGenerate.class);
+                            i.putExtra("SERVICE_ID", service_id);
+                            i.putExtra("SERVICE_NAME", service_name);
+                            i.putExtra("SERVICE_FEES", service_fee);
+                            i.putExtra("SERVICE_IMAGE", service_img);
+                            startActivity(i);
+                        }
+                    }
+                });
+                builder.show();
                 return true;
             }
 

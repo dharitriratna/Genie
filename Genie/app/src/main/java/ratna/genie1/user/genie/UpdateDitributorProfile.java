@@ -313,7 +313,7 @@ public class UpdateDitributorProfile extends AppCompatActivity {
 
     public boolean hasPermissions(Context context, String... permissions){
 
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N && context!=null && permissions!=null){
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP && context!=null && permissions!=null){
             for(String permission: permissions){
                 if(ActivityCompat.checkSelfPermission(context, permission)!= PackageManager.PERMISSION_GRANTED){
                     return  false;

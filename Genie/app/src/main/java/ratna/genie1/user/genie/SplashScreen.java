@@ -11,7 +11,7 @@ import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
-import spencerstudios.com.bungeelib.Bungee;
+
 
 import static ratna.genie1.user.genie.VerticalFragment.hasPermissions;
 
@@ -48,7 +48,7 @@ public class SplashScreen extends AppCompatActivity {
 
                 Intent i = new Intent(SplashScreen.this, LogIn.class);
                 startActivity(i);
-                Bungee.split(SplashScreen.this);
+              //  Bungee.split(SplashScreen.this);
                // overridePendingTransition(R.anim.hyperspace_jump);//R.anim.pull_up_from_bottom
                 // close this activity
                 finish();
@@ -56,23 +56,23 @@ public class SplashScreen extends AppCompatActivity {
         }, SPLASH_TIME_OUT);
 
 
-    /*    int Permission_All = 1;
+        int Permission_All = 1;
 
         String[] Permissions = {
-//                android.Manifest.permission.ACCESS_COARSE_LOCATION,
-//                android.Manifest.permission.ACCESS_FINE_LOCATION,
-//                Manifest.permission.CALL_PHONE,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.CALL_PHONE,
                 Manifest.permission.INTERNET,
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION, };
         if(!hasPermissions(this, Permissions)){
             ActivityCompat.requestPermissions(this, Permissions, Permission_All);
-        }*/
+        }
     }
 
     public static boolean hasPermissions(Context context, String... permissions){
 
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N && context!=null && permissions!=null){
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP && context!=null && permissions!=null){
             for(String permission: permissions){
                 if(ActivityCompat.checkSelfPermission(context, permission)!= PackageManager.PERMISSION_GRANTED){
                     return  false;

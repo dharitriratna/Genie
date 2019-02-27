@@ -190,7 +190,7 @@ public class MovieActivity extends AppCompatActivity implements GoogleApiClient.
         });
 
         currentlocationTv.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
                 getLocation();

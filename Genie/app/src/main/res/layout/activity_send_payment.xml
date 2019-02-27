@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/background"
-
-    tools:context="com.genie1.user.genie.MoneyTransfer.SendPaymentActivity">
+    >
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -35,7 +34,20 @@
         android:layout_margin="10dp"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="normal"
-        android:text="Amount"/>
+        android:text="Amount (Amount must be 100 or more than 100 rupees)"/>
+
+    <TextView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="normal"
+        android:text="Amount must be more than 100 rupees."/>
+
+
+    <!--(Amount must be more than 100 rupees)-->
     <EditText
         android:id="@+id/amountEd"
         android:layout_width="match_parent"
@@ -43,7 +55,7 @@
         android:cursorVisible="true"
         android:textAlignment="viewStart"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="3dp"
         android:hint="0"
         android:drawableLeft="@drawable/ic_rupees"

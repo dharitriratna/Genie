@@ -55,7 +55,7 @@ public class StateCircleCustomAdapter extends RecyclerView.Adapter<StateCircleCu
             @Override
             public void onClick(View view) {
 
-                    RegPrefManager.getInstance(context).setElectricityOperator(data.getCircle_name(), data.getCircle_code());
+                    RegPrefManager.getInstance(context).setElectricityCircle(data.getCircle_name(), data.getCircle_code());
 
                     context.startActivity(new Intent(context, PayForElectricity.class));
 

@@ -44,7 +44,7 @@ public class DTHOperatorCircle extends AppCompatActivity {
     ProgressDialog progressDialog;
     int i=0;
     private DTHOperatorCircleAdapter mobileOperatorCircleAdapter;
-    private List<MobileOperatorCircleModel> mobileOperatorCircleModels;
+    private List<DTHOperatorCircleModel> mobileOperatorCircleModels;
     RecyclerView mob_operators_circle_recyclerview;
     String operator_name, operator_code;
     String number;
@@ -142,7 +142,7 @@ public class DTHOperatorCircle extends AppCompatActivity {
 
     private void filter(String text) {
         //new array list that will hold the filtered data
-        ArrayList<MobileOperatorCircleModel> filterdNames = new ArrayList<>();
+        ArrayList<DTHOperatorCircleModel> filterdNames = new ArrayList<>();
 
         for(int i=0;i<mobileOperatorCircleModels.size();i++) {
             //looping through existing elements
@@ -153,7 +153,7 @@ public class DTHOperatorCircle extends AppCompatActivity {
                     filterdNames.add(s);
                 }
             }*/
-            MobileOperatorCircleModel circleModel=mobileOperatorCircleModels.get(i);
+            DTHOperatorCircleModel circleModel=mobileOperatorCircleModels.get(i);
             if(circleModel.getOperator_circle_name().toUpperCase().contains(text.toUpperCase())){
                 filterdNames.add(circleModel);
             }
@@ -194,7 +194,7 @@ public class DTHOperatorCircle extends AppCompatActivity {
                                         operator_circle_code = o.getString("circle_code");
                                         RegPrefManager.getInstance(DTHOperatorCircle.this).setMobReCircleId(operator_circle_code);
 
-                                        MobileOperatorCircleModel item = new MobileOperatorCircleModel(
+                                        DTHOperatorCircleModel item = new DTHOperatorCircleModel(
                                                 operator_circle_id,operator_circle_name, operator_circle_code);
 
 

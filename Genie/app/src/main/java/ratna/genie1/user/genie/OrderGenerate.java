@@ -260,7 +260,7 @@ public class OrderGenerate extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 */
-    }
+
 
 
 
@@ -339,5 +339,5 @@ public class OrderGenerate extends AppCompatActivity {
         }
     }
 */
-
+}
 

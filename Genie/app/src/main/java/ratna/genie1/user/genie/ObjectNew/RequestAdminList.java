@@ -65,5 +65,38 @@ public class RequestAdminList {
     @SerializedName("transaction_id")
     private String transaction_id;
 
+    public String getBusiness_name() {
+        return business_name;
+    }
+
+    public void setBusiness_name(String business_name) {
+        this.business_name = business_name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getCreated_date() {
+        return created_date;
+    }
+
+    public void setCreated_date(String created_date) {
+        this.created_date = created_date;
+    }
+
+    @SerializedName("business_name")
+    private String business_name;
+
+    @SerializedName("phone")
+    private String phone;
+
+    @SerializedName("created_date")
+    private String created_date;
+
 
 }

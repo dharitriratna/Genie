@@ -7,7 +7,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import spencerstudios.com.bungeelib.Bungee;
+
 
 public class SplashGifScreen extends AppCompatActivity {
     private final int SPLASH_DISPLAY_LENGTH = 3500; //splash screen will be shown for this time period
@@ -34,7 +34,7 @@ public class SplashGifScreen extends AppCompatActivity {
 
                 Intent mainIntent = new Intent(SplashGifScreen.this, LogIn.class);
                 startActivity(mainIntent);
-                Bungee.split(SplashGifScreen.this);
+              //  Bungee.split(SplashGifScreen.this);
                 finish();
             }
         }, SPLASH_DISPLAY_LENGTH);

@@ -61,8 +61,9 @@ public class FSEDashboardFragment extends Fragment {
     private DatePickerDialog fromDatePickerDialog;
     Calendar mcurrenttime;
     private SimpleDateFormat dateFormatter;
-    String Date_;
-    TextView dept_date;
+    String Date_,Date_1;
+    TextView dept_date,end_date;
+    TextView fseAdTv,countNumbers;
 
     Button btnProceed;
     TextView noWalletTv;
@@ -85,8 +86,12 @@ public class FSEDashboardFragment extends Fragment {
         fsedashboardRecyclerview = v.findViewById(R.id.fsedashboardRecyclerview);
         progressDialog = new ProgressDialog(getActivity());
         dept_date = v.findViewById(R.id.dept_date);
+        end_date = v.findViewById(R.id.end_date);
         btnProceed = v.findViewById(R.id.btnProceed);
         noWalletTv = v.findViewById(R.id.noWalletTv);
+        fseAdTv = v.findViewById(R.id.fseAdTv);
+        countNumbers = v.findViewById(R.id.countNumbers);
+
 
         mcurrenttime = Calendar.getInstance();
      //   dateFormatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
@@ -107,6 +112,27 @@ public class FSEDashboardFragment extends Fragment {
                         Date_ = dateFormatter.format(newDate.getTime());
                         dept_date.setText(Date_);
                         dept_date.setCursorVisible(false);
+
+                    }},
+                        mcurrenttime.get(Calendar.YEAR), mcurrenttime.get(Calendar.MONTH), mcurrenttime.get(Calendar.DAY_OF_MONTH));
+                fromDatePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+                fromDatePickerDialog.show();
+            }
+        });
+
+        end_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+                fromDatePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        Calendar newDate = Calendar.getInstance();
+                        newDate.set(year, monthOfYear, dayOfMonth);
+
+                        Date_1 = dateFormatter.format(newDate.getTime());
+                        end_date.setText(Date_1);
+                        end_date.setCursorVisible(false);
 
                     }},
                         mcurrenttime.get(Calendar.YEAR), mcurrenttime.get(Calendar.MONTH), mcurrenttime.get(Calendar.DAY_OF_MONTH));
@@ -184,7 +210,7 @@ public class FSEDashboardFragment extends Fragment {
         pdCanceller.postDelayed(progressRunnable, 3000);*/
         String groupid="5";
         String phone= RegPrefManager.getInstance(getActivity()).getPhoneNo();
-        Call<DashboardResponse> call = apiService.postDashboard(login_user,groupid,Date_);
+        Call<DashboardResponse> call = apiService.postDashboard(login_user,groupid,Date_,Date_1);
         call.enqueue(new Callback<DashboardResponse>() {
             @SuppressLint("ResourceAsColor")
             @Override
@@ -192,21 +218,17 @@ public class FSEDashboardFragment extends Fragment {
                 progressDialog.dismiss();
                 boolean status=response.body().isStatus();
                 try{
-                if(status==true){
-                   // dashboardLists=response.body().getData().getPlanDescription();
-                    dashboardLists = response.body().getData();
+                if(status==true) {
+                    // dashboardLists=response.body().getData().getPlanDescription();
+                    int count_Numbers = response.body().getData();
+                    fseAdTv.setVisibility(View.VISIBLE);
+                    String count = String.valueOf(count_Numbers);
+                    countNumbers.setVisibility(View.VISIBLE);
+                    countNumbers.setText(count);
 
-                    if(dashboardLists.size()>0){
-                        dashboardAdapter = new DashboardAdapter(dashboardLists, getActivity());
-                        fsedashboardRecyclerview.setVisibility(View.VISIBLE);
-                        // browsing_plans.setBackgroundColor(R.color.colorPrimaryDark);
-                        fsedashboardRecyclerview.setAdapter(dashboardAdapter);
-                    }
-                    else if (response.body().getData().equals("")){
-                        noWalletTv.setVisibility(View.VISIBLE);
-                        Toast.makeText(getActivity(), "No Data Found", Toast.LENGTH_SHORT).show();
-                    }
 
+
+                }
                     else {
                         noWalletTv.setVisibility(View.VISIBLE);
                         Toast.makeText(getActivity(), "No Data Found",
@@ -214,10 +236,10 @@ public class FSEDashboardFragment extends Fragment {
                         fsedashboardRecyclerview.setVisibility(View.GONE);
                         // no_orders_text.setVisibility(View.VISIBLE);
                     }
-                }else {
+              /*  else {
                     noWalletTv.setVisibility(View.VISIBLE);
                     Toast.makeText(getActivity(),"Try again after some time",Toast.LENGTH_LONG).show();
-                }
+                }*/
             }catch (Exception e){
                     noWalletTv.setVisibility(View.VISIBLE);
                    // Toast.makeText(getActivity(), "No data found", Toast.LENGTH_SHORT).show();

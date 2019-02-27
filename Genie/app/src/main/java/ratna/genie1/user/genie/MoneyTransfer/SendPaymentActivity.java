@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,8 +27,10 @@ import ratna.genie1.user.genie.MainActivity;
 import ratna.genie1.user.genie.ObjectNew.FundTransferResponse;
 import ratna.genie1.user.genie.ObjectNew.FundTransferStatusResponse;
 import ratna.genie1.user.genie.ObjectNew.RemiterDetailsResponse;
+import ratna.genie1.user.genie.PaymentCartActivity;
 import ratna.genie1.user.genie.R;
 import ratna.genie1.user.genie.RemiterDetailsActivity;
+import ratna.genie1.user.genie.ThankuActivity;
 import ratna.genie1.user.genie.client.ApiClientGenie;
 import ratna.genie1.user.genie.client.ApiClientGenie1;
 import ratna.genie1.user.genie.client.ApiInterface;
@@ -53,6 +57,11 @@ public class SendPaymentActivity extends AppCompatActivity implements View.OnCli
     String[] bankArray = { "IMPS", "NEFT"};
     private  Spinner bankSpinner;
     private String spinnerSelect;
+    String amountStr;
+    String statussss;
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
+    String login_user="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +79,19 @@ public class SendPaymentActivity extends AppCompatActivity implements View.OnCli
                 finish();
             }
         });
+        progressDialog = new ProgressDialog(this);
+        alertDialog = new AlertDialog.Builder(this);
+
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor1 = sharedpreferences.edit();
+        login_user=sharedpreferences.getString("FLAG", "");
+        editor1.commit(); // commit changes
+
+
+        Log.d("login_user", login_user);
+
         intialize();
     }
     private void intialize(){
@@ -78,7 +100,9 @@ public class SendPaymentActivity extends AppCompatActivity implements View.OnCli
         continueBtn=findViewById(ratna.genie1.user.genie.R.id.continueBtn);
         continueBtn.setOnClickListener(this);
 
-         bankSpinner = (Spinner) findViewById(ratna.genie1.user.genie.R.id.bankSpinner);
+      //  amountStr = amountEd.getText().toString().trim();
+
+        bankSpinner = (Spinner) findViewById(ratna.genie1.user.genie.R.id.bankSpinner);
         bankSpinner.setOnItemSelectedListener(this);
 
         //Creating the ArrayAdapter instance having the country list
@@ -105,10 +129,11 @@ public class SendPaymentActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onResume() {
         super.onResume();
-        HashMap<String, String> remiter = RegPrefManager.getInstance(SendPaymentActivity.this).getRemiterDetails();
-         beneID=remiter.get("BeneID");
-        String bankname=remiter.get("BankName");
-        remiterphone=RegPrefManager.getInstance(SendPaymentActivity.this).getRemiterPhone();
+        HashMap<String, String> remitter = RegPrefManager.getInstance(SendPaymentActivity.this).getRemiterDetails();
+        beneID=remitter.get("BeneID");
+        String bankname=remitter.get("BankName");
+      //  remiterphone=RegPrefManager.getInstance(SendPaymentActivity.this).getRemiterPhone();
+        remiterphone = remitter.get("Mobile");
 
         banknameTv.setText(bankname);
     }
@@ -137,28 +162,47 @@ public class SendPaymentActivity extends AppCompatActivity implements View.OnCli
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
+        amountStr = amountEd.getText().toString().trim();
 
-        Call<FundTransferResponse> call=apiService.postFundTransfer(remiterphone,beneID,
-                amountEd.getText().toString(),spinnerSelect);
+        Call<FundTransferResponse> call=apiService.postFundTransfer(login_user,remiterphone,beneID,
+                amountStr,spinnerSelect);
         call.enqueue(new Callback<FundTransferResponse>() {
             @Override
             public void onResponse(Call<FundTransferResponse> call, Response<FundTransferResponse> response) {
+                try{
                 progressDialog.dismiss();
-                String status=response.body().getStatus();
-                if(status.equals("SUCCESS")){
-                    String agentId=response.body().getData().getCyrus_id();
+                boolean status = response.body().isStatus();
+                String st = String.valueOf(status);
+
+                if(status== true){
+
+                    String statusRes=response.body().getData().getStatus();
+                    String statusCode = response.body().getData().getStatuscode();
+                    String agentId=response.body().getData().getData().getAgentid();
+                    String oprID = response.body().getData().getData().getOpr_id();
+                    String ipayId = response.body().getData().getData().getIpay_id();
+                    String cyrusId = response.body().getData().getData().getCyrus_id();
+                    String openBal = response.body().getData().getData().getOpening_bal();
+                    String transAmt = response.body().getData().getData().getTrans_amt();
+                    String locAmt = response.body().getData().getData().getLocked_amt();
+                    String chrAmt = response.body().getData().getData().getCharged_amt();
+                   // statussss = response.body().getStatus();
                     RegPrefManager.getInstance(SendPaymentActivity.this).setAgentId(agentId);
+                //    Toast.makeText(SendPaymentActivity.this, statusRes, Toast.LENGTH_SHORT).show();
 
                     checkStatus();
                 }else {
-                    Toast.makeText(getApplicationContext(),"Try again. After Some time",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Try Again",Toast.LENGTH_LONG).show();
+                }
+            }catch (Exception e){
+                    Toast.makeText(SendPaymentActivity.this, "Genie is away! Please try after some time", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FundTransferResponse> call, Throwable t) {
             progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(),"Try again. After Some time",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Try again. After Some time! Amount should be more than 100rs",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -175,15 +219,23 @@ public class SendPaymentActivity extends AppCompatActivity implements View.OnCli
     }
     private void checkStatus(){
     String agentId=RegPrefManager.getInstance(SendPaymentActivity.this).getAgentId();
-        Call<FundTransferStatusResponse> call=apiService.postFundTransferStatus(agentId);
+        Call<FundTransferStatusResponse> call=apiService.postFundTransferStatus(login_user,agentId);
         call.enqueue(new Callback<FundTransferStatusResponse>() {
             @Override
             public void onResponse(Call<FundTransferStatusResponse> call, Response<FundTransferStatusResponse> response) {
                 progressDialog.dismiss();
-                String status=response.body().getStatuscode();
-                if(status.equals("TXN")){
-                    String st=response.body().getStatus();
+                boolean status = response.body().isStatus();
+                String statusSt=response.body().getData().getStatuscode();
+                if(status==true&&statusSt.equals("TXN")){
+                    String st=response.body().getData().getStatus();
+                    String agentId = response.body().getData().getData().getAgentid();
+                    String dt = response.body().getData().getData().getRequest_date();
                     Toast.makeText(getApplicationContext(),st,Toast.LENGTH_LONG).show();
+                    RegPrefManager.getInstance(SendPaymentActivity.this).setSuccessID(agentId);
+                    RegPrefManager.getInstance(SendPaymentActivity.this).setDateAndTime(dt);
+                    RegPrefManager.getInstance(SendPaymentActivity.this).setBackService("MONEYTRANSFER");
+                    startActivity(new Intent(SendPaymentActivity.this, ThankuActivity.class));
+
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Try again. After Some time",Toast.LENGTH_LONG).show();
@@ -209,9 +261,6 @@ public class SendPaymentActivity extends AppCompatActivity implements View.OnCli
 
             return false;
         }
-
-
-
 
         return true;
     }

@@ -377,7 +377,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 RegPrefManager.getInstance(MainActivity.this).setSuccessID("");
-                startActivity(new Intent(MainActivity.this,AllInsuranseActivity.class));
+                startActivity(new Intent(MainActivity.this,InsuranceCrowdFinchActivity.class));
             }
         });
 

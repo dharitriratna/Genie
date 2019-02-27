@@ -151,7 +151,7 @@ public class MobileRecharge extends AppCompatActivity {
 
         phone_number = RegPrefManager.getInstance(getApplicationContext()).getPhoneNo();
     //    Toast.makeText(this, phone_number, Toast.LENGTH_SHORT).show();
-        contact_number.setText(""+phone_number);
+        contact_number.setText(phone_number);
 
 
        /* SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
@@ -253,10 +253,25 @@ public class MobileRecharge extends AppCompatActivity {
 
         }*/
 
+        operator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               /* SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("PHONE_NUMBER", phone_number=contact_number.getText().toString());
+                editor.commit();*/
+                RegPrefManager.getInstance(MobileRecharge.this).setPhoneNo(phone_number = contact_number.getText().toString());
+                startActivity(new Intent(MobileRecharge.this,MobileOperators.class));
+                //  Toast.makeText(MobileRecharge.this, phone_number, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
 
         circle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RegPrefManager.getInstance(MobileRecharge.this).setPhoneNo(phone_number = contact_number.getText().toString());
                 startActivity(new Intent(MobileRecharge.this, MobileOperatorCircle.class));
                 finish();
             }
@@ -414,18 +429,6 @@ public class MobileRecharge extends AppCompatActivity {
             }
         });
 
-        operator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("PHONE_NUMBER", phone_number=contact_number.getText().toString());
-                editor.commit();
-                startActivity(new Intent(MobileRecharge.this,MobileOperators.class));
-              //  Toast.makeText(MobileRecharge.this, phone_number, Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
         contact_number.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -509,7 +512,7 @@ public class MobileRecharge extends AppCompatActivity {
 
     public static boolean hasPermissions(Context context, String... permissions){
 
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N_MR1 && context!=null && permissions!=null){
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP && context!=null && permissions!=null){
             for(String permission: permissions){
                 if(ActivityCompat.checkSelfPermission(context, permission)!= PackageManager.PERMISSION_GRANTED){
                     return  false;
@@ -520,7 +523,8 @@ public class MobileRecharge extends AppCompatActivity {
     }
 
 
-   /* @Override
+/*
+    @Override
     public void onBackPressed() {
         if (groupId.equals("4")){
             startActivity(new Intent(getApplicationContext(),MainActivity2.class));

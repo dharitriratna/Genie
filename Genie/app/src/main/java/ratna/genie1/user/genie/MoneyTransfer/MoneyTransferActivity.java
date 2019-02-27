@@ -33,7 +33,7 @@ public class MoneyTransferActivity extends AppCompatActivity {
     private TabLayout htab_tabs;
     private ViewPager viewPager;
     String groupId;
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

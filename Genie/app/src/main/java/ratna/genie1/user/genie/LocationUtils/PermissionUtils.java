@@ -72,7 +72,7 @@ public class PermissionUtils
         this.dialog_content=dialog_content;
         this.req_code=request_code;
 
-        if(Build.VERSION.SDK_INT >= 23)
+        if(Build.VERSION.SDK_INT >= 16)
         {
             if (checkAndRequestPermissions(permissions, request_code))
             {

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -18,6 +19,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -54,6 +56,9 @@ public class RemiterDetailsActivity extends AppCompatActivity implements View.On
     private RemiterDetailsCustomAdapter adapter;
     private ArrayList<BeneficiaryDetailsResponse> beneficiaryArraylist;
     String groupId;
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
+    String login_user="";
 
 
     @Override
@@ -90,9 +95,16 @@ public class RemiterDetailsActivity extends AppCompatActivity implements View.On
             }
         });
 
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
 
+        SharedPreferences.Editor editor1 = sharedpreferences.edit();
+        login_user=sharedpreferences.getString("FLAG", "");
+        editor1.commit(); // commit changes
+
+
+        Log.d("login_user", login_user);
         intialize();
-
     }
 
     private void intialize(){
@@ -182,11 +194,13 @@ public class RemiterDetailsActivity extends AppCompatActivity implements View.On
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        String phone= RegPrefManager.getInstance(this).getPhoneNo();
-        Call<RemiterDetailsResponse> call=apiService.postRemiterDetails(phone);
+        String phone= RegPrefManager.getInstance(this).getRemiterPhone();
+        Call<RemiterDetailsResponse> call=apiService.postRemiterDetails(login_user,phone);
         call.enqueue(new Callback<RemiterDetailsResponse>() {
             @Override
             public void onResponse(Call<RemiterDetailsResponse> call, Response<RemiterDetailsResponse> response) {
+                try{
+
                 progressDialog.dismiss();
                 String remitterid=response.body().getData().getData().getRemitter().getId();
                 RegPrefManager.getInstance(RemiterDetailsActivity.this).setRemitterId(remitterid);
@@ -206,6 +220,9 @@ public class RemiterDetailsActivity extends AppCompatActivity implements View.On
                     noMesgTv.setVisibility(View.VISIBLE);
                     opeartorRecyclerview.setVisibility(View.GONE);
                 }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -213,12 +230,31 @@ public class RemiterDetailsActivity extends AppCompatActivity implements View.On
                 progressDialog.dismiss();
                 noMesgTv.setVisibility(View.VISIBLE);
                 opeartorRecyclerview.setVisibility(View.GONE);
-
             }
         });
     }
 
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (groupId.equals("4")){
+            startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+            finish();
+        }
+        else if (groupId.equals("5")){
+            startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+            finish();
+        }
+        else if (groupId.equals("3")){
+            startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+            finish();
+        }
+        else if (groupId.equals("2")){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            finish();
+        }
+        //  return;
+    }
 
 }

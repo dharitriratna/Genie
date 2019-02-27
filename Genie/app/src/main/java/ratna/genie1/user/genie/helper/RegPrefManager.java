@@ -144,6 +144,9 @@ public class RegPrefManager {
         return mSharedPreferences.getString("phoneno",null);
     }
 
+
+
+
    /* public void setPhoneNo(String phone){
         mSharedPreferences.edit().putString("phoneno",phone).apply();
     }
@@ -585,6 +588,19 @@ public class RegPrefManager {
         return mSharedPreferences.getString("OperatorcodeElectricity",null);
     }
 
+    public void setElectricityCircle(String circlename, String circlecode){
+        mSharedPreferences.edit().putString("CircleElectricity",circlename).apply();
+        mSharedPreferences.edit().putString("CircleCodeElectricity",circlecode).apply();
+    }
+
+    public String getElectricityCircle(){
+        return mSharedPreferences.getString("CircleElectricity", null);
+    }
+
+    public String getCircleCodeElectricity(){
+        return mSharedPreferences.getString("CircleCodeElectricity", null);
+    }
+
 
     public void SetElectricityBoard(String operator,String code){
         mSharedPreferences.edit().putString("electricityBoardName",operator).apply();
@@ -600,6 +616,18 @@ public class RegPrefManager {
         return mSharedPreferences.getString("electricityBoardCode",null);
     }
 
+    public void SetInsurer(String insurerName, String insurerCode){
+        mSharedPreferences.edit().putString("insurerName",insurerName).apply();
+        mSharedPreferences.edit().putString("insurerCode",insurerCode).apply();
+    }
+
+    public String getInsurerName(){
+        return mSharedPreferences.getString("insurerName",null);
+    }
+
+    public String getInsurerCode(){
+        return mSharedPreferences.getString("insurerCode",null);
+    }
 
     public void setSuccessID(String id){
         mSharedPreferences.edit().putString("SuccessID",id).apply();

@@ -1,5 +1,6 @@
 package ratna.genie1.user.genie;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -22,6 +23,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import ratna.genie1.user.genie.helper.RegPrefManager;
+
 public class ChangePassword extends AppCompatActivity {
     Toolbar toolbar;
     EditText user_mail, password;
@@ -29,6 +32,7 @@ public class ChangePassword extends AppCompatActivity {
     Button btn_change;
     String message = "";
     ImageView eye;
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,8 @@ public class ChangePassword extends AppCompatActivity {
         password = findViewById(R.id.new_password);
         btn_change = findViewById(R.id.btn_change);
 
+        user_email = RegPrefManager.getInstance(ChangePassword.this).getLoggedInPhoneNo();
+        user_mail.setText(user_email);
         eye = findViewById(R.id.eye);
 
         eye.setOnTouchListener(new View.OnTouchListener() {
@@ -118,7 +124,7 @@ public class ChangePassword extends AppCompatActivity {
             try {
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                 if (message.equals("Password Changed Successfully")) {
-                    startActivity(new Intent(ChangePassword.this, ChangePassword.class));
+                    startActivity(new Intent(ChangePassword.this, LogIn.class));
                 } else {
                     Toast.makeText(ChangePassword.this, "Invalid Email id", Toast.LENGTH_SHORT).show();
                 }

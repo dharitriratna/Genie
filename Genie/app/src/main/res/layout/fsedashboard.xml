@@ -30,23 +30,66 @@
             android:background="@drawable/edittext_top_bg"
             tools:ignore="RtlCompat" />
 
-        <Button
+
+        <TextView
             android:layout_weight="1"
-            android:visibility="visible"
-            android:id="@+id/btnProceed"
+            android:layout_marginTop="5dp"
+            android:id="@+id/end_date"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
+            android:layout_height="50dp"
+            android:cursorVisible="false"
+            android:gravity="start|center"
             android:layout_margin="10dp"
-            android:text="Proceed"
-            android:textAllCaps="false"
-            android:background="@drawable/my_button"
-            android:textColor="@color/colorPrimary"
+            android:hint="Date"
             android:textSize="15sp"
-            />
+            android:textColor="@color/colorPrimaryDark"
+            android:inputType="text"
+            android:singleLine="true"
+            android:padding="10dp"
+            android:background="@drawable/edittext_top_bg"
+            tools:ignore="RtlCompat" />
+
 
 
     </LinearLayout>
+
+    <Button
+        android:visibility="visible"
+        android:id="@+id/btnProceed"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="Proceed"
+        android:textAllCaps="false"
+        android:background="@drawable/my_button"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp"
+        />
+
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/fseAdTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Total FSE Added"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/countNumbers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="18"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:layout_margin="10dp"/>
+
 
 
     <TextView
@@ -58,6 +101,7 @@
         android:gravity="center"/>
 
     <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

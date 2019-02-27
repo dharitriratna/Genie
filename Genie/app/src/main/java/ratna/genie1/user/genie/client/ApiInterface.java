@@ -12,6 +12,7 @@ import ratna.genie1.user.genie.ObjectNew.BusToCitiesResponse;
 import ratna.genie1.user.genie.ObjectNew.CabResponse;
 import ratna.genie1.user.genie.ObjectNew.DashboardResponse;
 import ratna.genie1.user.genie.ObjectNew.DatacardResponse;
+import ratna.genie1.user.genie.ObjectNew.DeleteResponse;
 import ratna.genie1.user.genie.ObjectNew.FSESignupResponse;
 import ratna.genie1.user.genie.ObjectNew.FSEUpdateResponse;
 import ratna.genie1.user.genie.ObjectNew.FundTransferResponse;
@@ -33,6 +34,7 @@ import ratna.genie1.user.genie.ObjectNew.OperatorFinderResponse;
 import ratna.genie1.user.genie.ObjectNew.PlaceCabResponse;
 import ratna.genie1.user.genie.ObjectNew.RemiterDetailsResponse;
 import ratna.genie1.user.genie.ObjectNew.RemiterRegisterResponse;
+import ratna.genie1.user.genie.ObjectNew.RemitterValidateResponse;
 import ratna.genie1.user.genie.ObjectNew.RentResponse;
 import ratna.genie1.user.genie.ObjectNew.RequestResponse;
 import ratna.genie1.user.genie.ObjectNew.ResendOTPResponse;
@@ -131,7 +133,7 @@ public interface ApiInterface {
 
 
    // @POST("api/service/Postpaidmobile_Landline_Broadband")
-    @POST("api/service/Postpaidmobile_Landline_Broadband_recharge")
+    @POST("api/service/Postpaidmobile_Landline_Broadband_recharge1")
 
     @FormUrlEncoded
     Call<LandlineResponse> postLandlineRecharge(@Field("user_id") int user_id, @Field("customer_id") String customer_id,
@@ -159,31 +161,39 @@ public interface ApiInterface {
     @POST("api/user/distributorDashboard")
     @FormUrlEncoded
     Call<DashboardResponse> postDashboard(@Field("user_id") String  user_id, @Field("group_id") String group_id,
-                                                 @Field("date") String date);
+                                                 @Field("date") String date, @Field("end_date") String end_date);
 
     @POST("api/service/remiterRegistation")
     @FormUrlEncoded
-    Call<RemiterRegisterResponse> postRemiterRegister(@Field("phone") String  phone, @Field("name") String name,
+    Call<RemiterRegisterResponse> postRemiterRegister(@Field("user_id") String user_id,@Field("phone") String  phone, @Field("name") String name,@Field("surname") String surname,
                                                        @Field("pincode") String pincode);
 
     @POST("api/service/BeneficiaryRegistration")
     @FormUrlEncoded
-    Call<BeneficiaryRegisterResponse> postBeneficiaryRegister(@Field("RemitterID") String  RemitterID, @Field("name") String name,
+    Call<BeneficiaryRegisterResponse> postBeneficiaryRegister(@Field("user_id") String user_id,@Field("RemitterID") String  RemitterID, @Field("name") String name,
                                                           @Field("phone") String phone,@Field("ifsc") String ifsc,
                                                               @Field("Account") String Account);
+
+
+    @POST("api/service/RemitterRegistration_Validate")
+    @FormUrlEncoded
+    Call<RemitterValidateResponse>postRemitterValidate(@Field("user_id") String user_id,@Field("phone") String phone, @Field("RemitterID") String RemitterID,
+                                                             @Field("OTP") String OTP);
+
+
     @POST("api/service/BeneficiaryRegistration_ResendOTP")
     @FormUrlEncoded
-    Call<ResendOTPResponse> postResendOTP(@Field("RemitterID") String  RemitterID, @Field("BeneficiaryID") String BeneficiaryID);
+    Call<ResendOTPResponse> postResendOTP(@Field("user_id") String user_id, @Field("RemitterID") String  RemitterID, @Field("BeneficiaryID") String BeneficiaryID);
 
     @POST("api/service/BeneficiaryRegistration_Validate")
     @FormUrlEncoded
-    Call<BeneficiaryValidateResponse> postBeneficiaryValidate(@Field("RemitterID") String  RemitterID,
+    Call<BeneficiaryValidateResponse> postBeneficiaryValidate(@Field("user_id") String user_id, @Field("RemitterID") String  RemitterID,
                                                               @Field("BeneficiaryID") String BeneficiaryID,
                                                               @Field("otp") String otp);
 
     @POST("api/service/RemitterDetails")
     @FormUrlEncoded
-    Call<RemiterDetailsResponse> postRemiterDetails(@Field("remitter_phone") String  remitter_phone);
+    Call<RemiterDetailsResponse> postRemiterDetails(@Field("user_id")String user_id,@Field("remitter_phone") String  remitter_phone);
 
 
     @GET("index.php/api/service/Bus_GetOrigin?InputParameter")
@@ -206,22 +216,22 @@ public interface ApiInterface {
 
     @POST("api/service/BeneficiaryDelete")
     @FormUrlEncoded
-    Call<BeneficiaryDeleteResponse> postBeneficiaryDelete(@Field("RemitterID") String  RemitterID,
+    Call<BeneficiaryDeleteResponse> postBeneficiaryDelete(@Field("user_id")String user_id,@Field("RemitterID") String  RemitterID,
                                                           @Field("BeneficiaryID") String  BeneficiaryID);
     @POST("api/service/BeneficiaryDelete_Validate")
     @FormUrlEncoded
-    Call<BeneficiaryDeleteValidateResponse> postBeneficiaryDeleteValidate(@Field("RemitterID") String  RemitterID,
+    Call<BeneficiaryDeleteValidateResponse> postBeneficiaryDeleteValidate(@Field("user_id")String user_id,@Field("RemitterID") String  RemitterID,
                                                                           @Field("BeneficiaryID") String  BeneficiaryID,
                                                                           @Field("otp") String otp);
     @POST("api/service/FundTransfer")
     @FormUrlEncoded
-    Call<FundTransferResponse> postFundTransfer(@Field("remitter_mobile") String  remitter_mobile,
+    Call<FundTransferResponse> postFundTransfer(@Field("user_id")String user_id,@Field("remitter_mobile") String  remitter_mobile,
                                                 @Field("BeneficiaryID") String  BeneficiaryID,
                                                 @Field("amount") String amount, @Field("mode") String mode);
 
     @POST("api/service/FundTransfer_Status")
     @FormUrlEncoded
-    Call<FundTransferStatusResponse> postFundTransferStatus(@Field("cyrus_id") String  cyrus_id);
+    Call<FundTransferStatusResponse> postFundTransferStatus(@Field("user_id")String user_id,@Field("cyrus_id") String  cyrus_id);
 
     @GET("api/service/MovieCityFind ")
     Call<MovieCityResponse> getMoviesCity();
@@ -265,7 +275,11 @@ public interface ApiInterface {
 
     @POST("api/user/approveByDistributorWallet")
     @FormUrlEncoded
-    Call<ApproveResponse> postApproveResponse(@Field("id") String  id,@Field("distributor_status") String  distributor_status);
+    Call<ApproveResponse> postApproveResponse(@Field("user_id") String user_id,@Field("id") String  id,@Field("distributor_status") String  distributor_status);
+
+    @POST("api/user/delByDistributorWallet")
+    @FormUrlEncoded
+    Call<DeleteResponse> deleteApproveResponse(@Field("user_id") String user_id, @Field("id") String  id);
 
     @Multipart
     @POST("api/user/registerFse")
@@ -285,7 +299,7 @@ public interface ApiInterface {
                                             @Part MultipartBody.Part icon2,
                                             @Part("first_name")RequestBody first_name,
                                             @Part("email")RequestBody email,@Part("phone")RequestBody phone,
-                                            @Part("distributor_user_id")RequestBody distributor_user_id,@Part("sales_experience")RequestBody sales_experience,
+                                            @Part("user_id")RequestBody distributor_user_id,@Part("sales_experience")RequestBody sales_experience,
                                             @Part("job_type")RequestBody job_type,@Part("address_proof")RequestBody address_proof,
                                             @Part("line1")RequestBody line1,@Part("city")RequestBody city,@Part("pin")RequestBody pin,
                                             @Part("state")RequestBody state,@Part("country")RequestBody country);
@@ -310,7 +324,7 @@ public interface ApiInterface {
                                                  @Part MultipartBody.Part icon2,
                                                  @Part("first_name")RequestBody first_name,
                                                  @Part("email")RequestBody email, @Part("phone")RequestBody phone,
-                                                 @Part("fse_user_id")RequestBody fse_user_id, @Part("business_name")RequestBody business_name,
+                                                 @Part("user_id")RequestBody fse_user_id, @Part("business_name")RequestBody business_name,
                                                  @Part("retail_sub_type")RequestBody retail_sub_type, @Part("address_proof")RequestBody address_proof,
                                                  @Part("line1")RequestBody line1, @Part("city")RequestBody city, @Part("pin")RequestBody pin,
                                                  @Part("state")RequestBody state, @Part("country")RequestBody country);

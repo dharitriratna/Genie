@@ -371,10 +371,7 @@ public class LogIn extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
 
             }
-            /*else {
-                Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
-            }
-*/
+
         }
 
         @Override

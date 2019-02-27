@@ -368,7 +368,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
             @Override
             public void onClick(View view) {
                 RegPrefManager.getInstance(MainActivity3.this).setSuccessID("");
-                startActivity(new Intent(MainActivity3.this,AllInsuranseActivity.class));
+                startActivity(new Intent(MainActivity3.this,InsuranceCrowdFinchActivity.class));
             }
         });
 
@@ -591,7 +591,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
 
             @Override
             public void onClick(View arg0) {
-            //    startActivity(new Intent(getApplicationContext(),RequestWalletActivity.class));
+            startActivity(new Intent(getApplicationContext(),RequestWalletActivity.class));
 
               /*  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
                 alertDialogBuilder
@@ -624,7 +624,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
                 // show it
                 alertDialog.show();*/
 
-                Toast.makeText(MainActivity3.this, "You are not authorized user to use this service", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(MainActivity3.this, "You are not authorized user to use this service", Toast.LENGTH_SHORT).show();
 
                 button4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 button1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));

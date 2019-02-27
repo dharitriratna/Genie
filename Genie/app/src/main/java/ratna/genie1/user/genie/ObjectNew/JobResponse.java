@@ -1,5 +1,6 @@
 package ratna.genie1.user.genie.ObjectNew;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -8,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class JobResponse {
     @SerializedName("status")
+    @Expose
     private boolean status;
 
     public boolean isStatus() {

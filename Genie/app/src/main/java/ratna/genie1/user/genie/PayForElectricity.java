@@ -93,6 +93,11 @@ public class PayForElectricity extends AppCompatActivity {
         });
 
 
+        serviceId=findViewById(R.id.serviceId);
+        service_id = serviceId.getText().toString().trim();
+        Log.d("tag", service_id);
+        RegPrefManager.getInstance(PayForElectricity.this).setServiceId(service_id);
+
 
         radioGroup = findViewById(R.id.radioGroup);
        /* radioGroup.clearCheck();
@@ -112,22 +117,24 @@ public class PayForElectricity extends AppCompatActivity {
         consumer_number = findViewById(R.id.consumer_number);
         paidAmount = findViewById(R.id.paidAmount);
 
+
+
         boardName= RegPrefManager.getInstance(PayForElectricity.this).getElectricityBoardName();
         select_board.setText(boardName);
 
 
 
         select_state.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ElectricityStateSelectActivity.class));
-            }
-        });
-        sharedpreferences = getSharedPreferences(mypreference,
-                Context.MODE_PRIVATE);
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(getApplicationContext(),ElectricityStateSelectActivity.class));
+        }
+    });
+    sharedpreferences = getSharedPreferences(mypreference,
+                                             Context.MODE_PRIVATE);
 
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        login_user = sharedpreferences.getString("FLAG", "");
+    SharedPreferences.Editor editor = sharedpreferences.edit();
+    login_user = sharedpreferences.getString("FLAG", "");
         editor.commit(); // commit changes
 
       /*  Intent intent1 = getIntent();
@@ -181,13 +188,13 @@ public class PayForElectricity extends AppCompatActivity {
         btnproceedToPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stateName = select_state.getText().toString().trim();
+              //  stateName = select_state.getText().toString().trim();
                 consumerId = consumer_number.getText().toString().trim();
                 amount = paidAmount.getText().toString().trim();
 
-                if (stateName.length() < 1) {
+              /*  if (stateName.length() < 1) {
                     select_state.setError("Select Your State");
-                } else if (boardName.length() < 1) {
+                } else*/ if (boardName.length() < 1) {
                     select_board.setError("Select Your Board");
                 } else if (consumerId.length() < 1) {
                     consumer_number.setError("Enter Consumer Number");
@@ -198,7 +205,7 @@ public class PayForElectricity extends AppCompatActivity {
                     RegPrefManager.getInstance(PayForElectricity.this).setBackService("Electricity");
                     RegPrefManager.getInstance(PayForElectricity.this).setServiceName("Electricity");
                     Intent intent = new Intent(PayForElectricity.this,PaymentCartActivity.class);
-                    intent.putExtra("StateName",stateName);
+                  //  intent.putExtra("StateName",stateName);
                     intent.putExtra("ConsumerID", consumerId);
                     intent.putExtra("Amount", amount);
                     startActivity(intent);
@@ -252,7 +259,30 @@ public class PayForElectricity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        select_state.setText(RegPrefManager.getInstance(PayForElectricity.this).getElectricityOperator());
+        select_state.setText(RegPrefManager.getInstance(PayForElectricity.this).getElectricityCircle());
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (groupId.equals("4")){
+            startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+            finish();
+        }
+        else if (groupId.equals("5")){
+            startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+            finish();
+        }
+        else if (groupId.equals("3")){
+            startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+            finish();
+        }
+        else if (groupId.equals("2")){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            finish();
+        }
+        //  return;
     }
 
 }

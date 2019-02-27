@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ratna.genie1.user.genie.Model.ElectricityBoardModel;
+import ratna.genie1.user.genie.helper.RegPrefManager;
 
 public class ElectricityBoards extends AppCompatActivity {
     Toolbar toolbar;
@@ -140,7 +141,7 @@ public class ElectricityBoards extends AppCompatActivity {
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                "https://genieservice.in/api/service/getElectricity",
+                "https://genieservice.in/api/service/getCrowdfinch_Electricity",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -159,14 +160,16 @@ public class ElectricityBoards extends AppCompatActivity {
                                         String electricity_board_id = "", electricity_board_name = "", electricity_board_code="", electricity_board_type = "";
                                         JSONObject o = array.getJSONObject(i);
 
-                                        electricity_board_id = o.getString("id");
+                                   //     electricity_board_id = o.getString("id");
                                         electricity_board_name = o.getString("operator_name");
 
                                         electricity_board_code = o.getString("operator_code");
-                                        electricity_board_type = o.getString("service_type");
+                                     //   electricity_board_type = o.getString("service_type");
+
+                                        RegPrefManager.getInstance(ElectricityBoards.this).setElectricityOperator(electricity_board_name,electricity_board_code);
 
                                         ElectricityBoardModel item = new ElectricityBoardModel(
-                                                electricity_board_id,electricity_board_name, electricity_board_code, electricity_board_type);
+                                                electricity_board_name, electricity_board_code);
 
 
                                         electricityBoardModels.add(item);
@@ -174,8 +177,8 @@ public class ElectricityBoards extends AppCompatActivity {
                                     }
                                 }
                                 else {
-                                /*Toast.makeText(getApplicationContext(), "No Data Found",
-                                        Toast.LENGTH_LONG).show();*/
+                                Toast.makeText(getApplicationContext(), "No Data Found",
+                                        Toast.LENGTH_LONG).show();
                                     electricity_board_recyclerview.setVisibility(View.GONE);
                                     // no_orders_text.setVisibility(View.VISIBLE);
                                 }

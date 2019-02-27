@@ -128,7 +128,7 @@ public class OTPActivity extends AppCompatActivity {
         alert.show();
     }
 
-  /*  private BroadcastReceiver receiver = new BroadcastReceiver() {
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equalsIgnoreCase("otp")) {
@@ -138,9 +138,9 @@ public class OTPActivity extends AppCompatActivity {
                 otpEd.setText(message);
             }
         }
-    };*/
+    };
 
-   /* private  boolean checkAndRequestPermissions() {
+    private  boolean checkAndRequestPermissions() {
         int permissionSendMessage = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS);
         int receiveSMS = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
@@ -162,10 +162,10 @@ public class OTPActivity extends AppCompatActivity {
             return false;
         }
         return true;
-    }*/
+    }
 
 
-  /*  @Override
+     @Override
     public void onResume() {
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("otp"));
         super.onResume();
@@ -175,7 +175,7 @@ public class OTPActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
-    }*/
+    }
     private class AsynVerifyOtp extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
         String success = null;

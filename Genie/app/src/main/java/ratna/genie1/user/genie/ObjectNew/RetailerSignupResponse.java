@@ -44,4 +44,15 @@ public class RetailerSignupResponse {
     private int user_id;
     @SerializedName("phone")
     private String phone;
+
+    public String getErrors() {
+        return errors;
+    }
+
+    public void setErrors(String errors) {
+        this.errors = errors;
+    }
+
+    @SerializedName("errors")
+    private String errors;
 }

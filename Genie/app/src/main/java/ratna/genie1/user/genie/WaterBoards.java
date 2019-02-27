@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ratna.genie1.user.genie.Model.WaterBoardModel;
+import ratna.genie1.user.genie.helper.RegPrefManager;
 
 public class WaterBoards extends AppCompatActivity {
     Toolbar toolbar;
@@ -162,6 +163,7 @@ public class WaterBoards extends AppCompatActivity {
 
                                         water_board_code = o.getString("operator_code");
                                         water_board_type = o.getString("service_type");
+                                        RegPrefManager.getInstance(WaterBoards.this).setWaterBoard(water_board_name,water_board_code);
 
                                         WaterBoardModel item = new WaterBoardModel(
                                                 water_board_id,water_board_name, water_board_code, water_board_type);

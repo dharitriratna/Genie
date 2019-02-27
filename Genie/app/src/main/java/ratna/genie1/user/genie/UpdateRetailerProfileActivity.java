@@ -314,6 +314,17 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
     }
 
 
+    private String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader loader = new CursorLoader(this, contentUri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String result = cursor.getString(column_index);
+        cursor.close();
+        return result;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
@@ -432,7 +443,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
         //  RequestBody useridBody = RequestBody.create(MediaType.parse("text/plain"), EmailId);
         RequestBody emailBody = RequestBody.create(MediaType.parse("text/plain"), EmailId);
         RequestBody phoneNumberBody = RequestBody.create(MediaType.parse("text/plain"), phoneNumber);
-        RequestBody fseuseridBody = RequestBody.create(MediaType.parse("text/plain"), login_user);
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), login_user);
         RequestBody businessnameBody = RequestBody.create(MediaType.parse("text/plain"), retailerBusinessName);
         RequestBody retailsubtypeBody = RequestBody.create(MediaType.parse("text/plain"), retailerSubType);
         RequestBody addressproofBody = RequestBody.create(MediaType.parse("text/plain"), userAddressProof);
@@ -447,7 +458,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
         // pDialog.show();
         //creating a call and calling the upload image method
         Call<RetailerUpdateResponse> call = apiService.updateRetailerResponse(fileToUpload1,fileToUpload2,fileToUpload3,
-                firstnameBody,emailBody,phoneNumberBody,fseuseridBody,businessnameBody,retailsubtypeBody,addressproofBody,
+                firstnameBody,emailBody,phoneNumberBody,user_id,businessnameBody,retailsubtypeBody,addressproofBody,
                 line1Body,cityBody,pinBody,stateBody,countryBody);
         call.enqueue(new Callback<RetailerUpdateResponse>() {
             @Override
@@ -456,6 +467,12 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
                 if(status==true){
                     String msg=response.body().getMessage();
                     Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+                    finish();
+
+                    String user_email = response.body().getData().getEmail();
+                    String user_name = response.body().getData().getFirst_name();
+                    String user_phone = response.body().getData().getPhone();
+                    String username = response.body().getData().getUsername();
 
                   /*  int retailer_user_id=response.body().getUser_id();
 
@@ -483,16 +500,7 @@ public class UpdateRetailerProfileActivity extends AppCompatActivity {
     }
 
 
-    private String getRealPathFromURI(Uri contentUri) {
-        String[] proj = {MediaStore.Images.Media.DATA};
-        CursorLoader loader = new CursorLoader(this, contentUri, proj, null, null, null);
-        Cursor cursor = loader.loadInBackground();
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        String result = cursor.getString(column_index);
-        cursor.close();
-        return result;
-    }
+
 
 
 

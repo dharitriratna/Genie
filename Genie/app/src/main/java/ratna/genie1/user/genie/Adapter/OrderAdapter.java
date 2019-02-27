@@ -39,14 +39,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public void onBindViewHolder(OrderAdapter.ViewHolder holder, int position) {
         AllOrdersResponse.allOrdersArrayListResponse listItem = ordersArrayListResponses.get(position);
 
-        holder.name.setText(listItem.getFirst_name());
+        holder.name.setText(listItem.getRecharge_no());
         holder.service_name.setText(listItem.getServiceName());
         holder.transactiondate.setText(listItem.getTransactionDate());
         holder.orderstatus.setText(listItem.getStatus());
         holder.amount.setText(context.getResources().getString(ratna.genie1.user.genie.R.string.rupee)+listItem.getAmount());
-        holder.errorMessage.setText(listItem.getErrorMessage());
-        holder.operatorRef.setText(listItem.getOperatorRef());
-        holder.rechargeno.setText(listItem.getRecharge_no());
+     //   holder.errorMessage.setText(listItem.getErrorMessage());
+       // holder.operatorRef.setText(listItem.getOperatorRef());
+      //  holder.rechargeno.setText(listItem.getRecharge_no());
         holder.itemname.setText(listItem.getItem_name());
         holder.quantity.setText(listItem.getQuantity());
         holder.unit.setText(listItem.getUnit());
@@ -54,7 +54,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         holder.subtotal.setText(listItem.getSubtotal());
         holder.taxamount.setText(listItem.getTax_amount());
         holder.serviceorderid.setText(listItem.getService_order_id());
-
+        holder.transactionId.setText("Transaction ID = " + listItem.getApiTransID());
 
     }
 
@@ -66,7 +66,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView id,name,service_name,transactiondate,orderstatus,amount,errorMessage,
-                operatorRef,rechargeno,itemname,quantity,unit,price,subtotal,taxamount,serviceorderid;
+                operatorRef,rechargeno,itemname,quantity,unit,price,subtotal,taxamount,serviceorderid,transactionId;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -76,8 +76,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             transactiondate = itemView.findViewById(ratna.genie1.user.genie.R.id.transactiondate);
             orderstatus = itemView.findViewById(ratna.genie1.user.genie.R.id.orderstatus);
             amount = itemView.findViewById(ratna.genie1.user.genie.R.id.amount);
-            errorMessage = itemView.findViewById(ratna.genie1.user.genie.R.id.errorMessage);
-            operatorRef = itemView.findViewById(ratna.genie1.user.genie.R.id.operatorRef);
+            /*errorMessage = itemView.findViewById(ratna.genie1.user.genie.R.id.errorMessage);
+            operatorRef = itemView.findViewById(ratna.genie1.user.genie.R.id.operatorRef);*/
             rechargeno = itemView.findViewById(ratna.genie1.user.genie.R.id.rechargeno);
             itemname = itemView.findViewById(ratna.genie1.user.genie.R.id.itemname);
             quantity = itemView.findViewById(ratna.genie1.user.genie.R.id.quantity);
@@ -86,6 +86,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             subtotal = itemView.findViewById(ratna.genie1.user.genie.R.id.subtotal);
             taxamount = itemView.findViewById(ratna.genie1.user.genie.R.id.taxamount);
             serviceorderid = itemView.findViewById(ratna.genie1.user.genie.R.id.serviceorderid);
+            transactionId = itemView.findViewById(ratna.genie1.user.genie.R.id.transactionId);
 
         }
     }

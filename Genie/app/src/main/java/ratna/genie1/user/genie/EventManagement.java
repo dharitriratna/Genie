@@ -246,4 +246,26 @@ public class EventManagement extends AppCompatActivity implements ViewPagerEx.On
         requestQueue.add(stringRequest);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (groupId.equals("4")){
+            startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+            finish();
+        }
+        else if (groupId.equals("5")){
+            startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+            finish();
+        }
+        else if (groupId.equals("3")){
+            startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+            finish();
+        }
+        else if (groupId.equals("2")){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            finish();
+        }
+        //  return;
+    }
+
 }

@@ -51,6 +51,7 @@ public class SurprisePlanner extends AppCompatActivity {
     String login_user="";
     String giftId, giftName, giftPrice, giftImage;
     String demo;
+    String groupId;
 
     String toName, senderName, toNumber, senderNo, entry_date,  entry_time, toAddress, fromAddress;
 
@@ -62,10 +63,27 @@ public class SurprisePlanner extends AppCompatActivity {
         setContentView(R.layout.activity_surprise_planner);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(SurprisePlanner.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
+              //  onBackPressed();
             }
         });
 
@@ -227,5 +245,26 @@ public class SurprisePlanner extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (groupId.equals("4")){
+            startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+            finish();
+        }
+        else if (groupId.equals("5")){
+            startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+            finish();
+        }
+        else if (groupId.equals("3")){
+            startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+            finish();
+        }
+        else if (groupId.equals("2")){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            finish();
+        }
+        //  return;
+    }
 
 }

@@ -19,7 +19,7 @@
             android:id="@+id/order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DataCard Circle"
+            android:text="Circle"
             android:textSize="18sp"
             android:textAllCaps="false"
             android:layout_gravity="center"

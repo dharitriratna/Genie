@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import ratna.genie1.user.genie.DTHRecharge;
 import ratna.genie1.user.genie.MobileRecharge;
+import ratna.genie1.user.genie.Model.DTHOperatorCircleModel;
 import ratna.genie1.user.genie.Model.MobileOperatorCircleModel;
 import ratna.genie1.user.genie.R;
 import ratna.genie1.user.genie.helper.RegPrefManager;
@@ -19,10 +20,10 @@ import java.util.List;
 
 public class DTHOperatorCircleAdapter extends RecyclerView.Adapter<DTHOperatorCircleAdapter.ViewHolder> {
 
-    private List<MobileOperatorCircleModel> operatorCircleModels;
+    private List<DTHOperatorCircleModel> operatorCircleModels;
     private Context context;
 
-    public DTHOperatorCircleAdapter(List<MobileOperatorCircleModel> operatorCircleModels, Context context) {
+    public DTHOperatorCircleAdapter(List<DTHOperatorCircleModel> operatorCircleModels, Context context) {
         this.operatorCircleModels = operatorCircleModels;
         this.context = context;
     }
@@ -36,7 +37,7 @@ public class DTHOperatorCircleAdapter extends RecyclerView.Adapter<DTHOperatorCi
     @Override
 
     public void onBindViewHolder(DTHOperatorCircleAdapter.ViewHolder holder, int position) {
-       final MobileOperatorCircleModel listItem = operatorCircleModels.get(position);
+       final DTHOperatorCircleModel listItem = operatorCircleModels.get(position);
 
         holder.operator_circle_id.setText(listItem.getOperator_circle_id());
         holder.operator_circle_name.setText(listItem.getOperator_circle_name());
@@ -72,7 +73,7 @@ public class DTHOperatorCircleAdapter extends RecyclerView.Adapter<DTHOperatorCi
         }
     }
 
-    public void filterList(ArrayList<MobileOperatorCircleModel> filterdNames) {
+    public void filterList(ArrayList<DTHOperatorCircleModel> filterdNames) {
         this.operatorCircleModels = filterdNames;
         notifyDataSetChanged();
     }

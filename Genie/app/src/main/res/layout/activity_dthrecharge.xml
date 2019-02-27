@@ -103,6 +103,7 @@
             tools:ignore="RtlCompat" />
 
         <TextView
+            android:visibility="visible"
             android:id="@+id/circle"
             android:layout_weight="1"
             android:layout_width="match_parent"

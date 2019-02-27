@@ -47,10 +47,11 @@ public class ElectricityBoardsAdapter extends RecyclerView.Adapter<ElectricityBo
     public void onBindViewHolder(ElectricityBoardsAdapter.ViewHolder holder, int position) {
        final ElectricityBoardModel listItem = electricityBoardModels.get(position);
 
-        holder.mob_operator_id.setText(listItem.getElectricity_board_id());
+       // holder.mob_operator_id.setText(listItem.getElectricity_board_id());
         holder.operator_name.setText(listItem.getElectricity_board_name());
         holder.operator_code.setText(listItem.getElectricity_board_code());
-        holder.service_type.setText(listItem.getElectricity_board_type());
+     //   holder.service_type.setText(listItem.getElectricity_board_type());
+        holder.service_type.setVisibility(View.GONE);
 
         holder.operator_name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +82,7 @@ public class ElectricityBoardsAdapter extends RecyclerView.Adapter<ElectricityBo
             operator_name = itemView.findViewById(ratna.genie1.user.genie.R.id.operator_name);
             service_type = itemView.findViewById(ratna.genie1.user.genie.R.id.service_type);
             operator_code = itemView.findViewById(ratna.genie1.user.genie.R.id.operator_code);
+
 
         }
     }

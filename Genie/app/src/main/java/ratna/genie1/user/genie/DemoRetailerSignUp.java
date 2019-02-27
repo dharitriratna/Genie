@@ -236,8 +236,11 @@ public class DemoRetailerSignUp extends AppCompatActivity {
 
                 if (ownerName.length() < 1) {
                     ownername.setError("Please Enter Owner Name");
-                } else if (phoneNumber.length() < 1) {
+                } else if (phoneNumber.length() < 10) {
                     phone_no.setError("Please Enter Phone no");
+                   /* if (phone_no.length()>=10){
+                        Toast.makeText(DemoRetailerSignUp.this, "Please Enter Valid No", Toast.LENGTH_SHORT).show();
+                    }*/
                 } else if (EmailId.length() < 1) {
                     emailId.setError("Please Enter Email");
                 }
@@ -629,11 +632,15 @@ public class DemoRetailerSignUp extends AppCompatActivity {
         call.enqueue(new Callback<RetailerSignupResponse>() {
             @Override
             public void onResponse(Call<RetailerSignupResponse> call, Response<RetailerSignupResponse> response) {
+                try{
                 progressDialog.dismiss();
                 boolean status = response.body().isStatus();
+
                 if (status == true) {
-                    Toast.makeText(DemoRetailerSignUp.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                    String message = response.body().getMessage();
+                    Toast.makeText(DemoRetailerSignUp.this, message, Toast.LENGTH_SHORT).show();
                     int fseretaileruserId = response.body().getUser_id();
+                    String fseretailphone = response.body().getPhone();
                     RegPrefManager.getInstance(DemoRetailerSignUp.this).setRetailerUserId(String.valueOf(fseretaileruserId));
                     startActivity(new Intent(DemoRetailerSignUp.this, FSERegisterPaymentActivity.class));
                     finish();
@@ -643,18 +650,33 @@ public class DemoRetailerSignUp extends AppCompatActivity {
                     // String user_phone = response.body().getPhone();
                     //RegPrefManager.getInstance(FSESignupActivity.this).setPhoneNo(user_phone);
 
-                } else {
-                    String message1 = response.body().getMessage();
-                    Toast.makeText(DemoRetailerSignUp.this, message1, Toast.LENGTH_SHORT).show();
+                } else if(status == false) {
+                    String errorMessage = response.body().getMessage();
+                    String errors = response.body().getErrors();
+                    Toast.makeText(DemoRetailerSignUp.this, errors, Toast.LENGTH_SHORT).show();
 
                 }
+
+                else {
+                    String errorMessage1 = response.body().getMessage();
+                    String errors = response.body().getErrors();
+                    Toast.makeText(DemoRetailerSignUp.this, errors, Toast.LENGTH_SHORT).show();
+                }
+
+            }catch (Exception e){
+                    Toast.makeText(DemoRetailerSignUp.this, "Registration Fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DemoRetailerSignUp.this, "Phone number or email should be unique", Toast.LENGTH_SHORT).show();                }
             }
 
             @Override
             public void onFailure(Call<RetailerSignupResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(DemoRetailerSignUp.this, "Registration Failed ! Try Again", Toast.LENGTH_SHORT).show();
-
+                String message = t.getMessage();
+                Throwable errors = t.getCause();
+                Toast.makeText(DemoRetailerSignUp.this, message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(DemoRetailerSignUp.this, "Registration Successfull", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(DemoRetailerSignUp.this, FSERegisterPaymentActivity.class));
+                finish();
             }
         });
     }

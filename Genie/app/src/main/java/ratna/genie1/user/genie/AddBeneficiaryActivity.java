@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -57,6 +58,10 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
     String  otp_name;
     private boolean flag;
     Dialog dialog;
+    String groupId;
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
+    String login_user="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +74,43 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
         progressDialog =new ProgressDialog(this);
         alertDialog=new AlertDialog.Builder(this);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        groupId = RegPrefManager.getInstance(AddBeneficiaryActivity.this).getUserGroup();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddBeneficiaryActivity.this,RemiterDetailsActivity.class));
+               // startActivity(new Intent(AddBeneficiaryActivity.this,RemiterDetailsActivity.class));
+                if (groupId.equals("4")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                    finish();
+                }
+                else if (groupId.equals("5")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity3.class));
+                    finish();
+                }
+                else if (groupId.equals("3")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity4.class));
+                    finish();
+                }
+                else if (groupId.equals("2")){
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
                 finish();
             }
         });
+
+
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor1 = sharedpreferences.edit();
+        login_user=sharedpreferences.getString("FLAG", "");
+        editor1.commit(); // commit changes
+
+
+        Log.d("login_user", login_user);
+
+
         registerBtn=findViewById(R.id.registerBtn);
         nameTv=findViewById(R.id.nameTv);
         phoneTv=findViewById(R.id.phoneTv);
@@ -127,11 +162,12 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
         String remittid= RegPrefManager.getInstance(this).getRemitterId();
 
 
-        Call<BeneficiaryRegisterResponse> call=apiService.postBeneficiaryRegister(remittid,nameTv.getText().toString(),
+        Call<BeneficiaryRegisterResponse> call=apiService.postBeneficiaryRegister(login_user,remittid,nameTv.getText().toString(),
                 phoneTv.getText().toString(),ifscTv.getText().toString(),accontTv.getText().toString());
         call.enqueue(new Callback<BeneficiaryRegisterResponse>() {
             @Override
             public void onResponse(Call<BeneficiaryRegisterResponse> call, Response<BeneficiaryRegisterResponse> response) {
+                try{
                 progressDialog.dismiss();
                 boolean status=response.body().isStatus();
                 if(status==true){
@@ -139,12 +175,16 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
                     String beneficiaryid=response.body().getData().getData().getBeneficiary().getId();
                     RegPrefManager.getInstance(AddBeneficiaryActivity.this).setRemitterId(remitterid);
                     RegPrefManager.getInstance(AddBeneficiaryActivity.this).setBeneficaryId(beneficiaryid);
+                  //  startActivity(new Intent(AddBeneficiaryActivity.this,RemiterDetailsActivity.class));
                     DialogShow(); // show dialog
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Sever is slow.Please Try Again bit later..",Toast.LENGTH_LONG).show();
                 }
 
+            }catch (Exception e){
+                e.printStackTrace();
+                }
             }
 
             @Override
@@ -222,8 +262,8 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
             if (intent.getAction().equalsIgnoreCase("otp")) {
                 final String message = intent.getStringExtra("message");
                 otp_name=message;
-                otp_name=otp_name.replaceAll("[^0-9]","");
-                otpTv.setText(otp_name);
+              //  otp_name=otp_name.replaceAll("[^0-6]","");
+              //  otpTv.setText(otp_name);
                 Log.d("TagOTP",otp_name);
             }
         }
@@ -282,7 +322,7 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
         String remittid= RegPrefManager.getInstance(this).getRemitterId();
         String benificiaryid=RegPrefManager.getInstance(this).getBeneficaryId();
         if(benificiaryid!=null){
-            Call<ResendOTPResponse> call=apiService.postResendOTP(remittid,benificiaryid);
+            Call<ResendOTPResponse> call=apiService.postResendOTP(login_user,remittid,benificiaryid);
             call.enqueue(new Callback<ResendOTPResponse>() {
                 @Override
                 public void onResponse(Call<ResendOTPResponse> call, Response<ResendOTPResponse> response) {
@@ -307,7 +347,7 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
         progressDialog.show();
         final String remittid= RegPrefManager.getInstance(this).getRemitterId();
         String benificiaryid=RegPrefManager.getInstance(this).getBeneficaryId();
-        Call<BeneficiaryValidateResponse> call=apiService.postBeneficiaryValidate(remittid,benificiaryid,otp_name);
+        Call<BeneficiaryValidateResponse> call=apiService.postBeneficiaryValidate(login_user,remittid,benificiaryid,otp_name);
 
         call.enqueue(new Callback<BeneficiaryValidateResponse>() {
             @Override

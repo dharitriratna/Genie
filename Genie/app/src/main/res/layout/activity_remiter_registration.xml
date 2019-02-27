@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context="com.genie1.user.genie.RemiterRegistrationActivity">
+    android:background="@drawable/background">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -75,6 +74,26 @@
             android:lines="1"
             android:background="@drawable/edittext_top_bg"
             tools:ignore="RtlCompat" />
+
+        <EditText
+            android:id="@+id/surnameTv"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cursorVisible="true"
+            android:textAlignment="viewStart"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="3dp"
+            android:hint="Surname"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:inputType="textPersonName"
+            android:singleLine="true"
+            android:padding="10dp"
+            android:lines="1"
+            android:background="@drawable/edittext_top_bg"
+            tools:ignore="RtlCompat" />
+
         <EditText
             android:id="@+id/pincodeTv"
             android:layout_weight="1"
@@ -84,7 +103,7 @@
             android:textAlignment="viewStart"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="3dp"
-            android:hint="PinCode"
+            android:hint="Pincode"
             android:textSize="16sp"
             android:textColor="@color/colorPrimaryDark"
             android:inputType="number"

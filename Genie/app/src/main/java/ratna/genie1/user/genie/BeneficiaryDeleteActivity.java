@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -63,6 +64,9 @@ public class BeneficiaryDeleteActivity extends AppCompatActivity implements View
     private String otp_name;
     private boolean flag;
     Dialog dialog;
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
+    String login_user="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +86,15 @@ public class BeneficiaryDeleteActivity extends AppCompatActivity implements View
         });
         checkAndRequestPermissions();
 
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor1 = sharedpreferences.edit();
+        login_user=sharedpreferences.getString("FLAG", "");
+        editor1.commit(); // commit changes
+
+
+        Log.d("login_user", login_user);
 
 
         intialize();
@@ -165,7 +178,6 @@ public class BeneficiaryDeleteActivity extends AppCompatActivity implements View
         nameTv.setText("Name: "+beneName);
         mobileTv.setText("Mobile: "+beneMobile);
         lastAccessTv.setText("Last Access: "+beneLastAccess);
-
     }
 
     @Override
@@ -178,10 +190,10 @@ public class BeneficiaryDeleteActivity extends AppCompatActivity implements View
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equalsIgnoreCase("otp")) {
                 final String message = intent.getStringExtra("message");
-                otp_name=message;
+               /* otp_name=message;
                 otp_name=otp_name.replaceAll("[^0-9]","");
                 otpTv.setText(otp_name);
-                Log.d("TagOTP",otp_name);
+                Log.d("TagOTP",otp_name);*/
             }
         }
     };
@@ -226,7 +238,7 @@ public class BeneficiaryDeleteActivity extends AppCompatActivity implements View
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        Call<BeneficiaryDeleteResponse> call=apiService.postBeneficiaryDelete(remitterId,beneID);
+        Call<BeneficiaryDeleteResponse> call=apiService.postBeneficiaryDelete(login_user,remitterId,beneID);
         call.enqueue(new Callback<BeneficiaryDeleteResponse>() {
             @Override
             public void onResponse(Call<BeneficiaryDeleteResponse> call, Response<BeneficiaryDeleteResponse> response) {
@@ -239,7 +251,6 @@ public class BeneficiaryDeleteActivity extends AppCompatActivity implements View
                 else {
                     Toast.makeText(getApplicationContext(),"Try again After Sometimes.",Toast.LENGTH_LONG).show();
                 }
-
             }
 
             @Override
@@ -255,7 +266,9 @@ public class BeneficiaryDeleteActivity extends AppCompatActivity implements View
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        Call<BeneficiaryDeleteValidateResponse> call=apiService.postBeneficiaryDeleteValidate(remitterId,beneID,otp_name);
+        otp_name = otpTv.getText().toString().trim();
+
+        Call<BeneficiaryDeleteValidateResponse> call=apiService.postBeneficiaryDeleteValidate(login_user,remitterId,beneID,otp_name);
 
         call.enqueue(new Callback<BeneficiaryDeleteValidateResponse>() {
             @Override

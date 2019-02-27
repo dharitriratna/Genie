@@ -157,7 +157,7 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
         tittlespinner.setAdapter(aaa);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -252,7 +252,7 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
             Log.d("Tag","fils");
         }
     }
-    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void networkService() {
         String name = nameTv.getText().toString();
         String number = numberTv.getText().toString();
@@ -332,11 +332,11 @@ public class JobActivity extends AppCompatActivity implements View.OnClickListen
      * @param uri The Uri to query.
      * @author paulburke
      */
-    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static String getPath(final Context context, final Uri uri) {
 
 
-        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
+        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
 
         // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {

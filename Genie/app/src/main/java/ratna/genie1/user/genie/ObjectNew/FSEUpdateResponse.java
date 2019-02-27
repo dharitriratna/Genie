@@ -3,8 +3,13 @@ package ratna.genie1.user.genie.ObjectNew;
 import com.google.gson.annotations.SerializedName;
 
 public class FSEUpdateResponse {
+
     @SerializedName("status")
     private boolean status;
+    @SerializedName("message")
+    private String message;
+    @SerializedName("data")
+    private Data data;
 
     public boolean isStatus() {
         return status;
@@ -22,26 +27,57 @@ public class FSEUpdateResponse {
         this.message = message;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public Data getData() {
+        return data;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setData(Data data) {
+        this.data = data;
     }
 
-    public String getPhone() {
-        return phone;
-    }
+    public class Data{
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
-    @SerializedName("message")
-    private String message;
-    @SerializedName("user_id")
-    private int user_id;
+        public String getFirst_name() {
+            return first_name;
+        }
+
+        public void setFirst_name(String first_name) {
+            this.first_name = first_name;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        @SerializedName("first_name")
+    private String first_name;
     @SerializedName("phone")
     private String phone;
+    @SerializedName("email")
+    private String email;
+    @SerializedName("username")
+    private String username;
+
+    }
 }

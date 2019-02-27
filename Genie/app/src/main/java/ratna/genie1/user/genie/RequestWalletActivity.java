@@ -55,7 +55,7 @@ public class RequestWalletActivity extends AppCompatActivity {
     private SimpleDateFormat dateFormatter;
     String Date_;
     TextView dept_date;
-    EditText payment_method;
+    TextView payment_method;
 
 
     @Override

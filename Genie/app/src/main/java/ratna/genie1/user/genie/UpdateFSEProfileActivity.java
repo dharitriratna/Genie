@@ -217,34 +217,10 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
                 userState=user_state.getText().toString().trim();
                 userCountry=user_country.getText().toString().trim();
 
-                if (userName.length() < 1){
-                    candidatefsename.setError("Please Enter Your Name");
-                }
-                else if (phoneNumber.length() < 1){
-                    phone_no.setError("Please Enter Your Phone No.");
-                }
-                else if (EmailId.length() < 1){
-                    email.setError("Please Enter Your Email");
-                }
-                else if (userAddress.length() < 1){
-                    user_address.setError("Please Enter Your Address");
-                }
-                else if (userCity.length() < 1){
-                    user_city.setError("Please Enter Your City");
-                }
-                else if (userPin.length() < 1){
-                    user_pin.setError("Please Enter Your Pin");
-                }
-                else if (userState.length() < 1){
-                    user_state.setError("Please Enter Your State");
-                }
-                else if (userCountry.length() < 1){
-                    user_country.setError("Please Enter Your Country");
-                }
-                else {
+
                    // new AsyncUpdate().execute();
                     getUpdateResponse();
-                }
+
             }
         });
 
@@ -253,9 +229,9 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                /* Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(i, 1);*/
-                userImage=true;
-                frontImage=false;
-                backImage=false;
+                userImage = true;
+                frontImage = false;
+                backImage = false;
                 final CharSequence[] options_array = {"Camera", "Gallery"};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(UpdateFSEProfileActivity.this);
@@ -278,12 +254,13 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
             }
         });
 
+
         frontframe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userImage=false;
-                frontImage=true;
-                backImage=false;
+                userImage = false;
+                frontImage = true;
+                backImage = false;
                 final CharSequence[] options_array = {"Camera", "Gallery"};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(UpdateFSEProfileActivity.this);
@@ -309,9 +286,9 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
         backframe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userImage=false;
-                frontImage=false;
-                backImage=true;
+                userImage = false;
+                frontImage = false;
+                backImage = true;
                 final CharSequence[] options_array = {"Camera", "Gallery"};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(UpdateFSEProfileActivity.this);
@@ -335,8 +312,7 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
         });
     }
 
-
-    private String getRealPathFromURI(Uri contentUri) {
+   /* private String getRealPathFromURI(Uri contentUri) {
         String[] proj = {MediaStore.Images.Media.DATA};
         CursorLoader loader = new CursorLoader(this, contentUri, proj, null, null, null);
         Cursor cursor = loader.loadInBackground();
@@ -345,7 +321,7 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
         String result = cursor.getString(column_index);
         cursor.close();
         return result;
-    }
+    }*/
 
 
     @Override
@@ -364,49 +340,45 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
             //  RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
 
             //  file=new File(imagefilePath);
-            if(userImage==true){
-                imageUri1=imageUri;
-                UserFilePath=imagefilePath;
+            if (userImage == true) {
+                imageUri1 = imageUri;
+                UserFilePath = imagefilePath;
                 candidate_photo.setImageURI(imageUri);
                 addImg.setVisibility(View.GONE);
 
                 file = new File(UserFilePath);
-            }
-            else if(frontImage==true){
-                imageUri2=imageUri;
-                FrontFilePath=imagefilePath;
+            } else if (frontImage == true) {
+                imageUri2 = imageUri;
+                FrontFilePath = imagefilePath;
                 front_photo.setImageURI(imageUri);
                 frontImg.setVisibility(View.GONE);
 
                 file1 = new File(FrontFilePath);
-            }
-            else if (backImage==true){
-                imageUri3=imageUri;
-                BackFilePath=imagefilePath;
+            } else if (backImage == true) {
+                imageUri3 = imageUri;
+                BackFilePath = imagefilePath;
                 back_photo.setImageURI(imageUri);
                 backImg.setVisibility(View.GONE);
 
                 file2 = new File(BackFilePath);
             }
-            Log.d("imagefilePath",imagefilePath);
+            Log.d("imagefilePath", imagefilePath);
 
-        }
-        else if(requestCode == CAMERA_REQUEST && resultCode == RESULT_OK)
-        {
-            bitmap = (Bitmap)data.getExtras().get("data");
+        } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            bitmap = (Bitmap) data.getExtras().get("data");
             //set_image.setImageBitmap(bitmap);
 
-            imageUri= getImageUri(this,bitmap);
+            imageUri = getImageUri(this, bitmap);
             imagefilePath = getPath(imageUri);
 
             //String imageProfile=imageUri.toString();
             //RegPrefManager.getInstance(UpdateProfile.this).setUpdateProfileImage(imageProfile);
 
-            Log.d("Tag","imagefilePath==================> "+imagefilePath);
+            Log.d("Tag", "imagefilePath==================> " + imagefilePath);
             //  file=new File(imagefilePath);  // getting image captured filepath  < ----------------------------------------
             //  if(userImage!=null){
             if (userImage == true) {
-                imageUri1=imageUri;
+                imageUri1 = imageUri;
                 UserFilePath = imagefilePath;
                 candidate_photo.setImageBitmap(bitmap);
                 addImg.setVisibility(View.GONE);
@@ -416,7 +388,7 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
             }
             //  if(frontImage!=null){
             else if (frontImage == true) {
-                imageUri2=imageUri;
+                imageUri2 = imageUri;
                 FrontFilePath = imagefilePath;
                 front_photo.setImageBitmap(bitmap);
                 frontImg.setVisibility(View.GONE);
@@ -426,8 +398,8 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
                 //   }
             }
             //   if(backImage!=null) {
-            else     if (backImage == true) {
-                imageUri3=imageUri;
+            else if (backImage == true) {
+                imageUri3 = imageUri;
                 BackFilePath = imagefilePath;
                 back_photo.setImageBitmap(bitmap);
                 backImg.setVisibility(View.GONE);
@@ -439,6 +411,7 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
 
 
     }
+
 
 
     private void getProfileDetails() {
@@ -488,11 +461,15 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
                                         .load(frontphoto)
                                         .into(front_photo);
 
+                                file1 = new File(frontphoto);
+
 
                                 Picasso.with(getApplicationContext())
                                         .load(backphoto)
 
                                         .into(back_photo);
+
+                                file2 = new File(backphoto);
 
 
                               /*  full_name.setText(name);
@@ -543,9 +520,9 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
     private void  getUpdateResponse(){
 
         //creating a file
-        File file1 = new File(getRealPathFromURI(imageUri1));
-        File file2=new File(getRealPathFromURI(imageUri2));
-        File file3=new File (getRealPathFromURI(imageUri3));
+        File file1 = new File(UserFilePath);
+        File file2=new File(FrontFilePath);
+        File file3=new File (BackFilePath);
 
         //creating request body for file
         RequestBody mFile1 = RequestBody.create(MediaType.parse("image/jpeg"), file1);
@@ -563,7 +540,7 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
         //  RequestBody useridBody = RequestBody.create(MediaType.parse("text/plain"), EmailId);
         RequestBody emailBody = RequestBody.create(MediaType.parse("text/plain"), EmailId);
         RequestBody phoneNumberBody = RequestBody.create(MediaType.parse("text/plain"), phoneNumber);
-        RequestBody distributoruseridBody = RequestBody.create(MediaType.parse("text/plain"), login_user);
+        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), login_user);
         RequestBody saleexperienceBody = RequestBody.create(MediaType.parse("text/plain"), experience_rb);
         RequestBody jobtypeBody = RequestBody.create(MediaType.parse("text/plain"), workculture_rb);
         RequestBody addressproofBody = RequestBody.create(MediaType.parse("text/plain"), userAddressProof);
@@ -578,7 +555,7 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
         // pDialog.show();
         //creating a call and calling the upload image method
         Call<FSEUpdateResponse> call = apiService.updateFSEResponse(fileToUpload1,fileToUpload2,fileToUpload3,
-                firstnameBody,emailBody,phoneNumberBody,distributoruseridBody,saleexperienceBody,jobtypeBody,addressproofBody,
+                firstnameBody,emailBody,phoneNumberBody,userId,saleexperienceBody,jobtypeBody,addressproofBody,
                 line1Body,cityBody,pinBody,stateBody,countryBody);
         call.enqueue(new Callback<FSEUpdateResponse>() {
             @Override
@@ -588,6 +565,12 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
                     String msg=response.body().getMessage();
                     Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
 
+
+                  /*  String user_email = response.body().getData().getEmail();
+                    String user_name = response.body().getData().getFirst_name();
+                    String user_phone = response.body().getData().getPhone();
+                    String username = response.body().getData().getUsername();
+*/
                  /*   int fse_user_id=response.body().getUser_id();
 
                     RegPrefManager.getInstance(UpdateFSEProfileActivity.this).setFseUserId(String.valueOf(fse_user_id));
@@ -613,10 +596,6 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
 
     private String getPath(Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };//,Video,Audio
@@ -669,6 +648,10 @@ public class UpdateFSEProfileActivity extends AppCompatActivity {
             }
         }
     }
+
+
+
+
 
 
 }

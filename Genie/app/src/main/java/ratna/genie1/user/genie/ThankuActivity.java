@@ -106,7 +106,7 @@ public class ThankuActivity extends AppCompatActivity {
                 dateAndtime.setText("Date and Time is: "+RegPrefManager.getInstance(ThankuActivity.this).getDateAndTime());
 
             }
-            successTv.setText("Success!!!");
+            successTv.setText("Success!");
         }
         else if (back.equals("MobileRecharge")){
             if(id!=null) {
@@ -117,7 +117,17 @@ public class ThankuActivity extends AppCompatActivity {
 
 
             }
-            successTv.setText("Success!!!");
+            successTv.setText("Success!");
+        }
+
+        else if (back.equals("MONEYTRANSFER")){
+            if (id!=null){
+                transactionTV.setVisibility(View.VISIBLE);
+                transactionTV.setText("Transation id is: "+RegPrefManager.getInstance(ThankuActivity.this).getSuccessID());
+                dateAndtime.setText("Date and Time : "+RegPrefManager.getInstance(ThankuActivity.this).getDateAndTime());
+            }
+            successTv.setText("Success!");
+
         }
      /*   continue_shopping.setOnClickListener(new View.OnClickListener() {
             @Override

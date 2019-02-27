@@ -70,7 +70,6 @@ public class DataCardCircleActivity extends AppCompatActivity {
                     startActivity(new Intent(DataCardCircleActivity.this,DataCardActivity.class));
                     finish();
                 }
-
             }
         });
         intialize();
@@ -86,8 +85,6 @@ public class DataCardCircleActivity extends AppCompatActivity {
         } else {
             noNetwrokErrorMessage();
         }
-
-
 
         searchEd.addTextChangedListener(new TextWatcher() {
             @Override

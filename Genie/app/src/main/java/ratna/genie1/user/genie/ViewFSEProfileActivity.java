@@ -79,8 +79,9 @@ public class ViewFSEProfileActivity extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ViewFSEProfileActivity.this,UpdateFSEProfileActivity.class));
-             //   finish();
+                startActivity(new Intent(ViewFSEProfileActivity.this,UpdateDemoFSE
+                        .class));
+                finish();
             }
         });
 

@@ -48,15 +48,13 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
 
     public void onBindViewHolder(MobileOperatorsAdapter.ViewHolder holder, int position) {
         final MobileOperatorsModel listItem = operatorsModels.get(position);
-
-
         holder.mob_operator_id.setText(listItem.getOperator_id());
         holder.operator_name.setText(listItem.getOperator_name());
         holder.operator_code.setText(listItem.getOperator_code());
 
         holder.service_type.setText(listItem.getService_type());
 
-        holder.card_view.setOnClickListener(new View.OnClickListener() {
+        holder.operator_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

@@ -22,14 +22,14 @@ public class DashboardResponse {
         this.status = status;
     }
 
-    public ArrayList<DashboardList> getData() {
+ /*   public ArrayList<DashboardList> getData() {
         return data;
     }
 
     public void setData(ArrayList<DashboardList> data) {
         this.data = data;
     }
-
+*/
     public String getMessage() {
         return message;
     }
@@ -38,8 +38,16 @@ public class DashboardResponse {
         this.message = message;
     }
 
+    public int getData() {
+        return data;
+    }
+
+    public void setData(int data) {
+        this.data = data;
+    }
+
     @SerializedName("data")
-    private ArrayList<DashboardList> data;
+    private int data;
     @SerializedName("message")
     private String message;
 

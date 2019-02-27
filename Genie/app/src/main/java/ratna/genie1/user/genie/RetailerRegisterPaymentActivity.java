@@ -60,7 +60,7 @@ public class RetailerRegisterPaymentActivity extends AppCompatActivity {
     private SimpleDateFormat dateFormatter;
     String Date_;
     TextView dept_date;
-    EditText payment_method;
+    TextView payment_method;
     String fseuserID;
     String userIdPayment;
 
@@ -133,9 +133,10 @@ public class RetailerRegisterPaymentActivity extends AppCompatActivity {
         payment_method.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final CharSequence[] options_array = {"IMPS", "BHIM UPI"};
+                final CharSequence[] options_array = {"IMPS", "BHIM UPI", "PAY LATER"};
                 final String IMPSMethod = "IMPS";
                 final String UPIMethod = "UPI";
+                final String PAYMethod = "PAY LATER";
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(RetailerRegisterPaymentActivity.this);
                 builder.setTitle("Payment Method");
@@ -146,12 +147,18 @@ public class RetailerRegisterPaymentActivity extends AppCompatActivity {
                             payment_method.setText(IMPSMethod);
                             netBankingLayout.setVisibility(View.VISIBLE);
                             upiLayout.setVisibility(View.GONE);
+                            payment_method.setText(IMPSMethod);
 
                         } else if (options_array[item].equals("BHIM UPI")) {
                             payment_method.setText(UPIMethod);
                             upiLayout.setVisibility(View.VISIBLE);
                             netBankingLayout.setVisibility(View.GONE);
+
                             //  dailog();
+                        }
+
+                        else if (options_array[item].equals("PAY LATER")){
+                            payment_method.setText(PAYMethod);
                         }
                     }
                 });
@@ -269,6 +276,7 @@ public class RetailerRegisterPaymentActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             pDialog.dismiss();
 
+            try{
             if(status.equals("true"))
             {
                 Toast.makeText(getApplicationContext(),"Sucessfully requested", Toast.LENGTH_LONG).show();
@@ -279,6 +287,10 @@ public class RetailerRegisterPaymentActivity extends AppCompatActivity {
             }
             else{
                 Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
+            }
+        }catch (Exception e){
+                Toast.makeText(RetailerRegisterPaymentActivity.this, "Some Error Occured ! Try after sometime", Toast.LENGTH_SHORT).show();
+
             }
         }
 

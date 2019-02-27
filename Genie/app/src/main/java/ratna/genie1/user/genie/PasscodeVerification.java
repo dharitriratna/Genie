@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import ratna.genie1.user.genie.helper.RegPrefManager;
 
 public class PasscodeVerification extends AppCompatActivity {
     Toolbar toolbar;
@@ -36,6 +39,7 @@ public class PasscodeVerification extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passcode_verification);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -49,6 +53,9 @@ public class PasscodeVerification extends AppCompatActivity {
         user_passcode = findViewById(R.id.passcode);
         btn_next = findViewById(R.id.btn_next);
         alertDialog=new AlertDialog.Builder(this);
+
+        user_email = RegPrefManager.getInstance(PasscodeVerification.this).getUserEmail();
+        user_mail.setText(user_email);
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override

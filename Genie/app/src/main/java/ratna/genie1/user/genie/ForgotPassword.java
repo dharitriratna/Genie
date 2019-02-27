@@ -19,6 +19,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import ratna.genie1.user.genie.helper.RegPrefManager;
+
 public class ForgotPassword extends AppCompatActivity {
     Toolbar toolbar;
     Button btn_next;
@@ -40,6 +42,9 @@ public class ForgotPassword extends AppCompatActivity {
         });
         user_mail = findViewById(R.id.user_mail);
         btn_next = findViewById(R.id.btn_next);
+
+        user_email = RegPrefManager.getInstance(ForgotPassword.this).getUserEmail();
+        user_mail.setText(user_email);
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override

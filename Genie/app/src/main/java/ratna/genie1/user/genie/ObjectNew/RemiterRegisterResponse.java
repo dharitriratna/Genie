@@ -85,5 +85,16 @@ public class RemiterRegisterResponse {
 
         @SerializedName("id")
         private String id;
+
+        public int getIs_verified() {
+            return is_verified;
+        }
+
+        public void setIs_verified(int is_verified) {
+            this.is_verified = is_verified;
+        }
+
+        @SerializedName("is_verified")
+        private int is_verified;
     }
 }
