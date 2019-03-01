@@ -60,10 +60,15 @@ public class BrowsePlansAdapter extends RecyclerView.Adapter<BrowsePlansAdapter.
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                RegPrefManager.getInstance(context).setMobileRechargeAmount(data.getRecharge_amount());
-
-                context.startActivity(new Intent(context,MobileRecharge.class));
+                try{
+                    RegPrefManager.getInstance(context).setMobileRechargeAmount(data.getRecharge_amount());
+                    Intent myIntent = new Intent(context,MobileRecharge.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(myIntent);
+                  //  context.startActivity(new Intent(context,MobileRecharge.class));
+                }catch (RuntimeException ex){
+                    ex.printStackTrace();
+                }
                 //  ((Activity)context).finish();
             }
         });

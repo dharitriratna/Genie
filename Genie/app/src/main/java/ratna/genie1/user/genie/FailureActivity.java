@@ -48,6 +48,14 @@ public class FailureActivity extends AppCompatActivity {
                     startActivity(new Intent(FailureActivity.this,DTHRecharge.class));
                     finish();
                 }
+                else if (back.equals("MONEYTRANSFER")){
+                    String id= RegPrefManager.getInstance(FailureActivity.this).getRemitterId();
+                    if(id!=null) {
+                        startActivity(new Intent(FailureActivity.this, RemiterDetailsActivity.class));
+                    }else {
+                        startActivity(new Intent(FailureActivity.this, RemiterRegistrationActivity.class));
+                    }
+                }
             }
         });
         String dt=RegPrefManager.getInstance(this).getDateAndTime();

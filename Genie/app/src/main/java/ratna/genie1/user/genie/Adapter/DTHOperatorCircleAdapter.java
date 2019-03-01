@@ -46,10 +46,18 @@ public class DTHOperatorCircleAdapter extends RecyclerView.Adapter<DTHOperatorCi
         holder.operator_circle_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    RegPrefManager.getInstance(context).setMobileCircle(listItem.getOperator_circle_name(),listItem.getOperator_circle_code());
+                    Intent myIntent = new Intent(context,DTHRecharge.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(myIntent);
+                   // context.startActivity(new Intent(context,DTHRecharge.class));
 
-                RegPrefManager.getInstance(context).setMobileCircle(listItem.getOperator_circle_name(),listItem.getOperator_circle_code());
+                }catch (RuntimeException ex){
+                    ex.printStackTrace();
+                }
 
-                context.startActivity(new Intent(context,DTHRecharge.class));
+
                 //((Activity)context).finish();
             }
         });

@@ -53,18 +53,26 @@ public class DatacardOperatorCircleCustomAdapter extends RecyclerView.Adapter<Da
         holder.textViewName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try{
                 String back= RegPrefManager.getInstance(context).getBack();
                 if(back.equals("Landline1")) {
                     RegPrefManager.getInstance(context).setLandlineCircle(data.getCircle_name(), data.getCircle_code());
-
-                    context.startActivity(new Intent(context, LandLine.class));
+                    Intent myIntent = new Intent(context,LandLine.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(myIntent);
+                   // context.startActivity(new Intent(context, LandLine.class));
                     ((Activity)context).finish();
                 }
                 else {
                     RegPrefManager.getInstance(context).setDataCardCircle(data.getCircle_name(), data.getCircle_code());
-
-                    context.startActivity(new Intent(context, DataCardActivity.class));
+                    Intent myIntent = new Intent(context,DataCardActivity.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(myIntent);
+                 //   context.startActivity(new Intent(context, DataCardActivity.class));
                     ((Activity)context).finish();
+                }
+            }catch (RuntimeException ex){
+                ex.printStackTrace();
                 }
             }
         });

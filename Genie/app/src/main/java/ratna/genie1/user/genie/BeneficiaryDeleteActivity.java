@@ -242,6 +242,7 @@ public class BeneficiaryDeleteActivity extends AppCompatActivity implements View
         call.enqueue(new Callback<BeneficiaryDeleteResponse>() {
             @Override
             public void onResponse(Call<BeneficiaryDeleteResponse> call, Response<BeneficiaryDeleteResponse> response) {
+                try{
                 progressDialog.dismiss();
                 boolean status=response.body().isStatus();
                 if(status==true){
@@ -251,6 +252,8 @@ public class BeneficiaryDeleteActivity extends AppCompatActivity implements View
                 else {
                     Toast.makeText(getApplicationContext(),"Try again After Sometimes.",Toast.LENGTH_LONG).show();
                 }
+            }catch (Exception e){
+                e.printStackTrace();}
             }
 
             @Override
@@ -273,6 +276,7 @@ public class BeneficiaryDeleteActivity extends AppCompatActivity implements View
         call.enqueue(new Callback<BeneficiaryDeleteValidateResponse>() {
             @Override
             public void onResponse(Call<BeneficiaryDeleteValidateResponse> call, Response<BeneficiaryDeleteValidateResponse> response) {
+                try{
                 progressDialog.dismiss();
                 boolean status=response.body().isStatus();
                 if (status==true){
@@ -284,6 +288,8 @@ public class BeneficiaryDeleteActivity extends AppCompatActivity implements View
                     Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
                 }
 
+            }catch (Exception e){
+                e.printStackTrace();}
             }
 
             @Override

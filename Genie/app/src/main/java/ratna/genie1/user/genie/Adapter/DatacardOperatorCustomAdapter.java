@@ -49,10 +49,17 @@ public class DatacardOperatorCustomAdapter extends RecyclerView.Adapter<Datacard
         holder.textViewName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    RegPrefManager.getInstance(context).setDataCardOperator(data.getOperator_name(),data.getOperator_code());
+                    Intent myIntent = new Intent(context,DataCardActivity.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(myIntent);
+                  //  context.startActivity(new Intent(context,DataCardActivity.class));
+                }catch (RuntimeException ex){
+                    ex.printStackTrace();
+                }
 
-                RegPrefManager.getInstance(context).setDataCardOperator(data.getOperator_name(),data.getOperator_code());
 
-                context.startActivity(new Intent(context,DataCardActivity.class));
             }
         });
     }

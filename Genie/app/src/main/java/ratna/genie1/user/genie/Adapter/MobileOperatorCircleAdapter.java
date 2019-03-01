@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import ratna.genie1.user.genie.DTHRecharge;
 import ratna.genie1.user.genie.MobileRecharge;
 import ratna.genie1.user.genie.Model.MobileOperatorCircleModel;
 import ratna.genie1.user.genie.Model.MobileOperatorsModel;
@@ -51,10 +52,17 @@ public class MobileOperatorCircleAdapter extends RecyclerView.Adapter<MobileOper
         holder.operator_circle_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try{
+                    RegPrefManager.getInstance(context).setMobileCircle(listItem.getOperator_circle_name(),listItem.getOperator_circle_code());
+                    Intent myIntent = new Intent(context,MobileRecharge.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(myIntent);
+                  //  context.startActivity(new Intent(context,MobileRecharge.class));
+                }catch (RuntimeException ex){
+                    ex.printStackTrace();
+                }
 
-                RegPrefManager.getInstance(context).setMobileCircle(listItem.getOperator_circle_name(),listItem.getOperator_circle_code());
 
-                context.startActivity(new Intent(context,MobileRecharge.class));
                 //((Activity)context).finish();
             }
         });

@@ -57,10 +57,19 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
         holder.operator_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                 //   someMethodThatThrowsRuntimeException();
+                    RegPrefManager.getInstance(context).setMobileOperator(listItem.getOperator_name(),listItem.getOperator_code());
+                    Intent myIntent = new Intent(context,MobileRecharge.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(myIntent);
+                 //   context.startActivity(new Intent(context,MobileRecharge.class));
+                } catch (RuntimeException ex) {
+                    ex.printStackTrace();
+                    // do something with the runtime exception
+                }
 
-                RegPrefManager.getInstance(context).setMobileOperator(listItem.getOperator_name(),listItem.getOperator_code());
 
-                context.startActivity(new Intent(context,MobileRecharge.class));
               //  ((Activity)context).finish();
             }
         });

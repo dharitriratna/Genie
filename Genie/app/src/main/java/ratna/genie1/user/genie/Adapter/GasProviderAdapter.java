@@ -56,7 +56,9 @@ public class GasProviderAdapter extends RecyclerView.Adapter<GasProviderAdapter.
             public void onClick(View view) {
 
                 RegPrefManager.getInstance(context).setGasBoard(listItem.getGas_board_name(),listItem.getGas_board_code());
-
+                Intent myIntent = new Intent(context,GasBillActivity.class);
+                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(myIntent);
                 context.startActivity(new Intent(context,GasBillActivity.class));
               //  ((Activity)context).finish();
             }

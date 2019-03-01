@@ -59,10 +59,17 @@ public class DTHBrowsePlansAdapter extends RecyclerView.Adapter<DTHBrowsePlansAd
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    RegPrefManager.getInstance(context).setMobileRechargeAmount(data.getRecharge_amount());
+                    Intent myIntent = new Intent(context,DTHRecharge.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(myIntent);
+                  //  context.startActivity(new Intent(context,DTHRecharge.class));
+                }catch (RuntimeException ex){
+                    ex.printStackTrace();
+                }
 
-                RegPrefManager.getInstance(context).setMobileRechargeAmount(data.getRecharge_amount());
 
-                context.startActivity(new Intent(context,DTHRecharge.class));
             }
         });
 

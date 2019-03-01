@@ -178,6 +178,7 @@ public class RemiterRegistrationActivity extends AppCompatActivity implements Vi
         call.enqueue(new Callback<RemiterRegisterResponse>() {
             @Override
             public void onResponse(Call<RemiterRegisterResponse> call, Response<RemiterRegisterResponse> response) {
+                try{
                 progressDialog.dismiss();
                 boolean status=response.body().isStatus();
                 int verified = response.body().getData().getData().getRemitter().getIs_verified();
@@ -200,6 +201,9 @@ public class RemiterRegistrationActivity extends AppCompatActivity implements Vi
                 else{
                     Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
                 }
+            }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -207,6 +211,7 @@ public class RemiterRegistrationActivity extends AppCompatActivity implements Vi
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
             }
+
         });
     }
 
@@ -267,6 +272,7 @@ public class RemiterRegistrationActivity extends AppCompatActivity implements Vi
         call.enqueue(new Callback<RemitterValidateResponse>() {
             @Override
             public void onResponse(Call<RemitterValidateResponse> call, Response<RemitterValidateResponse> response) {
+                try{
                 progressDialog.dismiss();
                 boolean status=response.body().isStatus();
                 int verified = response.body().getData().getData().getRemitter().getIs_verified();
@@ -282,6 +288,8 @@ public class RemiterRegistrationActivity extends AppCompatActivity implements Vi
                 }else {
                     Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
                 }
+            }catch (Exception e){
+                e.printStackTrace();}
             }
 
             @Override

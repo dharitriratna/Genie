@@ -57,11 +57,18 @@ public class WaterBoardAdapter extends RecyclerView.Adapter<WaterBoardAdapter.Vi
         holder.operator_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    RegPrefManager.getInstance(context).setWaterBoard(listItem.getWater_board_name(),listItem.getWater_board_code());
+                    Intent myIntent = new Intent(context,WaterBill.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(myIntent);
+                   // context.startActivity(new Intent(context,WaterBill.class));
+                    // ((Activity)context).finish();
+                }catch (RuntimeException ex){
+                    ex.printStackTrace();
+                }
 
-                RegPrefManager.getInstance(context).setWaterBoard(listItem.getWater_board_name(),listItem.getWater_board_code());
 
-                context.startActivity(new Intent(context,WaterBill.class));
-                // ((Activity)context).finish();
             }
         });
 

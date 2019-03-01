@@ -58,11 +58,16 @@ public class LandLineCustomAdapter extends RecyclerView.Adapter<LandLineCustomAd
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try{
+                    RegPrefManager.getInstance(context).setLandlineOperator(data.getOperator_name(),data.getOperator_code());
 
-                RegPrefManager.getInstance(context).setLandlineOperator(data.getOperator_name(),data.getOperator_code());
+                    context.startActivity(new Intent(context,LandLine.class));
+                    ((Activity)context).finish();
+                }catch (RuntimeException ex){
+                    ex.printStackTrace();
+                }
 
-                context.startActivity(new Intent(context,LandLine.class));
-                ((Activity)context).finish();
+
             }
         });
     }

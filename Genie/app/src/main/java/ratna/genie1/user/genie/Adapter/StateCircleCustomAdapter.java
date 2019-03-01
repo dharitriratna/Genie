@@ -54,11 +54,15 @@ public class StateCircleCustomAdapter extends RecyclerView.Adapter<StateCircleCu
         holder.textViewName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                try {
                     RegPrefManager.getInstance(context).setElectricityCircle(data.getCircle_name(), data.getCircle_code());
-
-                    context.startActivity(new Intent(context, PayForElectricity.class));
-
+                    Intent myIntent = new Intent(context,PayForElectricity.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(myIntent);
+                   // context.startActivity(new Intent(context, PayForElectricity.class));
+                }catch (RuntimeException ex){
+                    ex.printStackTrace();
+                }
             }
         });
     }
@@ -89,8 +93,4 @@ public class StateCircleCustomAdapter extends RecyclerView.Adapter<StateCircleCu
         this.operatorList = filterdNames;
         notifyDataSetChanged();
     }
-
-
-
-
 }

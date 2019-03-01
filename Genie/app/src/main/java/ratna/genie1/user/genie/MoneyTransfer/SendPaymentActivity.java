@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ratna.genie1.user.genie.Adapter.RemiterDetailsCustomAdapter;
+import ratna.genie1.user.genie.FailureActivity;
 import ratna.genie1.user.genie.MainActivity;
 import ratna.genie1.user.genie.ObjectNew.FundTransferResponse;
 import ratna.genie1.user.genie.ObjectNew.FundTransferStatusResponse;
@@ -188,7 +189,7 @@ public class SendPaymentActivity extends AppCompatActivity implements View.OnCli
                     String chrAmt = response.body().getData().getData().getCharged_amt();
                    // statussss = response.body().getStatus();
                     RegPrefManager.getInstance(SendPaymentActivity.this).setAgentId(agentId);
-                //    Toast.makeText(SendPaymentActivity.this, statusRes, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendPaymentActivity.this, statusRes, Toast.LENGTH_SHORT).show();
 
                     checkStatus();
                 }else {
@@ -223,6 +224,8 @@ public class SendPaymentActivity extends AppCompatActivity implements View.OnCli
         call.enqueue(new Callback<FundTransferStatusResponse>() {
             @Override
             public void onResponse(Call<FundTransferStatusResponse> call, Response<FundTransferStatusResponse> response) {
+                try {
+
                 progressDialog.dismiss();
                 boolean status = response.body().isStatus();
                 String statusSt=response.body().getData().getStatuscode();
@@ -238,9 +241,18 @@ public class SendPaymentActivity extends AppCompatActivity implements View.OnCli
 
                 }
                 else {
-                    Toast.makeText(getApplicationContext(),"Try again. After Some time",Toast.LENGTH_LONG).show();
+                    String st = response.body().getData().getStatus();
+                    String agentId = response.body().getData().getData().getAgentid();
+                    String dt = response.body().getData().getData().getRequest_date();
+                    RegPrefManager.getInstance(SendPaymentActivity.this).setSuccessID(agentId);
+                    RegPrefManager.getInstance(SendPaymentActivity.this).setDateAndTime(dt);
+                    Toast.makeText(getApplicationContext(),st,Toast.LENGTH_LONG).show();
+                    RegPrefManager.getInstance(SendPaymentActivity.this).setBackService("MONEYTRANSFER");
+                    startActivity(new Intent(SendPaymentActivity.this, FailureActivity.class));
                 }
 
+            }catch (Exception e){
+                e.printStackTrace();}
             }
 
             @Override

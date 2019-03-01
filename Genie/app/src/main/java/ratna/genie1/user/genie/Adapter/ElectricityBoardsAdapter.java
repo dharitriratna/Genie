@@ -56,10 +56,17 @@ public class ElectricityBoardsAdapter extends RecyclerView.Adapter<ElectricityBo
         holder.operator_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    RegPrefManager.getInstance(context).SetElectricityBoard(listItem.getElectricity_board_name(),listItem.getElectricity_board_code());
+                    Intent myIntent = new Intent(context,PayForElectricity.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(myIntent);
+                  //  context.startActivity(new Intent(context, PayForElectricity.class));
+                }catch (RuntimeException ex){
+                    ex.printStackTrace();
+                }
 
-                RegPrefManager.getInstance(context).SetElectricityBoard(listItem.getElectricity_board_name(),listItem.getElectricity_board_code());
 
-                context.startActivity(new Intent(context, PayForElectricity.class));
                // ((Activity)context).finish();
             }
         });

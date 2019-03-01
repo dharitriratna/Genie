@@ -50,11 +50,15 @@ public class DTHOperatorAdapter extends RecyclerView.Adapter<DTHOperatorAdapter.
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                RegPrefManager.getInstance(context).setDTHOperator(listItem.getDth_operator_name(),listItem.getDth_operator_code());
-
-                context.startActivity(new Intent(context, DTHRecharge.class));
-
+                try {
+                    RegPrefManager.getInstance(context).setDTHOperator(listItem.getDth_operator_name(),listItem.getDth_operator_code());
+                    Intent myIntent = new Intent(context,DTHRecharge.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(myIntent);
+                  //  context.startActivity(new Intent(context, DTHRecharge.class));
+                }catch (RuntimeException ex){
+                    ex.printStackTrace();
+                }
             }
         });
 

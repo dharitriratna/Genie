@@ -352,6 +352,7 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
         call.enqueue(new Callback<BeneficiaryValidateResponse>() {
             @Override
             public void onResponse(Call<BeneficiaryValidateResponse> call, Response<BeneficiaryValidateResponse> response) {
+                try{
                 progressDialog.dismiss();
                 boolean status=response.body().isStatus();
                 if (status==true){
@@ -363,6 +364,8 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
                     Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
                 }
 
+            }catch (Exception e){
+                e.printStackTrace();}
             }
 
             @Override
