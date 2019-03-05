@@ -68,11 +68,8 @@ public class DTHBrowsePlansAdapter extends RecyclerView.Adapter<DTHBrowsePlansAd
                 }catch (RuntimeException ex){
                     ex.printStackTrace();
                 }
-
-
             }
         });
-
     }
 
     @Override

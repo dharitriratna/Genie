@@ -79,6 +79,7 @@ public class LoginResponse {
             this.user_groups = user_groups;
         }
 
+
         @SerializedName("user_id")
         private String user_id;
         @SerializedName("user_email")
@@ -89,5 +90,18 @@ public class LoginResponse {
         private String user_phone;
         @SerializedName("user_groups")
         private String user_groups;
+
+        public String getAdmin_status() {
+            return admin_status;
+        }
+
+        public void setAdmin_status(String admin_status) {
+            this.admin_status = admin_status;
+        }
+
+        @SerializedName("admin_status")
+        private String admin_status;
+
     }
+
 }

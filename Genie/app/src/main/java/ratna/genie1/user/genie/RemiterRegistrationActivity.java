@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import ratna.genie1.user.genie.Model.RemiterDetails;
 import ratna.genie1.user.genie.MoneyTransfer.MoneyTransferActivity;
 import ratna.genie1.user.genie.ObjectNew.RemiterRegisterResponse;
@@ -170,7 +172,8 @@ public class RemiterRegistrationActivity extends AppCompatActivity implements Vi
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        phone= RegPrefManager.getInstance(this).getPhoneNo();
+        phone= phoneTv.getText().toString();
+        RegPrefManager.getInstance(RemiterRegistrationActivity.this).setRemiterPhone(phone);
         namevalue=nameTv.getText().toString();
         surname=surnameTv.getText().toString();
         String pincode=pincodeTv.getText().toString();
@@ -201,7 +204,9 @@ public class RemiterRegistrationActivity extends AppCompatActivity implements Vi
                 else{
                     Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
                 }
-            }catch (Exception e){
+            } catch (IllegalStateException ex){
+                    ex.printStackTrace();
+                } catch (Exception e){
                     e.printStackTrace();
                 }
             }
@@ -215,11 +220,11 @@ public class RemiterRegistrationActivity extends AppCompatActivity implements Vi
         });
     }
 
-    @Override
+  /*  @Override
     public void onResume() {
         super.onResume();
         phoneTv.setText(RegPrefManager.getInstance(this).getPhoneNo());
-    }
+    }*/
 
 
     private void DialogShow(){
@@ -263,7 +268,7 @@ public class RemiterRegistrationActivity extends AppCompatActivity implements Vi
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        phone= RegPrefManager.getInstance(this).getPhoneNo();
+        phone= RegPrefManager.getInstance(this).getRemiterPhone();
         String remID= RegPrefManager.getInstance(this).getRemitterId();
         String otp=otpTv.getText().toString();
         surname=surnameTv.getText().toString();
@@ -288,7 +293,9 @@ public class RemiterRegistrationActivity extends AppCompatActivity implements Vi
                 }else {
                     Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
                 }
-            }catch (Exception e){
+            } catch (IllegalStateException ex){
+                    ex.printStackTrace();
+            } catch (Exception e){
                 e.printStackTrace();}
             }
 

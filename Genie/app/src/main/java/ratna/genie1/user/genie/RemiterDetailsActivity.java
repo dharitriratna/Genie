@@ -187,7 +187,6 @@ public class RemiterDetailsActivity extends AppCompatActivity implements View.On
         });
         AlertDialog alert=alertDialog.create();
         alert.show();
-
     }
 
     private void networkBeneficiary(){

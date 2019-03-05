@@ -186,7 +186,8 @@ public class LogIn extends AppCompatActivity {
                 else {
                     RegPrefManager.getInstance(LogIn.this).setPhoneNo(user_phone);
                     if (isNetworkAvailable()) {
-                        new AsynSignInDetails().execute();//register add beneficiary
+                     //   new AsynSignInDetails().execute();//register add beneficiary
+                        networkRegister();
                     }
                     else {
                         noNetwrokErrorMessage();
@@ -384,7 +385,6 @@ public class LogIn extends AppCompatActivity {
         }
     }
 
-/*
     private void networkRegister(){
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
@@ -397,12 +397,13 @@ public class LogIn extends AppCompatActivity {
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                try{
                 progressDialog.dismiss();
                 boolean status=response.body().isStatus();
 
                     if (status == true) {
                         String message = response.body().getMessage();
-                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                       // Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                         String user_id = response.body().getData().getUser_id();
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString("FLAG", user_id);
@@ -413,23 +414,81 @@ public class LogIn extends AppCompatActivity {
                         String user_name = response.body().getData().getUser_name();
                         String user_phone = response.body().getData().getUser_phone();
                         String user_groups = response.body().getData().getUser_groups();
+                        String admin_status = response.body().getData().getAdmin_status();
+
                         RegPrefManager.getInstance(LogIn.this).setUserGroup(user_groups);
                         RegPrefManager.getInstance(LogIn.this).setPhoneNo(user_phone);
                         RegPrefManager.getInstance(LogIn.this).setUserName(user_name);
                         RegPrefManager.getInstance(LogIn.this).setUserEmail(user_email);
 
-                        SharedPreferences.Editor editor1 = sharedpreferences.edit();
-                        editor1.putString("LOGGED_IN_AS", "1");
-                        editor1.commit();
-                        startActivity(new Intent(LogIn.this, MainActivity.class));
-                        finish();
+
+
+                        if (status == true && user_groups.equals("4")){
+                            Toast.makeText(getApplicationContext(), "Login Successful As Distributor", Toast.LENGTH_LONG).show();
+                            SharedPreferences.Editor editor1 = sharedpreferences.edit();
+                            editor1.putString("LOGGED_IN_AS", "1");
+                            editor1.commit();
+                            startActivity(new Intent(LogIn.this, MainActivity2.class));
+                            finish();
+
+
+                        } else if (status == true && user_groups.equals("5")){
+                            if (admin_status.equals("1")) {
+                                Toast.makeText(getApplicationContext(), "Login Successful As FSE", Toast.LENGTH_LONG).show();//deb done code for one time login
+                                sharedpreferences = getSharedPreferences(mypreference,
+                                        Context.MODE_MULTI_PROCESS);
+                                SharedPreferences.Editor editor2 = sharedpreferences.edit();
+                                editor2.putString("LOGGED_IN_AS", "2");
+                                editor2.commit();
+                                startActivity(new Intent(LogIn.this, MainActivity3.class));
+                                finish();
+                            }  else {
+                                    Toast.makeText(getApplicationContext(), "Payment Under Verification!", Toast.LENGTH_LONG).show();
+                                }
+                        }
+                        else if (status == true && user_groups.equals("3")) {
+                            if (admin_status.equals("1")) {
+                                Toast.makeText(LogIn.this, "Login Successful As Retailer", Toast.LENGTH_SHORT).show();
+                                sharedpreferences = getSharedPreferences(mypreference,
+                                        Context.MODE_MULTI_PROCESS);
+                                SharedPreferences.Editor editor3 = sharedpreferences.edit();  //deb done code for one time login
+                                editor3.putString("LOGGED_IN_AS", "3");
+                                editor3.commit();
+                                startActivity(new Intent(LogIn.this, MainActivity4.class));
+                                finish();
+                            }else {
+                                Toast.makeText(getApplicationContext(), "Payment Under Verification!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                        else if (status == true && user_groups.equals("2")) {
+                            Toast.makeText(LogIn.this, "Login Successful As Customer", Toast.LENGTH_SHORT).show();
+
+                            sharedpreferences = getSharedPreferences(mypreference,
+                                    Context.MODE_MULTI_PROCESS);
+                            SharedPreferences.Editor editor4 = sharedpreferences.edit();  //deb done code for one time login
+                            editor4.putString("LOGGED_IN_AS", "4");
+                            editor4.commit();
+                            startActivity(new Intent(LogIn.this, MainActivity.class));
+                            finish();
+                        }
+
+                        else if (status==false && message.equals("payment not done yet")) {
+                            Toast.makeText(LogIn.this, "payment not done yet", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LogIn.this, RetailerRegisterPaymentActivity.class));
+                        } else {
+                            Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();
+                        }
 
 
                     } else {
                         String message = response.body().getMessage();
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                     }
+                }catch (Exception ex){
+                    ex.printStackTrace();
                 }
+            }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
@@ -439,7 +498,6 @@ public class LogIn extends AppCompatActivity {
             }
         });
     }
-*/
 
 
 }
