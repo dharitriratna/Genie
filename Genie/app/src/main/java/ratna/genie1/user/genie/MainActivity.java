@@ -618,7 +618,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    boolean doubleBackToExitPressedOnce = false;
+  /*  boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onBackPressed() {
@@ -644,6 +644,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
         }, 2000);
+    }
+*/
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finishAffinity();
+        this.finish();
     }
 
 
@@ -678,6 +686,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         call.enqueue(new Callback<ServiceImage>() {
             @Override
             public void onResponse(Call<ServiceImage> call, retrofit2.Response<ServiceImage> response) {
+                try {
                 String service_id = "", service_name = "", service_fee = "", service_img="";
                 progressDialog.dismiss();
                 ArrayList<ServiceImage.Data> data=response.body().getData();
@@ -706,6 +715,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 servicesAdapter = new ServicesAdapter(servicesModels, getApplicationContext());
                 service_recyclerview.setAdapter(servicesAdapter);
+            }catch (IllegalArgumentException ex){
+                 ex.getMessage();
+                }
+
             }
 
             @Override

@@ -295,7 +295,7 @@ public class LogIn extends AppCompatActivity {
             } catch (Exception e)
 
             {
-                //Log.v("Connection error", e.toString());
+               Log.v("Connection error", e.toString());
            //     Toast.makeText(getApplicationContext(), "Genie is away! Try after sometime", Toast.LENGTH_LONG).show();
 
             }return null;
@@ -385,13 +385,13 @@ public class LogIn extends AppCompatActivity {
         }
     }
 
+
+    //retrofit used here for login API>>>>>>>>>>>>>>>>>>>>>>
+
     private void networkRegister(){
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-
-
-
 
         Call<LoginResponse> call=apiService.postLogin(user_phone,user_pwd);
         call.enqueue(new Callback<LoginResponse>() {
@@ -417,7 +417,7 @@ public class LogIn extends AppCompatActivity {
                         String admin_status = response.body().getData().getAdmin_status();
 
                         RegPrefManager.getInstance(LogIn.this).setUserGroup(user_groups);
-                        RegPrefManager.getInstance(LogIn.this).setPhoneNo(user_phone);
+                        RegPrefManager.getInstance(LogIn.this).setLoggedInPhoneNo(user_phone);
                         RegPrefManager.getInstance(LogIn.this).setUserName(user_name);
                         RegPrefManager.getInstance(LogIn.this).setUserEmail(user_email);
 

@@ -307,15 +307,16 @@
 
 
         <LinearLayout
-            android:id="@+id/upiLayout"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/upiLayout"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
+                android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
@@ -327,24 +328,57 @@
 
             </LinearLayout>
 
-            <TextView
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Please click the link below to download the image"
-                android:textColor="@color/colorPrimaryDark"
-                android:gravity="center"/>
+                android:orientation="vertical"
+                android:visibility="visible">
 
-            <TextView android:layout_width="match_parent"
+
+                <LinearLayout
+                    android:id="@+id/phonepeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/phonepe"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/TvLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/txtCredits"
-                android:autoLink="web"
-                android:id="@+id/infoTxtCredits"
-                android:gravity="center"
-                android:textColor="#1bbfec"
-                android:layout_centerInParent="true"
-                android:linksClickable="true">
+                android:orientation="vertical"
+                android:visibility="gone">
 
-            </TextView>
+                <TextView
+                    android:id="@+id/demoTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Please click the link below to download the image"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:gravity="center"/>
+
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txtCredits"
+                    android:autoLink="web"
+                    android:id="@+id/infoTxtCredits"
+                    android:gravity="center"
+                    android:textColor="#1bbfec"
+                    android:layout_centerInParent="true"
+                    android:linksClickable="true">
+
+                </TextView>
+            </LinearLayout>
+
         </LinearLayout>
 
 

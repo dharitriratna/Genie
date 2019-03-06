@@ -359,7 +359,6 @@ public class DemoRetailerSignUp extends AppCompatActivity {
                     }
                 });
                 builder.show();
-
             }
         });
     }

@@ -495,6 +495,8 @@ public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeLi
         call.enqueue(new Callback<ServiceImage>() {
             @Override
             public void onResponse(Call<ServiceImage> call, retrofit2.Response<ServiceImage> response) {
+                try {
+
                 String service_id = "", service_name = "", service_fee = "", service_img="";
                 progressDialog.dismiss();
                 ArrayList<ServiceImage.Data> data=response.body().getData();
@@ -523,6 +525,9 @@ public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeLi
                 servicesAdapter = new ServicesAdapter(servicesModels, getActivity());
                 service_recyclerview.setAdapter(servicesAdapter);
               //  service_recyclerview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+            }catch (IllegalArgumentException ex){
+                ex.getMessage();
+                }
             }
 
             @Override

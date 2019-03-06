@@ -138,6 +138,8 @@ public class AddMoneyActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+
+
         AlertDialog alert=alertDialog.create();
         alert.show();
     }
@@ -280,6 +282,7 @@ public class AddMoneyActivity extends AppCompatActivity {
                 otpTv.setVisibility(View.VISIBLE);
                 btnSend.setVisibility(View.VISIBLE);
                 btnProceed.setVisibility(View.GONE);
+                finish();
 
                 //    startActivity(new Intent(AddMoneyActivity.this,OTPActivity.class));finish();
             }

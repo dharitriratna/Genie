@@ -47,7 +47,7 @@ public class RequestWalletActivity extends AppCompatActivity {
     Spinner paymentmethodspinner;
     String paymentMethod;
     EditText refCode;
-    LinearLayout netBankingLayout,upiLayout;
+    LinearLayout netBankingLayout,upiLayout,phonepeLayout,TvLayout;
 
     private AlertDialog.Builder alertDialog;
     private DatePickerDialog fromDatePickerDialog;
@@ -81,6 +81,8 @@ public class RequestWalletActivity extends AppCompatActivity {
         paymentmethodspinner= findViewById(R.id.paymentmethodspinner);
         netBankingLayout = findViewById(R.id.netBankingLayout);
         upiLayout = findViewById(R.id.upiLayout);
+        phonepeLayout = findViewById(R.id.phonepeLayout);
+        TvLayout = findViewById(R.id.TvLayout);
         dept_date = findViewById(R.id.dept_date);
         payment_method = findViewById(R.id.payment_method);
 
@@ -120,9 +122,10 @@ public class RequestWalletActivity extends AppCompatActivity {
         payment_method.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final CharSequence[] options_array = {"IMPS", "BHIM UPI"};
+                final CharSequence[] options_array = {"IMPS", "BHIM UPI", "PHONE PE"};
                 final String IMPSMethod = "IMPS";
-                final String UPIMethod = "UPI";
+                final String UPIMethod = "BHIM UPI";
+                final String PhonePeMethod = "PHONE PE";
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(RequestWalletActivity.this);
                 builder.setTitle("Payment Method");
@@ -133,12 +136,23 @@ public class RequestWalletActivity extends AppCompatActivity {
                             payment_method.setText(IMPSMethod);
                             netBankingLayout.setVisibility(View.VISIBLE);
                             upiLayout.setVisibility(View.GONE);
+                            phonepeLayout.setVisibility(View.GONE);
+                            TvLayout.setVisibility(View.GONE);
 
                         } else if (options_array[item].equals("BHIM UPI")) {
                             payment_method.setText(UPIMethod);
                             upiLayout.setVisibility(View.VISIBLE);
                             netBankingLayout.setVisibility(View.GONE);
+                            phonepeLayout.setVisibility(View.GONE);
+                            TvLayout.setVisibility(View.VISIBLE);
                           //  dailog();
+                        }
+                        else if (options_array[item].equals("PHONE PE")){
+                            payment_method.setText(PhonePeMethod);
+                            netBankingLayout.setVisibility(View.GONE);
+                            upiLayout.setVisibility(View.GONE);
+                            phonepeLayout.setVisibility(View.VISIBLE);
+                            TvLayout.setVisibility(View.VISIBLE);
                         }
                     }
                 });

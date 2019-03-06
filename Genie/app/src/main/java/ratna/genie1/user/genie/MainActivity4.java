@@ -636,6 +636,7 @@ public class MainActivity4 extends AppCompatActivity implements NavigationView.O
         call.enqueue(new Callback<ServiceImage>() {
             @Override
             public void onResponse(Call<ServiceImage> call, retrofit2.Response<ServiceImage> response) {
+                try{
                 String service_id = "", service_name = "", service_fee = "", service_img="";
                 progressDialog.dismiss();
                 ArrayList<ServiceImage.Data> data=response.body().getData();
@@ -664,6 +665,9 @@ public class MainActivity4 extends AppCompatActivity implements NavigationView.O
                 }
                 servicesAdapter = new ServicesAdapter(servicesModels, getApplicationContext());
                 service_recyclerview.setAdapter(servicesAdapter);
+            }catch (IllegalArgumentException e){
+                e.getMessage();
+                }
             }
 
             @Override
