@@ -84,7 +84,7 @@ public class BeneficiaryDeleteActivity extends AppCompatActivity implements View
                 finish();
             }
         });
-        checkAndRequestPermissions();
+       // checkAndRequestPermissions();
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
@@ -114,7 +114,7 @@ public class BeneficiaryDeleteActivity extends AppCompatActivity implements View
 
     }
 
-    private  boolean checkAndRequestPermissions() {
+   /* private  boolean checkAndRequestPermissions() {
         int permissionSendMessage = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS);
         int receiveSMS = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
@@ -136,7 +136,7 @@ public class BeneficiaryDeleteActivity extends AppCompatActivity implements View
             return false;
         }
         return true;
-    }
+    }*/
 
     public boolean isNetworkAvailable(){
         ConnectivityManager connectivityManager= (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);

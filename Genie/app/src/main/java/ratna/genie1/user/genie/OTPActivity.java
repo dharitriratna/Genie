@@ -140,7 +140,7 @@ public class OTPActivity extends AppCompatActivity {
         }
     };
 
-    private  boolean checkAndRequestPermissions() {
+ /*   private  boolean checkAndRequestPermissions() {
         int permissionSendMessage = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS);
         int receiveSMS = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
@@ -162,7 +162,7 @@ public class OTPActivity extends AppCompatActivity {
             return false;
         }
         return true;
-    }
+    }*/
 
 
      @Override

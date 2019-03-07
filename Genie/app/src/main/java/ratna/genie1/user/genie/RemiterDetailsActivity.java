@@ -193,7 +193,7 @@ public class RemiterDetailsActivity extends AppCompatActivity implements View.On
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        String phone= RegPrefManager.getInstance(this).getPhoneNo();
+        String phone= RegPrefManager.getInstance(this).getRemiterPhone();
         Call<RemiterDetailsResponse> call=apiService.postRemiterDetails(login_user,phone);
         call.enqueue(new Callback<RemiterDetailsResponse>() {
             @Override

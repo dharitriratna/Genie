@@ -1,5 +1,6 @@
 package ratna.genie1.user.genie.Adapter;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -130,6 +131,7 @@ public class RequestApprovalAdapter extends RecyclerView.Adapter<RequestApproval
         call.enqueue(new Callback<ApproveResponse>() {
             @Override
             public void onResponse(Call<ApproveResponse> call, Response<ApproveResponse> response) {
+                try{
                 boolean status=response.body().getStatus();
                 if(status==true){
                     progressDialog.dismiss();
@@ -137,10 +139,13 @@ public class RequestApprovalAdapter extends RecyclerView.Adapter<RequestApproval
                     notifyDataSetChanged();
                     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                     context.startActivity(new Intent(context, MainActivity2.class));
-
+                    ((Activity)context).finish();
                 }
                 else {
                     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                }
+            }catch (IllegalArgumentException ex){
+                ex.printStackTrace();
                 }
             }
 
@@ -160,6 +165,7 @@ public class RequestApprovalAdapter extends RecyclerView.Adapter<RequestApproval
         call.enqueue(new Callback<DeleteResponse>() {
             @Override
             public void onResponse(Call<DeleteResponse> call, Response<DeleteResponse> response) {
+                try{
                 boolean status=response.body().getStatus();
                 if(status==true){
                     progressDialog.dismiss();
@@ -167,9 +173,18 @@ public class RequestApprovalAdapter extends RecyclerView.Adapter<RequestApproval
                     notifyDataSetChanged();
                     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                     context.startActivity(new Intent(context, MainActivity2.class));
+                    ((Activity)context).finish();
+                  /*  Intent intent = new Intent(context, MainActivity2.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    context.startActivity(intent);*/
+
+                   // ((Activity)context).finishAffinity();
                 }
                 else {
                     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                }
+            }catch (IllegalArgumentException ex){
+                ex.printStackTrace();
                 }
             }
 

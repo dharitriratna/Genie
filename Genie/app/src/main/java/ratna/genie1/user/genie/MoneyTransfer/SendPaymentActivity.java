@@ -156,7 +156,6 @@ public class SendPaymentActivity extends AppCompatActivity implements View.OnCli
         });
         AlertDialog alert=alertDialog.create();
         alert.show();
-
     }
 
     private void networkFundTransfer(){

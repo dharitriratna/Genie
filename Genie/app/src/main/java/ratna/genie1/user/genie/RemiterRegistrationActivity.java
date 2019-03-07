@@ -172,12 +172,14 @@ public class RemiterRegistrationActivity extends AppCompatActivity implements Vi
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        phone= phoneTv.getText().toString();
-        RegPrefManager.getInstance(RemiterRegistrationActivity.this).setRemiterPhone(phone);
+        String phoneNo= phoneTv.getText().toString();
+        RegPrefManager.getInstance(RemiterRegistrationActivity.this).setRemiterPhone(phoneNo);
+
+      //  String phoneNo= RegPrefManager.getInstance(this).getPhoneNo();
         namevalue=nameTv.getText().toString();
         surname=surnameTv.getText().toString();
         String pincode=pincodeTv.getText().toString();
-        Call<RemiterRegisterResponse> call=apiService.postRemiterRegister(login_user,phone,namevalue,surname,pincode);
+        Call<RemiterRegisterResponse> call=apiService.postRemiterRegister(login_user,phoneNo,namevalue,surname,pincode);
         call.enqueue(new Callback<RemiterRegisterResponse>() {
             @Override
             public void onResponse(Call<RemiterRegisterResponse> call, Response<RemiterRegisterResponse> response) {

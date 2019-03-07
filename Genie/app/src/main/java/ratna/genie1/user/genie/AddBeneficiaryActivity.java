@@ -67,7 +67,7 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_beneficiary);
-        checkAndRequestPermissions();
+     //   checkAndRequestPermissions();
         toolbar = findViewById(R.id.toolbar);
         apiService =
                 ApiClientGenie.getClient().create(ApiInterface.class);
@@ -170,7 +170,8 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
                 try{
                 progressDialog.dismiss();
                 boolean status=response.body().isStatus();
-                if(status==true){
+                int verified = response.body().getData().getData().getBeneficiary().getVerified();
+                if(status==true && verified==0){
                     String remitterid=response.body().getData().getData().getRemitter().getId();
                     String beneficiaryid=response.body().getData().getData().getBeneficiary().getId();
                     RegPrefManager.getInstance(AddBeneficiaryActivity.this).setRemitterId(remitterid);
@@ -178,8 +179,14 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
                   //  startActivity(new Intent(AddBeneficiaryActivity.this,RemiterDetailsActivity.class));
                     DialogShow(); // show dialog
                 }
+                else if (status==true && verified==1){
+                    String id=response.body().getData().getData().getBeneficiary().getId();
+                    RegPrefManager.getInstance(AddBeneficiaryActivity.this).setBeneficaryId(id);
+                    startActivity(new Intent(AddBeneficiaryActivity.this, RemiterDetailsActivity.class));
+                }
                 else {
-                    Toast.makeText(getApplicationContext(),"Sever is slow.Please Try Again bit later..",Toast.LENGTH_LONG).show();
+                    String status_message = response.body().getData().getStatus();
+                    Toast.makeText(getApplicationContext(),status_message,Toast.LENGTH_LONG).show();
                 }
 
             }catch (Exception e){
@@ -232,7 +239,7 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
         return true;
     }
 
-    private  boolean checkAndRequestPermissions() {
+    /*private  boolean checkAndRequestPermissions() {
         int permissionSendMessage = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS);
         int receiveSMS = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
@@ -254,7 +261,7 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
             return false;
         }
         return true;
-    }
+    }*/
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override

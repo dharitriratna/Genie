@@ -53,7 +53,7 @@ public class AddMoneyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_money);
-        checkAndRequestPermissions();
+       // checkAndRequestPermissions();
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setOnClickListener(new View.OnClickListener() {
@@ -302,7 +302,7 @@ public class AddMoneyActivity extends AppCompatActivity {
     }
 
 
-    private  boolean checkAndRequestPermissions() {
+ /*   private  boolean checkAndRequestPermissions() {
         int permissionSendMessage = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS);
         int receiveSMS = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
@@ -324,7 +324,7 @@ public class AddMoneyActivity extends AppCompatActivity {
             return false;
         }
         return true;
-    }
+    }*/
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

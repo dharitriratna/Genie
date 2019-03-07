@@ -110,6 +110,16 @@ public class BeneficiaryRegisterResponse {
             this.id = id;
         }
 
+        public int getVerified() {
+            return verified;
+        }
+
+        public void setVerified(int verified) {
+            this.verified = verified;
+        }
+
+        @SerializedName("status")
+        private int verified;
         @SerializedName("id")
         private String id;
     }
