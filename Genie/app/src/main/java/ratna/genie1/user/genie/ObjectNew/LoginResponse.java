@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by RatnaDev008 on 11/29/2018.
  */
-
 public class LoginResponse {
     public boolean isStatus() {
         return status;
@@ -35,6 +34,8 @@ public class LoginResponse {
     private boolean status;
     @SerializedName("message")
     private String message;
+
+
     @SerializedName("data")
     private Data data;
 
@@ -91,6 +92,18 @@ public class LoginResponse {
         @SerializedName("user_groups")
         private String user_groups;
 
+        public String getUser_id_payment() {
+            return user_id_payment;
+        }
+
+        public void setUser_id_payment(String user_id_payment) {
+            this.user_id_payment = user_id_payment;
+        }
+
+        @SerializedName("user_id_payment")
+        private String user_id_payment;
+
+
         public String getAdmin_status() {
             return admin_status;
         }
@@ -103,5 +116,7 @@ public class LoginResponse {
         private String admin_status;
 
     }
+
+
 
 }

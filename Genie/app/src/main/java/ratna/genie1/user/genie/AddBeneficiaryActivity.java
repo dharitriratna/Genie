@@ -1,6 +1,6 @@
 package ratna.genie1.user.genie;
 
-import android.Manifest;
+
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -239,29 +239,7 @@ public class AddBeneficiaryActivity extends AppCompatActivity implements View.On
         return true;
     }
 
-    /*private  boolean checkAndRequestPermissions() {
-        int permissionSendMessage = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.SEND_SMS);
-        int receiveSMS = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
-        int readSMS = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS);
-        List<String> listPermissionsNeeded = new ArrayList<>();
-        if (receiveSMS != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.RECEIVE_MMS);
-        }
-        if (readSMS != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.READ_SMS);
-        }
-        if (permissionSendMessage != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.SEND_SMS);
-        }
-        if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(this,
-                    listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),
-                    REQUEST_ID_MULTIPLE_PERMISSIONS);
-            return false;
-        }
-        return true;
-    }*/
+
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override

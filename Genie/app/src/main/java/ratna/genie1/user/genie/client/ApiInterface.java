@@ -27,6 +27,7 @@ import ratna.genie1.user.genie.ObjectNew.JobResponse;
 import ratna.genie1.user.genie.ObjectNew.LandlineResponse;
 import ratna.genie1.user.genie.ObjectNew.LandlineResponseModel;
 import ratna.genie1.user.genie.ObjectNew.LoginResponse;
+import ratna.genie1.user.genie.ObjectNew.MobileRechargeResponse;
 import ratna.genie1.user.genie.ObjectNew.MovieCityResponse;
 import ratna.genie1.user.genie.ObjectNew.MovieListResponse;
 import ratna.genie1.user.genie.ObjectNew.MyWalletResponse;
@@ -252,6 +253,12 @@ public interface ApiInterface {
     @POST("index.php/api/user/login")
     @FormUrlEncoded
     Call<LoginResponse> postLogin(@Field("phone") String  phone,@Field("user_pwd") String user_pwd);
+
+
+    @POST("api/service/mobile_dth_datacard_recharge1")
+    @FormUrlEncoded
+    Call<MobileRechargeResponse>postRecharge(@Field("user_id")String user_id,@Field("customer_id")String customer_id,@Field("operator")String operator,
+                                             @Field("operator_name")String operator_name,@Field("circle")String circle,@Field("amount")String amount,@Field("serv_id")String service_id);
 
     @POST("api/user/updateprofile")
     @FormUrlEncoded

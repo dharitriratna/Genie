@@ -192,7 +192,8 @@ public class SendPaymentActivity extends AppCompatActivity implements View.OnCli
 
                     checkStatus();
                 }else {
-                    Toast.makeText(getApplicationContext(),"Try Again",Toast.LENGTH_LONG).show();
+                    String message = response.body().getData().getStatus();
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
                 }
             }catch (Exception e){
                     Toast.makeText(SendPaymentActivity.this, "Genie is away! Please try after some time", Toast.LENGTH_SHORT).show();
@@ -217,6 +218,8 @@ public class SendPaymentActivity extends AppCompatActivity implements View.OnCli
     public void onNothingSelected(AdapterView<?> adapterView) {
     spinnerSelect="IMPS";
     }
+
+
     private void checkStatus(){
     String agentId=RegPrefManager.getInstance(SendPaymentActivity.this).getAgentId();
         Call<FundTransferStatusResponse> call=apiService.postFundTransferStatus(login_user,agentId);

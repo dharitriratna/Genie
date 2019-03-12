@@ -35,7 +35,7 @@ import java.util.ArrayList;
 
 import ratna.genie1.user.genie.helper.RegPrefManager;
 
-import static ratna.genie1.user.genie.MobileRecharge.hasPermissions;
+
 
 public class PayForElectricity extends AppCompatActivity {
     Toolbar toolbar;

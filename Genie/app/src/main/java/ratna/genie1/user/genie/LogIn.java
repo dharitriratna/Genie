@@ -187,7 +187,7 @@ public class LogIn extends AppCompatActivity {
                     RegPrefManager.getInstance(LogIn.this).setPhoneNo(user_phone);
                     if (isNetworkAvailable()) {
                      //   new AsynSignInDetails().execute();//register add beneficiary
-                        networkRegister();
+                          networkRegister();
                     }
                     else {
                         noNetwrokErrorMessage();
@@ -239,7 +239,7 @@ public class LogIn extends AppCompatActivity {
 
     private class AsynSignInDetails extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
-        String success = null,message="";
+        String success = "",message="";
         boolean status=true;
         String user_groups;
 
@@ -254,7 +254,7 @@ public class LogIn extends AppCompatActivity {
             String urlRouteList="https://genieservice.in/api/user/login";
             try {
                 String route_response = CustomHttpClient.executeHttpPost(urlRouteList, cred);
-              //  Toast.makeText(LogIn.this, route_response, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LogIn.this, route_response, Toast.LENGTH_SHORT).show();
 
                 success = route_response;
                 JSONObject jsonObject = new JSONObject(success);
@@ -393,6 +393,7 @@ public class LogIn extends AppCompatActivity {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
+
         Call<LoginResponse> call=apiService.postLogin(user_phone,user_pwd);
         call.enqueue(new Callback<LoginResponse>() {
             @Override
@@ -473,20 +474,32 @@ public class LogIn extends AppCompatActivity {
                             finish();
                         }
 
-                        else if (status==false && message.equals("payment not done yet")) {
-                            Toast.makeText(LogIn.this, "payment not done yet", Toast.LENGTH_SHORT).show();
+                       /* else if (status==false && message.equals("payment not done yet")) {
+                            String errMsg = response.body().getMessage();
+                            String user_id_payment = response.body().getUser_id_payment();
+                            RegPrefManager.getInstance(LogIn.this).setUserIdPayment(user_id_payment);
+                            Toast.makeText(LogIn.this, errMsg, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LogIn.this, RetailerRegisterPaymentActivity.class));
+                        } else {
+                            Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();
+                        }*/
+
+
+                    } else  {
+                        String message = response.body().getMessage();
+                        if (status==false && message.equals("payment not done yet")) {
+                            String errMsg = response.body().getMessage();
+                            String user_id_payment = response.body().getData().getUser_id_payment();
+                            RegPrefManager.getInstance(LogIn.this).setUserIdPayment(user_id_payment);
+                            Toast.makeText(LogIn.this, errMsg, Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LogIn.this, RetailerRegisterPaymentActivity.class));
                         } else {
                             Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();
                         }
-
-
-                    } else {
-                        String message = response.body().getMessage();
-                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                     }
                 }catch (Exception ex){
-                    ex.printStackTrace();
+                    ex.getMessage();
+                    Toast.makeText(LogIn.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 

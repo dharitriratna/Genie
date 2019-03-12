@@ -13,7 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.telephony.SmsManager;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,18 +25,28 @@ import ratna.genie1.user.genie.ObjectNew.CabResponse;
 import ratna.genie1.user.genie.ObjectNew.DatacardResponse;
 import ratna.genie1.user.genie.ObjectNew.InsurancePaymentResponse;
 import ratna.genie1.user.genie.ObjectNew.LandlineResponse;
+import ratna.genie1.user.genie.ObjectNew.LoginResponse;
+import ratna.genie1.user.genie.ObjectNew.MobileRechargeResponse;
+import ratna.genie1.user.genie.Utils.VolleySingleton;
 import ratna.genie1.user.genie.client.ApiClientGenie;
 import ratna.genie1.user.genie.client.ApiClientGenie1;
 import ratna.genie1.user.genie.client.ApiInterface;
 import ratna.genie1.user.genie.helper.RegPrefManager;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.gson.JsonObject;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import ratna.genie1.user.genie.client.ApiClientGenie1;
 import ratna.genie1.user.genie.client.ApiInterface;
@@ -58,12 +68,19 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
     public static final String mypreference = "mypref";
     String login_user="";
 
+    int i = 0;
+    String status_response;
+    String err_msg;
+
     String PhoneNumber;
     String OperatorName;
     String OperatorCode,ApiTransID;
     String CircleName;
     String CircleCode;
     String RechargeAmount;
+    String responce;
+    String errorMessage;
+    boolean status;
 
     String operator;
     String circle;
@@ -378,7 +395,9 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 }
                 if (back.equals("MobileRecharge")){
                     if (checkBox.isChecked()&& isNetworkAvailable()){
-                        new AsynSignInDetails().execute();
+                      //  new AsynSignInDetails().execute();
+                    //    getMobileRechargeResponse();
+                        volleyResponse();
                     }
                     else if (!checkBox.isChecked()){
                         Toast.makeText(this, "Pay From Wallet", Toast.LENGTH_SHORT).show();
@@ -422,7 +441,9 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 }
                 if (back.equals("DTH")){
                     if (checkBox.isChecked()&& isNetworkAvailable()){
-                        new AsynDTHpayment().execute();
+                      //  new AsynDTHpayment().execute();
+                     //   getDTHRechargeResponse();
+                        volleyResponse1();
                     }
                     else if (!checkBox.isChecked()){
                         Toast.makeText(this, "Pay From Wallet", Toast.LENGTH_SHORT).show();
@@ -719,6 +740,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
                 }
             }catch (Exception e){
                 Toast.makeText(getApplicationContext(), "Some Error Occured! Try after sometime", Toast.LENGTH_LONG).show();
+                Toast.makeText(PaymentCartActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -730,6 +752,80 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             pDialog.setCancelable(true);
             pDialog.show();
         }
+    }
+
+
+    private void getMobileRechargeResponse(){
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+
+        String value=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileOperatorCode();
+        String opName =RegPrefManager.getInstance(PaymentCartActivity.this).getMobileOperatorName();
+        String cirle_code=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileCircleCode();
+   //     String service=RegPrefManager.getInstance(PaymentCartActivity.this).getServiceId();
+        String mobileServiceId = "13";
+
+        Call<MobileRechargeResponse> call=apiService.postRecharge(login_user,PhoneNumber,value,opName,cirle_code,mobileServiceId,RechargeAmount);
+        call.enqueue(new Callback<MobileRechargeResponse>() {
+            @Override
+            public void onResponse(Call<MobileRechargeResponse> call, Response<MobileRechargeResponse> response) {
+                try{
+                progressDialog.dismiss();
+                boolean status =response.body().isStatus();
+
+                if (status==true){
+                    err_msg = response.body().getData().getErrorMessage();
+                    status_response = response.body().getData().getStatus();
+                    String opRefNo = response.body().getData().getOperatorRef();
+                    Successid = response.body().getData().getApiTransID();
+                    DateAndTime = response.body().getData().getTransactionDate();
+
+                    RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
+                    RegPrefManager.getInstance(PaymentCartActivity.this).setDateAndTime(DateAndTime);
+
+                    if (status_response.contains("S")) {
+                        Toast.makeText(getApplicationContext(), "Recharge Successful", Toast.LENGTH_LONG).show();
+                        RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                        startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
+
+                     /*   SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putString("AMOUNT", RechargeAmount);
+                        editor.commit();*/
+                        // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
+                        // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
+                    } else if (status_response.contains("P")) {
+                        Toast.makeText(getApplicationContext(), "Pending", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(PaymentCartActivity.this, PendingActivity.class));
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Recharge Failed! Try again", Toast.LENGTH_LONG).show();
+                        RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                        startActivity(new Intent(PaymentCartActivity.this, FailureActivity.class));
+                        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.remove("PHONE_NUMBER");
+                        editor.clear();
+                        editor.commit();
+                    }
+                }
+                else {
+                    err_msg = response.body().getData().getErrorMessage();
+                    Toast.makeText(PaymentCartActivity.this, err_msg, Toast.LENGTH_SHORT).show();
+                }
+            }catch (Exception ex){
+                    ex.printStackTrace();
+                    Toast.makeText(PaymentCartActivity.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MobileRechargeResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(),"Network Problem!!!", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
 
@@ -1019,23 +1115,6 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-   /* public void sendSMS(String phoneNo, String msg) {
-        try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNo, null, msg, null, null);
-            Toast.makeText(getApplicationContext(), "Message Sent",
-                    Toast.LENGTH_LONG).show();
-        } catch (Exception ex) {
-            Toast.makeText(getApplicationContext(),ex.getMessage().toString(),
-                    Toast.LENGTH_LONG).show();
-            ex.printStackTrace();
-        }
-    }*/
-
-
-
-
-
     private class AsyncInsurancePayment extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog;
         String success = null,data="";
@@ -1140,6 +1219,318 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
             pDialog.setCancelable(true);
             pDialog.show();
         }
+    }
+
+    private void getDTHRechargeResponse(){
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+
+
+
+        String dthOpName=RegPrefManager.getInstance(PaymentCartActivity.this).getDTHOperatorName();
+     //   String service_id=RegPrefManager.getInstance(PaymentCartActivity.this).getServiceId();
+        String dthServiceId = "14";
+
+        Call<MobileRechargeResponse> call=apiService.postRecharge(login_user,DTHcustomerId,DTHoperatorCode,DTHoperatorName,DTHcircleCode,dthServiceId,DTHbillAmount);
+        call.enqueue(new Callback<MobileRechargeResponse>() {
+            @Override
+            public void onResponse(Call<MobileRechargeResponse> call, Response<MobileRechargeResponse> response) {
+                try{
+                    progressDialog.dismiss();
+                    boolean status =response.body().isStatus();
+
+                    if (status==true){
+                        err_msg = response.body().getData().getErrorMessage();
+                        status_response = response.body().getData().getStatus();
+                        String opRefNo = response.body().getData().getOperatorRef();
+                        Successid = response.body().getData().getApiTransID();
+                        DateAndTime = response.body().getData().getTransactionDate();
+
+                        RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(Successid);
+                        RegPrefManager.getInstance(PaymentCartActivity.this).setDateAndTime(DateAndTime);
+
+                        if (status_response.contains("S")) {
+                            Toast.makeText(getApplicationContext(), "Recharge Successful", Toast.LENGTH_LONG).show();
+                            RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                            startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
+
+                            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putString("AMOUNT", RechargeAmount);
+                            editor.commit();
+                            // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
+                            // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
+                        } else if (status_response.contains("P")) {
+                            Toast.makeText(getApplicationContext(), "Pending", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(PaymentCartActivity.this, PendingActivity.class));
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Recharge Failed! Try again", Toast.LENGTH_LONG).show();
+                            RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                            startActivity(new Intent(PaymentCartActivity.this, FailureActivity.class));
+                            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.remove("PHONE_NUMBER");
+                            editor.clear();
+                            editor.commit();
+                        }
+                    }
+                    else {
+                        err_msg = response.body().getData().getErrorMessage();
+                        Toast.makeText(PaymentCartActivity.this, err_msg, Toast.LENGTH_SHORT).show();
+                    }
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                    Toast.makeText(PaymentCartActivity.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MobileRechargeResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(),"Network Problem!!!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+
+    private void volleyResponse() {
+
+        final String value=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileOperatorCode();
+        final String opName =RegPrefManager.getInstance(PaymentCartActivity.this).getMobileOperatorName();
+        final String cirle_code=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileCircleCode();
+        final String service_id=RegPrefManager.getInstance(PaymentCartActivity.this).getServiceId();
+
+
+        progressDialog.show();
+        progressDialog.setMessage("Loading...");
+        String tag_json_req = "user_login";
+        StringRequest data = new StringRequest(com.android.volley.Request.Method.POST,
+                "https://genieservice.in/api/service/mobile_dth_datacard_recharge1",
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+
+                        try {
+                            Log.d(" response is ", response);
+
+                            /*{
+                                "status" = "true";
+                                "userid" = "1";
+
+                            }*/
+
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            boolean status1 =jsonObject.getBoolean("status");
+                            String data = jsonObject.getString("data");
+
+
+                            JSONObject jsonObject1 = new JSONObject(data);
+                            String responce1 = jsonObject1.getString("Status");
+                            String errorMessage1 = jsonObject1.getString("ErrorMessage");
+                            String successId=jsonObject1.getString("ApiTransID");
+                            RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(successId);
+                            String DtandTime=jsonObject1.getString("TransactionDate");
+                            RegPrefManager.getInstance(PaymentCartActivity.this).setDateAndTime(DtandTime);
+
+
+
+                                if (responce1.contains("S")) {
+                                    Toast.makeText(getApplicationContext(), "Recharge Successful", Toast.LENGTH_LONG).show();
+                                    RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                                    startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
+
+                                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = pref.edit();
+                                    editor.putString("AMOUNT", RechargeAmount);
+                                    editor.commit();
+                                    // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
+                                    // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
+                                } else if (responce1.contains("P")) {
+                                    Toast.makeText(getApplicationContext(), "Pending", Toast.LENGTH_LONG).show();
+                                    startActivity(new Intent(PaymentCartActivity.this, PendingActivity.class));
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Recharge Failed! Try again", Toast.LENGTH_LONG).show();
+                                    RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                                    startActivity(new Intent(PaymentCartActivity.this, FailureActivity.class));
+                                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = pref.edit();
+                                    editor.remove("PHONE_NUMBER");
+                                    editor.clear();
+                                    editor.commit();
+                                }
+                            /*catch (Exception e){
+                                Toast.makeText(getApplicationContext(), "Some Error Occured! Try after sometime", Toast.LENGTH_LONG).show();
+                                Toast.makeText(PaymentCartActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+*/
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(PaymentCartActivity.this, "There may be some error or your wallet balance is low", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.getMessage() == null) {
+                    if (i < 3) {
+                        Log.e("Retry due to error ", "for time : " + i);
+                        i++;
+                    } else  {
+                        progressDialog.dismiss();
+                        Toast.makeText(PaymentCartActivity.this, "Check your network connection.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                } else
+                    Toast.makeText(PaymentCartActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //phone_no=8007972554&pass=123456
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id",login_user);
+                params.put("customer_id",PhoneNumber);
+                params.put("operator",value);
+                params.put("operator_name",opName);
+                params.put("circle",cirle_code);
+                params.put("amount",RechargeAmount);
+                params.put("service_id",service_id);
+
+
+                Log.d("params are :", "" + params);
+
+                return params;
+            }
+        };
+        data.setRetryPolicy(new
+                DefaultRetryPolicy(30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleySingleton.getInstance().getRequestQueue().add(data).addMarker(tag_json_req);
+
+
+    }
+
+
+    private void volleyResponse1() {
+        final String dthOpName=RegPrefManager.getInstance(PaymentCartActivity.this).getDTHOperatorName();
+        final String service_id=RegPrefManager.getInstance(PaymentCartActivity.this).getServiceId();
+        progressDialog.show();
+        progressDialog.setMessage("Loading...");
+        String tag_json_req = "user_login";
+        StringRequest data = new StringRequest(com.android.volley.Request.Method.POST,
+                "https://genieservice.in/api/service/mobile_dth_datacard_recharge1",
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+
+                        try {
+                            Log.d(" response is ", response);
+
+                            /*{
+                                "status" = "true";
+                                "userid" = "1";
+
+                            }*/
+
+
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            boolean status2 =jsonObject.getBoolean("status");
+                            String data = jsonObject.getString("data");
+
+
+                            JSONObject jsonObject1 = new JSONObject(data);
+                            String responce2 = jsonObject1.getString("Status");
+                            String errorMessage2 = jsonObject1.getString("ErrorMessage");
+                            String successId1=jsonObject1.getString("ApiTransID");
+                            RegPrefManager.getInstance(PaymentCartActivity.this).setSuccessID(successId1);
+                            String DtandTime1=jsonObject1.getString("TransactionDate");
+                            RegPrefManager.getInstance(PaymentCartActivity.this).setDateAndTime(DtandTime1);
+
+
+
+                            if (responce2.contains("S")) {
+                                Toast.makeText(getApplicationContext(), "Recharge Successful", Toast.LENGTH_LONG).show();
+                                RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                                startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
+
+                                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putString("AMOUNT", RechargeAmount);
+                                editor.commit();
+                                // Toast.makeText(MobileRecharge.this, recharge_amount, Toast.LENGTH_SHORT).show();
+                                // startActivity(new Intent(MobileRecharge.this,PaymentActivity.class));finish();
+                            } else if (responce2.contains("P")) {
+                                Toast.makeText(getApplicationContext(), "Pending", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(PaymentCartActivity.this, PendingActivity.class));
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Recharge Failed! Try again", Toast.LENGTH_LONG).show();
+                                RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                                startActivity(new Intent(PaymentCartActivity.this, FailureActivity.class));
+                                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.remove("PHONE_NUMBER");
+                                editor.clear();
+                                editor.commit();
+                            }
+                            /*catch (Exception e){
+                                Toast.makeText(getApplicationContext(), "Some Error Occured! Try after sometime", Toast.LENGTH_LONG).show();
+                                Toast.makeText(PaymentCartActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+*/
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(PaymentCartActivity.this, "There may be some error or your wallet balance is low", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.getMessage() == null) {
+                    if (i < 3) {
+                        Log.e("Retry due to error ", "for time : " + i);
+                        i++;
+                    } else  {
+                        progressDialog.dismiss();
+                        Toast.makeText(PaymentCartActivity.this, "Check your network connection.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                } else
+                    Toast.makeText(PaymentCartActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //phone_no=8007972554&pass=123456
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id",login_user);
+                params.put("operator_name",dthOpName);
+                params.put("operator",DTHoperatorCode);
+                params.put("circle",DTHcircleCode);
+                params.put("customer_id",DTHcustomerId);
+                params.put("amount",DTHbillAmount);
+                params.put("service_id",service_id);
+
+
+                Log.d("params are :", "" + params);
+
+                return params;
+            }
+        };
+        data.setRetryPolicy(new
+                DefaultRetryPolicy(30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleySingleton.getInstance().getRequestQueue().add(data).addMarker(tag_json_req);
+
+
     }
 
 

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,8 +20,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.Contacts;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -50,6 +54,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -58,6 +63,8 @@ import ratna.genie1.user.genie.helper.RegPrefManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static ratna.genie1.user.genie.AddMoneyActivity.REQUEST_ID_MULTIPLE_PERMISSIONS;
 
 public class MobileRecharge extends AppCompatActivity {
     Toolbar toolbar;
@@ -73,8 +80,12 @@ public class MobileRecharge extends AppCompatActivity {
     private AlertDialog.Builder alertDialog;
     ApiInterface apiService;
 
-    private static final int REQUEST_CODE = 1995;
 
+    private static final int REQUEST_CODE = 1995;
+    private static final int PICK_CONTACT = 1995;
+    private static final int REQUEST_MULTIPLE_PERMISSIONS = 1985;
+
+    private static final int STORAGE_PERMISSION_CODE = 123;
 
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
@@ -93,6 +104,7 @@ public class MobileRecharge extends AppCompatActivity {
     TextView serviceId;
     String groupId;
     boolean radioClickprepaid,radioClickpostpaid;
+    public static final int REQUEST_READ_CONTACTS = 79;
 
 
 
@@ -100,6 +112,8 @@ public class MobileRecharge extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_recharge);
+      //  requestStoragePermission();
+    //    AccessContact();
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         groupId = RegPrefManager.getInstance(MobileRecharge.this).getUserGroup();
@@ -231,6 +245,7 @@ public class MobileRecharge extends AppCompatActivity {
 
         recharge_amount= RegPrefManager.getInstance(this).getMobileRechargeAmount();
         amount.setText(recharge_amount);
+        RegPrefManager.getInstance(MobileRecharge.this).setMobileRechargeAmount(recharge_amount);
 
      /*   phone_number = RegPrefManager.getInstance(MobileRecharge.this).getPhoneNo();
       //  contact_number.setText(phone_number);
@@ -281,10 +296,11 @@ public class MobileRecharge extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                startActivityForResult(intent, REQUEST_CODE);
+                startActivityForResult(intent, PICK_CONTACT);
 
             }
         });
+
 
        prepaid.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -476,6 +492,14 @@ public class MobileRecharge extends AppCompatActivity {
 
 
 
+        /*if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED) {
+            getContacts();
+        } else {
+            requestLocationPermission();
+        }
+*/
+
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
@@ -496,7 +520,7 @@ public class MobileRecharge extends AppCompatActivity {
           //  Log.d("OPERATOR_NAME", carrierName);
         }*/
 
-        int Permission_All = 1;
+       /* int Permission_All = 1;
 
         String[] Permissions = {
 //                android.Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -506,13 +530,13 @@ public class MobileRecharge extends AppCompatActivity {
                 Manifest.permission.READ_CONTACTS,};
         if(!hasPermissions(this, Permissions)){
             ActivityCompat.requestPermissions(this, Permissions, Permission_All);
-        }
+        }*/
     }
 
 
-    public static boolean hasPermissions(Context context, String... permissions){
+    /*public static boolean hasPermissions(Context context, String... permissions){
 
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP && context!=null && permissions!=null){
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N_MR1 && context!=null && permissions!=null){
             for(String permission: permissions){
                 if(ActivityCompat.checkSelfPermission(context, permission)!= PackageManager.PERMISSION_GRANTED){
                     return  false;
@@ -520,7 +544,64 @@ public class MobileRecharge extends AppCompatActivity {
             }
         }
         return true;
+    }*/
+
+
+/*
+    @Override
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+        switch (reqCode) {
+            case (REQUEST_CODE):
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri contactData = data.getData();
+                    Cursor c = getContentResolver().query(contactData, null, null, null, null);
+                    if (c.moveToFirst()) {
+                        String contactId = c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
+                        String hasNumber = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+                        String num = "";
+                        if (Integer.valueOf(hasNumber) == 1) {
+                            Cursor numbers = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
+                            while (numbers.moveToNext()) {
+                                num = numbers.getString(numbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                //       Toast.makeText(MobileRecharge.this, "Number="+num, Toast.LENGTH_LONG).show();
+                                contact_number.setText(num);
+                            }
+                        }
+                    }
+                    break;
+                }
+        }
     }
+*/
+
+
+
+  /*  @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_READ_CONTACTS: {
+
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    getContacts();
+
+                } else {
+
+                    // permission denied,Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+        }
+    }*/
+
+
+
+
 
 
 /*
@@ -556,6 +637,40 @@ public class MobileRecharge extends AppCompatActivity {
 
     }
 
+/*
+    @Override
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+        switch (reqCode) {
+            case (REQUEST_CODE):
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri contactData = data.getData();
+                    Cursor c = getContentResolver().query(contactData, null, null, null, null);
+                    if (c.moveToFirst()) {
+                        String contactId = c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
+                        String hasNumber = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+                        String num = "";
+                        if (Integer.valueOf(hasNumber) == 1) {
+                            Cursor numbers = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
+                            while (numbers.moveToNext()) {
+                                num = numbers.getString(numbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                Toast.makeText(MobileRecharge.this, "Number="+num, Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                    break;
+                }
+        }
+    }
+*/
+
+
+
+
+
+
+
+
     /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICK_CONTACT && resultCode == RESULT_OK) {
@@ -589,7 +704,7 @@ public class MobileRecharge extends AppCompatActivity {
         alert.show();
     }
 
-    @Override
+    /*@Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
         switch (reqCode) {
@@ -614,6 +729,31 @@ public class MobileRecharge extends AppCompatActivity {
                 }
         }
     }
+*/
+
+
+
+/*    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
+        switch (reqCode) {
+            case (PICK_CONTACT) :
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri contactData = data.getData();
+                    Cursor c =  managedQuery(contactData, null, null, null, null);
+                    startManagingCursor(c);
+                    if (c.moveToFirst()) {
+                        String name = c.getString(c.getColumnIndexOrThrow(Contacts.People.NAME));
+                        String number = c.getString(c.getColumnIndexOrThrow(Contacts.People.NUMBER));
+                        Toast.makeText(this,  name + " has number " + number, Toast.LENGTH_LONG).show();
+                        contact_number.setText(number);
+
+                    }
+                }
+                break;
+        }
+
+    }*/
 
 
     private class AsyngetOperator extends AsyncTask<Void, Void, Void> {
@@ -804,7 +944,100 @@ public class MobileRecharge extends AppCompatActivity {
     }
 
 
-  //  boolean doubleBackToExitPressedOnce = false;
+
+    private void AccessContact()
+    {
+        List<String> permissionsNeeded = new ArrayList<String>();
+        final List<String> permissionsList = new ArrayList<String>();
+        if (!addPermission(permissionsList, Manifest.permission.READ_CONTACTS))
+            permissionsNeeded.add("Read Contacts");
+        if (!addPermission(permissionsList, Manifest.permission.WRITE_CONTACTS))
+            permissionsNeeded.add("Write Contacts");
+        if (permissionsList.size() > 0) {
+            if (permissionsNeeded.size() > 0) {
+                String message = "You need to grant access to " + permissionsNeeded.get(0);
+                for (int i = 1; i < permissionsNeeded.size(); i++)
+                    message = message + ", " + permissionsNeeded.get(i);
+                    showMessageOKCancel(message,
+                        new DialogInterface.OnClickListener() {
+                            @SuppressLint("NewApi")
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
+                                        REQUEST_MULTIPLE_PERMISSIONS);
+                            }
+                        });
+                return;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
+                        REQUEST_MULTIPLE_PERMISSIONS);
+            }
+            return;
+        }
+    }
+
+
+
+    @SuppressLint("NewApi")
+    private boolean addPermission(List<String> permissionsList, String permission) {
+        if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+            permissionsList.add(permission);
+
+            if (!shouldShowRequestPermissionRationale(permission))
+                return false;
+        }
+        return true;
+    }
+
+
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(MobileRecharge.this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
+
+
+
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+        switch (reqCode) {
+            case (PICK_CONTACT):
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri contactData = data.getData();
+                    Cursor c = managedQuery(contactData, null, null, null, null);
+                    if (c.moveToFirst()) {
+                        String id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+                        String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+                        try {
+                            if (hasPhone.equalsIgnoreCase("1")) {
+                                Cursor phones = getContentResolver().query(
+                                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id,
+                                        null, null);
+                                phones.moveToFirst();
+                                String cNumber = phones.getString(phones.getColumnIndex("data1"));
+                                System.out.println("number is:" + cNumber);
+                                Toast.makeText(this, cNumber, Toast.LENGTH_SHORT).show();
+                                contact_number.setText("Phone Number is: "+cNumber);
+                            }
+                            String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                           // txtname.setText("Name is: "+name);
+                        }
+                        catch (Exception ex)
+                        {
+                            ex.getMessage();
+                        }
+                    }
+                }
+                break;
+        }
+    }
+
+
 
     @Override
     public void onBackPressed() {
@@ -827,4 +1060,138 @@ public class MobileRecharge extends AppCompatActivity {
         }
           //  return;
         }
+
+
+
+
+
 }
+
+
+
+
+
+/*  private void requestStoragePermission() {
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED)
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CONTACTS) == PackageManager.PERMISSION_GRANTED)
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_GRANTED))
+            return;
+
+        if ((ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) ||
+
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_CONTACTS)) ||
+                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_NUMBERS)) ) {
+            //If the user has denied the permission previously your code will come to this block
+            //Here you can explain why you need this permission
+            //Explain here why you need this permission
+        }
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_PHONE_NUMBERS}, STORAGE_PERMISSION_CODE);
+    }
+
+
+    //This method will be called when the user will tap on allow or deny
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        //Checking the request code of our request
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+
+            //If permission is granted
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //Displaying a toast
+                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
+            } else {
+                //Displaying another toast if permission is not granted
+                Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+*/
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
+
+/* public void readcontact(){
+        try {
+            Intent intent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts/people"));
+            startActivityForResult(intent, PICK_CONTACT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
+
+
+
+
+/*    public void getContacts() {
+
+        String phoneNumber = null;
+        String email = null;
+
+        Uri CONTENT_URI = ContactsContract.Contacts.CONTENT_URI;
+        String _ID = ContactsContract.Contacts._ID;
+        String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
+        String HAS_PHONE_NUMBER = ContactsContract.Contacts.HAS_PHONE_NUMBER;
+
+        Uri PhoneCONTENT_URI = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+        String Phone_CONTACT_ID = ContactsContract.CommonDataKinds.Phone.CONTACT_ID;
+        String NUMBER = ContactsContract.CommonDataKinds.Phone.NUMBER;
+
+        Uri EmailCONTENT_URI =  ContactsContract.CommonDataKinds.Email.CONTENT_URI;
+        String EmailCONTACT_ID = ContactsContract.CommonDataKinds.Email.CONTACT_ID;
+        String DATA = ContactsContract.CommonDataKinds.Email.DATA;
+
+        StringBuffer output = new StringBuffer();
+
+        ContentResolver contentResolver = getContentResolver();
+
+        Cursor cursor = contentResolver.query(CONTENT_URI, null,null, null, null);
+
+        // Loop for every contact in the phone
+        if (cursor.getCount() > 0) {
+
+            while (cursor.moveToNext()) {
+
+                String contact_id = cursor.getString(cursor.getColumnIndex( _ID ));
+                String name = cursor.getString(cursor.getColumnIndex( DISPLAY_NAME ));
+
+                int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex( HAS_PHONE_NUMBER )));
+
+                if (hasPhoneNumber > 0) {
+
+                    output.append("\n First Name:" + name);
+
+                    // Query and loop for every phone number of the contact
+
+                    Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[] { contact_id }, null);
+
+                    while (phoneCursor.moveToNext()) {
+                        phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
+                        output.append("\n Phone number:" + phoneNumber);
+
+                    }
+
+                    phoneCursor.close();
+
+                    // Query and loop for every email of the contact
+                    Cursor emailCursor = contentResolver.query(EmailCONTENT_URI,    null, EmailCONTACT_ID+ " = ?", new String[] { contact_id }, null);
+
+                    while (emailCursor.moveToNext()) {
+
+                        email = emailCursor.getString(emailCursor.getColumnIndex(DATA));
+
+                        output.append("\nEmail:" + email);
+
+                    }
+
+                    emailCursor.close();
+                }
+
+                output.append("\n");
+            }
+
+            contact_number.setText(output.toString());
+        }
+    }
+*/

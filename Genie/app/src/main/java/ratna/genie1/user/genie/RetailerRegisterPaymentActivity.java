@@ -240,7 +240,7 @@ public class RetailerRegisterPaymentActivity extends AppCompatActivity {
             cred.add(new BasicNameValuePair("ref_no",ReferralCode ));
             cred.add(new BasicNameValuePair("date_of_deposit",Date_ ));
             cred.add(new BasicNameValuePair("payment_method",paymentMethod ));
-            Log.v("RES","Sending data " +login_user +SendingAmount+ReferralCode+Date_+paymentMethod );
+            Log.v("RES","Sending data " +userIdPayment +SendingAmount+ReferralCode+Date_+paymentMethod );
 
             String urlRouteList="https://genieservice.in/api/user/registerPaymentReq";
             try {
