@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -24,14 +25,32 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+
+import ratna.genie1.user.genie.ObjectNew.RemitterValidateResponse;
+import ratna.genie1.user.genie.ObjectNew.RequestWalletResponse;
+import ratna.genie1.user.genie.Utils.VolleySingleton;
+import ratna.genie1.user.genie.client.ApiClientGenie;
+import ratna.genie1.user.genie.client.ApiInterface;
+import ratna.genie1.user.genie.helper.RegPrefManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RequestWalletActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -42,6 +61,8 @@ public class RequestWalletActivity extends AppCompatActivity {
     public static final String mypreference = "mypref";
     String login_user="";
 
+    private AlertDialog.Builder alertDialog;
+    ApiInterface apiService;
     String SendingAmount;
     String ReferralCode;
     Spinner paymentmethodspinner;
@@ -49,13 +70,14 @@ public class RequestWalletActivity extends AppCompatActivity {
     EditText refCode;
     LinearLayout netBankingLayout,upiLayout,phonepeLayout,TvLayout;
 
-    private AlertDialog.Builder alertDialog;
+    ProgressDialog progressDialog;
     private DatePickerDialog fromDatePickerDialog;
     Calendar mcurrenttime;
     private SimpleDateFormat dateFormatter;
     String Date_;
     TextView dept_date;
     TextView payment_method;
+    int i = 0;
 
 
     @Override
@@ -75,6 +97,9 @@ public class RequestWalletActivity extends AppCompatActivity {
         dateFormatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
 
 
+        apiService =
+                ApiClientGenie.getClient().create(ApiInterface.class);
+        progressDialog = new ProgressDialog(this);
         amountTv = findViewById(R.id.amountTv);
         refCode = findViewById(R.id.refCode);
         btnProceed = findViewById(R.id.btnProceed);
@@ -90,14 +115,13 @@ public class RequestWalletActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 paymentMethod= paymentmethodspinner.getItemAtPosition(paymentmethodspinner.getSelectedItemPosition()).toString();
-               // Toast.makeText(getApplicationContext(),paymentMethod,Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),paymentMethod,Toast.LENGTH_LONG).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 // DO Nothing here
             }
-        });
-*/
+        });*/
         dept_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,10 +146,10 @@ public class RequestWalletActivity extends AppCompatActivity {
         payment_method.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final CharSequence[] options_array = {"IMPS", "BHIM UPI", "PHONE PE"};
+                final CharSequence[] options_array = {"IMPS", "BHIM UPI"};
                 final String IMPSMethod = "IMPS";
                 final String UPIMethod = "BHIM UPI";
-                final String PhonePeMethod = "PHONE PE";
+            //    final String PhonePeMethod = "PHONE PE";
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(RequestWalletActivity.this);
                 builder.setTitle("Payment Method");
@@ -134,6 +158,7 @@ public class RequestWalletActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         if (options_array[item].equals("IMPS")) {
                             payment_method.setText(IMPSMethod);
+                            paymentMethod = IMPSMethod;
                             netBankingLayout.setVisibility(View.VISIBLE);
                             upiLayout.setVisibility(View.GONE);
                             phonepeLayout.setVisibility(View.GONE);
@@ -141,27 +166,27 @@ public class RequestWalletActivity extends AppCompatActivity {
 
                         } else if (options_array[item].equals("BHIM UPI")) {
                             payment_method.setText(UPIMethod);
+                            paymentMethod = UPIMethod;
                             upiLayout.setVisibility(View.VISIBLE);
                             netBankingLayout.setVisibility(View.GONE);
                             phonepeLayout.setVisibility(View.GONE);
                             TvLayout.setVisibility(View.VISIBLE);
                           //  dailog();
                         }
-                        else if (options_array[item].equals("PHONE PE")){
+                       /* else if (options_array[item].equals("PHONE PE")){
                             payment_method.setText(PhonePeMethod);
+                            paymentMethod = PhonePeMethod;
                             netBankingLayout.setVisibility(View.GONE);
                             upiLayout.setVisibility(View.GONE);
                             phonepeLayout.setVisibility(View.VISIBLE);
                             TvLayout.setVisibility(View.VISIBLE);
-                        }
+                        }*/
                     }
                 });
                 builder.show();
 
             }
         });
-
-
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
@@ -190,7 +215,9 @@ public class RequestWalletActivity extends AppCompatActivity {
                 }*/
                 else {
                     if (isNetworkAvailable()) {
-                        new Asynctask().execute();//register add beneficiary
+                       // new Asynctask().execute();//register add beneficiary
+                      //  volleyResponseAddMoney();
+                        responseWalletRetrofit();
                     }
                     else {
                         noNetwrokErrorMessage();
@@ -294,5 +321,141 @@ public class RequestWalletActivity extends AppCompatActivity {
             pDialog.show();
         }
       }
+
+
+
+
+    private void volleyResponseAddMoney() {
+
+        progressDialog.show();
+        progressDialog.setMessage("Loading...");
+        String tag_json_req = "user_login";
+        StringRequest data = new StringRequest(com.android.volley.Request.Method.POST,
+                "https://genieservice.in/api/user/moneyTransferReq",
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+
+                        try {
+                            Log.d(" response is ", response);
+                            Toast.makeText(RequestWalletActivity.this, response, Toast.LENGTH_SHORT).show();
+
+                            /*{
+                                "status" = "true";
+                                "userid" = "1";
+
+                            }*/
+
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            boolean status1 =jsonObject.getBoolean("status");
+                            String message1 = jsonObject.getString("message");
+
+                            if (status1==true){
+                                Toast.makeText(getApplicationContext(), message1, Toast.LENGTH_LONG).show();
+                                //   startActivity(new Intent(getApplicationContext(),VerifyWalletOTPActivity.class));
+                                finish();
+
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(), message1, Toast.LENGTH_LONG).show();
+                            }
+
+
+
+
+                            /*catch (Exception e){
+                                Toast.makeText(getApplicationContext(), "Some Error Occured! Try after sometime", Toast.LENGTH_LONG).show();
+                                Toast.makeText(PaymentCartActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+*/
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(RequestWalletActivity.this, "There may be some error or your wallet balance is low", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.getMessage() == null) {
+                    if (i < 3) {
+                        Log.e("Retry due to error ", "for time : " + i);
+                        i++;
+                    } else  {
+                        progressDialog.dismiss();
+                        Toast.makeText(RequestWalletActivity.this, "Check your network connection.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                } else
+                    Toast.makeText(RequestWalletActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //phone_no=8007972554&pass=123456
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id",login_user);
+                params.put("amount",SendingAmount);
+                params.put("ref_no",ReferralCode);
+                params.put("date_of_deposit",Date_);
+                params.put("payment_method",paymentMethod);
+
+
+
+                Log.d("params are :", "" + params);
+
+                return params;
+            }
+        };
+        data.setRetryPolicy(new
+                DefaultRetryPolicy(30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleySingleton.getInstance().getRequestQueue().add(data).addMarker(tag_json_req);
+
+        }
+
+
+    private void responseWalletRetrofit(){
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+
+        //   String pincode=pincodeTv.getText().toString();
+        Call<RequestWalletResponse> call=apiService.postRequestWallet(login_user,SendingAmount,ReferralCode,Date_,paymentMethod);
+        call.enqueue(new Callback<RequestWalletResponse>() {
+            @Override
+            public void onResponse(Call<RequestWalletResponse> call, Response<RequestWalletResponse> response) {
+                try{
+                    progressDialog.dismiss();
+                    boolean status=response.body().isStatus();
+
+                    if(status == true){
+
+                        String message = response.body().getMessage();
+                        Toast.makeText(RequestWalletActivity.this, message, Toast.LENGTH_SHORT).show();
+                        // DialogShow();
+                        finish();
+                    }else {
+
+                        String message1 = response.body().getMessage();
+                        Toast.makeText(getApplicationContext(),message1,Toast.LENGTH_LONG).show();
+
+                    }
+                } catch (IllegalStateException ex){
+                    ex.printStackTrace();
+                } catch (Exception e){
+                    e.printStackTrace();}
+            }
+
+            @Override
+            public void onFailure(Call<RequestWalletResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(),"Error!",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
 }

@@ -144,6 +144,13 @@ public class RegPrefManager {
         return mSharedPreferences.getString("phoneno",null);
     }
 
+    public void setImageServiceSave(String imageService){
+        mSharedPreferences.edit().putString("imageService",imageService).apply();
+    }
+
+    public String getImageServiceSave(){
+        return mSharedPreferences.getString("imageService",null);
+    }
 
 
 

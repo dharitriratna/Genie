@@ -1,6 +1,5 @@
 package ratna.genie1.user.genie.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
@@ -11,48 +10,45 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.TextView;
 
-import ratna.genie1.user.genie.LandLine;
-import ratna.genie1.user.genie.MobileOperators;
-import ratna.genie1.user.genie.MobileRecharge;
-import ratna.genie1.user.genie.Model.DataOperatorListModel;
-import ratna.genie1.user.genie.Model.MobileOperatorsModel;
-import ratna.genie1.user.genie.ObjectNew.MobileOperatorData;
-import ratna.genie1.user.genie.R;
-import ratna.genie1.user.genie.helper.RegPrefManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperatorsAdapter.ViewHolder> {
+import ratna.genie1.user.genie.MobileRecharge;
+import ratna.genie1.user.genie.Model.MobileOperatorsCFModel;
+import ratna.genie1.user.genie.Model.MobileOperatorsModel;
+import ratna.genie1.user.genie.R;
+import ratna.genie1.user.genie.helper.RegPrefManager;
 
-    private List<MobileOperatorsModel> operatorsModels;
+public class MobileOperatorsCFAdapter extends RecyclerView.Adapter<MobileOperatorsCFAdapter.ViewHolder> {
+
+    private List<MobileOperatorsCFModel> mobileOperatorsCFModels;
     private Context context;
     private Filter filter;
 
 
-    public MobileOperatorsAdapter(List<MobileOperatorsModel> operatorsModels, Context context) {
-        this.operatorsModels = operatorsModels;
+    public MobileOperatorsCFAdapter(List<MobileOperatorsCFModel> mobileOperatorsCFModels, Context context) {
+        this.mobileOperatorsCFModels = mobileOperatorsCFModels;
         this.context = context;
 
     }
 
 
     @Override
-    public MobileOperatorsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MobileOperatorsCFAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.row_mobile_operators,parent,false);
-        return new MobileOperatorsAdapter.ViewHolder(v);
+        return new MobileOperatorsCFAdapter.ViewHolder(v);
     }
 
 
     @Override
 
-    public void onBindViewHolder(MobileOperatorsAdapter.ViewHolder holder, int position) {
-        final MobileOperatorsModel listItem = operatorsModels.get(position);
-        holder.mob_operator_id.setText(listItem.getOperator_id());
+    public void onBindViewHolder(MobileOperatorsCFAdapter.ViewHolder holder, int position) {
+        final MobileOperatorsCFModel listItem = mobileOperatorsCFModels.get(position);
+
         holder.operator_name.setText(listItem.getOperator_name());
         holder.operator_code.setText(listItem.getOperator_code());
 
-        holder.service_type.setText(listItem.getService_type());
+
 
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +76,7 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
 
     @Override
     public int getItemCount() {
-        return operatorsModels.size();
+        return mobileOperatorsCFModels.size();
     }
 
 
@@ -104,8 +100,8 @@ public class MobileOperatorsAdapter extends RecyclerView.Adapter<MobileOperators
         }
     }
 
-    public void filterList(ArrayList<MobileOperatorsModel> filterdNames) {
-        this.operatorsModels = filterdNames;
+    public void filterList(ArrayList<MobileOperatorsCFModel> filterdNames) {
+        this.mobileOperatorsCFModels = filterdNames;
         notifyDataSetChanged();
     }
 }

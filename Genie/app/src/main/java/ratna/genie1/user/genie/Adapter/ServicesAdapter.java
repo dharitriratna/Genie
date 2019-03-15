@@ -13,6 +13,8 @@ import android.widget.TextView;
 import ratna.genie1.user.genie.Model.CardModel;
 import ratna.genie1.user.genie.Model.ServicesModel;
 import ratna.genie1.user.genie.R;
+import ratna.genie1.user.genie.helper.RegPrefManager;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -46,6 +48,7 @@ public class ServicesAdapter  extends RecyclerView.Adapter<ServicesAdapter.ViewH
         //   holder.pro_name.setTypeface(tf3);
         holder.service_type_name.setText(listItem.getService_name());
         Picasso.with(context).load(listItem.getService_img()).into(holder.service_image);
+        RegPrefManager.getInstance(context).setImageServiceSave(listItem.getService_img());
         setAnimation(holder.itemView, position);
 
     }

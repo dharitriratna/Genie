@@ -1302,12 +1302,14 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
         final String cirle_code=RegPrefManager.getInstance(PaymentCartActivity.this).getMobileCircleCode();
         final String service_id=RegPrefManager.getInstance(PaymentCartActivity.this).getServiceId();
 
+        String statusCf = null;
+        final String responce1   = null;
 
         progressDialog.show();
         progressDialog.setMessage("Loading...");
         String tag_json_req = "user_login";
         StringRequest data = new StringRequest(com.android.volley.Request.Method.POST,
-                "https://genieservice.in/api/service/mobile_dth_datacard_recharge1",
+                "https://genieservice.in/api/service/mobile_dth_datacard_recharge1",//https://genieservice.in/api/recharge/mobile_recharge
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -1315,6 +1317,7 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
 
                         try {
                             Log.d(" response is ", response);
+                           // Toast.makeText(PaymentCartActivity.this, response, Toast.LENGTH_SHORT).show();
 
                             /*{
                                 "status" = "true";
@@ -1329,6 +1332,22 @@ public class PaymentCartActivity extends AppCompatActivity implements View.OnCli
 
 
                             JSONObject jsonObject1 = new JSONObject(data);
+                           // String statusCf = jsonObject1.getString("status");
+
+                           /* if (statusCf!=null){
+                                String msg1 = jsonObject1.getString("message");
+                                String amt1 = jsonObject1.getString("amount");
+                                String num1 = jsonObject1.getString("number");
+                                String trans1 = jsonObject1.getString("transid");
+                                String opId1 = jsonObject1.getString("opratorid");
+                                Toast.makeText(getApplicationContext(), "Recharge Successful", Toast.LENGTH_LONG).show();
+                                RegPrefManager.getInstance(PaymentCartActivity.this).setBackService("MobileRecharge");
+                                startActivity(new Intent(PaymentCartActivity.this, ThankuActivity.class));
+
+                            }
+*/
+
+                            /*else if (responce1!=null){ */
                             String responce1 = jsonObject1.getString("Status");
                             String errorMessage1 = jsonObject1.getString("ErrorMessage");
                             String successId=jsonObject1.getString("ApiTransID");

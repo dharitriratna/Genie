@@ -9,12 +9,16 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.STORAGE" />
-   <!-- <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
+    <!--
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-   <!-- <uses-permission android:name=" android.permission.READ_CONTACTS" />
-    <uses-permission android:name=" android.permission.WRITE_CONTACTS" />-->
+    <!--
+    <uses-permission android:name=" android.permission.READ_CONTACTS" />
+    <uses-permission android:name=" android.permission.WRITE_CONTACTS" />
+    -->
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -237,7 +241,7 @@
         <activity
             android:name=".MoneyTransfer.MoneyTransferActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-            <activity
+        <activity
             android:name=".MoneyTransfer.SendPaymentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -281,8 +285,6 @@
             android:name=".AddBeneficiaryActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
-
         <activity
             android:name=".RemiterDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -428,9 +430,6 @@
         <activity
             android:name=".OffersActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
-
         <activity
             android:name=".ChangePassword2"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -461,7 +460,10 @@
         <activity
             android:name=".DTHOperatorsCF"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RemitterOTPVerifyActivity"></activity>
+        <activity android:name=".RemitterOTPVerifyActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MobileOperatorsCrowdfinch"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

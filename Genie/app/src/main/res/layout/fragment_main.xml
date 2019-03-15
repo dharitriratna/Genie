@@ -19,12 +19,14 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="150dp">
 
 
                 <android.support.v7.widget.RecyclerView
+                    android:visibility="gone"
                     android:id="@+id/service_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

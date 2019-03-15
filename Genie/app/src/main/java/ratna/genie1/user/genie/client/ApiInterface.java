@@ -38,6 +38,7 @@ import ratna.genie1.user.genie.ObjectNew.RemiterRegisterResponse;
 import ratna.genie1.user.genie.ObjectNew.RemitterValidateResponse;
 import ratna.genie1.user.genie.ObjectNew.RentResponse;
 import ratna.genie1.user.genie.ObjectNew.RequestResponse;
+import ratna.genie1.user.genie.ObjectNew.RequestWalletResponse;
 import ratna.genie1.user.genie.ObjectNew.ResendOTPResponse;
 import ratna.genie1.user.genie.ObjectNew.RetailerSignupResponse;
 import ratna.genie1.user.genie.ObjectNew.RetailerUpdateResponse;
@@ -181,6 +182,10 @@ public interface ApiInterface {
     Call<RemitterValidateResponse>postRemitterValidate(@Field("user_id") String user_id,@Field("phone") String phone, @Field("RemitterID") String RemitterID,
                                                              @Field("OTP") String OTP);
 
+    @POST("api/user/moneyTransferReq")
+    @FormUrlEncoded
+    Call<RequestWalletResponse>postRequestWallet(@Field("user_id") String user_id,@Field("amount") String amount,@Field("ref_no") String ref_no,
+                                                 @Field("date_of_deposit") String date_of_deposit, @Field("payment_method") String payment_method);
 
     @POST("api/service/BeneficiaryRegistration_ResendOTP")
     @FormUrlEncoded

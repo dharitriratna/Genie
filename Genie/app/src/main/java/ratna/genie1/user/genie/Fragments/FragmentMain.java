@@ -130,6 +130,7 @@ public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeLi
     String service_name;
     String service_fee;
     String service_img;
+    String [] images ;
 
     public static FragmentMain newInstance() {
 
@@ -171,6 +172,7 @@ public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeLi
         insuranceLn=v.findViewById(ratna.genie1.user.genie.R.id.insuranceLn);
 
         joblin=v.findViewById(ratna.genie1.user.genie.R.id.joblin);
+
 
 
         sharedpreferences = getActivity().getSharedPreferences(mypreference,
@@ -464,6 +466,7 @@ public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeLi
     }
 
 
+
     private void setImagePager() {
         for(int i=0;i<image.length;i++){
             TextSliderView textSliderView = new TextSliderView(getActivity());
@@ -487,6 +490,22 @@ public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeLi
         mDemoSlider.addOnPageChangeListener(this);
 
     }
+
+   /* public void onPause(){
+        super.onPause();
+        getNetwork();
+        progressDialog.dismiss();
+    }*/
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getNetwork();
+      //  service_recyclerview.setAdapter(servicesAdapter);
+        progressDialog.dismiss();
+    }
+
     private void getNetwork(){
         progressDialog.setMessage("Loading");
         progressDialog.show();
@@ -536,6 +555,8 @@ public class FragmentMain extends Fragment implements ViewPagerEx.OnPageChangeLi
             }
         });
     }
+
+
 
     @Override
     public void onSliderClick(BaseSliderView slider) {

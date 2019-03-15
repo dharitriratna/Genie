@@ -499,7 +499,7 @@ public class LogIn extends AppCompatActivity {
                     }
                 }catch (Exception ex){
                     ex.getMessage();
-                    Toast.makeText(LogIn.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LogIn.this, "Error! User not registered", Toast.LENGTH_SHORT).show();
                 }
             }
 

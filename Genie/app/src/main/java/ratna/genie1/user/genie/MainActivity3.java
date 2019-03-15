@@ -728,6 +728,12 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
             }
         });
     }
+
+
+    public void onResume(){
+        super.onResume();
+        getNetwork();
+    }
     private void getServices() {
         progressDialog.setMessage("Loading");
         progressDialog.show();
